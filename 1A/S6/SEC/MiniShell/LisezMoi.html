@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="introduction">Introduction</h2>
+<p>Le code fourni a pour but de vous décharger du travail d'analyse d'une ligne de commande, avant son interprétation par le shell. Il propose une fonction <code>readcmd()</code> qui fournit le résultat de cette analyse.</p>
+<p>Le source est fourni non pas à titre d'exemple (il n'est pas d'une clarté éblouissante), mais à titre de documentation (et de spécification :)) ; il n'est ni nécessaire, ni conseillé de le modifier pour réaliser le travail demandé : l'analyse réalisée est suffisante pour la syntaxe des commandes que votre shell doit interpréter.</p>
+<p>Ce code est a priori tout à fait fiable, mais n'hésitez cependant pas à nous signaler ce qui vous apparaîtrait comme des anomalies, ou des lacunes dans la documentation.</p>
+<h2 id="la-structure-cmdline">La structure <code>cmdline</code></h2>
+<p>L'appel à readcmd() retourne une structure cmdline, qui contient le résultat de l'analyse de la ligne de commande pour le shell. Cette structure contient notamment :</p>
+<ul>
+<li>l'indication du fait que la commande doit être lancée en tâche de fond ou non</li>
+<li>les redirections éventuelles</li>
+<li>la décomposition de la ligne de commande en commandes élémentaires, et la décomposition de chaque commande en mots. Le champ <code>seq</code> référence le résultat de cette décomposition, qui est vu comme un tableau à deux dimensions [commandes élémentaires, mots de la commande]</li>
+</ul>
+<p><strong>Pour plus de détails, voir le fichier d'en-tête <code>readcmd.h</code>.</strong></p>
+<p><strong>Exemples :</strong></p>
+<ul>
+<li>&quot;ls -l&quot; : seq[0][0] = &quot;ls&quot;, seq[0][1] = &quot;-l&quot;, seq[0][2] = NULL, seq[1] = NULL, backgrounded = NULL, in = NULL, out = NULL</li>
+<li>&quot;ls -l &gt; toto&quot; : seq[0][0] = &quot;ls&quot;, seq[0][1] = &quot;-l&quot;, seq[0][2] = NULL, seq[1] = NULL, backgrounded = NULL, in = NULL, out =&gt; &quot;toto&quot;</li>
+<li>&quot;ls | grep toto | wc -l&quot; : seq[0][0] = &quot;ls&quot;, seq[0][1] = NULL, seq[1][0] = &quot;grep&quot;, seq[1][1] = &quot;toto&quot;, seq[1][2] = NULL, seq[2][0] = &quot;wc&quot;, seq[0][1] = &quot;-l&quot;, seq[0][2] = NULL, seq[3] = NULL, backgrounded = NULL, in = NULL, out = NULL</li>
+<li>&quot;sleep 100 &amp;&quot; : seq[0][0] = &quot;sleep&quot;, seq[0][1] = &quot;20&quot;, backgrounded != NULL, in = NULL, out = NULL</li>
+</ul>
+</body>
+</html>
