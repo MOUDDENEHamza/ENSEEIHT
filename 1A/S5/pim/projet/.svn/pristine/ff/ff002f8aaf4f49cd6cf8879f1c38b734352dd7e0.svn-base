@@ -1,0 +1,181 @@
+-------------------------------------------------------------------------------
+--  Fichier  : main.adb
+--  Auteur   : MOUDDENE Hamza & CAZES Noa
+--  Objectif : Programme principal
+--  Crée     : Dimanche Nov 25 2019
+--------------------------------------------------------------------------------
+
+ 
+with Ada.Text_IO; 	  	use Ada.Text_IO;
+with Ada.Characters.Latin_1; 	use Ada.Characters.Latin_1;
+with Arbre_Genealogique;	use Arbre_Genealogique;
+with Registre;			use Registre;
+with Input;			use Input;
+with Display_Shell;		use Display_Shell;
+
+
+-- RED ESC & "[31m"
+-- GREEN ESC & "[32m"
+-- BLUE ESC & "[34m"
+-- RESET ESC & "[0m"
+
+
+procedure main is
+
+
+    Ab : T_ABG;
+    Registre : T_Registre;
+    ID, New_ID, Choice, Flag, Generation: Integer;
+	
+
+begin
+    -- Afficher la barre d'initialisation.
+    Init_Bar;
+    
+    <<RESTART>>
+    loop
+        Display_Menu;
+        Input_Choice (Choice);
+
+        case Choice is
+      
+            when 1 =>  -- Créer un arbre minimal.
+                begin
+                    -- Génerer un ID unique.
+                    ID := Generate_ID (Ab);
+                
+                    -- Création du nouveau noeud.
+                    Creer_Arbre_Minimal (Ab, ID);
+                    Display_New_ID (ID);
+                    Inserer_R (Registre, ID, Demander_Donnee);
+                    Display_Success_Minimal_Tree_Ceation;
+                
+                exception -- Gérez les exceptions.
+                    when ARBRE_NON_VIDE_EXCEPTION =>
+                        Display_Failed_Minimal_Tree_Ceation;
+                        goto RESTART;
+                end;
+
+            when 2 =>  -- Ajoutet un parent.
+                <<TRY>>
+                begin
+                    -- Entrer l'ID de l'individu qu'on lui ajoutera un parent.
+                    New_Line;
+                    Put ("Entrez l'ID de l'individu qu'on lui ajoutera un parent : ");
+                    Input_Integer (ID);
+					
+                    -- Entrer 0 s'il s'agit d'un père, 1 si c'est la mère.
+                    New_Line;
+                    Put_Line ("Entrez " & ESC & "[32m" & "0" & ESC & "[0m" & " s'il s'agit du père, si c'est la mère entrez " & ESC & "[31m" & "1" & ESC & "[0m" & ".");
+                    New_Line;
+                    Put ("Entrez Votre choix : ");
+                    Input_Integer (Flag);
+                    
+                    -- Génerer un ID unique.
+                    New_ID := Generate_ID (Ab);
+                    
+                    -- Ajout du nouveau parent.
+                    Ajouter_Parent (Ab, ID, New_ID, Flag);
+                    Afficher_Arbre_Noeud (Ab, ID);
+
+                exception -- Gérez les exceptions.
+                    when DEUX_PARENTS_PRESENTS_EXCEPTION | ID_ABSENT_EXCETION => 
+                        New_Line;
+                        Put_Line ("Réessayez encore une fois avec un autre ID.");
+                        goto TRY;
+                end;
+
+            when 3 =>  -- Obtenir le nombre d'ancêtres.
+                begin
+                    -- Entrer l'ID de votre nouveau noeud.
+                    New_Line;
+                    Put ("Entrez l'ID de l'individu que vous souhaitez connaitre le nombre de ses ancetres : ");
+                    Input_Integer (ID);
+                    
+                    -- Afficher le nombre d'ancetres.
+                    Put_Line ("L'individu qui a l'ID" & ESC & "[32m" & Integer'Image (ID) & ESC & "[0m" & " a" & ESC & "[31m" & Integer'Image(Nombre_Ancetres (Ab, ID)) & ESC & "[0m" &  " ancetres.");
+                            	
+                exception -- Gérez les exceptions.
+                    when ID_ABSENT_EXCETION =>
+                        New_Line;
+                        Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "l'ID que vous entré n'existe pas. Retour au menu principal");
+                        goto RESTART;
+                end;
+
+            when 4 =>  -- Obtenir l'ensemble des ancêtres situés à une certaine génération.
+                -- Entrer l'ID de l'individu que vous souhaitez connaitre ses ancetres.
+                New_Line;
+                Put ("Entrez l'ID de l'individu que vous souhaitez connaitre ses ancetres : ");
+                Input_Integer (ID);
+                
+                -- Entrez la géneration de ses ancetres.
+                New_Line;
+                Put ("Entrez la géneration de ses ancetres que vous souhaitez : ");
+                Input_Integer (Generation);
+                
+                -- Obtenir l'ensemble de ces ancetres.
+                New_Line;
+                Ancetres_N_Generation (Ab, ID, Generation);
+                New_Line;
+
+            when 5 =>  -- Afficher l'arbre génealogqiue.
+                begin
+                    -- Entrez l'ID de l'individu que vous souhaitez afficher son arbre génealogique.
+                    New_Line;
+                    Put ("Entrez l'ID de l'individu que vous souhaitez afficher son arbre génealogique : ");
+                    Input_Integer (ID);
+                
+                    -- Afficher l'arbre correspondante a l'ID lu au clavier.
+                    Afficher_Arbre_Noeud (Ab, ID);
+                
+                exception -- Gérez les exceptions.
+                    when ID_ABSENT_EXCETION =>
+                        New_Line;
+                        Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "l'ID que vous entré n'existe pas. Retour au menu principal");
+                        goto RESTART;
+                end;
+
+            when 6 =>  -- Supprimer l'arbre généalogique.
+                begin
+                    -- Entrez l'ID de l'individu que vous souhaitez afficher son arbre génealogique.
+                    New_Line;
+                    Put ("Entrez l'ID de l'individu que vous souhaitez supprimer son arbre génealogique : ");
+                    Input_Integer (ID);
+                    
+                    -- Supprimer l'arbre correspondant à l'ID lu au clavier..
+                    Supprimer (Ab, ID);
+                    
+                exception -- Gérez les exceptions.
+                    when ID_ABSENT_EXCETION =>
+                        New_Line;
+                        Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "l'ID que vous entré n'existe pas. Retour au menu principal");
+                        goto RESTART;
+                end;
+            
+            when 7 =>  -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu.
+                Individus_1_Parent_Connu (Ab);
+            		
+            when 8 =>  -- utilisateur.
+                Individus_2_Parent_Connu (Ab);
+	    
+            when 9 =>  -- Obtenir l'ensemble des individus dont les deux parents sont inconnus.
+                Ensemble_Feuilles (AB);
+
+            when 10 =>  -- utilisateur.
+                null;
+            
+            when 11 =>  -- Administrateur.
+                null;
+            
+            when others =>
+                Null;
+                
+        end case;
+        
+        exit when (choice = 0);  -- Quitter le programme.
+    end loop;
+	
+    -- Afficher la barre de fin d'exécution.
+    End_Bar;
+
+end main;

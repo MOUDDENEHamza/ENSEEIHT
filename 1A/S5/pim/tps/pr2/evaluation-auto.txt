@@ -1,0 +1,417 @@
+% Validation de http://cregut.svn.enseeiht.fr/2019/1sn/pim/tps/hmoudden/pr2
+% Run on 2019-12-11 10:36:05.740956
+
+# Respect des fichiers fournis
+
+* Fichier alea.adb non modifié... ok
+* Fichier alea.ads non modifié... ok
+* Fichier exemple_alea.adb non modifié... ok
+* Fichier ensembles_tableau.ads modifié... ok
+* Fichier ensembles_tableau.adb modifié... ok
+* Fichier scenario_tableau.adb modifié... ok
+* Fichier nombre_moyen_tirages_tableau.adb modifié... ok
+* Fichier test_ensembles_tableau.adb modifié... ok
+* Fichier ensembles_chainage.ads modifié... ok
+* Fichier ensembles_chainage.adb modifié... ok
+* Fichier scenario_chainage.adb modifié... ok
+* Fichier nombre_moyen_tirages_chainage.adb modifié... ok
+* Fichier test_ensembles_chainage.adb modifié... ok
+* Running gnatclean... ok
+* Compilation de scenario_tableau.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g scenario_tableau.adb
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g ensembles_tableau.adb
+  | x86_64-linux-gnu-gnatbind-8 -x scenario_tableau.ali
+  | x86_64-linux-gnu-gnatlink-8 scenario_tableau.ali -g
+
+* ./scenario_tableau < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Ens1 = 
+  | Ens1 est vide : TRUE
+  | Taille de Ens1 :  0
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 5
+  | Ens1 =       5     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 28
+  | Ajouter 10
+  | Ens1 =       5           28           10     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Ajouter 7
+  | Ens1 =       5           28           10           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  4
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Supprimer 10
+  | Ens1 =       5           28           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 7
+  | Ens1 =       5           28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  2
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 5
+  | Ens1 =       28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* valgrind ./scenario_tableau < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Ens1 = 
+  | Ens1 est vide : TRUE
+  | Taille de Ens1 :  0
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 5
+  | Ens1 =       5     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 28
+  | Ajouter 10
+  | Ens1 =       5           28           10     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Ajouter 7
+  | Ens1 =       5           28           10           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  4
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Supprimer 10
+  | Ens1 =       5           28           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 7
+  | Ens1 =       5           28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  2
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 5
+  | Ens1 =       28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* Compilation de nombre_moyen_tirages_tableau.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g nombre_moyen_tirages_tableau.adb
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g alea.adb
+  | x86_64-linux-gnu-gnatbind-8 -x nombre_moyen_tirages_tableau.ali
+  | x86_64-linux-gnu-gnatlink-8 nombre_moyen_tirages_tableau.ali -g
+
+* ./nombre_moyen_tirages_tableau < "10 50 50 10 10 50 50 10"... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | le nombre moyen de tirages quâil faut faire pour obtenir tous
+  | les nombres entre 10 et 20 est :  33
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* valgrind ./nombre_moyen_tirages_tableau < "10 50 50 10 10 50 50 10"... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | le nombre moyen de tirages quâil faut faire pour obtenir tous
+  | les nombres entre 10 et 20 est :  32
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* Compilation de test_ensembles_tableau.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g test_ensembles_tableau.adb
+  | x86_64-linux-gnu-gnatbind-8 -x test_ensembles_tableau.ali
+  | x86_64-linux-gnu-gnatlink-8 test_ensembles_tableau.ali -g
+
+* ./test_ensembles_tableau < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Fonction Est_Vide testÃ© avec succÃ¨s.
+  | Fonction Taille testÃ© avec succÃ¨s.
+  | Fonction Est_Present testÃ© avec succÃ¨s.
+  | ProcÃ©dure Ajouter testÃ© avec succÃ¨s.
+  | ProcÃ©dure Supprimer testÃ© avec succÃ¨s.
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* valgrind ./test_ensembles_tableau < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Fonction Est_Vide testÃ© avec succÃ¨s.
+  | Fonction Taille testÃ© avec succÃ¨s.
+  | Fonction Est_Present testÃ© avec succÃ¨s.
+  | ProcÃ©dure Ajouter testÃ© avec succÃ¨s.
+  | ProcÃ©dure Supprimer testÃ© avec succÃ¨s.
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* Compilation de scenario_chainage.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g scenario_chainage.adb
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g ensembles_chainage.adb
+  | x86_64-linux-gnu-gnatbind-8 -x scenario_chainage.ali
+  | x86_64-linux-gnu-gnatlink-8 scenario_chainage.ali -g
+
+* ./scenario_chainage < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Ens1 = 
+  | Ens1 est vide : TRUE
+  | Taille de Ens1 :  0
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 5
+  | Ens1 =       5     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 28
+  | Ajouter 10
+  | Ens1 =       5           28           10     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Ajouter 7
+  | Ens1 =       5           28           10           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  4
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Supprimer 10
+  | Ens1 =       5           28           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 7
+  | Ens1 =       5           28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  2
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 5
+  | Ens1 =       28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* valgrind ./scenario_chainage < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Ens1 = 
+  | Ens1 est vide : TRUE
+  | Taille de Ens1 :  0
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 5
+  | Ens1 =       5     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Ajouter 28
+  | Ajouter 10
+  | Ens1 =       5           28           10     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Ajouter 7
+  | Ens1 =       5           28           10           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  4
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : TRUE
+  | Supprimer 10
+  | Ens1 =       5           28           7     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  3
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : TRUE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 7
+  | Ens1 =       5           28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  2
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : TRUE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | Supprimer 5
+  | Ens1 =       28     
+  | Ens1 est vide : FALSE
+  | Taille de Ens1 :  1
+  | 2 est prÃ©sent dans Ens1 : FALSE
+  | 5 est prÃ©sent dans Ens1 : FALSE
+  | 7 est prÃ©sent dans Ens1 : FALSE
+  | 10 est prÃ©sent dans Ens1 : FALSE
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* Compilation de nombre_moyen_tirages_chainage.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g nombre_moyen_tirages_chainage.adb
+  | x86_64-linux-gnu-gnatbind-8 -x nombre_moyen_tirages_chainage.ali
+  | x86_64-linux-gnu-gnatlink-8 nombre_moyen_tirages_chainage.ali -g
+
+* ./nombre_moyen_tirages_chainage < "10 50 50 10 10 50 50 10"... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | le nombre moyen de tirages quâil faut faire pour obtenir tous
+  | les nombres entre 10 et 20 est :  33
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* valgrind ./nombre_moyen_tirages_chainage < "10 50 50 10 10 50 50 10"... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | le nombre moyen de tirages quâil faut faire pour obtenir tous
+  | les nombres entre 10 et 20 est :  33
+  | 
+  | ***************************** Fin ****************************
+  | 
+
+* Compilation de test_ensembles_chainage.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g test_ensembles_chainage.adb
+  | x86_64-linux-gnu-gnatbind-8 -x test_ensembles_chainage.ali
+  | x86_64-linux-gnu-gnatlink-8 test_ensembles_chainage.ali -g
+
+* ./test_ensembles_chainage < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Fonction Est_Vide testÃ© avec succÃ¨s.
+  | Fonction Taille testÃ© avec succÃ¨s.
+  | Fonction Est_Present testÃ© avec succÃ¨s.
+  | ProcÃ©dure Ajouter testÃ© avec succÃ¨s.
+  | ProcÃ©dure Supprimer testÃ© avec succÃ¨s.
+  | 
+  | ***************************** Fin ****************************
+
+* valgrind ./test_ensembles_chainage < ""... ok
+
+  | 
+  | *************************** DÃ©but ****************************
+  | 
+  | Fonction Est_Vide testÃ© avec succÃ¨s.
+  | Fonction Taille testÃ© avec succÃ¨s.
+  | Fonction Est_Present testÃ© avec succÃ¨s.
+  | ProcÃ©dure Ajouter testÃ© avec succÃ¨s.
+  | ProcÃ©dure Supprimer testÃ© avec succÃ¨s.
+  | 
+  | ***************************** Fin ****************************
+
+* Running gnatclean... ok

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file />
+    <file_marker column=" 58" line=" 5" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 58" line=" 2" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 8" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 4" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 8" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/alea.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/alea.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_binaire.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 9" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.ads</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/test.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

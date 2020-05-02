@@ -1,0 +1,178 @@
+-- Spécification du module Registre.
+
+
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+
+package Registre is
+
+
+    type T_Registre is limited private;
+    type T_Donnee is private;
+    type T_Tableau is array(1..2) of Integer;
+    type T_Tab is record
+        Elt : T_Tableau;
+        Taille : Integer;
+    end record;
+
+
+    Id_Present_Exception : Exception;                -- un identifiant est déjà présent dans le registre
+    Id_Absent_Exception : Exception;                 -- un identifiant est absent du registre
+    Ecart_Age_Parent_Enfant_Exception : Exception;   -- avoir un minimum de 18 ans entre la date de naissance des parents et des enfants.
+
+
+    -- Nom : Present_R
+    -- Sémantique : définir les exceptions Id_Present_Exception et Id_Absent_Exception
+    -- Type_De_Retour : Boolean
+    -- Paramètres:
+    --    Registre : in T_Registre  -- le registre que l'on étudie
+    --    Id : in Integer           -- l'identifiant unique d'un élément du registre.
+    function Present_R(Registre : in T_Registre ; Id : in Integer) return Boolean;
+
+
+    -- Nom : Ecart_Age_Parent_Enfant_R
+    -- Sémantique : définir s'il y a bien un écart de 18 ans entre un enfant et ses parents ou son parent.
+    -- Type_De_Retour : Boolean
+    -- Paramètres:
+    --     Registre : in T_Registre  -- le registre que l'on étudie
+    --     Id : in Integer           -- l'identifiant unique d'un élément du registre.
+    function Ecart_Age_Parent_Enfant_R (Registre : in T_Registre ; Id : in Integer ; Parents : in T_Tab) return Boolean;
+
+
+    -- Nom : Initialiser_R
+    -- Sémantique : Initialier le Registre. le Registre est vide.
+    -- Paramètres:
+    --      Registre : in T_Registre -- le registre que l'on veut initialiser.
+    procedure Initialiser_R (Registre : out T_Registre) with
+            Post => Est_Vide_R (Registre);
+
+
+    -- Nom : Est_Vide_R
+    -- Sémantique : Annonce si le registre est vide ou non.
+    -- Type_De_Retour : Booléen annonçant si le registre est vide ou non.
+    -- Paramètres:
+    --      Registre : in T_Registre -- le registre pour lequel on veut tester s'il est vide ou non.
+    function Est_Vide_R (Registre : in T_Registre) return Boolean;
+
+
+    -- Nom : Taille_R
+    -- Sémantique : Obtenir la taille du registre.
+    -- Type_De_Retour : Entier représentant la taille du registre.
+    -- Paramètres:
+    --      Registre : in T_Registre -- le registre dont on veut la taille.
+    function Taille_R (Registre : in T_Registre) return Integer with
+            Post => Taille_R'Result >= 0 and (Taille_R'Result = 0) = Est_Vide_R(Registre);
+
+
+    -- Nom : Inserer_R
+    -- Sémantique : Insérer une nouvelle donnée dans le Registre pour un Id donné, à sa place, en terme de croissance des identifiants.
+    -- Paramètres:
+    --      Registre : in out T_Registre -- le registre dans lequel on veut insérer une donnée.
+    --      Id : in Integer -- l'identifiant unique d'un élément du registre.
+    --      Donnee : in T_Donnee -- enregistrement contenant toutes les données concernant Id.
+    procedure Inserer_R (Registre : in out T_Registre ; Id : in Integer ; Donnee : in T_Donnee) with
+            Post => La_Donnee_R (Registre, Id) = Donnee and Taille_R(Registre) = Taille_R (Registre)'Old + 1; -- un élément de plus
+
+
+    -- Nom : Modifier_R
+    -- Sémantique : Modifier la donnée associée à l'identifiant Id dans le Registre.
+    -- Exception : Id_Absent_Exception si Id n'est pas utilisé dans le Registre.
+    -- Paramètres:
+    --      Registre : in out T_Registre -- le registre dans lequel on veut modifier les donées associées à l'identifiant Id.
+    --      Id : in Integer -- l'identifiant unique d'un élément du registre.
+    --      Donnee : in T_Donnee -- enregistrement contenant toutes les données concernant Id et que l'on veut modifier.
+    procedure Modifier_R (Registre : in out T_Registre ; Id : in Integer ; Donnee : in T_Donnee) with
+            Post => La_Donnee_R (Registre, Id) = Donnee; -- donnée mise à jour
+
+
+    -- Nom : Supprimer
+    -- Sémantique : Supprimer la donnée associée à l'identifiant Id dans le Registre.
+    -- Exception : Id_Absent_Exception si Id n'est pas utilisé dans le Registre.
+    -- Paramètres:
+    --      Registre : in out T_Registre -- le registre dans lequel on veut supprimer un identifiant et ses données..
+    --      Id :  in Integer -- l'identifiant unique d'un élément du registre.
+    procedure Supprimer_R(Registre : in out T_Registre ; Id : in Integer) with
+            Pre => not(Est_Vide_R(Registre)),
+	    Post =>  Taille_R (Registre) = Taille_R (Registre)'Old - 1; -- un élément de moins
+
+
+    -- Nom : La_Donnee_R
+    -- Sémantique : Obtenir la donnée associée à l'identifiant Id dans le Registre.
+    -- Exception : Id_Absent_Exception si Id n'est pas utilisé dans le Registre.
+    -- Type_De_Retour : T_Donnee représentant toutes les données concernant Id.
+    -- Paramètres:
+    --      Registre : in T_Registre -- le registre dans lequel on veut obtenir les donées associées à l'identifiant Id.
+    --      Id : in Integer -- l'identifiant unique d'un élément du registre.
+    function La_Donnee_R (Registre : in T_Registre ; Id : in Integer) return T_Donnee;
+
+
+    -- Nom : Vider_R
+    -- Sémantique : Supprimer tous les éléments d'un Registre.
+    -- Doit être utilisé dès qu'on sait qu'un registre ne sera plus utilisé.
+    -- Paramètre:
+    --      Registre : in out T_Registre -- le registre que l'on veut vider.
+    procedure Vider_R (Registre : in out T_Registre) with
+            Post => Est_Vide_R (Registre);
+
+
+    -- Nom : Afficher_Entier
+    -- Sémantique : Afficher un entier
+    -- Paramètres:
+    --      Entier : Integer
+    procedure Afficher_Entier (Entier : in Integer);
+
+
+    -- Nom : Afficher_Donnee
+    -- Sémantique : Afficher la donnée associée à un identifiant dans le registre
+    procedure Afficher_Donnee(Registre : in T_Registre; Id : in Integer);
+
+
+    -- Nom : Initialiser_Donnee
+    -- Sémantique : Initialiser la donnée avec les paramètres donnés
+    -- Type_De_Retour : T_Donnee
+    -- Paramètres:
+    --      Nom : in Unbounde_String        -- le nom
+    --      Prenom : in Unbounde_String     -- le prénom
+    --      Date_N : in Integer            -- la date de naissance
+    --      Lieu_N : in Unbounde_String     -- le lieu de naissance
+    --      Date_D : in Integer            -- la date de décès
+    --      Lieu_D : in Unbounde_String     -- le lieu de décès
+    --      Sexe : in Character            -- le sexe
+    --      Email : in Unbounde_String      -- l'email
+    --      Tel : in Integer               -- le numéro de téléphone portable
+    --      Concubain : in Integer         -- l'identifiant du concubain
+    function Initialiser_Donnee (Nom : in Unbounded_String; Prenom : in Unbounded_String;
+                                 Date_N : in Integer; Lieu_N : in Unbounded_String;
+                                 Date_D : in Integer; Lieu_D : in Unbounded_String;
+                                 Sexe : in Character; Email : in Unbounded_String;
+                                 Tel : in Integer; Concubain : in Integer; Age : in Integer) return T_Donnee;
+
+
+private
+
+    type T_Cellule;
+
+    type T_Donnee is record
+        Nom : Unbounded_String;        -- le nom
+        Prenom : Unbounded_String;     -- le prénom
+        Date_N : Integer;            -- la date de naissance, de la forme JJMMAAAA
+        Lieu_N : Unbounded_String;     -- le lieu de naissance
+        Date_D : Integer;            -- la date de décès, de la forme JJMMAAAA. Si Id est toujours vivant, inscrire 0000000.
+        Lieu_D : Unbounded_String;     -- le lieu de décès. Si Id est toujours vivant, inscrire "Vivant".
+        Sexe : Character;            -- le sexe, 'F' pour femme, 'H' pour Homme, 'U' pour non-genré
+        Email : Unbounded_String;      -- l'email
+        Tel : Integer;               -- le numéro de téléphone portable, de la forme XXXXXXXXXX
+        Concubain : Integer;         -- l'identifiant du concubain. Si Id n'a pas de conjoint, inscrire -1.
+        Age : Integer;               -- l'âge, sous la forme XXX
+    end record;
+
+    type T_Cellule is record
+        Id : Integer;                -- l'identifiant. Enier naturel.
+        Donnee : T_Donnee;           -- les données concernant l'identifiant
+        Suivant : T_Registre;        -- pointeur vers l'identidiant suivant (forcément plus grand que Id)
+    end record;
+
+    type T_Registre is access T_Cellule;
+
+
+end Registre;

@@ -1,0 +1,382 @@
+Nom    : MOUDDENE
+Prénom : Hamza
+Groupe : C
+--------------------------------------------------------------------------------
+
+
+Consigne : Dans ce fichier, il faut répondre à la place des "..." et sur les
+lignes qui les suivent.  Le texte déjà écrit doit être conservé !
+
+=====[ Temps passé ]============================================================
+
+Ces informations de temps sont demandées à titre indicatif et ne sont pas
+prises en compte dans la notation du projet.
+
+Toutes les durées sont à saisir en heures.  Par exemple, si vous avez passé
+1h45, il faudra indiquer 1.75.  Si vous avez passé 2h30, il faudra indiquer
+2.5.
+
+Temps total passé sur ce mini-projet (en h) : 
+Temps passé sur les raffinages (en h) : 10h
+
+=====[ Raffinages ]=============================================================
+
+-- Ne donner que les niveaux de raffinages qui sont informatifs.   Il est
+-- généralement inutile de donner le dernier niveau de raffinage s'il ne
+-- contient pas d'étapes non élémentaires.
+
+
+R0 : Réviser les tables de multiplications.
+
+
+Exemples : On ne donnera pas d'exemples d'utilisation
+
+*******************************************************************************
+R1 : Comment "Réviser les tables de multiplication".
+	Initialisation des variables
+	REPETER
+		réviser une tables de multiplications
+	JUSQU'À l'utilisateur veut arreter la révision
+	{ Arreter la révision }
+
+*******************************************************************************
+R2 : Comment "Initialisation des variables".
+	n_table_a_reviser <- 0
+	{ n_table_a_reviser = 0 }
+ 	erreurs <- 0
+	{ erreurs = 0 }
+ 	Max_Delai <- 0
+	{ Max_Delai = 0 }
+  	Total_Delai <- 0
+	{ Total_Delai = 0 }
+ 	Moyen_Delai <- 0
+	{ Moyen_Delai = 0 }
+
+R2 : Comment "Réviser une table de multiplications".	
+	Demander à l'utilisateur la table qu'il veut réviser	
+	POUR i ALLANT DE 1 À 10 FAIRE -- IN : i 	OUT : bool.
+		Réviser une question de la table de multiplications
+	FIN_POUR
+	Evaluer la prestation de l'utilisateur
+	Proposer de continuer la révision
+
+*******************************************************************************
+R3 : Comment "Demander à l'utilisateur la table qu'il veut réviser".
+	REPETER	
+		Écrire("Table à réviser : ")
+		Lire(n_table) -- IN :          OUT : n_table.
+	JUSQU'À n_table >= 1 ET n_table <= 10 -- IN : n_table         OUT : bool.
+	{ n_table >= 1 ET n_table <= 10 }
+
+R3 : Comment "Réviser une question de la table de multiplications".
+	Poser la question
+	Évaluer la réponse
+
+R3 : Comment "Évaluer la prestation de l'utilisateur".
+	SELON erreurs DANS; -- IN : erreurs         OUT : .
+		0      => Écrire("Aucune erreur.Excellent!")
+		1      => Écrire("Une seule  erreur. Très bien.")
+		2 | 3  => Écrire("2|3  erreurs. bien.")
+		10     => Écrire("Tout est faux! Volontaire?")
+	FIN_SELON;
+	Incitation à réviser
+
+R3 : Comment "Proposer de continuer la révision".
+	RÉPETER	
+		Écrire("Vous voulez continuer la révision ? si oui tapez 1 sinon tapez 2.")
+		Lire(stop)
+	JUSQU'À stop = 1 OU stop = 0 -- IN : stop	OUT : Bool.
+	{ stop = 1 OU stop = 0 }
+
+*******************************************************************************
+R4 :  Comment "Poser la question".
+	Génerer la question
+	Démarrer le chrono
+	Lire(réponse)
+	Possibilité d'abondonner la révision
+	Arreter le chrono
+	Calculer les délais
+
+R4 : Comment "Évaluer la réponse".
+	-- IN  : réponse & réponse_attendue	OUT : bool.
+	SI réponse := réponse_attendue ALORS
+		Écrire("Bravo!")	
+	SINON
+		erreurs <- erreurs + 1 -- IN : erreurs       OUT : erreurs.
+		{ erreurs = erreurs + 1 }
+		Écrire("Mauvaise réponse.")
+	FIN_SI
+
+R4 : Comment "Incitation à réviser".
+	SI erreurs > 5 ALORS -- IN : erreurs       OUT : bool.
+		Écrire("Il faut apprendre la table de n_table!")
+	SINON
+		Écrire("Il faut encore travailler la table de n_table.")
+	FIN_SI
+	Recommandations
+
+*******************************************************************************
+R5 : Comment "Génerer la question".
+	-- IN :       OUT : nombre_alea.
+	nombre_alea <- obtenir un nombre aléatoire entre 1 et 10
+	{ nombre_alea = obtenir_nombre_alétoire(nombre_alea) }
+	Écrire("(Mi) n_table * nombre_alea ? ")
+
+R5 : Comment "Démarrer le chrono".
+	Debut <- Heure -- IN : Heure       OUT : Debut.
+	{ Debut = Heure }
+
+R5 : Comment "Possibilité d'abondonner la révision".
+	SI reponse = 0 ALORS -- IN : reponse       OUT : bool.
+        	goto fin
+	FIN_SI
+
+R5 : Comment "Arreter le chrono".
+	Fin <- Heure -- IN : Heure       OUT : Fin.
+	{ Fin = Heure }
+	Delai <- Fin - Debut -- IN : Fin & Debut       OUT : Delai.
+	{ Delai = Fin - Debut }
+
+R5 : Comment "Calculer les délais".
+	-- IN : Delai & Max_Delai       OUT : bool.
+	SI Delai > Max_Delai ALORS
+		-- IN : nombre_alea	OUT : n_table_a_reviser.
+                n_table_a_reviser <- nombre_alea
+		{ n_table_a_reviser = nombre_alea }
+                -- IN : nombre_alea     OUT : Total_Delai.
+		Total_Delai <- Total_Delai + Delai
+		{ Total_Delai <- Total_Delai + Delai }
+                -- IN : Delai	OUT : Max_Delai.
+		Max_Delai <- Delai
+		{ Max_Delai = Delai }
+        SINON
+		-- IN : nombre_alea     OUT : Total_Delai.
+        	Total_Delai <- Moyen_Delai + Delai
+		{ Total_Delai = Moyen_Delai + Delai }
+	FIN_SI
+
+R5 : Comment "Recommandations"
+	-- IN : Total_Delai	OUT : Moyen_Delai.
+	Moyen_Delai <- (Total_Delai / 10) + Duration(1)
+	{ Moyen_Delai <- (Total_Delai / 10) + Duration(1) }
+	Écrire("Des hésitations sur la table de n_table_a_reviser : Max_Delai secondes contre Moyen_Delai secondes en moyenne.")
+
+*******************************************************************************
+R6 : Algorithme du programme "Révision des tables de multiplications".
+
+Algorithme Multiplications
+	-- Faire réviser les tables de multiplications.
+
+Variable
+	n_table: Integer;   	    -- Lu au clavier désigne la table à réviser.
+     	n_table_a_reviser: Integer; -- Un entier correspondant à la table qu'il faut réviser.
+	nombre_alea: Integer;       -- Le nombre aléatoire généré lors de la question.
+	reponse: Integer;   	    -- Contient la réponse de l'utilisateur.
+	erreurs: Integer;   	    -- Nombre d'erreurs commises par l'utilisateur.
+	stop: Integer;      	    -- Une variable qui sert à définir si l'utilisateur 
+			    	    -- souhaite continuer si stop = 1 sinon elle reçoit 0.
+	Debut: Time;        	    -- Heure de début de l'opération.
+	Fin: Time;          	    -- Heure de fin de l'opération.
+	Delai : Duration;   	    -- Durée de l'opération.
+	Max_Delai: Duration;        -- Le temps maximal écoulé pour répondre une question.
+	Total_Delai: Duration;      -- Le temps total de toutes les réponses.
+	Moyen_Delai: Duration;      -- Le temps moyen pour que l'utilisateur réponde à toutes 
+				    -- les questions plus une seconde.
+
+Début
+
+	-- R1 : Comment "Réviser les tables de multiplications".
+	--
+	-- R2 : Comment "Initialisation des variables"
+	n_table_a_reviser <- 0
+	{ n_table_a_reviser = 0 }
+ 	erreurs <- 0
+	{ erreurs = 0 }
+ 	Max_Delai <- 0
+	{ Max_Delai = 0 }
+  	Total_Delai <- 0
+	{ Total_Delai = 0 }
+ 	Moyen_Delai <- 0
+	{ Moyen_Delai = 0 }
+	
+	REPETER
+
+		-- R2 : Comment "réviser une table de multiplications".
+		--	
+		-- R3 : Comment "Demander à l'utilisateur la table qu'il veut réviser".
+		--
+		REPETER	
+			Écrire("Table à réviser : ")
+			Lire(n_table)
+		JUSQU'À n_table >= 1 ET n_table <= 10	
+		{ n_table >= 1 ET n_table <= 10 }
+			
+		POUR i ALLANT DE 1 À 10 FAIRE
+			
+			-- R3 : Comment "Réviser une question de la table de multiplications".
+			--
+			-- R4 :  Comment "Poser la question".
+			--
+			-- R5 : Comment "Génerer la question".
+			--
+			nombre_alea <- obtenir un nombre aléatoire entre 1 et 10
+			{ nombre_alea = obtenir_nombre_alétoire(nombre_alea) }
+			Écrire("(Mi) n_table * nombre_alea ? ")
+			
+			-- R5 : Comment "Démarrer le chrono".
+			--
+			Debut <- Heure
+			{ Debut = Heure }
+			
+			Lire(réponse)
+
+			-- R5 : Comment "Possibilité d'abondonner la révision".
+			--
+			SI reponse = 0 ALORS
+        			goto fin
+			FIN_SI
+
+			-- R5 : Comment "Arreter le chrono".
+			Fin <- Heure
+			{ Fin = Heure }
+			Delai <- Fin - Debut
+			{ Delai = Fin - Debut }
+
+			-- R5 : Comment "Calculer les délais".
+			SI Delai > Max_Delai ALORS
+                		n_table_a_reviser <- nombre_alea
+				{ n_table_a_reviser = nombre_alea }
+                		Total_Delai <- Total_Delai + Delai
+				{ Total_Delai <- Total_Delai + Delai }
+                		Max_Delai <- Delai
+				{ Max_Delai = Delai }
+        		SINON
+        			Total_Delai <- Moyen_Delai + Delai
+				{ Total_Delai = Moyen_Delai + Delai }
+			FIN_SI			
+			
+			-- R4 : Comment "Évaluer la réponse".
+			--
+			SI réponse := réponse_attendue ALORS
+				Écrire("Bravo!")	
+			SINON
+				erreurs <- erreurs + 1
+				{ erreurs = erreurs + 1 }
+				Écrire("Mauvaise réponse.")
+			FIN_SI
+		
+		FIN_POUR
+
+		-- R3 : Comment "Évaluer la prestation de l'utilisateur".
+		--
+		SELON erreurs DANS;
+			0      => Écrire("Aucune erreur.Excellent!")
+			1      => Écrire("Une seule  erreur. Très bien.")
+			2 | 3  => Écrire("2|3  erreurs. bien.")
+			10     => Écrire("Tout est faux! Volontaire?")
+		FIN_SELON;
+	
+		-- R4 : Comment "Incitation à réviser".
+		--
+		SI erreurs > 5 ALORS
+			Écrire("Il faut apprendre la table de n_table!")
+		SINON
+			Écrire("Il faut encore travailler la table de n_table.")
+		FIN_SI
+	
+		-- R5 : Comment "Recommandations"
+		Moyen_Delai <- (Total_Delai / 10) + Duration(1)
+		{ Moyen_Delai <- (Total_Delai / 10) + Duration(1) }
+		Écrire("Des hésitations sur la table de n_table_a_reviser : Max_Delai secondes contre Moyen_Delai secondes en moyenne.")
+
+		-- R3 : Comment "Proposer de continuer la révision".
+		--
+		RÉPETER	
+			Écrire("Vous voulez continuer la révision ? si oui tapez 1 sinon tapez 2.")
+			Lire(stop)
+		JUSQU'À stop = 1 OU stop = 0
+		{ stop = 1 OU stop = 0 }
+		
+		fin: -- Quand l'utilisateur souhaite abondonner.
+
+	JUSQU'À stop = 0
+	{ stop = 0 }
+
+Fin
+
+
+=====[ Test ]===================================================================
+
+* Expliquer rapidement comment vous avez testé votre programme.
+
+On commence d'abord par "des tests nominaux" c'est à dire un nombre correspondant
+à un chiffre allat de 2 jusqu'a 9.
+Puis on regardera attentivement ce qui se passe au bornes "Tests au bornes" en
+ testant les valeurs {0, 1, 10, 11}.
+Et finalement, après avoir vérifié que le programme marche pour "des tests non
+nominaux", ce sont généralement des tests qui aboutissent à des erreurs.
+
+
+=====[ Difficultés ]============================================================
+
+* Indiquer les difficultés rencontrées
+
+...
+
+
+=====[ Questions ]==============================================================
+
+Pour les questions suivantes, il ne s'agit pas de modifier le programme écrit
+mais d'expliquer comment il faudrait le modifier pour prendre en compte les
+évolutions envisagées.
+
+
+* Au lieu de poser 10 questions, on veut en poser 15. Comment faire ?
+
+Dans la boucle POUR il faut juste changer le final 10 par 15.
+
+
+* On veut afficher "Bien" si l'utilisateur n'a commis que 2 ou 3 erreurs.
+  Comment modifier le programme ?
+
+Dans le SELON dans R3 faut ajouter "2 | 3  => afficher "2|3  erreurs. bien."
+!!!! J'AI DEJA IMPLÉMENTÉ CETTE OPTION DANS LES RAFFINAGES ET LE CODE ADA !!!!
+
+* On veut donner la possibilité à l'utilisateur d'abandonner le programmes en
+  tapant 0 quand on lui demande le résultat d'une multiplication. Quelles
+  modifications faut-il alors faire au programme ? 
+
+Au niveau du R4 après avoir lu la réponse on ajoutera :
+SI reponse = 0 ALORS
+	goto fin
+FIN_SI
+
+et à la fin du fichier on ajoutera
+fin:
+
+!!! J'AI DEJA IMPLÉMENTÉ CETTE OPTION DANS LES RAFFINAGES ET LE CODE ADA !!!!
+
+
+* À la fin d'une série de questions, on veut proposer à l'utilisateur de
+  réviser la table pour laquelle l'utilisateur a commis le plus d'erreurs.
+  Par exemple, s'il se trompe pour 3 * 5, on compte une erreur pour 3 et
+  une erreur pour 5.  Comment faire ?
+
+Au départ je compte stocker la table pour laquelle l'utilisateur a commis une erreur
+dans une variable c'est à dire exemple:
+3 * 5 = mauvaise reponse
+var=5
+3 * 9 = mauvaise reponse
+var=59
+etc...
+après pour chaque chiffre on va calculer avec une boucle le nombre d'erreurs
+correspondants au chiffre et après on va calculer le max et on va le rendre.
+
+
+=====[ Remarques diverses ]=====================================================
+
+Cette rubrique est libre (et ne sera pas prise en compte dans la notation).
+
+...
+
+--------------------------------------------------------------------------------

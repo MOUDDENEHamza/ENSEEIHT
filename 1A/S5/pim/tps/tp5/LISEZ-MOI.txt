@@ -1,0 +1,37 @@
+# Exercice 1:
+
+1. Les commentaires de spécification n’apparaissent que dans la spécification du 
+module Piles et pas dans son implantation car on manipule des choses dites des 
+modules où le principe est de fournir un paquetage ou une bibliothèque déja 
+faite sans savoir comment elle a été implémenté. Par exemple: ADA.TEXT_IO est un
+paquetage ou une bibliothèque propre au langage dont on se demande
+jamais comment elle a été implementé mais pour comprendre ça elle fonction, on 
+peut accéder à la documentation qui contient la spécification de l'objet en 
+question.
+
+2. Les contrats sont formalisés dans les fichiers *.ads qui sont des interfaces 
+qui contiennet que la déclaration des types et les prototypes ou la signature 
+des fonctions et procédure, ainsi que la spécifation de chaque fonction ou 
+procédure avec les contrats bien évidemment.
+
+3. Si on souhaite définir un sous-programme spécifique au module Piles on devra
+écrire la déclaration du sous programme avec son spécification dans le fichier
+piles.ads, ensuite il faudra implementer son code correspendant dans le fichier
+piles.adb.
+
+4. La surcharge est pouvoir utiliser le meme nom de sous-programme pour 
+plusieurs sous-programme distincts, alors on obtient des sous-programmes qui
+portent le meme nom. Elle peut être statique ou dynamique.
+
+5. La procédure Afficher_Element n’est pas un paramètre de généricité du module
+Piles mais de sa procédure Afficher, car le module Pile prend un type élement
+géneric et dans Illustrer_Plusieurs_Afficher_Pour_Meme_Pile on l'a instancié
+ainsi que dans le la procédure Afficher_Element dans le fichier Pile.ads qui 
+génerique.
+
+6. Si dans un même contexte, par exemple un même sous-programme, on a besoin 
+de deux piles avec des caractéristiques différentes (capacités différentes
+ou types des éléments différents), on sera amener a instancier deux piles
+avec des types ou des capacités différents car on a exploité deux outils
+capable de gérer ce genre de probléme qui sont la génericité et la 
+surcharge.

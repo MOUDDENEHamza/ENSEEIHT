@@ -1,0 +1,26 @@
+--------------------------------------------------------------------------------
+--  Fichier  : input.ads
+--  Auteur   : MOUDDENE Hamza & CAZES Noa
+--  Objectif : Spécification du module Input
+--  Crée     : Dimanche Déc 01 2019
+--------------------------------------------------------------------------------
+
+
+package Input is
+
+
+    -- lire au clavier un entier quelconque.
+    --
+    -- Param Value : Value est l'entier lu au clavier.
+    --
+    -- Exception : DATA_ERROR_EXCEPTION.
+    procedure Input_Integer (Value : out Integer);
+
+
+    -- Entrer le choix du menu.
+    --
+    -- Param Choice : Choice est le choix d'une option dans le menu.
+    procedure Input_Choice (Choice : out Integer);
+
+
+end Input;

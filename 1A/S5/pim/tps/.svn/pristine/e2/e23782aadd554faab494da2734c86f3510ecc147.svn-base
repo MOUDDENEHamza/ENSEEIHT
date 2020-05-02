@@ -1,0 +1,24 @@
+Dans ce fichier `reponses1.txt`, 
+
+
+[Question 1.1] Indiquer 
+- comment obtenir le ou les exécutables par compilation séparée.
+
+
+- les dépendances entre les fichiers qui constituent l’application.
+
+
+- le rôle de la règle `.PHONY` dans Makefile.
+
+
+[Question 1.4] Indiquer
+- Quel est le sous-programme non-visible des autres modules et défini dans le module File.
+
+
+- Que se passe-t-il si on enlève le mot-clé static à la compilation ?  
+ 
+
+- Que se passe-t-il si on enlève le mot-clé static à l'exécution ?  
+
+
+- Quel est le risque de ne pas le mettre ?

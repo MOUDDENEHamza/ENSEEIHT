@@ -1,0 +1,12 @@
+project Tp2 is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Main use ("comprendre_mode_parametre.adb", "dates.adb", "premier_programme.adb", "puissance.adb", "specifier_et_tester.adb");
+
+   package Compiler is
+      for Switches ("ada") use ("-gnatwa", "-gnata", "-g");
+   end Compiler;
+
+end Tp2;
+

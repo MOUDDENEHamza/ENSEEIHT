@@ -1,0 +1,60 @@
+% Validation de http://cregut.svn.enseeiht.fr/2019/1sn/pim/tps/hmoudden/pr1
+% Run on 2019-10-13 21:30:46.590685
+
+# Respect des fichiers fournis
+
+* Fichier alea.adb non modifié... ok
+* Fichier alea.ads non modifié... ok
+* Fichier exemple_alea.adb non modifié... ok
+* Fichier multiplications.adb modifié... ok
+* Fichier LISEZ-MOI.txt modifié... ok
+* Running gnatclean... ok
+* Compilation de multiplications.adb... ok
+
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g multiplications.adb
+  | x86_64-linux-gnu-gcc-8 -c -gnatwa -gnata -g alea.adb
+  | x86_64-linux-gnu-gnatbind-8 -x multiplications.ali
+  | x86_64-linux-gnu-gnatlink-8 multiplications.ali -g
+
+* ./multiplications < "5 1 2 3 4 1 6 7 8 9 1 n"... ERREUR
+
+  | ------------Bienvenue dans votre espace de travail-------------
+  | 
+  | Table Ã  rÃ©viser : 
+  | Si vous voulez abondonner, tapez 0 dans le rÃ©sultat.
+  | 
+  | (M 1) 5 *  5 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 2) 5 *  8 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 3) 5 *  9 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 4) 5 *  9 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 5) 5 *  5 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 6) 5 *  7 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 7) 5 *  5 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 8) 5 *  10 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 9) 5 *  3 ? Mauvaise rÃ©ponse.
+  | 
+  | (M 10) 5 *  8 ? Mauvaise rÃ©ponse.
+  | 
+  | Tout est faux! Volontaire?
+  | 
+  |  10 erreurs. Il faut apprendre la table de  5.
+  | 
+  | Des hÃ©sitations sur la table de  8 :  0.000001000 secondes contre  1.000000100 secondes en moyenne.
+  | 
+  | Vous voulez continuer de rÃ©viser ?
+  | Si oui tapez 1, sinon tapez 0
+  | Votre choix : 
+
+
+  | 
+  | raised ADA.IO_EXCEPTIONS.DATA_ERROR : a-tiinio.adb:86 instantiated at a-inteio.ads:18
+
+* Running gnatclean... ok

@@ -1,0 +1,228 @@
+-- with Ada.Text_IO; use Ada.Text_IO;
+with registre; use registre;
+
+procedure test_registre is
+
+
+    -- Création d'un registre avec un Id et ses données.
+    procedure Initialiser_Le_Test (Registre : out T_Registre) is
+        Donnee : T_Donnee;
+    begin
+        -- Initialisation du registre.
+        Initialiser_R(Registre);
+
+        -- Inscription d'une donnée.
+        Donnee := Initialiser_Donnee ("Max","Lili",18091999,"Paris",00000000,"Vivant",'F',"Lili.Max@gmail.com",0678953421,7, 21);
+
+        Inserer_R(Registre, 3, Donnee);
+    end Initialiser_Le_Test;
+
+
+
+
+
+    -- Création d'un registre avec un 3 Id et leurs données.
+    procedure Initialiser_Le_Test_Avec_3_Elts (Registre : out T_Registre) is
+        Donnee1 : T_Donnee;
+        Donnee2 : T_Donnee;
+        Donnee3 : T_Donnee;
+    begin
+        -- Initialisation du registre.
+        Initialiser_R(Registre);
+
+        -- Inscription de Donnee1.
+        Donnee1 := Initialiser_Donnee ("Max","Lili",18091999,"Paris",00000000,"Vivant",'F',"Lili.Max@gmail.com",0678953421,7, 21);
+        -- Insertion de l'Id 3, avec Donnee1, dans Registre.
+        Inserer_R(Registre, 3, Donnee1);
+
+        -- Inscription de Donnee2.
+        Donnee2 := Initialiser_Donnee ("Dupont","Baptiste",21121925,"Toulouse",01092001,"Toulouse",'H',"Dupont.Baptiste@gmail.com",0656673421, 10, 76);
+        -- Insertion de l'Id 8, avec Donnee2, dans Registre.
+        Inserer_R(Registre, 8, Donnee2);
+
+         -- Inscription de Donnee3.
+        Donnee3 := Initialiser_Donnee ("Halwani","Jad",11021998,"Lille",02052019,"Toulouse",'H',"Halwani.Jad@gmail.com",0656693421, -1, 22);
+        -- Insertion de l'Id 20, avec Donnee3, dans Registre.
+        Inserer_R(Registre, 20, Donnee3);
+
+    end Initialiser_Le_Test_Avec_3_Elts;
+
+
+
+
+    -- Tester la fonction Present_R
+    procedure Tester_Present_R is
+       Registre : T_Registre;
+    begin
+        Initialiser_Le_Test_Avec_3_Elts (Registre);
+        pragma Assert(Present_R(Registre, 20));
+        pragma Assert(not(Present_R(Registre, 10)));
+        pragma Assert(Present_R(Registre, 3));
+        pragma Assert(Present_R(Registre, 8));
+        pragma Assert(not(Present_R(Registre, 13)));
+    end Tester_Present_R;
+
+
+
+    -- Tester les procédures Initialiser_R et Est_Vide_R
+    procedure Tester_Initialiser_R_Et_Est_Vide_R is
+        Registre : T_Registre;
+    begin
+        -- Initialisation du registre.
+        Initialiser_R(Registre);
+
+        pragma Assert (Est_Vide_R(Registre));
+
+        -- Libération de la mémoire.
+        Vider_R(Registre);
+
+    end Tester_Initialiser_R_Et_Est_Vide_R;
+
+
+
+
+    -- Tester la procédure Taille_R
+    procedure Tester_Taille_R is
+        Registre : T_Registre;
+    begin
+        -- Création d'un registre avec un 3 Id et leurs données.
+        Initialiser_Le_Test_Avec_3_Elts(Registre);
+
+        pragma Assert(Taille_R(Registre)=2);
+        pragma Assert(not(Taille_R(Registre)=5));
+
+        -- Suppression de l'Id 3 et de ses données du registre.
+        Supprimer_R(Registre,3);
+        pragma Assert(Taille_R(Registre)=1);
+        pragma Assert(not(Taille_R(Registre)=2));
+
+        -- Suppression de l'Id 8 et de ses données du registre.
+        Supprimer_R(Registre,8);
+        pragma Assert(Taille_R(Registre)=0);
+        pragma Assert(not(Taille_R(Registre)=2));
+
+        -- Libération de la mémoire.
+        Vider_R(Registre);
+    end Tester_Taille_R;
+
+
+
+    -- Tester la procédure Inserer_R
+    procedure Tester_Inserer_R is
+        Registre : T_Registre;
+        Donnee : T_Donnee;
+    begin
+        -- Création d'un registre avec un Id et ses données.
+        Initialiser_Le_Test(Registre);
+
+        -- Inscription d'une donnée.
+        Donnee := Initialiser_Donnee("Dupont","Baptiste",21121925,"Toulouse",01092001,"Toulouse",'H',"Dupont.Baptiste@gmail.com",0656673421, 10, 76);
+
+        -- Insertion de l'Id 8 avec ses données dans le registre.
+        Inserer_R(Registre, 8, Donnee);
+
+        pragma Assert(La_Donnee_R(Registre,8)=Donnee);
+
+        -- Libération de la mémoire.
+        Vider_R(Registre);
+    end Tester_Inserer_R;
+
+
+
+
+    -- Tester la procédure Modifier_R
+    procedure Tester_Modifier_R is
+        Registre : T_Registre;
+        Donnee : T_Donnee;       -- la donnée avec laquelle on en modifie une autre.
+    begin
+        -- Création d'un registre avec un Id et ses données.
+        Initialiser_Le_Test(Registre);
+
+        -- Inscription d'une donnée.
+        Donnee := Initialiser_Donnee("Dupont","Baptiste",21121925,"Toulouse",01092001,"Toulouse",'H',"Dupont.Baptiste@gmail.com",0656673421, 10, 76);
+
+        -- Modification des données de l'Id présent avec Donnee.
+        Modifier_R(Registre, 3, Donnee);
+
+        pragma Assert(La_Donnee_R(Registre, 3) = Donnee);
+
+    end Tester_Modifier_R;
+
+
+
+
+    -- Tester la procédure Supprimer_R
+    procedure Tester_Supprimer_R is
+        Registre : T_Registre;
+    begin
+         -- Création d'un registre avec un 3 Id et leurs données.
+        Initialiser_Le_Test_Avec_3_Elts(Registre);
+
+        -- Suppression de l'Id 3 et de ses données du registre.
+        Supprimer_R(Registre, 3);
+
+        pragma Assert(not(Present_R(Registre,3)));
+
+        -- Suppression de l'Id 8 et de ses données du registre.
+        Supprimer_R(Registre, 8);
+
+        pragma Assert(not(Present_R(Registre,8)));
+
+        -- Suppression de l'Id 20 et de ses données du registre.
+        Supprimer_R(Registre, 20);
+
+        pragma Assert(not(Present_R(Registre,20)));
+
+    end Tester_Supprimer_R;
+
+
+
+
+    -- Tester la procédure La_Donnee_R
+    procedure Tester_La_Donnee_R is
+        Registre : T_Registre;
+        Donnee1 : T_Donnee;
+        Donnee2 : T_Donnee;
+        Donnee3 : T_Donnee;
+    begin
+         -- Création d'un registre avec un 3 Id et leurs données.
+        Initialiser_Le_Test_Avec_3_Elts(Registre);
+
+        Donnee1 := Initialiser_Donnee ("Max","Lili",18091999,"Paris",00000000,"Vivant",'F',"Lili.Max@gmail.com",0678953421,7, 21);
+        Donnee2 := Initialiser_Donnee ("Dupont","Baptiste",21121925,"Toulouse",01092001,"Toulouse",'H',"Dupont.Baptiste@gmail.com",0656673421, 10, 76);
+        Donnee3 := Initialiser_Donnee ("Halwani","Jad",11021998,"Lille",02052019,"Toulouse",'H',"Halwani.Jad@gmail.com",0656693421, -1, 22);
+
+        pragma Assert(La_Donnee_R(Registre,3) = Donnee1);
+        pragma Assert(La_Donnee_R(Registre,8) = Donnee2);
+        pragma Assert(La_Donnee_R(Registre,20) = Donnee3);
+
+    end Tester_La_Donnee_R;
+
+
+
+
+    -- Tester la fonction Vider_R
+    procedure Tester_Vider_R is
+        Registre : T_Registre;
+    begin
+        -- Création d'un registre avec un Id et ses données.
+        Initialiser_Le_Test(Registre);
+
+        Vider_R(Registre);
+
+        pragma Assert(Taille_R(Registre)=0);
+    end Tester_Vider_R;
+
+
+
+
+begin
+    Tester_Present_R;
+    Tester_Initialiser_R_Et_Est_Vide_R;
+    Tester_Taille_R;
+    Tester_Inserer_R;
+    Tester_Modifier_R;
+    Tester_Supprimer_R;
+    Tester_La_Donnee_R;
+    Tester_Vider_R;
+end test_registre;

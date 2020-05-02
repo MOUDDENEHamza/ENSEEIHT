@@ -1,0 +1,8 @@
+package Input is
+
+   procedure Input_Integer (value : out Integer);
+
+   procedure Input_Choice (Choice : out Integer);
+
+
+end Input;

@@ -1,0 +1,94 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> ---\n",
+    "> ---\n",
+    "> # Langage C (semestre 6)\n",
+    "> ## Bilan 2 : Modules et make.\n",
+    "> #### Katia Jaffrès-Runser, Xavier Crégut\n",
+    "> Toulouse INP - ENSEEIHT,\n",
+    "> 1ère année, Dept. Sciences du Numérique, 2019-2020.\n",
+    "> ---\n",
+    "> ---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Définition d'une file d’attente.\n",
+    "\n",
+    "Une file d’attente est une structure de données qui contient des éléments. Le principe d’une file est que le premier élément inséré dans la file est le premier à en être retiré. C’est comme une file d’attente : la personne qui arrive se met à la fin de la file d’attente et attend son tour, c’est-à-dire que toutes les personnes arrivées avant elle soient servies. On dit que la file est une structure de données de type FIFO (First In, First Out). Les opérations sur une file sont les suivantes :\n",
+    "\n",
+    "- __initialiser__ : initialiser une file (une variable de type File). Une file ne peut être utilisée que si elle a été initialisée ;\n",
+    "- __detruire__ : détruire un file, elle ne pourra plus être utilisée (sauf à être de nouveau initialisée) ;\n",
+    "- __inserer__ : insérer un nouvel élément dans la file ;\n",
+    "- __extraire__ : extraire le plus ancien élément de la file ;\n",
+    "- __tete__ : l'élément en tête de la file ;\n",
+    "- __est_vide__ : savoir si une file est vide ou non ;\n",
+    "- __longueur__ : obtenir la longueur de la file ;\n",
+    "\n",
+    "On choisit de représenter la file en utilisant une structure chaînée. Chaque élément de la file est représenté par une cellule composée de l’élément conservé et d’un pointeur sur la cellule suivante. Pour des raisons d’efficacité, on décide de représenter le type file comme un enregistrement composé d’un pointeur sur la première cellule de la file et d’un pointeur sur la dernière."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Questions\n",
+    "Dans le répertoire SVN `c2/bilan2`, vous trouverez les fichiers `file.h`, `file.c`, `test_file.c`, `exemple_file.c`, `Makefile` et `reponses1.txt`. Le module `file` permet ici d'enregistrer des caractères. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 1. Module `File`.\n",
+    "\n",
+    "#### Question 1.1\n",
+    "> Dans le fichier `reponses1.txt`, indiquer : \n",
+    "- comment obtenir le ou les exécutables _par compilation séparée_.\n",
+    "- les dépendances entre les fichiers qui constituent l’application (pour l'exemple et les tests).\n",
+    "- le rôle de la règle `.PHONY` (non vue dans le cours, à trouver).\n",
+    "\n",
+    "#### Question 1.2\n",
+    "> Compléter le fichier `Makefile` (et vérifier qu'il fonctionne). On définira en particulier \n",
+    "- la cible `all` pour produire les deux exécutables ;\n",
+    "- la cible `clean` qui supprime les fichiers engendrés (fichiers .o et exécutables) ;\n",
+    "- la cible `depend` qui appelle l'outil `makedepend` qui automatise l'inclusion des interfaces des modules dans les dépendances.  \n",
+    "> On utilisera : \n",
+    "- les variables usuelles `CC`, `CFLAGS`, `LDFLAGS`.\n",
+    "- les variables automatiques `$@` et `$^`\n",
+    "\n",
+    "#### Question 1.3\n",
+    "> On s'intéresse ici à la spécification des sous-programmes qui est donnée dans `file.h`.\n",
+    "- Ce fichier contient une erreur dans sa structure. L’identifier et la corriger.\n",
+    "\n",
+    "#### Question 1.4\n",
+    "> Écrire l’implantation du module `File` (et tester le module grâce au module de test fourni).\n",
+    "- Quel est le sous-programme non-visible des autres modules ? Répondre dans `reponses1.txt`.\n",
+    "- Que se passe-t-il si on enlève le mot-clé static à la compilation ?  \n",
+    "- Que se passe-t-il si on enlève le mot-clé static à l'exécution ?  \n",
+    "- Que risque-t-on a ne pas utiliser le mot-clé statique ?"
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Format de la Cellule Texte Brut",
+  "kernelspec": {
+   "display_name": "C",
+   "language": "c",
+   "name": "c"
+  },
+  "language_info": {
+   "file_extension": ".c",
+   "mimetype": "text/plain",
+   "name": "c"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

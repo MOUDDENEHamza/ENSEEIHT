@@ -1,0 +1,129 @@
+--------------------------------------------------------------------------------
+--  Fichier  : input.ads
+--  Auteur   : MOUDDENE Hamza & CAZES Noa
+--  Objectif : Implantation du module Input
+--  Crée     : Dimanche Déc 01 2019
+--------------------------------------------------------------------------------
+
+
+with Ada.Text_IO; 	  	use Ada.Text_IO;
+with Ada.Characters.Latin_1; 	use Ada.Characters.Latin_1;
+with Ada.Integer_Text_IO; 	use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; 	use Ada.Strings.Unbounded;
+with Ada.Text_IO.Unbounded_IO;  use Ada.Text_IO.Unbounded_IO;
+
+
+package body Input is
+
+
+    -- lire au clavier un entier quelconque.
+    procedure Input_Integer (value : out Integer) is
+    begin
+        Get (value);
+    exception
+        when Data_Error =>
+            New_Line;
+            Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "Vous n'avez pas saisie un entier.");
+            Skip_Line;
+            New_Line;
+            Put ("Réessayez encore une fois : ");
+            Input_Integer (value);
+    end Input_Integer;
+
+
+    -- Entrer le choix du menu.
+    procedure Input_Choice (Choice : out Integer) is
+    begin
+        Put ("Entrez votre choix : ");
+        loop
+            Input_Integer (Choice);
+            if (Choice < 0 or  Choice > 11) then
+                Put_Line(ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "Il faut entrer un entier entre 0 et 11.");
+                New_Line;
+                Put ("Réessayez encore une fois : ");
+            end if;
+            exit when Choice >= 0 and Choice <= 11;
+        end loop;
+    end Input_Choice;
+
+
+    -- Entrer le sex d'un individu.
+    function Input_Sex (Sex : out Character) return Character is
+    begin
+        loop
+            Get (Sex);
+            if (Sex /= 'H' and Sex  /= 'F' and Sex /= 'U') then
+                New_Line;
+                Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "sexe introuvable.");
+                New_Line;
+                Put ("Veuillez saisir " & ESC & "[31m" & "F" & ESC & "[0m" & " pour une femme, " & ESC & "[32m" & "H" & ESC & "[0m" &  " pour un homme ou " & ESC & "[34m" & "U" & ESC & "[0m" & " pour tout autre type de sexe : ");
+            end if;
+            exit when (Sex = 'H' or Sex  = 'F' or Sex = 'U');
+        end loop;
+        return Sex;
+    end Input_Sex;
+
+    -- Entrer les données personnelles d'une personne.
+    function Demander_Donnee return T_Donnee is
+
+
+        Nom, Prenom, Lieu_N, Lieu_D, Email : Unbounded_String;
+        Date_N, Date_D, Tel, ID_Concubain , Age: Integer;
+        Sexe : Character;
+
+
+    begin
+        New_Line;
+        Put ("Veuillez saisir un nom : ");
+        Nom := Get_Line;
+        Skip_Line;
+
+        New_Line;
+        Put ("Veuillez saisir un prenom : ");
+        Prenom := Get_Line;
+
+        New_Line;
+        Put ("Veuillez saisir une date de naissance : ");
+        Input_Integer (Date_N);
+
+        New_Line;
+        Put ("Veuillez saisir un lieu de naissance : ");
+        Lieu_N := Get_Line;
+        Skip_Line;
+
+        New_Line;
+        Put ("Veuillez saisir une date de décès : ");
+        Input_Integer (Date_D);
+
+        New_Line;
+        Put ("Veuillez saisir un lieu de décès : ");
+        Lieu_D := Get_Line;
+        Skip_Line;
+
+        New_Line;
+        Put ("Veuillez saisir " & ESC & "[31m" & "F" & ESC & "[0m" & " pour une femme, " & ESC & "[32m" & "H" & ESC & "[0m" &  " pour un homme ou " & ESC & "[34m" & "U" & ESC & "[0m" & " pour tout autre type de sexe : ");
+        Sexe := Input_Sex (Sexe);
+
+        New_Line;
+        Put ("Veuillez saisir un email : ");
+        Email := Get_Line;
+        Skip_Line;
+
+        New_Line;
+        Put ("Veuillez saisir un numéro de téléphone sous la forme 0612345678 : ");
+        Input_Integer (Tel);
+
+        New_Line;
+        Put ("Veuillez saisir l'identifiant du concubain : ");
+        Input_Integer (ID_Concubain);
+
+        New_Line;
+        Put ("Veuillez saisir l'âge de l'individu : ");
+        Input_Integer (Age);
+
+        return Initialiser_Donnee (Nom, Prenom, Date_N, Lieu_N, Date_D, Lieu_D, Sexe, Email, Tel, ID_Concubain, Age);
+
+    end Demander_Donnee;
+
+
+end Input;

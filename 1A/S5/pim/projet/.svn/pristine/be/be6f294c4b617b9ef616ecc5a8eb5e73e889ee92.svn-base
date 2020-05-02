@@ -1,0 +1,238 @@
+with Ada.Unchecked_Deallocation;
+with Ada.Text_IO; use Ada.Text_IO;
+--with Ensemble;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded.Text_IO; use Ada.Strings.Unbounded.Text_IO;
+
+
+
+package body Registre is
+
+
+    procedure Free is
+            new Ada.Unchecked_Deallocation (Object => T_Cellule, Name => T_Registre);
+
+    --package Ens is
+    --        new Ensemble (T_Element => Integer);
+    --use Ens;
+
+    function Present_R(Registre : in T_Registre ; Id : in Integer) return Boolean is
+        Registre1 : T_Registre;
+        Present : Boolean;
+    begin
+        Registre1 := Registre;
+        Present := True;
+        while (Registre1 /= Null) and then (Registre1.all.Id /= Id) loop
+            Registre1 := Registre1.all.Suivant;
+        end loop;
+        if Registre1 = Null then
+            Vider_R(Registre1);
+            raise Id_Absent_Exception;
+            return not(Present);
+        else
+            Vider_R(Registre1);
+            raise Id_Present_Exception;
+            return Present;
+        end if;
+    end Present_R;
+
+
+
+    function Ecart_Age_Parent_Enfant_R (Registre : in T_Registre ; Id : in Integer ; Parents : in T_Tab) return Boolean is
+        Age_Parent1 : Integer;
+        Age_Parent2 : Integer;
+        Age_Enfant : Integer;
+        Diff1 : Integer;
+        Diff2 : Integer;
+    begin
+        if Parents.Taille = 0 then
+            return False;
+        elsif Parents.Taille = 1 then
+            Age_Parent1 := La_Donnee_R(Registre, Parents.Elt(1)).Age;
+            Age_Enfant :=  La_Donnee_R(Registre, Id).Age;
+            Diff1 := Age_Parent1 - Age_Enfant + 1;
+            if Diff1 >= 18 then
+                return True;
+            else
+                raise Ecart_Age_Parent_Enfant_Exception;
+                return False;
+            end if;
+        else -- Taille(Parents) = 2
+            Age_Parent1 := La_Donnee_R(Registre, Parents.Elt(1)).Age;
+            Age_Parent2 := La_Donnee_R(Registre, Parents.Elt(2)).Age;
+            Age_Enfant :=  La_Donnee_R(Registre, Id).Age;
+            Diff1 := Age_Parent1 - Age_Enfant + 1;
+            Diff2 := Age_Parent2 - Age_Enfant + 1;
+            if Diff1 >= 18  and then Diff2 >= 18 then
+                return True;
+            else
+                raise Ecart_Age_Parent_Enfant_Exception;
+                return False;
+            end if;
+        end if;
+    end Ecart_Age_Parent_Enfant_R;
+
+
+
+
+    procedure Initialiser_R (Registre : out T_Registre) is
+    begin
+        Registre := Null;
+    end Initialiser_R;
+
+
+    function Est_Vide_R (Registre : in T_Registre) return Boolean is
+    begin
+        return(Registre = Null);
+    end Est_Vide_R;
+
+
+    function Taille_R (Registre : in T_Registre) return Integer is
+        cpt : Integer; -- compteur (du nombre d'identifiants dans le registre)
+        Registre1 : T_Registre;
+    begin
+        Registre1 := Registre;
+        cpt := 0;
+        while Registre1 /= Null loop
+            Registre1 := Registre1.all.Suivant;
+            cpt := cpt + 1;
+        end loop;
+        return cpt;
+    end Taille_R;
+
+
+    procedure Inserer_R (Registre : in out T_Registre ; Id : in Integer ; Donnee : in T_Donnee) is
+        Courant : T_Registre;
+        Precedent : T_Registre;
+        Registre1 : T_Registre;  -- pointe vers l'élément à insérer
+    begin
+        Courant := Registre;
+        while (Courant /= Null) and then (Courant.all.Id < Id) loop
+            Precedent := Courant;
+            Courant := Registre.all.Suivant;
+
+        end loop;
+        Registre1 := new T_Cellule'(Id,Donnee,Null);
+        Registre1.all.Suivant := Courant;
+        Precedent.all.Suivant := Registre1;
+    exception
+        when Id_Present_Exception => Put_Line("L'identifiant est présent");
+    end Inserer_R;
+
+
+    procedure Modifier_R (Registre : in out T_Registre ; Id : in Integer ; Donnee : in T_Donnee) is
+    begin
+        if Registre.all.Id = Id then
+            Registre.all.Donnee := Donnee;
+        else
+            Modifier_R(Registre.all.Suivant, Id, Donnee);
+        end if;
+    exception
+        when Id_Absent_Exception => Put_Line("L'identifiant n'est pas présent");
+    end Modifier_R;
+
+
+
+
+    procedure Supprimer_R (Registre : in out T_Registre ; Id : in Integer) is
+        Registre1 : T_Registre;
+    begin
+        Registre1 := Registre;
+        if Registre.all.Id = Id then
+            Registre1 := Registre1.all.Suivant;
+            Free(Registre);
+            Registre := Registre1;
+        else
+            Supprimer_R(Registre.all.Suivant, Id);
+        end if;
+    exception
+        when Id_Absent_Exception => Put_Line("L'identifiant n'est pas présent");
+    end Supprimer_R;
+
+
+    function La_Donnee_R (Registre : in T_Registre ; Id : in Integer) return T_Donnee is
+    begin
+        if Registre.all.Id = Id then
+            return (Registre.all.Donnee);
+        else
+            return(La_Donnee_R(Registre.all.Suivant, Id));
+        end if;
+    end La_Donnee_R;
+
+
+
+
+    procedure Vider_R (Registre : in out T_Registre) is
+    begin
+        if Registre = Null then
+            Null;
+        else
+            Vider_R(Registre.all.Suivant);
+            Free(Registre);
+        end if;
+    end Vider_R;
+
+
+
+    procedure Afficher_Donnee(Registre : in T_Registre ; Id : in Integer) is
+
+
+        Donnee : T_Donnee;
+
+
+    begin
+        Donnee := La_Donnee_R(Registre,Id);
+
+        Put_Line ("Nom : " & Donnee.Nom);
+
+        Put_Line ("Prénom : " & Donnee.Prenom);
+
+        Put_Line ("Date de Naissance : " & Integer'Image (Donnee.Date_N));
+
+        Put_Line ("Lieu de Naissance : " & Donnee.Lieu_N);
+
+        Put_Line ("Date de Décès : " & Integer'Image (Donnee.Date_D));
+
+        Put_Line ("Lieu de Décès :  " & Donnee.Lieu_D);
+
+        Put_Line ("Sexe : " & Character'Image (Donnee.Sexe));
+
+        Put_Line ("Email : " & Donnee.Email);
+
+        Put_Line ("Numéro de téléphone : " & Integer'Image (Donnee.Tel));
+
+        Put_Line ("Concubain : " & Integer'Image (Donnee.Concubain));
+
+        Put_Line("Age : " & Integer'Image (Donnee.Age));
+    end Afficher_Donnee;
+
+
+    --procedure Afficher_String(Elt : in String) is
+    --begin
+    --   Put_Line("Elt");
+    --end Afficher_String;
+
+    procedure Afficher_Entier (Entier : in Integer) is
+    begin
+        Put("           ");
+        Put(Entier,1);
+    end Afficher_Entier;
+
+    -- procedure Afficher_Character(Char : in Character) is
+    -- begin
+    --    Put(Char);
+    -- end Afficher_Character;
+
+    function Initialiser_Donnee (Nom : in Unbounded_String; Prenom : in Unbounded_String;
+                                 Date_N : in Integer; Lieu_N : in Unbounded_String;
+                                 Date_D : in Integer; Lieu_D : in Unbounded_String;
+                                 Sexe : in Character; Email : in Unbounded_String;
+                                 Tel : in Integer; Concubain : in Integer; Age : Integer) return T_Donnee is
+        Donnee : T_Donnee;
+    begin
+        Donnee := (Nom, Prenom, Date_N, Lieu_N, Date_D, Lieu_D, Sexe, Email, Tel, Concubain, Age);
+        return Donnee;
+    end Initialiser_Donnee;
+
+end Registre;
+

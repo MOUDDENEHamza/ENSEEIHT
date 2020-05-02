@@ -1,0 +1,133 @@
+-------------------------------------------------------------------------------
+--  Fichier  : display_shell.adb
+--  Auteur   : MOUDDENE Hamza & CAZES Noa
+--  Objectif : Spécification du module Arbre_Genealogique
+--  Crée     : Dimanche Nov 10 2019
+--------------------------------------------------------------------------------
+
+
+with Arbre_Binaire;
+with Ensemble;
+
+
+package Arbre_Genealogique is
+	
+
+    type T_ABG is private; -- Type Arbre genealogique.
+
+    
+    ARBRE_VIDE_EXCEPTION : Exception;			-- Arbre est vide.
+    ARBRE_NON_VIDE_EXCEPTION : Exception;		-- Arbre n'est pas vide.
+    ID_PRESENT_EXCEPTION : Exception; 			-- ID Present.
+    ID_ABSENT_EXCETION : Exception;   			-- ID Absent.
+    DEUX_PARENTS_PRESENTS_EXCEPTION : Exception; 	-- Deux parents existants.
+	
+
+    -- Instancier Ensemble avec T_Element comme Integer. 
+    package Ens is
+            New Ensemble (T_Element => Integer);
+    use Ens;
+    
+    
+    -- Générer un ID unique.
+    --
+    -- Param Ab : L'Ab qu'on va parcourir.
+    function Generate_ID (Ab : in T_ABG) return Integer;
+    
+            
+    -- Initialiser un Ab.  L'Ab contient la racine.
+    --
+    -- Param Ab : L'Ab qu'on va initialiser avec sa racine.
+    --
+    -- Exception : ARBRE_NON_VIDE_EXCEPTION.
+    procedure Creer_Arbre_Minimal (Ab : out T_ABG; ID : in Integer);
+
+
+    -- Ajouter un parent (mère ou père) à un noeud donné.
+    --
+    -- Param Ab : L'Ab qu'on lui ajouter un parent.
+    --
+    -- Exception : ARBRE_VIDE_EXCEPTION.
+    -- Exception : ID_ABSENT_EXCEPTION.
+    -- Exception : DEUX_PARENTS_PRESENTS_EXCEPTION.
+    procedure Ajouter_Parent (Ab : in out T_ABG; ID, New_ID, Flag : in Integer);
+
+
+    -- Obtenir le nombre d'ancetre connus (lui compris) d'un individu donné.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Param ID : l'ID représente l'identificateur unique d'un individu dans l'Ab.
+    -- Exception : ID_ABSENT_EXCEPTION.
+    -- Return Integer : Retourne un entier strictement positif.
+    function Nombre_Ancetres (Ab : in T_ABG; ID : in Integer) return Integer;
+            
+	
+
+    -- Obtenir l'ensemble des ancetres situé à une certaine génération d'un noeud donné.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Param ID : l'ID représente l'identificateur unique d'un individu dans l'Ab.
+    -- Param Generation : La Generation représente le niveau d'ancetres qu'on cherche trouver. 
+    -- Exception : ID_ABSENT_EXCEPTION.
+    -- Return T_Ensemble : Retourne un ensemble non vide d'ancetres.
+    procedure Ancetres_N_Generation (Ab : in T_ABG; ID : in Integer; Generation : in Integer);
+
+	
+    -- Afficher l'arbre à partir d'un noeud donné.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Param ID : l'ID représente l'identificateur unique d'un individu dans l'Ab.
+    procedure Afficher_Arbre_Noeud (Ab : in T_ABG; ID : in Integer);
+	
+
+    -- Supprimer, pour un arbre, un noeud et ses ancetres.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Param ID : l'ID représente l'identificateur unique d'un individu dans l'Ab.
+    -- Exception : ID_ABSENT_EXCEPTION.
+    procedure Supprimer (Ab : in out T_ABG; ID : in Integer);
+
+
+    -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Return T_Ensemble : Retourne un ensemble vide ou non vide de parents.
+    procedure Individus_1_Parent_Connu (Ab : in T_ABG);
+
+
+    -- Obtenir l'ensemble des individus dont les deux parents sont connus.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Return T_Ensemble : Retourne un ensemble vide ou non vide de parents.
+    procedure Individus_2_Parent_Connu (Ab : in T_ABG);
+
+
+    -- Obtenir l'ensemble des individus dont les deux parents sont inconnus.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Return T_Ensemble : Retourne un ensemble vide ou non vide de parents.
+    procedure Ensemble_Feuilles (Ab : in T_ABG);
+
+
+    -- Identifier les ancetres d'un individu donné sur n generations données par un noeud donné.
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Param ID : l'ID représente l'identificateur unique d'un individu dans l'Ab.
+    -- Param Generation : La Generation représente le niveau d'ancetres qu'on cherche trouver.
+    -- Exception : ID_ABSENT_EXCEPTION.
+    -- Return T_Ensemble : Retourne un ensemble vide ou non vide de parents.
+    procedure Ancetres_Sur_N_Generation (Ab : in T_ABG; ID : in Integer; Generation : in Integer);
+
+	
+    -- Vérifier que deux individus n et m ont un ou plusieurs ancetres homonymes (memes non et prénom).
+    -- Param Ab : L'Ab qu'on va parcourir.
+    -- Param ID : l'ID représente l'identificateur unique d'un individu dans l'Ab.
+    -- Exception : ID_ABSENT_EXCEPTION.
+    -- Return Boolean : Retourne True si ID1 et ID2 ont des ancetres homonymes, sinon False.
+    function Ancetres_Homonymes (Ab : in T_ABG; ID1 : in Integer; ID2 : in Integer) return Boolean;
+
+
+private
+    
+    -- Instancier Arbre_Binaire avec T_ID comme Integer.
+    package Ab_Genealogique is
+            New Arbre_Binaire (T_ID => Integer);
+    use Ab_Genealogique;
+
+
+    type T_ABG is new T_BT;
+
+
+end Arbre_Genealogique;

@@ -1,0 +1,17 @@
+project SRC is
+
+   for Main use ("main.adb", "test_arbre_binaire.adb", "test_arbre_genealogique.adb", "test_ensemble.adb", "test_registre.adb", "test_foret.adb");
+
+   package Builder is
+      for Default_Switches ("ada") use ("-s");
+   end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatwa", "-gnata", "-g");
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("ada") use ("-E");
+   end Binder;
+
+end SRC;

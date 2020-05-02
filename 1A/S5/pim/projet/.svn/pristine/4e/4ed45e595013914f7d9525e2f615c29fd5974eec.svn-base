@@ -1,0 +1,187 @@
+-- Implantation du module Arbre_Genealogique.
+
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+package body Arbre_Genealogique is 
+	
+
+	procedure Creer_Arbre_Minimal (Ab : out T_ABG; ID : in Integer) is
+	begin
+		if (Is_Empty (Ab)) then
+			Create_Node (Ab, ID);
+		else
+			New_Line;
+			Put_Line ("ERREUR : L'arbre passé en paramètre n'est pas vide.");
+			Put_Line ("L'opération Créer un arbre minimal a échoué");
+		end if;
+	end Creer_Arbre_Minimal;
+
+
+	procedure Ajouter_Parent (Ab : in out T_ABG; ID, Flag : in Integer) is
+		L, R : T_ABG;
+	begin
+		if (Is_Empty (Ab)) then
+			Null;
+		else
+			L := Get_Left (AB);
+	                R := Get_Right (AB);
+			if (ID = Get_ID (Ab)) then
+				if ((not Is_empty (L)) and (not Is_empty (R))) then
+					Raise DEUX_PARENTS_PRESENTS_EXCEPTION; 
+				elsif (Flag = 0) then
+					Create_Node (L, ID + 1);
+					Set_Left (Ab, L);
+				elsif (Flag = 1) then
+					Create_Node (R, ID + 12);
+					Set_Right (Ab, R);
+				end if;
+			else
+				Ajouter_Parent (L, ID, Flag);
+				Ajouter_Parent (R, ID, Flag);
+			end if;
+		end if;
+	end Ajouter_Parent;
+
+
+	function Nombre_Ancetres (Ab : in T_ABG; ID : in Integer) return Integer is
+	begin
+		return Height (Ab);
+	end Nombre_Ancetres;
+	
+	
+	function Ancetres_N_Generation (Ab : in T_ABG; ID : in Integer; Generation : in Integer) return T_Ensemble is
+		E : T_Ensemble;
+	begin
+		Initialiser (E);
+		return E;
+	end Ancetres_N_Generation;
+
+	function depth (Ab : in T_ABG) return Integer is
+		function max (a, b : in Integer) return Integer is
+		begin 
+			if (a > b) then
+				return a;
+			else 
+				return b;
+			end if;
+		end max;
+	begin
+		if (Is_Empty (Ab)) then
+			return 0;
+		else
+			return 1 + max (depth (Get_Left (Ab)), depth (Get_Right (Ab)));
+		end if;
+	end depth;
+
+
+	procedure Afficher_Arbre_Noeud (Ab : in T_ABG; ID : in Integer) is
+		
+		procedure Indenter(Decalage : in Integer) is
+		begin
+			for i in 1..Decalage loop
+				Put (' ');
+			end loop;
+		end Indenter;
+
+		procedure Afficher_Profondeur (Abr : in T_ABG ; Profondeur : in Integer ; Cote : in String) is
+		begin
+			if (Is_Empty (Abr)) then
+				Null;
+			else
+				Indenter (Profondeur * 4);
+				Put (Cote);
+				Put (Integer'Image (Get_ID (Abr)));
+				New_Line;
+				Afficher_Profondeur (Get_Left (Abr), Profondeur + 1, "-- père :");
+				Afficher_Profondeur (Get_Right (Abr), Profondeur + 1, "-- mère :");
+			end if;
+		end Afficher_Profondeur;
+		
+		procedure Afficher_Generations (Ab : in T_ABG) is
+                begin
+                        New_Line;
+			for i in 1..depth(Ab) loop
+                                Put (Integer'Image(i - 1));
+                                Indenter(4);
+                        end loop;
+			Put_Line ("Generation");
+			for i in 0..depth (Ab) loop
+                                Put ("---------");
+                        end loop;
+			New_Line;
+                end Afficher_Generations;
+	begin
+		Afficher_Generations (Ab);
+		Afficher_Profondeur (Ab, 0, "");
+	end Afficher_Arbre_Noeud;
+
+
+	procedure Supprimer (Ab : in out T_ABG; ID : in Integer) is
+	begin
+		Destruct (Ab);
+	end  Supprimer;
+
+
+	Function Individus_1_Parent_Connu (Ab : in T_ABG) return T_Ensemble is
+		procedure Add_Parents (Ab : in T_ABG; E : in out T_Ensemble) is
+		L, R : T_ABG;
+		begin
+			if (Is_Empty (Ab)) then
+                        	Null;
+                	else
+                        	L := Get_Left (AB);
+                        	R := Get_Right (AB);
+                                if (not (Is_empty (L)) and  Is_empty (R)) then
+                                        Put (Integer'Image (Get_ID (Ab)));
+					Ajouter (E, Get_ID (Ab));
+                                elsif (Is_empty (L) and not (Is_empty (R))) then
+                                        Ajouter (E, Get_ID (Ab));
+					Put (Integer'Image (Get_ID (Ab)));
+                                end if;
+                  
+                                Add_Parents (L, E);
+				Add_Parents (R, E);
+                        end if;
+			
+		end Add_Parents;
+		
+		E : T_Ensemble;
+        begin
+                Initialiser (E);
+               	Add_Parents (Ab, E);
+		return E;
+	end Individus_1_Parent_Connu; 
+
+
+	Function Individus_2_Parent_Connu (Ab : in T_ABG) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Individus_2_Parent_Connu;
+
+
+    Function Ensemble_Feuilles (Ab : in T_ABG) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Ensemble_Feuilles;
+
+
+	Function Ancetres_Sur_N_Generation (Ab : in T_ABG; ID : in Integer; Generation : in Integer) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Ancetres_Sur_N_Generation;
+
+
+	function Ancetres_Homonymes (Ab : in T_ABG; ID1 : in Integer; ID2 : in Integer) return Boolean is
+	begin
+		return True;
+	end Ancetres_Homonymes;
+
+
+end Arbre_Genealogique;

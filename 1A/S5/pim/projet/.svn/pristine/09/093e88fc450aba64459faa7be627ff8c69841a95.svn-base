@@ -1,0 +1,120 @@
+-- Implantation du module Arbre_Genealogique.
+
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+package body Arbre_Genealogique is 
+
+
+	procedure Creer_Arbre_Minimal (Ab : out T_ABG; ID : in Integer) is
+	begin
+		Create_Node (Ab, ID);
+	end Creer_Arbre_Minimal;
+
+
+	procedure Ajouter_Parent (Ab : in out T_ABG; ID, Flag : in Integer) is
+		L, R : T_ABG;
+	begin
+		L := Get_Left (AB);
+		R := Get_Right (AB);
+		if ((not Is_empty (L)) and (not Is_empty (R))) then
+			Raise TWO_PRESENT_PARENTS; 
+		elsif (Flag = 0) then
+			Create_Node (L, ID);
+			Set_Left (Ab, L);
+		elsif (Flag = 1) then
+			Create_Node (R, ID);
+			Set_Right (Ab, R);
+		end if;
+	end Ajouter_Parent;
+
+
+	function Nombre_Ancetres (Ab : in T_ABG; ID : in Integer) return Integer is
+	begin
+		return Height (Ab);
+	end Nombre_Ancetres;
+	
+
+	Function Ancetres_N_Generation (Ab : in T_ABG; ID : in Integer; Generation : in Integer) return T_Ensemble is
+		E : T_Ensemble;
+	begin
+		Initialiser (E);
+		return E;
+	end Ancetres_N_Generation;
+
+
+	procedure Afficher_Arbre_Noeud (Ab : in T_ABG; ID : in Integer) is
+
+		procedure Indenter(Decalage : in Integer) is
+		begin
+			for i in 1..Decalage loop
+				Put (' ');
+			end loop;
+		end Indenter;
+
+		-- Afficher un arbre à la profondeur Profondeur et qui à du côté
+		-- indiqué (< pour Gauche et > pour droit, - pour la racine).
+		procedure Afficher_Profondeur (Abr : in T_ABG ; Profondeur : in Integer ; Cote : in String) is
+		begin
+			if (Is_Empty (Abr)) then
+				Null;
+			else
+				Indenter (Profondeur * 4);
+				Put (Cote & ' ');
+				Put (Integer'Image (Get_ID (Abr)));
+				New_Line;
+				Afficher_Profondeur (Get_Left (Abr), Profondeur + 1, "-- père :");
+				Afficher_Profondeur (Get_Right (Abr), Profondeur + 1, "-- mère :");
+			end if;
+		end Afficher_Profondeur;
+
+	begin
+		Afficher_Profondeur (Ab, 0, "");
+	end Afficher_Arbre_Noeud;
+
+
+	procedure Supprimer (Ab : in T_ABG; ID : in Integer) is
+	begin
+		Null;
+	end  Supprimer;
+
+
+	Function Individus_1_Parent_Connu (Ab : in T_ABG) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Individus_1_Parent_Connu; 
+
+
+	Function Individus_2_Parent_Connu (Ab : in T_ABG) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Individus_2_Parent_Connu;
+
+
+    Function Ensemble_Feuilles (Ab : in T_ABG) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Ensemble_Feuilles;
+
+
+	Function Ancetres_Sur_N_Generation (Ab : in T_ABG; ID : in Integer; Generation : in Integer) return T_Ensemble is
+	        E : T_Ensemble;
+        begin
+                Initialiser (E);
+                return E;
+	end Ancetres_Sur_N_Generation;
+
+
+	function Ancetres_Homonymes (Ab : in T_ABG; ID1 : in Integer; ID2 : in Integer) return Boolean is
+	begin
+		return True;
+	end Ancetres_Homonymes;
+
+
+end Arbre_Genealogique;

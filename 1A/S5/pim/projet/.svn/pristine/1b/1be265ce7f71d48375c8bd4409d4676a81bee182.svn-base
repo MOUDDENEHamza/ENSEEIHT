@@ -1,0 +1,145 @@
+-- Spécification du module Arbre_Binaire.
+
+
+-- Mettre T_ID comme un type générique.
+Generic
+        type T_ID is private; -- T_ID est génerique.
+
+
+package Arbre_Binaire is
+	
+
+	type T_BT is private; -- Mettre T_BT comme un type privé.
+
+	
+	PRESENT_ID_EXCEPTION : Exception; -- ID déjà présent dans Tree.
+
+	----------------------------------Constuctor----------------------------------
+
+	-- Initialiser Tree.  Tree est vide.
+	--
+	-- Param Tree : Tree qu'on va initialiser.
+	procedure Initialize (Tree: out T_BT) with
+		Post => Is_Empty (Tree);	-- Tree := Null.
+
+	-----------------------------------GETTERS------------------------------------
+	
+	-- Obtenir à l'ID de la racine de Tree.
+	--
+	-- Param Tree  : Tree qu'on va parcourir.
+	-- 
+	-- Return T_ID : T_ID est l'ID de la racine de Tree.
+	function Get_ID (Tree : in T_BT) return T_ID;
+
+
+	-- Obtenir à le sous arbre gauche de Tree.
+        --
+        -- Param Tree  : Tree qu'on va parcourir.
+        -- 
+        -- Return T_BT : T_BT est le sous arbre gauche de Tree.
+	function Get_Left (Tree : in T_BT) return T_BT;
+	
+
+	-- Obtenir à le sous arbre droit de Tree.
+        --
+        -- Param Tree  : Tree qu'on va parcourir.
+        --
+        -- Return T_BT : T_BT est le sous arbre droit de Tree.
+        function Get_Right (Tree : in T_BT) return T_BT;
+
+	-----------------------------------SETTERS------------------------------------
+	
+	-- Modifier l'ID de la racine de Tree.
+        --
+        -- Param Tree : Tree qu'on va parcourir.
+	-- Param ID   : L'ID qu'on va mettre dans Tree.all.ID.
+        procedure Set_ID (Tree : in T_BT; ID : in T_ID);
+
+
+        -- Modifier le sous arbre gauche de Tree.
+        --
+        -- Param Tree : Tree qu'on va parcourir.
+        -- Param Left : Le sous arbre gauche qu'on va mettre dans Tree.all.Left. 
+        procedure Set_Left (Tree, Left : in T_BT);
+
+	-- Modifier le sous arbre droit de Tree.
+        --
+        -- Param Tree : Tree qu'on va parcourir.
+        -- Param Left : Le sous arbre droit qu'on va mettre dans Tree.all.Right. 
+        procedure Set_Right (Tree, Right : in T_BT);
+
+	------------------------------------------------------------------------------
+	
+	-- Est-ce qu'un Tree est vide ?
+	--
+	-- Param Tree : L'arbre qu'on vaudra savoir si elle est vide.
+	--
+	-- Retrun Boolean : Retourne True si Tree est vide, sinon False.
+	function Is_Empty (Tree : in T_BT) return Boolean;
+	
+	
+	-- Obtenir le nombre d'éléments d'un Tree.
+	--
+	-- Param Tree : L'arbre qu'on vaudra calculer sa taille.
+	--
+        -- Retrun Integer : Retourne la taille de Tree.
+	function Height (Tree : in T_BT) return Integer with
+		Post => Height'Result >= 0 		   -- Retourne une taille positive.
+		and (Height'Result = 0) = Is_Empty (Tree); -- If Height (Tree) = 0 then Tree := Null.
+	
+	
+	-- Create a tree with a single node.
+	--
+	-- Param Node : The new node we will create.
+	-- Param ID   : The ID we will put in Node.all.ID. 
+	procedure Create_Node (Node :in out T_BT; ID : in T_ID);
+
+
+	-- Insérer un ID associé à un nouveau noeud dans Tree.
+	--
+	-- Param Tree : Tree où on veut insérer un noeud.
+	-- Param ID   : L'ID correspondant au noeud qu'on veut insérer.
+	--
+	-- Exception  : Present_ID_Exception si l'ID est déjà dans Tree.
+	generic
+                -- Vérifie si ID1 est supérieur à ID2.
+		--
+		-- Param ID 1|2   : Les IDs qu'on vaudra comparer.
+		--
+		-- Return Boolean : Retouren True si ID1 > ID2 ,sinon False.
+		with function gt (ID1, ID2 : in T_ID) return Boolean;
+	procedure Insert (Tree : in out T_BT ; ID : in T_ID) with
+		Post => Height (Tree) = Height (Tree)'Old + 1; -- Un élément de plus.
+
+
+	-- Supprimer tous les éléments d'un Tree.
+	-- 
+	-- Param Tree : Tree à détruire.
+	procedure Destruct (Tree : in out T_BT) with
+		Post => Is_Empty (Tree); -- Tree = Null.
+
+
+	-- Afficher un Tree dans l'ordre croissant des IDs.
+	--
+	-- Param Tree : Tree à afficher.
+	generic
+		-- Afficher un ID passé en paramètre.
+        	--
+        	-- Param ID : ID à afficher.
+		with procedure Display_ID (ID1 : in T_ID);
+	procedure Display (Tree : in T_BT);
+
+
+private
+
+	type T_Node; -- Un noeud d'un arbre
+
+	type T_BT is access T_Node; -- Pointeur sur T_Node.
+	
+	type T_Node is record
+        	ID: T_ID; 	-- ID du noeud.
+        	Left : T_BT;    -- Sous arbre gauche du noeud.
+                Right : T_BT;	-- Sous arbre droit du noeud.
+        end record;
+
+end Arbre_Binaire;

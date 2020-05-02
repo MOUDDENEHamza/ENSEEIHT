@@ -1,0 +1,18 @@
+project TP6 is
+
+   for Main use ("illustrer_affectation_pile.adb", "exemples_memoire_dynamique.adb", "test_piles.adb");
+
+   package Builder is
+      for Default_Switches ("ada") use ("-s");
+   end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatwa", "-gnata", "-g");
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("ada") use ("-E");
+   end Binder;
+
+end TP6;
+

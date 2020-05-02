@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>/home/hamza/Desktop/e213/src/src.gpr</vfs_file>
+    <file_marker column=" 1" line=" 146" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 33" line=" 215" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 10" line=" 187" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/test_arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 72" line=" 565" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 546" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 55" line=" 12" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 549" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 17" line=" 564" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 63" line=" 76" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/input.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 576" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/registre.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 133" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/registre.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_binaire.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 66" line=" 84" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_binaire.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/ensemble.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/foret.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/foret.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/ensemble.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/foret.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 31" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>/home/hamza/Desktop/e213/src/src.gpr</vfs_project>
+      <vfs_file>/home/hamza/Desktop/e213/src/arbre_genealogique.ads</vfs_file>
+    </file_marker>
+  </Project>
+  <Project >
+    <vfs_file >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_file>
+    <file_marker column=" 25" line=" 249">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 11" line=" 148">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/foret.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 384">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 57" line=" 440">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/arbre_genealogique.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 17" line=" 378">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/input.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 1">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/foret.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/ensemble.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 57" line=" 58">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/display_shell.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1">
+      <vfs_project >/home/hmoudden/Bureau/e213/src/src.gpr</vfs_project>
+      <vfs_file >/home/hmoudden/Bureau/e213/src/display_shell.ads</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

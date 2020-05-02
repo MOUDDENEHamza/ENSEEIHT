@@ -1,0 +1,135 @@
+% Mini-projet  : Ensemble
+% NOM & Prénom : Hamza MOUDDENE
+% Groupe       : C
+
+
+**Consigne :** Dans ce fichier, il faut répondre à la place des "..." et sur
+les lignes qui les suivent.  Le texte déjà écrit doit être conservé !
+
+**Remarque :** Ce fichier utiliser la syntaxe Markdown.  On peut en engendrer
+une version pdf en faisant :
+
+	pandoc LISEZ-MOI.txt -o LISEZ-MOI.pdf
+
+
+# Temps passé sur le projet
+
+Ces informations de temps sont demandées à titre indicatif et ne sont pas
+prises en compte dans la notation du projet.
+
+Toutes les durées sont à saisir en heures.  Par exemple, si vous avez passé
+1h45, il faudra indiquer 1.75.  Si vous avez passé 2h30, il faudra indiquer
+2.5.
+
+* Temps passé sur la version Tableau    (en h) : 2
+* Temps passé sur la version Chainage   (en h) : 1.30
+* Temps passé à compléter LISEZ-MOI.txt (en h) : 0.50
+
+
+# Questions
+
+**Question 1 :**
+Quels sous-programmes avez-vous définis dans les corps des modules sans les
+spécifier dans la spécification ?  Expliquez pourquoi.
+
+**Réponse :**
+J'ai défini la fonction Free dans le corps du modules sans les spécifier dans
+la spécification.
+
+J'ai défini plusieurs types de sous-programmes dans les corps des modules qui
+sont les suivants:
+
+CONSTRUCTEURS:
+    procedure Initialiser (Ensemble : out T_Ensemble);
+    procedure Ajouter (Ensemble : in out T_Ensemble; Element : in T_Element);
+
+OPERATEURS:
+    procedure Detruire (Ensemble : in out T_Ensemble);
+    function Est_Vide (Ensemble : in T_Ensemble) return Boolean;
+    function Taille (Ensemble : in T_Ensemble) return Integer;
+    function Est_Present (Ensemble : in T_Ensemble; Element : in T_Element) 
+    return Boolean;
+    procedure Supprimer (Ensemble : in out T_Ensemble; Element : in T_Element);
+    procedure Appliquer_Sur_Tous (Ensemble : in T_Ensemble);
+
+Pourquoi ce choix? Alors en tant que programmeur on s'engage à respecter le 
+cahier des charges, ainsi que ces fonctions décrivent parfaitement la notion
+d'ensemble d'un point de vue mathématique, et toute fonction supplémentaire 
+rendra les modules trés spécifique, alors ces sous-programmes sont nécessaires
+et suffisants pour créer un module génerique d'ensemble. 
+
+**Question 2 :**
+Y a-t-il des sous-programmes dont les contrats (préconditions ou
+postconditions) changent entre Ensembles_Tableau et Ensembles_Chaine ?
+Lesquels ?
+
+**Réponse :**
+Le sous-programmes dont les contrats (préconditions ou postconditions) changent
+entre Ensembles_Tableau et Ensembles_Chaine est l'opération ajouter car en 
+version tableau on manipulait la notion de capacité alors que le chainage on
+utilise l'allocation dynamique qui provoque une différence dans la 
+spécification.
+
+**Question 3 :**
+Le type Ensemble doit être déclaré comme très privé dans Ensembles_Chaine.
+Expliquez pourquoi il est important ici de définir le type Ensemble comme
+très privé (et pas seulement privé).  On commencera par rappeler la
+différence entre "private" (privé) et "limited private" (très privé).
+
+**Réponse :**
+Si un objet est un type trés privé cela veut dire que cet objet ne peut pas 
+réaliser une copie ou une affectation à cette objet, et pour faire cela on est
+obliger de définir ce que nous appelons des GETTERS et des SETTERS pour pouvoir
+accéder ou changer la valeur de cette objet. Au contraire d'un type privé dont
+on peut appliquer ces opérations sans aucun problème.
+Le but de l'utilisation d'un type très privé est de donner une identité unique
+à un type déclaré c'est à dire que si on a déclaré une variable Ensemble au 
+début du programme ,tout le long de ce programme il restera le meme. 
+
+**Question 4 :**
+Même pour Ensemble_Tableau, le type doit être très privé.  Pourquoi ?
+
+**Réponse :**
+Le type de Ensemble_Tableau doit être très privé pour garder l'unicité de 
+chaque ensemble_tableau, ainsi que pour protéger notre objet de toute copie
+dans une autre variable du meme type. Tout ça pour ajouter une couche 
+d'abstraction à notre programme pour éviter qu'un utilisateur quelconque puisse
+changer la structure de ce programme.
+
+**Question 5 :**
+Dans Ensemble_Tableau, est-il possible d'implanter le sous-programme qui
+supprime un élément en temps constant concernant le nombre d'affectations
+des éléments de l'ensemble (et linéaire sur le nombre de comparaison) ? Si
+oui, comment ?
+
+**Réponse :**
+Oui, on va boucler sur le tableau pour comparer l'element du tableau avec 
+l'élement qu'on souhaite supprimer qui va faire une nombre de comparaison
+linéaire ( dans le pire des cas on va boucler n fois ou n correspond à la 
+taille du tableau ), et si l'element du tableau est le meme que celui qu'on
+cherche on change cet élement avec le dernier et on décrement la taille qui 
+fera une affectation en temps constant. 
+
+**Question 6 :**
+Est-ce que les deux implantations envisagées des ensembles (Tableau ou
+Chainage) sont efficaces ?
+
+**Réponse :**
+Pour l'implantation des ensembles utilisants tableaux n'est pas efficace car on
+aura toujours des problèmes de mémoire parce qu'on a utilisé de l'allocation 
+statique ce qui n'est pas souple avec une utilisation générale de module.
+
+Alors que l'implantation des ensembles utilisants la liste chainée est 
+plutot plus efficace avec une gestion de mémoire plus souple et une compléxité
+plus optimale.
+
+# Difficultés
+
+Voici les difficultés rencontrées et les solutions apportées.
+
+
+
+
+# Remarques diverses
+
+...

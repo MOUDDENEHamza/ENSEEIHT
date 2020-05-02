@@ -1,0 +1,32 @@
+with Ada.Text_IO; 	  	use Ada.Text_IO;
+with Ada.Characters.Latin_1; 	use Ada.Characters.Latin_1;
+with Ada.Integer_Text_IO; 	use Ada.Integer_Text_IO;
+
+package body Input is
+    procedure Input_Integer (value : out Integer) is
+    begin
+        Get (value);
+    exception
+        when Data_Error =>
+            New_Line;
+            Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "Vous n'avez pas saisie un entier.");
+            Skip_Line;
+            New_Line;
+            Put ("Réessayez encore une fois : ");
+            Input_Integer (value);
+    end Input_Integer;
+
+    procedure Input_Choice (Choice : out Integer) is
+    begin
+        Put ("Entrez votre choix : ");
+        loop
+            Input_Integer (Choice);
+            if (Choice < 0 or  Choice > 11) then
+                Put_Line(ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "Il faut entrer un entier entre 0 et 11.");
+                New_Line;
+                Put ("Réessayez encore une fois : ");
+            end if;
+            exit when Choice >= 0 and Choice <= 11;
+        end loop;
+    end Input_Choice;
+end Input;

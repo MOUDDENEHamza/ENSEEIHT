@@ -1,0 +1,568 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> # Langage C (semestre 6)\n",
+    "> ## TP3 : Make.\n",
+    "> #### Katia Jaffrès-Runser, Xavier Crégut\n",
+    "> Toulouse INP - ENSEEIHT,\n",
+    "> 1ère année, Dept. Sciences du Numérique, 2019-2020."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ++++ ATTENTION : Changements des modalités d'évaluation +++++ \n",
+    "Contrairement à ce qui a été annoncé dans le sujet du TP1, et pour ne pas pénaliser les étudiants qui ont des difficultés à réaliser les exercices à distance, la suite du cours présente les modifications suivantes : \n",
+    "> - Le Bilan 2 __ne sera pas évalué__. Les étudiants qui souhaitent obtenir une correction de leur travail du Bilan 2 (rendu via SVN), pourront demander une correction à leur intervenant. Des instructions seront disponibles sous Moodle à ce sujet.  \n",
+    "> - Nous organiserons, dans les prochaines semaines (et de préférence quand nous serons de retour dans les locaux de l'N7), un QCM pour évaluer vos acquis. Ce test constituera la note de la matière. \n",
+    "> - Les exercices présents dans les sujets TP2, TP3 et le Bilan 2 __ne nécessitent pas Jupyter Notebook__. Vous travaillerez uniquement sur les fichiers C présents dans le répertoire SVN `c2`, soit à distance sur les machines du centre informatique, soit directement sur votre machine avec un compilateur C. Les notebooks TP2 et Bilan 2 sont pour cela également disponibles au format HTML. \n",
+    "> - Le travail décrit dans les notebooks TP2, TP3 et Bilan 2 sont à réaliser pendant les deux séances restantes. Nous vous fourniront un exercice supplémentaire la semaine prochaine, optionnel, qui vous permettra d'aller plus loin si vous le désirez."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 1. Déroulement du cours - Langage C\n",
+    "---\n",
+    "Ce cours est découpé en deux parties, la première ayant lieu au semestre 5, la seconde au semestre 6. \n",
+    "\n",
+    "- Au semestre 5, les acquis vous permettront de suivre les TPs du _cours d'automatisme_. Le cours de C en S5 est validé par une note inclue dans l'[UE Signal et Automatisme](http://moodle-n7.inp-toulouse.fr/course/index.php?categoryid=395). \n",
+    "- Au semestre 6, les acquis vous permettront de suivre les TPs du cours de _systèmes d'exploitation_ mais aussi de _technologie objet_. Le cours de C en S6 est validé par une note inclue dans l'[UE Architecture et Systèmes](http://moodle-n7.inp-toulouse.fr/course/index.php?categoryid=400). \n",
+    "\n",
+    "A chaque semestre, vous suivrez 3 séances de TPs : \n",
+    "\n",
+    "- Lors de ces trois séances de TP, vous serez amenés à suivre un notebook Jupyter présentant des éléments de cours associés à un ensemble d'exemples et d'exercices à réaliser. La majorité des exercices peut être réalisée directement dans le Notebook. Ce travail se poursuit hors séance, en autonomie. Le notebook est archivé sous SVN mais n'est pas noté.\n",
+    "\n",
+    "<!--Deux exercices bilan (Bilan 1 et Bilan 2) sont intégrés aux notebook :\n",
+    "- Bilan 1: Il est conseillé d'avoir suffisamment avancé dans la progression du Notebook pour que le Bilan 1 soit réalisé lors de la 2e séance de TP. Le bilan 1 n'est pas noté.\n",
+    "- Bilan 2 : Les exercices du bilan 2 sont réalisés lors de la séance 3. -->\n",
+    "\n",
+    "\n",
+    "<!--__Attention : tout travail est individuel__. Des outils de détection de recopie de code seront utilisés pour détecter la fraude. __Les étudiant ayant partagé leur travail seront également pénalisés.__ -->\n",
+    "\n",
+    "<!-- La note finale est une moyenne des deux notes :\n",
+    "- Un QCM de 30 minutes validera vos acquis.\n",
+    "- Les exercices du bilan 2 à rendre. -->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 2. Objectifs \n",
+    "Ce cours, sous la forme de notebooks Jupyter et d'un ensemble d'exercices à réaliser en TP, a pour objectif de vous présenter les spécificités de la programmation en langage C. Il se base sur vos acquis du cours de Programmation Impérative en algorithmique et vous détaille les éléments du langage C nécessaires à la production d'un programme en C. \n",
+    "\n",
+    "Un support de cours PDF vous est également fournit sur Moodle : [Cours C](http://moodle-n7.inp-toulouse.fr/pluginfile.php/49240/mod_resource/content/5/LangageC_poly.pdf)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###### Plan du contenu étudié au semestre 6. \n",
+    "---\n",
+    "\n",
+    "Les éléments suivants de la programmation en Langage C sont présentés dans les 3 séances de TP au semestre 6.\n",
+    "\n",
+    "- L'allocation dynamique de mémoire (TP1)\n",
+    "- Les modules (TP2)\n",
+    "- L'automatisation de la compilation avec l'outil `make` (TP3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 3. Rappel : Jupyter notebook\n",
+    "\n",
+    "Le support de cours que vous lisez est un notebook Jupyter. Pour visualiser le notebook, lancer l'editeur web avec la commande  \n",
+    "> `jupyter-notebook`\n",
+    "\n",
+    "et rechercher le fichier dans l'arborescence. Le fichier est édité dans votre navigateur Web par défaut. L'enregistrement est automatique (`CTRL S` pour le forcer). \n",
+    "\n",
+    "Pour fermer votre fichier, il faut fermer le navigateur et terminer le processus serveur qui s'exécute dans le terminal (`CTRL C`, puis `y`).\n",
+    "\n",
+    "> __Important__ : \n",
+    "> - Pour faire fonctionner le kernel C de jupyter notebook, il faut, avant une __première utilisation__ de Notebook, lancer la commande suivante dans un `Terminal` : \n",
+    "\n",
+    "> `install_c_kernel --user`\n",
+    "\n",
+    "Ce notebook se compose de cellules présentant soit :\n",
+    "- Des éléments de cours, au format [Markdown](https://fr.wikipedia.org/wiki/Markdown). Ce langage est traduit en HTML pour un affichage aisé quand on clique sur la flèche `Exécuter (run)` et que la cellule est active.\n",
+    "- Du code en Langage C (ou Python, ou autre..). Pour compiler et exécuter le code écrit dans la cellule active, on clique sur la flèche `Exécuter (run)`. Si la compilation se déroule sans erreur ni avertissement, le programme est exécuté et les sorties sont affichées en bas de la cellule. Si ce n'est pas le cas, les avertissements et warnings sont affichés en bas de la cellule. \n",
+    "\n",
+    "En double-cliquant sur une cellule, on peut éditer son contenu. \n",
+    "Vous pouvez ainsi : \n",
+    "- Editer une cellule markdown pour y intégrer vos propres notes. \n",
+    "- Modifier les programmes pour répondre aux questions et exercices proposés.\n",
+    "\n",
+    "Il est possible d'exporter votre travail en PDF, HTML, etc.\n",
+    "\n",
+    "Le programme dans la cellule suivante s'exécute sans erreur. Vous pouvez \n",
+    "- le tester en l'exécutant. \n",
+    "- y introduire une erreur (suppression d'un point-virgule par exemple) pour observer la sortie du compilateur.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#include <stdlib.h> \n",
+    "#include <stdio.h>\n",
+    "int main(){\n",
+    "    printf(\"******************************\\n\");\n",
+    "    printf(\"******** Langage C ***********\\n\");\n",
+    "    printf(\"******************************\\n\");\n",
+    "    return EXIT_SUCCESS;\n",
+    "}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 6. L'outil Make pour automatiser la compilation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.1 Rappel : modules en C  \n",
+    "Un module en C, c'est :\n",
+    "- Une convention de nommage qui décompose un module en deux fichiers, l'en-tête `.h` et le corps `.c`.  \n",
+    "Par exemple, le module `complexe` se compose :\n",
+    "> - d'un fichier d'interface typiquement nommé `complexe.h`\n",
+    "> - d'un fichier corps typiquement nommé `complexe.c`\n",
+    "- Un outillage pour compiler cette structure de fichiers :\n",
+    "> - Comme le compilateur C ne sait travailler que sur un unique fichier qui regroupe interface et corps, il faut __inclure l'interface `complexe.h` au début du corps `complexe.c`__ à l'aide de la commande pré-processeur `#include \"complexe.h\"`.\n",
+    "> - __Pour utiliser un module `complexe` dans un programme principal__ (`calculer.c` par exemple), on inclut son interface `complexe.h` au début du fichier avec la commande   \n",
+    "```#include \"complexe.h\"```\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.2 Rappel : compilation d'une application modulaire\n",
+    "\n",
+    "La compilation d'une application modulaire peut-être réalisée de deux façon différentes : la compilation séparée, et la compilation directe.\n",
+    "\n",
+    "Dans la suite de ce TP3, on reprendra l'exemple des applications `ephemeride` et `EDT`, qui incluent les modules `date`, `cours`, `enseignant` et `salle`.\n",
+    "\n",
+    "#### Exemple de compilation séparée\n",
+    "Voici un exemple de __compilation séparée__ de tous les fichiers, avec création des fichiers objet : \n",
+    "\n",
+    "```\n",
+    "\tc99 -Wextra -pedantic -c  date.c \n",
+    "\tc99 -Wextra -pedantic -c  salle.c \n",
+    "\tc99 -Wextra -pedantic -c  enseignant.c \n",
+    "\tc99 -Wextra -pedantic -c  cours.c \n",
+    "\tc99 -Wextra -pedantic -c  EDT.c \n",
+    "\tc99 -Wextra -pedantic -c  ephemeride.c\n",
+    "```\n",
+    "> __Note__ : on peut réaliser cette étape avec la commande `c99 -Wextra -pedantic -c *.c`.  \n",
+    "On obtiendra alors tous les fichiers objet.\n",
+    " \n",
+    "Et création des exécutbles `ephemeride` et `EDT` par l'étape d'édition des liens :\n",
+    "```\n",
+    "\tc99  date.o ephemeride.o -o ephemeride \n",
+    "\tc99  date.o salle.o enseignant.o cours.o EDT.o -o EDT \n",
+    "```\n",
+    "\n",
+    "#### Exemple de compilation directe\n",
+    "Il est possible de réaliser toutes ces étapes en utilisant une seule ligne de commande.  \n",
+    "Dans ce cas, le compilateur réalise automatiquement les étapes de compilation et d'édition de liens. \n",
+    "\n",
+    "Pour cela, il faut lister l'ensemble des fichiers `.c` comme dans l'exemple suivant : \n",
+    "\n",
+    "```\n",
+    "\tc99  date.c ephemeride.c -o ephemeride\n",
+    "\tc99  date.c salle.c enseignant.c cours.c EDT.c -o EDT     \n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.3 Automatiser la compilation\n",
+    "Il est possible d'automatiser la compilation d'une application modulaire avec l'outil `make`. \n",
+    "> __Note__ : L'outil `make` n'est pas uniquement utilisé pour compiler du C.  \n",
+    "Il peut automatiser des commandes qui engendrent des fichiers (ou non !) de nature différente.\n",
+    "\n",
+    "La commande `make` réalise les étapes suivantes : \n",
+    "1. Elle recherche le fichier dénommé `Makefile` ou `makefile` dans le répertoire courant\n",
+    "2. __Exécute la première règle__ qu'elle trouve dans le fichier.  \n",
+    "\n",
+    "Il est possible de lui spécifier un nom de fichier avec l'option `-f` : \n",
+    "`make -f mon_makefile`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.4 Le fichier `Makefile`\n",
+    "\n",
+    "#### Une règle \n",
+    "Le fichier présente une liste de __règles__. Chaque règle : \n",
+    "1. a pour objectif de créer un fichier que l'on appelle la __cible__. \n",
+    "2. indique également quelle __commande__ sera lancée pour obtenir la cible. \n",
+    "3. présente une __liste des dépendances__, sous la forme d'une liste de fichiers qui doivent être présents dans le répertoire pour engendrer la cible.  \n",
+    "\n",
+    "L'écriture d'une règle suit __strictement__ la syntaxe suivante : \n",
+    "```\n",
+    "nom_cible: dependances_regle1\n",
+    "[tab]commande_regle1\n",
+    "```\n",
+    "> __Attention__: \n",
+    "> - __pas d'espace__ entre le nom de la cible et `:`\n",
+    "> - par contre, il y a un espace entre le caractère `:` et le premier fichier de la liste des dépendances.\n",
+    "> - la seconde ligne de la règle commance par une tabulation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Exemple d'utilisation pour l'application `ephemeride`.\n",
+    "\n",
+    "Voici un fichier `Makefile` permettant de générer l'exécutable `ephemeride`.  \n",
+    "Il comporte 4 règles permettant de générer les cibles `ephemeride`, `date.o`, `ephemeride.o` et `clean`.\n",
+    "\n",
+    "```\n",
+    "ephemeride: date.o ephemeride.o\n",
+    "\tc99 date.o ephemeride.o -o ephemeride\n",
+    "\n",
+    "date.o: date.c date.h\n",
+    "\tc99 -Wextra -pedantic -c date.c\n",
+    "\n",
+    "ephemeride.o: ephemeride.c\n",
+    "\tc99 -Wextra -pedantic -c ephemeride.c\n",
+    "    \n",
+    "clean:\n",
+    "\trm *.o ephemeride\n",
+    "\n",
+    "```\n",
+    "> __Exercice__  \n",
+    "- Ce fichier Makefile se trouve dans le répertoire SVN. L'exécuter en tapant la commande `make`.\n",
+    "- Dans quel ordre les commandes sont-elles exécutées ?\n",
+    "- Quels sont les fichiers générés par cette commande ?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.5 Comportement de `make`\n",
+    "\n",
+    "La commande :\n",
+    "- `make` exécute la __première règle__. \n",
+    "- `make date.o` exécute la seconde règle, la commande `make ephemeride.o` la troisième, etc.\n",
+    "\n",
+    "> __Exercice__  \n",
+    "- Executer la commande `make clean`.\n",
+    "- Que se passe-t-il ? Quels sont les fichiers supprimés ? \n",
+    "\n",
+    "La première règle du fichier :\n",
+    "```\n",
+    "ephemeride: date.o ephemeride.o\n",
+    "\tc99 date.o ephemeride.o -o ephemeride\n",
+    "```    \n",
+    "- permet de générer la cible `ephemeride` \n",
+    "- avec la commande `c99 date.o ephemeride.o -o ephemeride` \n",
+    "- et présente les dépendances `date.o ephemeride.o`. \n",
+    "\n",
+    "Ainsi, pour que la cible puisse être générée avec la commande donnée, il faut que les fichiers `date.o` et `ephemeride.o` soient présents dans le répertoire courant. \n",
+    "__Si un fichier n'existe pas, `make` recherche une règle dans le `Makefile` qui lui permet de la produire__.  \n",
+    "Par exemple, si `date.o` est absent, `make` exécute la seconde règle pour générer `date.o`.  \n",
+    "\n",
+    "> __Exercice__  \n",
+    "- Tapez à nouveau la commande `make` pour lancer la première règle.  \n",
+    "\n",
+    "On observe que la première commande exécutée est la commande `c99 -Wextra -pedantic -c date.c` car la dépendance `date.o` n'existe pas. La seconde commande permet de générer `ephemeride.o` et la dernière commande exécutée est la commande qui produit l'exécutable `ephemeride`.\n",
+    "\n",
+    "> __Exercice__  \n",
+    "- Tapez à nouveau la commande `make` pour lancer la première règle. Qu'observez-vous ? \n",
+    "\n",
+    "La commande nous indique que les cibles sont à jour : aucune commande n'est exécutée.\n",
+    "\n",
+    "> __Exercice__  \n",
+    "- Modifier le fichier date.c en  y ajoutant un commentaire par exemple.  \n",
+    "- Taper à nouveau la commande `make` pour lancer la première règle. Qu'observez-vous ? \n",
+    "\n",
+    "Seuls la création des cibles `date.o` et `ephemeride` est lancée. La règle `ephemeride.o` n'est pas activée.  \n",
+    "En effet, elle n'est pas concernée par les changements réasliés dans le fichier `date.c`.\n",
+    "\n",
+    ">> La commande `make` ne génère une cible que si celle-ci présente une date de modification __antérieure__ à celle de l'un des fichiers listés dans ses dépendances.  \n",
+    "En d'autres termes, si une des dépendances est plus récente que la cible, `make` relance la règle correspondante pour qu'elle soit à jour.  \n",
+    "La __liste des dépendances est donc très importante__.  \n",
+    "\n",
+    "#### Règles sans dépendances\n",
+    "\n",
+    "La règle `clean` ne présente pas de dépendances. Elle est uniquement appliquée quand on l'appelle explicitement avec la commande `make clean`.\n",
+    "\n",
+    "#### Règles qui ne génèrent pas de fichier\n",
+    "On peut indiquer à `make` que la règle `clean` ne produit pas un fichier dénommé `clean` en rajoutant la ligne à la fin du `Makefile` : \n",
+    "```\n",
+    ".PHONY: clean\n",
+    "```\n",
+    "\n",
+    "Ainsi, `make` n'ira pas vérifier si le fichier `clean` existe avant d'exécuter la règle. Il se comporte comme si les fichiers listés après `.PHONY` n'étaient jamais à jour. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> __Exercice__  \n",
+    "1. Ajouter la règle suivante __au début__ du `Makefile` :  \n",
+    "`all: ephemeride`\n",
+    "2. Insérer la ligne suivante __à la fin__ du `Makefile` :   \n",
+    "`.PHONY: clean all`\n",
+    "A quoi sert la règle `all` ?\n",
+    "3. Ajouter les règles nécessaires à la création de l'exécutable `EDT` dans `Makefile`. \n",
+    "4. S'assurer que les deux exécutables, `ephemeride` et `EDT` soient générés quand on tape `make all`.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.6 Variables et commentaires\n",
+    "\n",
+    "#### Commentaires\n",
+    "Il est possible d'insérer __des commentaires__ dans un `Makefile` en utiliser la balise `#`. \n",
+    "\n",
+    "#### Variables\n",
+    "\n",
+    "Il est également possible de définir __des variable__ pour rendre le `Makefile` plus générique.  \n",
+    "L'accès __au contenu__ de la variable se fait par la notation `S(VAR)`, comme illustré ici : \n",
+    "\n",
+    "```\n",
+    "# Ceci est un commentaire pour introdure la variable CC qui comporte le nom du compilateur utilisé :\n",
+    "CC=c99\n",
+    "# Les variables CFLAGS et LDFLAGS comportent les options de compilation et d'édition des liens :\n",
+    "CFLAGS=-Wextra -pedantic -c\n",
+    "LDFLAGS=\n",
+    "\n",
+    "ephemeride: date.o ephemeride.o\n",
+    "\t$(CC) $(LDFLAGS) date.o ephemeride.o -o ephemeride\n",
+    "\n",
+    "date.o: date.c date.h\n",
+    "\t$(CC) $(CFLAGS) date.c\n",
+    "\n",
+    "ephemeride.o: ephemeride.c\n",
+    "\t$(CC) $(CFLAGS) ephemeride.c\n",
+    "    \n",
+    "clean:\n",
+    "\trm *.o ephemeride\n",
+    "    \n",
+    ".PHONY: clean\n",
+    "\n",
+    "```\n",
+    "\n",
+    "#### Variables automatiques\n",
+    "\n",
+    "Des variables automatiques peuvent être utilisées pour définir une règle de façon plus générique : \n",
+    "- `$@` : le nom de la cible de la règle courante \n",
+    "- `$<` : nom du premier fichier dans les dépendances\n",
+    "- `$^` : le nom de tous les fichiers (séparés par un espace) listées dans les dépendances de la règle courant\n",
+    "- `$?` : le nom de tous les fichiers listés dans les dépendances et qui sont plus récents que la cible courante\n",
+    "\n",
+    "On obtient par exemple : \n",
+    "```\n",
+    "date.o: date.c date.h\n",
+    "\t$(CC) $(CFLAGS) $<\n",
+    "```\n",
+    "avec `$<` qui représente le nom `date.c`.\n",
+    "\n",
+    "> __Exercice__  \n",
+    "1. Editer votre fichier `Makefile` pour ajouter les variables `CC`,`CFLAGS` et `LDFLAGS`. \n",
+    "2. Editer votre fichier en utilisant les variables automatiques `$@` et `@<`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.7 Règles implicites\n",
+    "\n",
+    "Certaines règles sont déjà connues de `make`, on dit qu'elles sont `implicites`.  \n",
+    "Par exemple, la création des fichiers `.o` n'a pas besoin d'être listée. \n",
+    "\n",
+    "> __Exercice__  \n",
+    "1. Supprimer les règles qui permettent de générer des fichiers objet (`date.o`, `ephemeride.o`, etc.)\n",
+    "2. Lancer la commande `make clean`\n",
+    "3. Lancer la commande `make all`  \n",
+    "Observer que la création des fichiers objets est réalisée tout de même !"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.8 L'outil `makedepend` pour les `.h`\n",
+    "\n",
+    "Nous avons vu qu'il est nécessaire de lister l'ensemble des fichiers `.c` et `.h` dans les dépendances d'une règle qui compile une application modulaire.  \n",
+    "Or, la commande qui génère l'exécutable ne liste en général que les `.o` (compilation séparée) ou que les `.c` (compilation directe). \n",
+    "\n",
+    "Pour s'affranchir de lister _à la main_ les fichiers d'en-tête `.h` en plus des `.c` dans les dépendances, on peut utiliser l'outil `makedepend`. \n",
+    "\n",
+    "Pour l'utiliser, il faut lancer la commande suivante dans le répertoire qui contient les sources : \n",
+    "```\n",
+    "makedepend *.c -Y.\n",
+    "```\n",
+    "L'outil inclut les lignes suivantes à la fin du `Makefile`\n",
+    "\n",
+    "```\n",
+    "# DO NOT DELETE\n",
+    "\n",
+    "EDT.o: cours.h salle.h date.h enseignant.h\n",
+    "cours.o: cours.h salle.h date.h enseignant.h\n",
+    "date.o: date.h\n",
+    "enseignant.o: enseignant.h date.h\n",
+    "ephemeride.o: date.h\n",
+    "salle.o: salle.h date.h\n",
+    "```\n",
+    "\n",
+    "Ces lignes représentent les dépendantes existant entre les fichiers objet et les fichiers d'en-tête. \n",
+    "Ainsi, si on utilise `makedepend`, on peut s'affranchir d'ajouter `date.h` dans les dépendances de la règle `date.o` par exemple.\n",
+    "\n",
+    "#### Règle `depend` dans le `Makefile`\n",
+    "\n",
+    "Il est d'usage d'ajouter la règle suivante dans le `Makefile` : \n",
+    "```\n",
+    "depend: \n",
+    "    makedepend *.c -Y.\n",
+    "```\n",
+    "Ainsi, après avoir rédigé son `Makefile` avec cette règle, on lance `makedepend` avec la commande `make depend` pour mettre à jour les dépendances. \n",
+    "\n",
+    "> __Exercice__\n",
+    "> 1. Ajouter la règle `depend` au `Makefile` \n",
+    "> 2. Lancer la commande `make depend`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---\n",
+    "---\n",
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 6.9 Exercice - UNO\n",
+    "\n",
+    "La correction de l'exercice 5.10 du TP2 est disponible dans le répertoire `c2/tp3/UNO`. Dans cet exercice, vous avez conçu l'application modulaire UNO qui se compose : \n",
+    "- de 4 modules (`carte`, `main`, `jeu` et `UNO`) ;\n",
+    "- des exécutables `test_UNO` et `jouer_UNO`. \n",
+    "\n",
+    "Dans cet exercice, il est demandé d'écrire un fichier `Makefile` qui permet de générer les deux exécutables à partir des modules.   \n",
+    "Vous ajouterez aussi une règle `clean` pour nettoyer le répertoire et une règle `All` comme première règle pour générer toutes les cibles automatiquement.\n",
+    "On vous encourage à utiliser les variables usuelles (`CC`, `CFLAGS`, `LDFLAGS`) et les variables automatiques.\n",
+    "\n",
+    "Pour rendre ce travail, vous ajouterez le fichier `Makefile` au répertoire UNO avec la commande `svn add`."
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Format de la Cellule Texte Brut",
+  "kernelspec": {
+   "display_name": "C",
+   "language": "c",
+   "name": "c"
+  },
+  "language_info": {
+   "file_extension": ".c",
+   "mimetype": "text/plain",
+   "name": "c"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

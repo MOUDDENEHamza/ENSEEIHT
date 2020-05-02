@@ -1,0 +1,152 @@
+-- Programme de test du module Arbre_genealogique.
+
+
+with Ada.Text_IO;          use Ada.Text_IO;
+with Arbre_Genealogique;	use Arbre_Genealogique;
+
+procedure Test_Arbre_Genealogique is
+
+
+	procedure Tester_Creer_Arbre_Minimal is
+		Ab : T_ABG;
+	begin
+		Creer_Arbre_Minimal (Ab, 1);
+		pragma assert (Nombre_Ancetres (Ab, 1) = 1);
+		Afficher_Arbre_Noeud (Ab, 1);
+		Supprimer (Ab, 1);
+
+		Put_Line ("Procedure Creer_Arbre_Minimal est testée avec succés.");
+		New_Line;
+	end Tester_Creer_Arbre_Minimal;
+
+
+	procedure Tester_ajouter_parent is
+                Ab : T_ABG;
+        begin
+                Creer_Arbre_Minimal (Ab, 1);
+		Afficher_Arbre_Noeud (Ab, 1);
+                pragma assert (Nombre_Ancetres (Ab, 1) = 1);
+		ajouter_parent (Ab, 1, 0);
+		Afficher_Arbre_Noeud (Ab, 1);
+		pragma assert (Nombre_Ancetres (Ab, 1) = 2);
+		ajouter_parent (Ab, 1, 1);
+		Afficher_Arbre_Noeud (Ab, 1);
+		pragma assert (Nombre_Ancetres (Ab, 1) = 3);
+		ajouter_parent (Ab, 1, 1);
+		Afficher_Arbre_Noeud (Ab, 1);
+		--pragma assert (Nombre_Ancetres (Ab, 1) = 3);
+		--Afficher_Arbre_Noeud (Ab, 1);
+		--Supprimer (Ab, 1);
+
+                Put_Line ("Procedure ajouter_parent est testée avec succés.");
+                New_Line;
+        end Tester_ajouter_parent;
+	
+
+	procedure Tester_Nombre_Ancetres is
+	        Ab : T_ABG;
+        begin
+		Creer_Arbre_Minimal (Ab, 2);
+                pragma assert (Nombre_Ancetres (Ab, 1) = 1);
+                ajouter_parent (Ab, 1, 1);
+                pragma assert (Nombre_Ancetres (Ab, 1) = 1);
+                ajouter_parent (Ab, 1, 2);
+                pragma assert (Nombre_Ancetres (Ab, 1) = 2);
+		Afficher_Arbre_Noeud (Ab, 1);
+		Supprimer (Ab, 1);
+
+                Put_Line ("Procedure Nombre_Ancetres est testée avec succés.");
+                New_Line;
+	end Tester_Nombre_Ancetres;
+
+
+	procedure Tester_Ancetres_N_Generation is
+	        Ab : T_ABG;
+        begin
+		Creer_Arbre_Minimal (Ab, 1);
+                pragma assert (Nombre_Ancetres (Ab, 1) = 1);
+		ajouter_parent (Ab, 1, 0);
+		ajouter_parent (Ab, 1, 1);
+		Afficher_Arbre_Noeud (Ab, 1);
+		Supprimer (Ab, 1);
+
+		Put_Line ("Procedure Ancetres_N_Generations est testée avec succés.");
+                New_Line;
+	end Tester_Ancetres_N_Generation;
+
+	procedure Tester_Individus_1_Parent_Connu is
+	        Ab : T_ABG;
+        begin
+		Creer_Arbre_Minimal (Ab, 1);
+		ajouter_parent (Ab, 1, 0);
+                ajouter_parent (Ab, 1, 1);
+		ajouter_parent (Ab, 2, 0);
+                Supprimer (Ab, 1);
+
+                Put_Line ("Procedure Individus_1_Parent_Connu est testée avec succés.");
+                New_Line;
+	end Tester_Individus_1_Parent_Connu;
+
+
+	procedure Tester_Individus_2_Parent_Connu is
+                Ab : T_ABG;
+        begin
+                Creer_Arbre_Minimal (Ab, 1);
+                ajouter_parent (Ab, 1, 0);
+                ajouter_parent (Ab, 1, 1);
+                ajouter_parent (Ab, 2, 0);
+                Afficher_Arbre_Noeud (Ab, 1);
+		ajouter_parent (Ab, 2, 1);
+                Supprimer (Ab, 1);
+
+                Put_Line ("Procedure Individus_2_Parent_Connu est testée avec succés.");
+                New_Line;
+        end Tester_Individus_2_Parent_Connu;
+
+	
+	procedure Tester_Ensemble_Feuilles is
+	        Ab : T_ABG;
+        begin
+		Creer_Arbre_Minimal (Ab, 1);
+                ajouter_parent (Ab, 1, 0);
+                ajouter_parent (Ab, 1, 1);
+                ajouter_parent (Ab, 2, 0);
+                Afficher_Arbre_Noeud (Ab, 1);
+                ajouter_parent (Ab, 2, 1);
+                Supprimer (Ab, 1);
+
+                Put_Line ("Procedure Ensemble_Feuilles est testée avec succés.");
+                New_Line;
+	end Tester_Ensemble_Feuilles;
+
+begin
+	New_Line;
+        Put_Line("*************************** Début ****************************");
+        New_Line;
+
+	-- Tester Creer_Arbre_Minimal.
+	Tester_Creer_Arbre_Minimal;
+	
+	-- Tester Ajouter_Parent.
+        Tester_Ajouter_Parent;
+	
+	-- Tester Nombre_Ancetres.
+        -- Tester_Nombre_Ancetres;
+
+	-- TesterAncetres_N_Generation.
+	-- Tester_Ancetres_N_Generation;
+	
+	-- Tester Individus_1_Parent_Connu.
+	-- Tester_Individus_1_Parent_Connu;
+	
+	-- Tester Individus_2_Parent_Connu.
+	-- Tester_Individus_2_Parent_Connu;
+	
+	-- Tester_Ensemble_Feuilles.
+	--Tester_Ensemble_Feuilles;
+
+	New_Line;	
+        Put_Line("***************************** Fin ****************************");
+        New_Line;
+
+end Test_Arbre_Genealogique;

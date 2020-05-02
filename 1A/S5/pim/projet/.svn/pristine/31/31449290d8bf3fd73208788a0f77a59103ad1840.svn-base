@@ -1,0 +1,103 @@
+Raffinages du programme principal de la première partie.
+
+R0 : Faire un menu qui donne accès aux fonctionnalités d'arbre généalogique.	
+	Test nominal:
+	Menu principal
+	0)- Pour quitter
+    1)- Créer un arbre minimal
+    2)- Ajouter un parent
+    3)- Obtenir le nombre d'ancêtres connus
+	4)- Obtenir l'ensemble des ancêtres situés à une certaine génération
+	5)- Afficher l'arbre génealogqiue
+	6)- Supprimer l'arbre généalogique
+	7)- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
+	8)- Obtenir l'ensemble des individus dont les deux parents sont connus
+	9)- Obtenir l'ensemble des individus dont les deux parents sont inconnus
+	10)- Identifier les ancêtres sur n générations données
+	11)- Vérifier que deux individus n et m ont un ou plusieurs ancêtres homonymes (mêmes nom et prénom)
+	Votre choix : 0
+	Fin d'exécuion
+	
+	Test  non nominal:
+	Menu principal
+	0)- Pour quitter
+    1)- Créer un arbre minimal
+    2)- Ajouter un parent
+    3)- Obtenir le nombre d'ancêtres connus
+	4)- Obtenir l'ensemble des ancêtres situés à une certaine génération
+	5)- Afficher l'arbre génealogqiue
+	6)- Supprimer l'arbre généalogique
+	7)- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
+	8)- Obtenir l'ensemble des individus dont les deux parents sont connus
+	9)- Obtenir l'ensemble des individus dont les deux parents sont inconnus
+	10)- Identifier les ancêtres sur n générations données
+	11)- Vérifier que deux individus n et m ont un ou plusieurs ancêtres homonymes (mêmes nom et prénom)
+	Votre choix : 55
+	Erreur : Vous devez entrez un nombre entre 0 et 11
+	Votre choix : 0
+	Fin d'exécuion
+
+
+R1 : Comment "Faire un menu qui donne accès aux fonctionnalités d'arbre généalogique".
+	Afficher le menu
+	Saisir une fonctionnalité
+	REPETER
+	    Exécuter la fonctionnalité
+	JUSQU'À l'utilisateur arrete programme
+	{ Arreter le programme }
+
+
+R2 : Comment "Afficher le menu".
+	Écrire("Menu principal")
+	Écrire(" 0)- Pour quitter")
+   	Écrire(" 1)- Créer un arbre minimal")
+   	Écrire(" 2)- Ajouter un parent")
+   	Écrire(" 3)- Obtenir le nombre d'ancêtres connus")
+	Écrire(" 4)- Obtenir l'ensemble des ancêtres situés à une certaine génération")
+	Écrire(" 5)- Afficher l'arbre génealogqiue")
+	Écrire(" 6)- Supprimer l'arbre généalogique")
+	Écrire(" 7)- Obtenir l'ensemble des individus qui n'ont qu'un parent connu")
+	Écrire(" 8)- Obtenir l'ensemble des individus dont les deux parents sont connus")
+	Écrire(" 9)- Obtenir l'ensemble des individus dont les deux parents sont inconnus")
+	Écrire(" 10)- Identifier les ancêtres sur n générations données")
+	Écrire(" 11)- Vérifier que deux individus n et m ont un ou plusieurs ancêtres homonymes (mêmes nom et prénom)")
+
+
+R2 : Comment "Saisir une fonctionnalité".
+	REPETER	
+	    Écrire("Votre choix : ")
+	    Lire(choix) -- IN :          OUT : choix.
+	    Si choix > 11 ou choix < 0 ALORS
+		    Écrire("Erreur : Vous devez entrez un nombre entre 0 et 11")
+	JUSQU'À choix >= 0 ET choix <= 11 -- IN : choix         OUT : bool.
+	{ n_table >= 1 ET n_table <= 10 }
+
+
+R2 : Comment "Exécuter la fonctionnalité".
+	Traiter le choix
+	Afficher le menu
+	Saisir une fonctionnalité
+
+R3 : Comment "Traiter le choix".
+	SELON choix DANS 	IN : choix	OUT :
+	    0 => 		Quitter le programme
+	    1 =>    	Créer un arbre minimal
+	    2 =>    	Ajouter un parent 
+	    3 => 		Obtenir le nombre d'ancêtres connus
+	    4 => 		Obtenir l'ensemble des ancêtres situés à une certaine génération
+	    5 => 		Afficher l'arbre génealogqiue
+	    6 => 		Supprimer l'arbre généalogique
+	    7 =>  		Obtenir l'ensemble des individus qui n'ont qu'un parent connu
+	    8 => 		Obtenir l'ensemble des individus dont les deux parents sont connus
+	    9 => 		Obtenir l'ensemble des individus dont les deux parents sont inconnus
+	    10 => 		Identifier les ancêtres sur n générations données
+	    11 =>   	Vérifier que deux individus n et m ont un ou plusieurs ancêtres homonymes (mêmes nom et prénom)
+		autres => 	Écrire("Erreur : Vous devez entrez un nombre entre 0 et 11")
+					Saisir une fonctionnalité
+	FIN SELON
+
+
+
+	FIN SELON
+
+

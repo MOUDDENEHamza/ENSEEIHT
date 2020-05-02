@@ -1,0 +1,129 @@
+-- Implantation du module Arbre_Binaire.
+
+
+with Ada.Unchecked_Deallocation;
+
+
+package body Arbre_Binaire is
+
+
+	----------------------------------Constuctor----------------------------------
+
+	-- Initialiser Tree.  Tree est vide.
+        procedure Initialize (Tree: out T_BT) is
+        begin
+                Tree := Null;
+        end Initialize;
+
+	-----------------------------------GETTERS------------------------------------
+
+        -- Obtenir à l'ID de la racine de Tree.
+        function Get_ID (Tree : in T_BT) return T_ID is
+	begin
+		return Tree.all.ID;
+	end Get_ID;
+
+
+        -- Obtenir à le sous arbre gauche de Tree.
+        function Get_Left (Tree : in T_BT) return T_BT is
+	begin
+                return Tree.all.Left;
+        end Get_Left;
+
+
+        -- Obtenir à le sous arbre droit de Tree.
+        function Get_Right (Tree : in T_BT) return T_BT is
+	begin
+		return Tree.all.Right;
+	end Get_Right;
+
+        -----------------------------------SETTERS------------------------------------
+
+        -- Modifier l'ID de la racine de Tree.
+        procedure Set_ID (Tree : in T_BT; ID : in T_ID) is
+	begin
+		Tree.all.ID := ID;
+	end Set_ID;
+
+        -- Modifier le sous arbre gauche de Tree.
+        procedure Set_Left (Tree, Left : in T_BT) is
+	begin
+		Tree.all.Left := Left;
+	end Set_Left;
+
+        -- Modifier le sous arbre droit de Tree.
+        procedure Set_Right (Tree, Right : in T_BT) is
+	begin
+                Tree.all.Right := Right;
+        end Set_Right;
+
+        ------------------------------------------------------------------------------
+
+	-- Libérer la mémoire.
+        procedure Free is
+                new Ada.Unchecked_Deallocation (Object => T_Node, Name => T_BT);
+
+	
+	-- Est-ce qu'un Tree est vide ?
+	function Is_Empty (Tree : T_BT) return Boolean is
+	begin
+		return (Tree = Null);
+	end Is_Empty;
+
+	
+	-- Obtenir le nombre d'éléments d'un Tree.
+	function Height (Tree : in T_BT) return Integer is
+	begin
+		if Is_Empty (Tree) then
+			return 0;
+		else
+			return 1 + Height (Tree.all.Left) + Height (Tree.all.Right);
+		end if;
+	end Height;
+	
+	
+	-- Create a tree with a single node.
+	procedure Create_Node (Node : in out T_BT; ID : T_ID) is
+	begin
+		Node := New T_Node'(ID, Null, Null);
+	end Create_Node;
+	
+
+	-- Insérer un ID associé à un nouveau noeud dans Tree.
+	procedure Insert (Tree : in out T_BT ; ID : T_ID) is
+	begin
+		if (Is_Empty(Tree)) then 
+			Create_Node (Tree, ID); 
+    		elsif (Tree.all.ID = ID) then
+			raise PRESENT_ID_EXCEPTION;
+		elsif (gt (Tree.all.ID, ID)) then
+        		Insert(Tree.all.Left, ID); 
+    		elsif (gt (ID, Tree.all.ID)) then
+        		Insert(Tree.all.Right, ID);   
+		end if;
+	end Insert;
+
+	
+	-- Supprimer tous les éléments d'un Tree.
+	procedure Destruct (Tree : in out T_BT) is
+	begin
+		if not Is_Empty (Tree) then
+			Destruct (Tree.all.Left);
+			Destruct (Tree.all.Right);
+			free (Tree);
+		end if;
+	end Destruct;
+
+	
+	-- Afficher un Tree dans l'ordre croissant des IDs.
+	procedure Display (Tree : in T_BT) is
+	begin
+		if (not Is_Empty (Tree)) then
+        		Display( Tree.all.Left);
+        		Display_ID (Tree.all.ID);
+        		Display( Tree.all.Right);
+		end if;
+	end Display;
+
+
+end Arbre_Binaire;

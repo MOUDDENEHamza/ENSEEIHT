@@ -1,0 +1,66 @@
+with Ada.Text_IO; 	  	use Ada.Text_IO;
+with Ada.Characters.Latin_1; 	use Ada.Characters.Latin_1;
+
+package body Display_Shell is
+
+
+-- Afficher la barre d'initialisation.
+    procedure Init_Bar is
+    begin
+        New_Line;
+        Put_Line ("*****************************************************************************************************");
+        New_Line;
+        Put_Line ("                                           " & ESC & "[32m" & "ARBRE GÉNÉALOGIQUE" & ESC & "[0m");
+        New_Line;
+        Put_Line ("*****************************************************************************************************");
+        New_Line;
+        Put_Line ("Téléchargement programme ...");
+        New_Line;
+    end Init_Bar;
+
+
+    -- Afficher le menu principal.
+    procedure Display_Menu is
+    begin
+        New_Line;
+        Put_Line ("                                           MENU PRINCIPAL");
+        New_Line;
+        Put_Line (ESC & "[31m" & "0)- Pour quitter" & ESC & "[0m");
+        Put_Line (ESC & "[34m" & "1)- Créer un arbre minimal");
+        Put_Line ("2)- Ajouter un parent");
+        Put_Line ("3)- Obtenir le nombre d'ancêtres");
+        Put_Line ("4)- Obtenir l'ensemble des ancêtres situés à une certaine génération");
+        Put_Line ("5)- Afficher l'arbre génealogqiue");
+        Put_Line ("6)- Supprimer l'arbre généalogique");
+        Put_Line ("7)- Obtenir l'ensemble des individus qui n'ont qu'un parent connu");
+        Put_Line ("8)- Obtenir l'ensemble des individus dont les deux parents sont connus");
+        Put_Line ("9)- Obtenir l'ensemble des individus dont les deux parents sont inconnus");
+        Put_Line ("10)- Identifier les ancêtres sur n générations données");
+        Put_Line ("11)- Vérifier que deux individus n et m ont un ou plusieurs ancêtres homonymes (mêmes nom et prénom)" & ESC & "[0m");
+        New_Line;
+    end Display_Menu;
+
+    -- Afficher le nouvel ID.
+    procedure Display_New_ID (ID : in Integer) is
+    begin
+        New_Line;
+        Put_Line ("Le nouvel ID est :" & Integer'Image (ID) & ".");
+    end Display_New_ID;
+
+
+    -- Afficher la barre de fin d'exécution.
+    procedure End_Bar is
+    begin
+        New_Line;
+        Put_Line ("À bientôt!");
+        New_Line;
+        Put_Line ("                                           " & ESC & "[32m" & "FIN D'EXÉCTUTION" & ESC & "[0m");
+        New_Line;
+        Put_Line ("*****************************************************************************************************");
+        New_Line;
+    end End_Bar;
+
+
+
+
+end Display_Shell;

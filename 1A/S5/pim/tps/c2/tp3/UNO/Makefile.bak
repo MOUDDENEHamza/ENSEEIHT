@@ -1,0 +1,36 @@
+# Ceci est un commentaire pour introdure la variable CC qui comporte le nom du compilateur utilisé :
+MAKE=make
+MAKEDEPEND=makedepend
+CC=c99
+# Les variables CFLAGS et LDFLAGS comportent les options de compilation et d'édition des liens :
+CFLAGS=-Wextra -pedantic -c
+LDFLAGS= -o
+SRC= *.c
+BIN= $(wildcard *.o)
+EXEC= test_UNO jouer_UNO
+
+all: $(EXEC)
+	$(MAKE) $<
+	$(MAKE) jouer_UNO
+
+depend:
+	$(MAKEDEPEND) $(SRC) -Y
+
+jouer_UNO: carte.o jeu.o main.o
+	$(CC) $^ $(LDFLAGS) $@
+
+test_UNO: carte.o jeu.o main.o
+	$(CC) $^ $(LDFLAGS) $@
+
+clean:
+	rm $(BIN) $(EXEC)
+
+.PHONY: clean all
+# DO NOT DELETE
+
+carte.o: carte.h
+jeu.o: jeu.h carte.h
+jouer_uno.o: uno.h carte.h main.h jeu.h
+main.o: main.h carte.h jeu.h
+test_uno.o: uno.h carte.h main.h jeu.h
+uno.o: uno.h carte.h main.h jeu.h

@@ -1,0 +1,179 @@
+-- Programme principale.
+
+ 
+with Ada.Text_IO; 	  	use Ada.Text_IO;
+with Ada.Characters.Latin_1; 	use Ada.Characters.Latin_1;
+with Ada.Integer_Text_IO; 	use Ada.Integer_Text_IO;
+with Arbre_Genealogique;	use Arbre_Genealogique;
+
+
+-- RED ESC & "[31m"
+-- GREEN ESC & "[32m"
+-- BLUE ESC & "[34m"
+-- RESET ESC & "[0m"
+
+
+procedure main is
+	
+	
+	-- Afficher la barre d'initialisation.
+	procedure Init_Bar is
+    	begin
+		New_Line;
+		Put_Line ("*****************************************************************************************************");
+		New_Line;
+		Put_Line ("                                           " & ESC & "[32m" & "ARBRE GÉNÉALOGIQUE" & ESC & "[0m");
+		New_Line;
+		Put_Line ("*****************************************************************************************************");
+    		New_Line;
+		Put_Line ("Téléchargement programme ...");
+		New_Line;
+	end Init_Bar;
+
+	
+	-- Afficher le menu principal.
+	procedure Display_Menu is
+	begin
+		New_Line;
+		Put_Line ("Menu principal");
+		New_Line;
+        	Put_Line ("0)- Pour quitter");
+       		Put_Line ("1)- Créer un arbre minimal");
+       		Put_Line ("2)- Ajouter un parent");
+       		Put_Line ("3)- Obtenir le nombre d'ancêtres");
+       		Put_Line ("4)- Obtenir l'ensemble des ancêtres situés à une certaine génération");
+       		Put_Line ("5)- Afficher l'arbre génealogqiue");
+       		Put_Line ("6)- Supprimer l'arbre généalogique");
+       		Put_Line ("7)- Obtenir l'ensemble des individus qui n'ont qu'un parent connu");
+       		Put_Line ("8)- Obtenir l'ensemble des individus dont les deux parents sont connus");
+		Put_Line ("9)- Obtenir l'ensemble des individus dont les deux parents sont inconnus");
+		Put_Line ("10)- Identifier les ancêtres sur n générations données");
+		Put_Line ("11)- Vérifier que deux individus n et m ont un ou plusieurs ancêtres homonymes (mêmes nom et prénom)");
+		New_Line;
+	end Display_Menu;
+
+
+	procedure Input_Integer (value : out Integer) is
+	begin
+		Get (value);
+	exception
+ 		when Data_Error =>
+			New_Line;
+			Put_Line (ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "Vous n'avez pas saisie un entier, il faut entrer un entier entre 0 et 11.");
+			Skip_Line;
+			New_Line;
+			Put ("Réessayez encore une fois : ");
+			Input_Integer (value);
+	end Input_Integer;
+
+	procedure Input_Choice (Choice : out Integer) is
+        begin
+		Put ("Votre choix : ");
+		loop
+            		Input_Integer (Choice);   
+            		New_Line;
+	    		if (Choice < 0 or  Choice > 11) then
+				Put_Line(ESC & "[31m" & "ERREUR : " & ESC & "[0m" & "Il faut entrer un choix entre 0 et 11.");
+				New_Line;
+				Put ("Réessayez encore une fois : ");
+	    		end if;
+            		exit when Choice >= 0 and Choice <= 11;
+        	end loop;
+	end Input_Choice;
+
+	
+
+ 	-- Afficher la barre de fin d'exécution.
+	procedure End_Bar is
+	begin
+    		New_Line;
+		Put_Line ("À bientôt!");
+		New_Line;
+                Put_Line ("                                           " & ESC & "[32m" & "FIN D'EXÉCTUTION" & ESC & "[0m");
+                New_Line;
+    		Put_Line ("*****************************************************************************************************");
+		New_Line;
+	end End_Bar;
+
+
+	Ab : T_ABG;
+	ID, Choice, Flag, Generation: Integer;
+	
+
+begin
+	-- Afficher la barre d'initialisation.
+	Init_Bar;
+
+	Display_Menu;
+	Input_Choice (Choice);
+    	
+    	while true loop
+
+		case Choice is
+            		when 1 =>  -- Créer un arbre minimal.
+                		Put ("Enter l'ID : ");
+        			Input_Integer (ID);
+				Creer_Arbre_Minimal (Ab, ID);
+				Afficher_Arbre_Noeud (Ab, ID);
+
+	    		when 2 =>  -- Ajoutet un parent.
+                		Put ("Entrer l'ID : ");
+                                Input_Integer (ID);
+				Put_Line ("Entrez 0 s'il s'agit du père, sinon entrez 1.");
+				Put ("Votre choix : ");
+                        	Input_Integer (Flag);
+
+				Ajouter_Parent (Ab, ID, Flag);
+				Afficher_Arbre_Noeud (Ab, ID);
+
+			when 3 =>  -- Obtenir le nombre d'ancêtres.
+                		Put ("Entrer l'ID : ");
+                                Input_Integer (ID);
+				Put_Line (Integer'Image(Nombre_Ancetres (Ab, ID)));
+
+            		when 4 =>  -- Obtenir l'ensemble des ancêtres situés à une certaine génération.
+                		Put ("Entrer l'ID : ");
+                                Input_Integer (ID);
+				Put ("Entrer generation : ");
+                                Input_Integer (Generation);
+
+	    		when 5 =>  -- Afficher l'arbre génealogqiue.
+                		Afficher_Arbre_Noeud (Ab, 1);
+
+            		when 6 =>  -- Supprimer l'arbre généalogique.
+                		Put ("Entrer l'ID : ");
+                                Input_Integer (ID);
+				Supprimer (Ab, ID);
+            
+	    		when 7 =>  -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu.
+                		--E := Individus_1_Parent_Connu (Ab);
+				Null;
+            		when 8 =>  -- utilisateur.
+                		null;
+	    
+	    		when 9 =>  -- Obtenir l'ensemble des individus dont les deux parents sont inconnus.
+                		Ensemble_Feuilles (AB);
+
+            		when 10 =>  -- utilisateur.
+                		null;
+            
+	    		when 11 =>  -- Administrateur.
+                		null;
+
+	    		when 0 =>  -- Quitter le programme.
+				exit;
+
+            		when others => 
+				null;
+        end case;
+	
+	Display_Menu;
+
+	Input_Choice (Choice);
+
+    	end loop;
+	
+	-- Afficher la barre de fin d'exécution.
+        End_Bar;
+
+end main;

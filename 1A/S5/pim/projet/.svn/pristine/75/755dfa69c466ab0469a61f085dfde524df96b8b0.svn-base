@@ -1,0 +1,38 @@
+-------------------------------------------------------------------------------
+--  Fichier  : display_shell.adb
+--  Auteur   : MOUDDENE Hamza & CAZES Noa
+--  Objectif : Spécification du package Display_Shell
+--  Crée     : Dimanche Nov 25 2019
+--------------------------------------------------------------------------------
+
+
+package Display_Shell is
+
+
+    -- Afficher la barre d'initialisation.
+    procedure Init_Bar;
+
+
+    -- Afficher le menu principal.
+    procedure Display_Menu;
+
+
+    -- Afficher le nouvel ID.
+    --
+    -- Param ID : ID qui sera afficher.
+    procedure Display_New_ID (ID : in Integer);
+
+
+    -- Afficher un message quand la création de l'arbre minimal réussit.
+    procedure Display_Success_Minimal_Tree_Ceation;
+
+
+    -- Afficher un message quand la création de l'arbre minimal échoue.
+    procedure Display_Failed_Minimal_Tree_Ceation;
+
+
+    -- Afficher la barre de fin d'exécution.
+    procedure End_Bar;
+
+
+end Display_Shell;

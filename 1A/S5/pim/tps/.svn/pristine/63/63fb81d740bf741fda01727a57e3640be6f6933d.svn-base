@@ -1,0 +1,115 @@
+---------------------------------------------------------------------------------------------------
+R0 : Afficher le plus petit et le plus grand élément d'une série d'entiers.
+	Tests : 
+		2, 9, 3, 6, 3, 0 -> min = 2 et max = 9
+
+---------------------------------------------------------------------------------------------------
+R1 : Comment "Afficher le plus petit et le plus grand élément d'une série d'entiers".
+	Afficher la consigne
+	Saisir un premier entier -- out : n
+	Définir max & min 	 -- in : max	in : min
+	Afficher min & max	 -- out : max 	out : min
+
+---------------------------------------------------------------------------------------------------
+R2 : Comment "Afficher la consigne"
+	Ecrire("Saisir les valeurs de la série (-1 pour terminer) : ")
+	
+R2 : Comment "Saisir un premier entier out : n"
+	Ecrire("Saisir les valeurs de la série (-1 pour terminer) : ")
+	Lire(Entier)
+
+R2 : Comment "Définir max & min"
+	Si Entier n'est pas une valeur de la série Alors
+		Ecrire("Pas de valeurs dans la série")
+	Sinon
+		Initialiser Min et Max avec le premier entier
+		Traiter les autres éléments de la série
+	Fin si
+
+R2 : Comment "Afficher min & max"
+	Ecrire(Min)
+	Ecrire(Max)
+
+---------------------------------------------------------------------------------------------------
+R3 : Comment "Entier n'est pas une valeur de la série"
+	Entier = 0
+
+R3 : Comment "Initialiser Min et Max avec le premier entier"
+	Min <- Entier
+	Max <- Entier
+
+R3 : Comment "Traiter les autres éléments de la série"
+	Saisir un nouvel entier
+	Tant Que Entier est une valeur de la série Faire
+		Mettre à jour le Min et le Max
+		Saisir un nouvel entier
+	Fin Tant Que
+
+---------------------------------------------------------------------------------------------------
+R4 : Comment "Saisir un nouvel entier"
+	Lire(Entier)
+
+R4 : Comment "Mettre à jour le Min et le Max"https://github.com/MOUDDENEHamza/pim.git
+	Si Entier > Max Alors
+		Max <- Entier
+	Sinon SI Entier < Min Alors
+		Min <- Entier
+	Sinon
+		rien
+	Fin Si
+
+---------------------------------------------------------------------------------------------------
+R5 : Algorithme du programme "Affichage du min et de max d'une série d'entiers"
+
+Algorithme Min_Max_Serie
+	-- R0 : Afficher le min et le max d'une série d'entiers.
+
+Variable
+	Entier: Integer		-- un entier lu au clavier
+	Min, Max: Integer	-- le plus petit et le plus grand élément de la série
+
+Début
+	-- R1 : Comment "Afficher le plus petit et le plus grand élément d'une série d'entiers".
+	--
+	-- R2 : Comment "Afficher la consigne"
+        Ecrire("Saisir les valeurs de la série (-1 pour terminer) : ")
+
+	-- R2 : Comment "saisir un premier entier out : n"
+        Ecrire("Saisir les valeurs de la série (-1 pour terminer) : ")
+        Lire(Entier)
+
+	-- R2 : Comment "Définir max & min"
+   	--
+	-- R3 : Comment "Entier n'est pas une valeur de la série"
+   	Si Entier = 0 Alors
+                Ecrire("Pas de valeurs dans la série")
+        Sinon
+                -- R3 : Comment "Initialiser Min et Max avec le premier entier"
+        	Min <- Entier
+        	Max <- Entier
+
+		-- R3 : Comment "Traiter les autres éléments de la série"
+		--
+		-- R4 : Comment "Saisir un nouvel entier"
+        	Lire(Entier)
+        
+        	Tant Que Entier est une valeur de la série Faire
+                	-- R4 : Comment "Mettre à jour le Min et le Max"
+        		Si Entier > Max Alors
+                		Max <- Entier
+        		Sinon SI Entier < Min Alors
+                		Min <- Entier
+        		Sinon
+                		rien
+        		Fin Si
+			
+                	-- R4 : Comment "Saisir un nouvel entier"
+               	 	Lire(Entier)
+        	Fin Tant Que
+        Fin si
+
+	-- R2 : Comment "Afficher min & max"
+        Ecrire(Min)
+        Ecrire(Max)
+
+Fin
