@@ -1,0 +1,20 @@
+Réponse 1 :
+	-les 2 appels de SIGUSR2 seront affichés au début, ensuite un seul de
+		SIGUSR1 sera traité.
+
+
+
+
+Réponse 2 : 
+       L'ordre sera inversé : 
+       -Avant le démasquage: les 2 appels de kill(getpid(),SIGUSR1) ne seront pas
+	 affichés au début puisque le signal SIGUSR1 est masqué, donc seuls l'appel 
+	de SIGUSR2 sera affiché 2 fois.
+	-Après le démasquage: un seul appel de SIGUSR1 sera affiché.
+
+
+
+Réponse 3:
+         Le message de terminaison sera affiché après le 
+	démasquage de SIGINT ,si on a pas lancé ctrl+C dans le terminal 
+	durantles 10 premières secondes , sinon, il ne sera pas affiché.
