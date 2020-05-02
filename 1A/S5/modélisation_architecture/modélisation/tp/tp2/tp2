@@ -1,0 +1,9 @@
+(* Ouverture d’une section *)
+Section CalculPredicats.
+(* Définition de 2 domaines pour les prédicats *)
+Variable A B : Type.
+
+(* Formule du second ordre : Quantification des prédicats phi et psi *)
+Theorem Thm_8 : forall (P Q : A -> Prop),
+(forall x1 : A, (P x1) /\ (Q x1))
+-> (forall x2 : A, (P x2)) /\ (forall x3 : A, (Q x3)).

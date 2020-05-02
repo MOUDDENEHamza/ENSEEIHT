@@ -1,0 +1,132 @@
+(* Ouverture d’une section *)
+Section CalculPropositionnel.
+(* Les règles de la déduction naturelle doivent être ajoutées à Coq. *)
+Require Import Naturelle.
+(* Déclaration de variables propositionnelles *)
+Variable phi psi chi E Y R : Prop.
+
+(* Exo 1 *)
+
+Theorem Thm_1 : ((phi \/ psi) -> chi) -> (psi -> chi).
+I_imp H1.
+I_imp H2.
+E_ou phi psi.
+2: I_imp H3.
+3: I_imp H3.
+I_ou_d.
+Hyp H2.
+E_imp (phi \/ psi).
+Hyp H1.
+I_ou_g.
+Hyp H3.
+E_imp (phi \/ psi).
+Hyp H1.
+I_ou_d.
+Hyp H3.
+Qed.
+
+Theorem Thm_2 : phi -> ~~phi.
+I_imp H1.
+I_non H2.
+E_non phi.
+Hyp H1.
+Hyp H2.
+Qed.
+
+Theorem Thm_3 : (phi -> psi) -> (~psi -> ~phi).
+I_imp H1.
+I_imp H2.
+I_non H3.
+E_non psi.
+2: Hyp H2.
+E_imp phi.
+Hyp H1.
+Hyp H3.
+Qed.
+
+Theorem Thm_4 : ~~phi -> phi.
+I_imp H1.
+absurde H2.
+E_non (~phi).
+Hyp H2.
+Hyp H1.
+Qed.
+
+Theorem Thm_5 : (~psi -> ~phi) -> (phi -> psi).
+I_imp H1.
+I_imp H2.
+absurde H3.
+E_non phi.
+Hyp H2.
+E_imp (~psi).
+Hyp H1.
+Hyp H3.
+Qed.
+
+Theorem Thm_6 : ((E -> (Y \/ R)) /\ (Y -> R)) -> (~R -> ~E).
+I_imp H1.
+I_imp H2.
+I_non H3.
+E_non R.
+2: Hyp H2.
+E_ou Y R.
+E_imp E.
+E_et_g (Y -> R).
+Hyp H1.
+Hyp H3.
+I_imp H4.
+E_imp Y.
+E_et_d (E -> Y \/ R).
+Hyp H1.
+Hyp H4.
+I_imp H4.
+Hyp H4.
+Qed.
+
+(* Exo 2 *)
+
+Theorem Coq_E_imp : ((phi -> psi) /\ phi) -> psi.
+intro H1.
+cut phi.
+cut ((phi -> psi) /\ phi).
+intro H3.
+elim H3.
+intros H4 H5.
+exact H4.
+exact H1.
+cut ((phi -> psi) /\ phi).
+intro H3.
+elim H3.
+intros H4 H5.
+exact H5.
+exact H1.
+Qed.
+
+Theorem Coq_E_et_g : (phi /\ psi) -> phi.
+intro H1.
+cut (phi /\ psi).
+intro H3.
+elim H3.
+intros H4 H5.
+exact H4.
+exact H1.
+Qed.
+
+
+(*Theorem Coq_E_ou : ((phi \/ psi) /\ (phi -> chi) /\ (psi -> chi)) -> chi.
+intro H1.
+
+Theorem Thm_7 : ((E -> (Y \/ R)) /\ (Y -> R)) -> (~R -> ~E).
+intro H1.
+intro H2.
+unfold not.
+intro H3.
+absurd R.
+exact H2.
+elim (Y \/ R). *)
+
+End CalculPropositionnel.
+
+
+
+
