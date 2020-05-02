@@ -1,0 +1,16 @@
+package allumettes;
+
+import java.util.Scanner;
+
+/** La classe StrategieLente définit un joueur qui prend toujours une prise minimale.
+ * @author	Hamza MOUDDENE
+ * @version	1.0
+ */
+public class StrategieLente implements Strategie {
+
+    @Override
+	public int getPrise(Jeu jeu) {
+	    return 1;
+	}
+
+}

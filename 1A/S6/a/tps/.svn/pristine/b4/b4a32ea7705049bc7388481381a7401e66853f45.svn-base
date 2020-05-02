@@ -1,0 +1,19 @@
+JAVA = java
+FLAG = -ea -classpath /usr/share/java/junit4.jar:. org.junit.runner.JUnitCore
+TEST = allumettes.RobustesseJoueurTest
+
+all :
+	make compile -s
+	make test -s
+	make clean -s
+
+compile :
+	javac allumettes/*.java
+	javadoc -d doc allumettes/*.java
+
+test :
+	sh testeur.sh *.run
+	$(JAVA) $(FLAG) $(Test)
+
+clean :
+	rm allumettes/*.class

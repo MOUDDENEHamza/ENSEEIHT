@@ -1,0 +1,21 @@
+=====[ Relecture du code ]======================================================
+
+Remarque : n points de pénalité ==> n points perdus sur la note.
+
+Fichier LISEZ-MOI.txt : 0
+    question 1 : réponse fausse ou absente (peu claire) : 
+    question 2 : réponse fausse ou absente (peu claire) : 
+
+Commentaire de documentation : 0
+
+Forme (total = -5) : 0,25
+
+    * Variables inutiles (autant de variables locales que
+      d'expressions) 			-0.25
+                newCercle
+
+
+Test unitaires (total -1) : 0
+
+--------------------------------------------------------------------------------
+Total : 0,25 pt

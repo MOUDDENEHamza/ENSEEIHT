@@ -1,0 +1,110 @@
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * The class handles the graphical side of the program
+ *
+ * @author Hamza MOUDDENE
+ * @version 1.0
+ */
+public class GUI extends JFrame {
+
+    /**
+     * Create a graphical window
+     *
+     * @param name the name of the window
+     * @return the window
+     */
+    public JFrame createWindow(String name, int width, int height) {
+        JFrame window = new JFrame(name);
+        Image icon = Toolkit.getDefaultToolkit().getImage("pics/icon.png");
+        window.setIconImage(icon);
+        window.setSize(width, height);
+        window.setLayout(null);
+        window.setVisible(true);
+        //window.setExtendedState(window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        return window;
+    }
+
+    /**
+     * Create label
+     *
+     * @param name   the name of the label
+     * @param x      axis of the label
+     * @param y      axis of the label
+     * @param width  of the label
+     * @param height of the label
+     * @return the button
+     */
+    public JLabel createLabel(String name, int x, int y, int width, int height) {
+        JLabel label = new JLabel(name);
+        label.setBounds(x, y, width, height);
+        return label;
+    }
+
+    /**
+     * Create password field
+     *
+     * @param x      axis of the password field
+     * @param y      axis of the password field
+     * @param width  of the password field
+     * @param height of the password field
+     * @return the password field
+     */
+    public JPasswordField createPasswd(int x, int y, int width, int height) {
+        JPasswordField passwd = new JPasswordField();
+        passwd.setBounds(x, y, width, height);
+        return passwd;
+    }
+
+    /**
+     * Create text field
+     *
+     * @param x      axis of the text field
+     * @param y      axis of the text field
+     * @param width  of the text field
+     * @param height of the height field
+     * @return the text field
+     */
+    public JTextField createText(int x, int y, int width, int height) {
+        JTextField text = new JTextField();
+        text.setBounds(x, y, width, height);
+        return text;
+    }
+
+    /**
+     * Create button
+     *
+     * @param name   the name of the button
+     * @param x      axis of the button
+     * @param y      axis of the button
+     * @param width  of the button
+     * @param height of the button
+     * @return the button
+     */
+    public JButton createButton(String name, int x, int y, int width, int height, Color background, Color foreground) {
+        JButton button = new JButton(name);
+        button.setBounds(x, y, width, height);
+        button.setBackground(background);
+        button.setForeground(foreground);
+        return button;
+    }
+
+    /**
+     * Create a panel
+     *
+     * @param x      axis of the panel
+     * @param y      axis of the panel
+     * @param width  of the panel
+     * @param height of the panel
+     * @param color  of the panel
+     * @return the panel
+     */
+    public JPanel createPanel(int x, int y, int width, int height, Color color) {
+        JPanel panel = new JPanel();
+        panel.setBounds(x, y, width, height);
+        panel.setBackground(color);
+        return panel;
+    }
+
+}

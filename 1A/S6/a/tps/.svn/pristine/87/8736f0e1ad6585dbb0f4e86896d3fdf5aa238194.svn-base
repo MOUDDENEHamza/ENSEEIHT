@@ -1,0 +1,146 @@
+package allumettes;
+
+/**
+ * La classe Arbitre fait respecter les règles du jeu aux deux joueurs.
+ *
+ * @author Hamza MOUDDENE
+ * @version 1.0
+ */
+public class Arbitre {
+
+    // Le premier joueur.
+    private Joueur j1;
+
+    // La deuxième joueur.
+    private Joueur j2;
+
+    /**
+     * Constructeur de la classe Arbitre.
+     *
+     * @param j1 : Le premier joueur
+     * @param j2 : le deuxième joueur
+     */
+    public Arbitre(Joueur j1, Joueur j2) {
+        assert (j1 != null && j2 != null);
+        this.j1 = j1;
+        this.j2 = j2;
+    }
+
+    /**
+     * Obtenir le premier joueur
+     *
+     * @return le premier joueur
+     */
+    public Joueur getJ1() {
+        return j1;
+    }
+
+    /**
+     * Obtenir le deuxième joueur
+     *
+     * @return le deuxième joueur
+     */
+    public Joueur getJ2() {
+        return j2;
+    }
+
+    /**
+     * Changer le premier joueur
+     *
+     * @param j1 le nouveau joueur
+     */
+    public void setJ1(Joueur j1) {
+        this.j1 = j1;
+    }
+
+    /**
+     * Changer le deuxième joueur
+     *
+     * @param j2 le nouveau joueur
+     */
+    public void setJ2(Joueur j2) {
+        this.j2 = j2;
+    }
+
+    /**
+     * Obtenir le joueur courant
+     *
+     * @param tour : le tour courant
+     * @return le joueur courant
+     */
+    public Joueur getJoueurCourant(int tour) {
+        assert (tour > 0);
+
+        if (tour % 2 == 1) {
+            return this.j1;
+        } else {
+            return this.j2;
+        }
+    }
+
+    /**
+     * Vérifier s'il y a un gagnant.
+     *
+     * @param tour : le tour courant
+     * @param jeu  : le jeu courant
+     * @return vrai si la partie est finie, sinon faux
+     */
+    public boolean estFinie(int tour, Jeu jeu) {
+        assert (tour > 0 && jeu != null);
+
+        if (jeu.getNombreAllumettes() > 0) {
+            return false;
+        } else {
+            System.out.println(getJoueurCourant(tour + 1).getNom() + " a perdu !");
+            System.out.println(getJoueurCourant(tour).getNom() + " a gagné !");
+            return true;
+        }
+
+    }
+
+    /**
+     * Ajuster l'affichage
+     *
+     * @param n : le nombre d'allumettes
+     * @return allumettes si n est supérieur à 2, sinon allumette
+     */
+    public String getString(int n) {
+        if (n >= 2) {
+            return " allumettes.";
+        } else {
+            return " allumette.";
+        }
+    }
+
+    /**
+     * Arbitrer une partie entre deux joueurs.
+     *
+     * @param jeu      : un jeu donné
+     * @param proxyJeu : le proxy du jeu
+     */
+    public void arbitrer(Jeu jeu, Jeu proxyJeu) {
+        assert (jeu != null && proxyJeu != null);
+
+        int tour = 1;
+        int tmp;
+        while (!(estFinie(tour, jeu))) {
+            System.out.println("\nNombre d'allumettes restantes : " + jeu.getNombreAllumettes());
+            System.out.println("Au tour de " + getJoueurCourant(tour).getNom() + ".");
+            try {
+                tmp = getJoueurCourant(tour).getPrise(proxyJeu);
+                System.out.println(getJoueurCourant(tour).getNom() + " prend " + tmp + getString(tmp));
+                jeu.retirer(tmp);
+            } catch (CoupInvalideException e) {
+                System.out.println("Erreur ! " + e.getMessage());
+                System.out.println("Recommencez !");
+                arbitrer(jeu, proxyJeu);
+                System.exit(0);
+            } catch (OperationInterditeException e) {
+                System.out.println("Partie abandonnée car " + getJoueurCourant(tour).getNom() + " a triché !");
+                break;
+            }
+            tour += 1;
+        }
+    }
+
+}

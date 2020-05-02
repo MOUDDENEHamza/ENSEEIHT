@@ -1,0 +1,41 @@
+Date de l'évaluation : mardi 28 janvier 2020, 22:49:09 (UTC+0100)
+
+Compilation de Cercle.java : OK.
+
+Types d'erreurs checkstyle : 1	(voir evaluation1/Cercle.checkstyle)
+
+Résultat de recherche de similitudes sur Cercle.java dans evaluation1/Cercle.sim
+
+JavaDoc automatique de Cercle : ok	(voir evaluation1/Cercle.javadoc)
+
+Un constructeur devrait appeler l'autre.
+
+Test SujetCercleTest : OK (14 tests)	(voir evaluation1/SujetCercleTest.log)
+Test RobustesseCercleTest : OK (20 tests)	(voir evaluation1/RobustesseCercleTest.log)
+Test FormeCercleTest : OK (12 tests)	(voir evaluation1/FormeCercleTest.log)
+Test Forme2CercleTest : OK (9 tests)	(voir evaluation1/Forme2CercleTest.log)
+
+ComplementsCercleTest : modifiée... on l'utilise donc...
+Compilation de ComplementsCercleTest.java : OK.
+Test ComplementsCercleTest : OK (1 test)	(voir evaluation1/ComplementsCercleTest.log)
+
+Compilation de CercleTest.java : OK.
+Test CercleTest : OK (3 tests)	(voir evaluation1/CercleTest.log)
+Test de CercleTest avec CercleMini : OK
+Test de CercleTest avec CercleMutant1 : OK
+Test de CercleTest avec CercleMutant2 : OK
+Test de CercleTest avec CercleMutant3 : OK
+Test de CercleTest avec CercleMutant4 : OK
+Test de CercleTest avec CercleMutant5 : OK
+Test de CercleTest avec CercleMutant6 : OK
+Test de CercleTest avec CercleMutant7 : OK
+Test de CercleTest avec CercleMutant8 : OK
+Test de CercleTest avec CercleMutant9 : OK
+Test de CercleTest avec CercleMutantA : OK
+Test de CercleTest avec CercleMutantB : OK
+Test de CercleTest avec CercleMutantC : OK
+Test de CercleTest avec CercleMutantD : OK
+Test de CercleTest avec CercleMutantE : OK
+Test de CercleTest avec CercleMutantF : OK
+Test de CercleTest avec CercleMutantZ : OK
+Test de CercleTest : réussi.

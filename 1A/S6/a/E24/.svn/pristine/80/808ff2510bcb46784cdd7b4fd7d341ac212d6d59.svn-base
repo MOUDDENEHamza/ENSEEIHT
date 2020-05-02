@@ -1,0 +1,46 @@
+
+/** Un client
+ * 
+ * @author Saoudi
+ *
+ */
+
+
+public class Customer {
+	
+	private String FirstName;
+	private String LastName;
+	private int RewardPoints; //ajouter par Hatim 
+	
+	
+	public Customer(String Prenom, String Nom) {
+		this.FirstName = Prenom;
+		this.LastName = Nom;
+	}
+
+
+	public String getFirstName() {
+		return this.FirstName;
+	}
+	
+	public int getRewardPoint() {
+		return this.RewardPoints;
+	}
+	
+	public String getLastName() {
+		return this.LastName;
+	}
+	
+	public void addPoints(double pts) {
+		this.RewardPoints += pts;
+	}
+	
+	
+	
+	public void afficher() {
+		System.out.println("FisrtName : " + this.FirstName);
+		System.out.println("LastName : " + this.LastName);
+	}
+	
+
+}

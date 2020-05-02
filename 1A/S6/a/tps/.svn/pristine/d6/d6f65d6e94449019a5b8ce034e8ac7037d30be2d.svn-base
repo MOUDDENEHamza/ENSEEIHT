@@ -1,0 +1,26 @@
+package allumettes;
+
+/** La classe StrategieTricheur définit un joueur qui triche.
+ * @author	Hamza MOUDDENE
+ * @version	1.0
+ */
+public class StrategieTricheur implements Strategie {
+
+     /** une stratégie de jeu qui correspond à un joueur qui triche.
+     * @param jeu : un jeu donné
+     * @return le nombre d’allumettes qu’il veut prendre
+     * @throws CoupInvalideException tentative de prendre un nombre invalide d'alumettes
+     */
+    public int getPrise(Jeu jeu) throws CoupInvalideException {
+    	int i;
+	try {
+		for (i = 0; i < jeu.getNombreAllumettes() - 2; i++) {
+			jeu.retirer(1);
+		}
+	} catch (CoupInvalideException e) {
+		System.out.println(e.getMessage());
+	}
+	return 1;
+    }
+
+}

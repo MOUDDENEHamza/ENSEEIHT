@@ -1,0 +1,7 @@
+Début de la vérification...
+[ERROR] Cercle.java:11:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:16:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:17:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:42:50: '&&' devrait être sur une nouvelle ligne. [OperatorWrap]
+[ERROR] Cercle.java:43: Line has trailing spaces. [RegexpSingleline]
+Vérification terminée.

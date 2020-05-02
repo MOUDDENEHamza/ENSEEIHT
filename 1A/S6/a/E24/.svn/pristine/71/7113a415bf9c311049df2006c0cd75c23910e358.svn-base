@@ -1,0 +1,172 @@
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class SignIn {
+
+	JFrame windowLog;
+	JLabel l1;
+	JTextField text;
+	JLabel l2;
+	JPasswordField passwd;
+	JButton b, guest, signup, exit;
+	boolean IsEmployee;
+	Employee Employee;
+	Customer Customer;
+	private final ActionListener B_Submit = new Submit();
+	private final ActionListener B_Guest = new asGuest();
+	private final ActionListener B_SignUp = new signUp();
+	private final ActionListener B_Exit = new Exit();
+	private JFrame window;
+	
+	/**
+	 * @author Hamza Moudenne & Younes Saoudi
+	 * Constructor of login side
+	 */
+	public SignIn(JFrame window) {
+		this.window = window;
+		GUI log = new GUI();
+		//empty width = 230 on each side
+		//used with 340
+		//between label and text : 160
+		this.windowLog = log.createWindow("Sign In", 600, 450);
+		this.windowLog.getContentPane().setBackground(new Color(196,160,214));
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.windowLog.setLocation(dim.width/2-this.windowLog.getSize().width/2, dim.height/2-this.windowLog.getSize().height/2);
+		
+		this.l1 = log.createLabel("Username", 200, 60, 80, 30);
+		this.text = log.createText(200, 95, 200, 30);
+		this.l2 = log.createLabel("Password", 200, 135, 80, 30);
+		this.passwd = log.createPasswd(200, 165, 200, 30);
+		this.signup = log.createButton("Sign Up", 205, 235, 90, 30, Color.BLACK, Color.WHITE);
+		this.guest = log.createButton("Continue without logging in", 205, 280, 190, 30, Color.WHITE, Color.BLACK);
+		this.b = log.createButton("Log In", 305, 235, 90, 30, new Color(152, 206, 224), Color.WHITE);
+		this.exit = log.createButton("Exit", 205, 325, 190, 30, new Color(220, 53, 69), Color.WHITE);
+		
+		try {
+		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     Font Museo_300 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 300.ttf")).deriveFont(15f);
+		     ge.registerFont(Museo_300);
+		     this.l1.setFont(Museo_300);
+		     this.l2.setFont(Museo_300);
+		     this.text.setFont(Museo_300);
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
+
+
+		windowLog.add(l1);
+
+		windowLog.add(text);
+
+		windowLog.add(l2);
+
+		windowLog.add(passwd);
+
+		windowLog.add(b);
+		windowLog.add(guest);
+		windowLog.add(signup);
+		windowLog.add(exit);
+		b.addActionListener(B_Submit);
+		guest.addActionListener(B_Guest);
+		signup.addActionListener(B_SignUp);
+		exit.addActionListener(B_Exit);
+		
+		windowLog.setVisible(true);
+	}
+
+	public boolean checkCredentials(String ID, String passwd) {
+		JSONParser parser = new JSONParser();
+		try {
+			JSONArray userList = (JSONArray) parser.parse(new FileReader("data/users.json"));
+
+			for (Object user : userList) {
+				JSONObject usr = (JSONObject) user;
+
+				String username = (String) usr.get("Username");
+				String password = (String) usr.get("Password");
+				IsEmployee = (!((String) usr.get("EmployeeID")).equals(""));
+//	public Employee(String Prenom, String Nom, String identifiant, String Function) {
+				String Function = (String) usr.get("Function");
+				EmployeeRank Rank = EmployeeRank.Null;
+				if (IsEmployee) {
+					 Rank = EmployeeRank.valueOf(Function);
+				}
+				
+				Employee = new Employee((String)usr.get("First name"), 
+						(String) usr.get("Last name"), (String) usr.get("EmployeeID"), Rank);
+				Customer = new Customer((String)usr.get("First name"), 
+						(String) usr.get("Last name"));
+				
+				if (ID.equals(username) && passwd.equals(password)) {
+					return true;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public class Submit implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if (checkCredentials(text.getText(), new String(passwd.getPassword()))) {
+				//OLD: System.out.println("success");
+				//Modifié par Younes:
+				//JOptionPane.showMessageDialog(windowLog,"Logged in successfully.");
+				//Modifié par Younes:
+				if(IsEmployee) {
+					new EmployeeInterface(Employee);
+				} else {
+
+					Menu menu = new Menu();
+					Choix choix = new Choix();
+					new MenuSwing(menu, choix, Customer);
+				}
+				
+				windowLog.dispose();
+				window.dispose();
+				
+			} else {
+				JOptionPane.showMessageDialog(windowLog,"Wrong username or password.");
+			}
+		}
+	}
+	public class asGuest implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			Menu menu = new Menu();
+			Choix choix = new Choix();
+			new MenuSwing(menu, choix, new Customer("NULL","NULL"));
+			windowLog.dispose();
+			window.dispose();
+		}
+	}
+	public class signUp implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			windowLog.setVisible(false);
+			Employee Employee2 = new Employee("","","",EmployeeRank.Null);
+			new SignUp(Employee2);
+		}
+	}
+	public class Exit implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
+}

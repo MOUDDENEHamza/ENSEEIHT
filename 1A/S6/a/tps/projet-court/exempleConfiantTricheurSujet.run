@@ -1,0 +1,4 @@
+java allumettes.Partie -confiant Ordinateur@rapide Tricheur@tricheur << EOF
+EOF
+
+

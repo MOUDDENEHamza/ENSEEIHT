@@ -1,0 +1,26 @@
+package allumettes;
+
+import java.util.Scanner;
+
+public class StrategieHumaine implements Strategie {
+
+    private Scanner scan;
+
+    public StrategieHumaine() {
+	this.scan = new Scanner(System.in);
+    }
+
+    @Override
+	public int getPrise(Jeu jeu) {
+	    assert (jeu != null);
+	    int n = 0;
+	    try {
+		System.out.print("Combien prenez-vous d'allumettes ? ");
+		n = Integer.parseInt(this.scan.nextLine());
+	    } catch (NumberFormatException e) {
+		System.out.println("Vous devez donner un entier.");
+	   	return getPrise(jeu);
+	    }
+	    return n;
+	}
+}

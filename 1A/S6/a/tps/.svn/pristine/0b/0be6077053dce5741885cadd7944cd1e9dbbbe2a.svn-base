@@ -1,0 +1,12 @@
+Début de la vérification...
+[ERROR] Arbitre.java:150: La ligne excède 90 caractères (trouvé 100). [LineLength]
+[ERROR] Arbitre.java:177:30: '3' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:180:30: '4' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:183:30: '5' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:186:30: '6' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:200: La ligne excède 90 caractères (trouvé 103). [LineLength]
+[ERROR] Arbitre.java:227: La ligne excède 90 caractères (trouvé 91). [LineLength]
+[ERROR] Partie.java:61:33: '13' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Partie.java:65:59: '3' devrait être défini comme une constante. [MagicNumber]
+[ERROR] CoupInvalideException.java:12: Line has trailing spaces. [RegexpSingleline]
+Vérification terminée.

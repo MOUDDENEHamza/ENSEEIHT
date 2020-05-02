@@ -1,0 +1,19 @@
+5c5,7
+< 	/** Nombre maximal d'allumettes pouvant Ãªtre prises. */
+---
+>     /**
+>      * Nombre maximal d'allumettes pouvant Ãªtre prises.
+>      */
+8c10,12
+< 	/** Obtenir le nombre d'allumettes encore en jeu.
+---
+>     /**
+>      * Obtenir le nombre d'allumettes encore en jeu.
+>      *
+13c17,18
+< 	/** Retirer des allumettes.  Le nombre d'allumettes doit Ãªtre compris
+---
+>     /**
+>      * Retirer des allumettes.  Le nombre d'allumettes doit etre compris
+15a21
+>      *

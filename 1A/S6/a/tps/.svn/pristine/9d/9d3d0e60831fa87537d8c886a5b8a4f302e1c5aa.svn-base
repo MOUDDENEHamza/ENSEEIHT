@@ -1,0 +1,69 @@
+File Cercle.java: 592 tokens, 192 lines
+Total input: 1 file (1 new, 0 old), 592 tokens
+
+Cercle.java: line 43-46 [56]
+Cercle.java: line 58-61
+< 		assert (p1 != null && p2 != null && (p1.getX() != p2.getX() || p1.getY() != p2.getY())); // Précondition
+< 		this.centre = new Point((p1.getX() + p2.getX()) / 2, (p1.getY() + p2.getY()) / 2);
+< 		this.rayon = p1.distance(p2) / 2;
+< 		this.couleur = Color.blue;
+---
+> 		assert (p1 != null && p2 != null && (p1.getX() != p2.getX() || p1.getY() != p2.getY()) && c != null); // Précondition
+> 		this.centre = new Point((p1.getX() + p2.getX()) / 2, (p1.getY() + p2.getY()) / 2);
+> 		this.rayon = p1.distance(p2) / 2;
+> 		this.couleur = c;
+
+Cercle.java: line 42-43 [49]
+Cercle.java: line 57-58
+< 	public Cercle(Point p1, Point p2) {
+< 		assert (p1 != null && p2 != null && (p1.getX() != p2.getX() || p1.getY() != p2.getY())); // Précondition
+---
+> 	public Cercle(Point p1, Point p2, Color c) {
+> 		assert (p1 != null && p2 != null && (p1.getX() != p2.getX() || p1.getY() != p2.getY()) && c != null); // Précondition
+
+Cercle.java: line 89-109 [41]
+Cercle.java: line 109-129
+< 		return this.rayon * 2;
+< 	}
+< 
+< 	/** Changer le centre du cercle.
+< 	 * @param c est le nouveu centre du cercle
+< 	 */
+< 	// @ public normal_behavior
+< 	// @ requires c != null;
+< 	public void setCentre(Point c) {
+< 		assert (c != null); // Précondition
+< 		this.centre = c;
+< 	}
+< 
+< 	/** Changer le rayon du cercle.
+< 	 * @param r est le nouveau rayon du cercle
+< 	 */
+< 	// @ public normal_behavior
+< 	// @requires r > 0;
+< 	public void setRayon(double r) {
+< 		assert (r > 0); // Précondition
+< 		this.rayon = r;
+---
+> 		this.rayon = r;
+> 	}
+> 
+> 	/** Changer la couleur du cercle.
+> 	 * @param c est la nouvelle couleur du cercle
+> 	 */
+> 	// @ public normal_behavior
+> 	// @ requires c != null;
+> 	public void setCouleur(Color c) {
+> 		assert (c != null); // Précondition
+> 		this.couleur = c;
+> 	}
+> 
+> 	/** changer le diamètre du cercle.
+> 	 * @param d est le diamètre du cercle
+> 	 */
+> 	// @ public normal_behavior
+> 	// @ requires d > 0:
+> 	public void setDiametre(double d) {
+> 		assert (d > 0); // Précondition
+> 		this.rayon = d / 2;
+

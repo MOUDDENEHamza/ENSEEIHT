@@ -1,0 +1,261 @@
+
+import javax.swing.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ *
+ *
+ * @author Younes Saoudi
+ * @version 0.1
+ */
+public class EmployeeInterface{
+	
+	// Class Attributes //
+	//Swing Items
+	private JFrame window;
+	private JLabel logo, footerLabel;
+	private JButton b1, b2, b3, b4, SignOut;
+	private JPanel headLeft, headCenter, headRight, footer;
+	private Employee Employee;
+	private JLabel text;
+	private Color Background;
+	
+	//Button Listeners
+	private final ActionListener B_Stock = new OpenStock(); //Stock Button
+	private final ActionListener B_FinancialState = new OpenFinancialState(); //Financial State Button
+	private final ActionListener B_CurrentOrders = new OpenCurrentOrders(); //Current Orders Button
+	private final ActionListener B_CreateEmployee = new CreateEmployee(); //Sign out Button
+	private final ActionListener B_SignOut = new SignOut(); //Sign out Button
+
+	/**
+	 * Employee Interface Constructor
+	 */
+	public EmployeeInterface(Employee Employee) {
+		
+		this.Employee = Employee; //Will be used for the CurrentOrders' ActionListener
+		
+		GUI MenuEmploye = new GUI(); //Using GUI's implemented methods
+		this.Background = Color.WHITE;
+		
+		//Create maximised window and storing its dimensions
+		this.window = MenuEmploye.createWindow("Employee Interface", 0, 0);
+		this.window.setExtendedState(this.window.getExtendedState() | JFrame.MAXIMIZED_BOTH); //Automatically maximise window
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.window.getContentPane().setBackground(Background);
+
+		int width = screenSize.width; //1536 (if 1080p screen)
+		int height = screenSize.height;//864 (if 1080p screen)
+		int actual_height = height - 40 - 75; //True window height (having subtracted footer and header height)
+		
+		//HEADER
+		//Left side of the header, grey colour and dynamic width depending on user's screen size
+		this.headLeft = MenuEmploye.createPanel(0, 0, width *176/1536, 40, Background);
+		this.logo = MenuEmploye.createLabel(Employee.getFunction().toString(), 10, 10, 120, 40);
+		this.headLeft.add(logo);
+		this.window.add(this.headLeft);
+		
+		//Central (and largest) side of the header
+		this.headCenter = MenuEmploye.createPanel(width * 176/1536, 0, width * 1024/1536, 40, Background);
+		this.window.add(this.headCenter);
+		
+		//Right side of the header
+		this.headRight = MenuEmploye.createPanel(width * 176/1536 + width * 1024/1536, 0, width * 336/1536, 40, Background);
+		this.text = MenuEmploye.createLabel("Employee Interface", 10, 10, 200, 40);
+		this.headRight.add(text);
+		this.window.add(this.headRight);
+
+		//BODY
+		
+		//Stock button
+		this.b1 = MenuEmploye.createButton("Stock", width/4 - width *100/1536, 2*actual_height/3, 100, 40, new Color(32, 18, 83), Color.WHITE);
+
+		//Test Place Order (will become "Finances" Button later on)
+		this.b2 = MenuEmploye.createButton("Financial State", 2*width/4 - width *100/1536, 2*actual_height/3, 200, 40, new Color(15, 125, 102), Color.WHITE);
+
+		//Current Orders Button
+		this.b3 = MenuEmploye.createButton("Current Orders", 3*width/4 - width *100/1536, 2*actual_height/3, 200, 40, new Color(220, 193, 57), Color.WHITE);
+
+		//Creating Employee Account Button
+		if(Employee.getFunction().ordinal()>EmployeeRank.Cook.ordinal()){
+			this.b4 = MenuEmploye.createButton("Create Employee Account", width/2 - 150, 4*actual_height/5, 300, 40, Color.BLACK, Color.WHITE);
+			this.window.add(b4);
+			b4.addActionListener(B_CreateEmployee);
+			try {
+			     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			     Font Museo_500 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 500.otf")).deriveFont(15f);
+			     ge.registerFont(Museo_500);
+			     this.b4.setFont(Museo_500);
+			} catch (IOException|FontFormatException e) {
+			     e.printStackTrace();
+			}
+		}
+		
+		//Sign Out Button
+		this.SignOut = MenuEmploye.createButton("Log Out", 0, 0, 100, 40, new Color(220, 53, 69), Color.WHITE);
+        
+		//Adding previous buttons to the JFrame
+		this.window.add(this.b1);
+        this.window.add(this.b2);
+        this.window.add(this.b3);
+        
+        //Assigning each button to their ActionListener
+        b1.addActionListener(this.B_Stock);
+        b2.addActionListener(this.B_FinancialState);
+        b3.addActionListener(this.B_CurrentOrders);
+        SignOut.addActionListener(this.B_SignOut);
+        
+        //Displaying the logged in Employee's information
+        JLabel Welcome = MenuEmploye.createLabel("Welcome back, ",width *50/1536, actual_height/4 - actual_height*75/749,width,100);
+        JLabel FullName =  MenuEmploye.createLabel(Employee.getFirstName()+" "+Employee.getLastName()+" ...",width*500/1536, actual_height/4,width,100);
+        /*JLabel ID = MenuEmploye.createLabel("ID                :  " + Employee.getId(),width/2- width *250/1536, actual_height/4, 300,100);*/
+        //JLabel Function =  MenuEmploye.createLabel("Function  :  " + Employee.getFunction(),width/2, actual_height/4,300,100);
+        
+        Welcome.setForeground(new Color(57, 186, 204));
+        FullName.setForeground(new Color(57, 186, 204));
+        //Adding the labels to the JFrame
+        this.window.add(Welcome);
+        this.window.add(FullName);
+        /*this.window.add(ID);
+        this.window.add(Function);*/
+        
+        //FOOTER
+        
+        //Footer Elements
+        this.footer = MenuEmploye.createPanel(0, height*725/864, width, 75, Background);
+        this.footer.setLayout(new BorderLayout());
+        this.footerLabel = MenuEmploye.createLabel("� 2020 Resto'N7 ", 0, 0, 100, 50);
+        this.footer.add(this.SignOut, BorderLayout.NORTH);
+        this.footer.add(this.footerLabel, BorderLayout.CENTER);
+        this.window.add(this.footer);
+        try {
+		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     Font Museo_1000 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 1000.ttf")).deriveFont(70f);
+		     ge.registerFont(Museo_1000);
+		     //Font Museo_300 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 300.ttf")).deriveFont(15f);
+		     //ge.registerFont(Museo_300);
+		     Font Museo_500 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 500.otf")).deriveFont(15f);
+		     ge.registerFont(Museo_500);
+		     //Font Museo_900 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 900.ttf")).deriveFont(15f);
+		     //ge.registerFont(Museo_900);
+		     Font Uniform_Light = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Uniform Light.ttf")).deriveFont(15f);
+		     ge.registerFont(Uniform_Light);
+		     this.SignOut.setFont(Uniform_Light);
+		     this.footerLabel.setFont(Uniform_Light);
+		     this.logo.setFont(Uniform_Light);
+		     this.text.setFont(Uniform_Light);
+		     Welcome.setFont(Museo_1000);
+		     FullName.setFont(Museo_1000);
+		     this.b1.setFont(Museo_500);
+		     this.b2.setFont(Museo_500);
+		     this.b3.setFont(Museo_500);
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
+        
+        this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //System exits if the default close button is clicked
+	}
+	
+	/**
+	 * Show Stock if the Stock button is pressed
+	 * @author Younes Saoudi
+	 *
+	 */
+	private class OpenStock implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			;
+		}
+	}
+	
+	/**
+	 * Show restaurant's Finances if FinancialState Button is pressed
+	 * @author Younes Saoudi
+	 *
+	 */
+	private class OpenFinancialState implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			new FinancialStateSwing(Employee);
+			window.dispose();
+		}
+	}
+	
+	/**
+	 * Show Current Orders so that the logged in Employee can monitor/modify them when needed
+	 * if the CurrentOrders button is pressed
+	 * @author Younes Saoudi
+	 *
+	 */
+	private class OpenCurrentOrders implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			new CurrentOrders(Employee);
+			window.dispose();
+		}
+	}
+	private class CreateEmployee implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			new Sign_Up2(Employee);
+		}
+	}
+	/**
+	 * Sign Out of the Employee account if the Sign Out button is pressed, but only after
+	 * updating the Human-Friendly Orders database with the modifications that may have been made
+	 * by the employee
+	 * @author Younes Saoudi
+	 *
+	 */
+	private class SignOut implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			updateHumanFriendlyOrdersDATABASE();
+			window.dispose();
+			Home_Swing home = new Home_Swing();
+			JFrame window = home.getWindow();
+			new Sign_In2(window);
+		}
+	}
+	
+	/**
+	 *Update the Human-Friendly Orders Database
+	 * @author Younes Saoudi
+	 */
+	public static void updateHumanFriendlyOrdersDATABASE() {
+		try {
+			//Importing the orders.json database since it has the made modifications
+			JSONParser parser1 = new JSONParser();
+			JSONArray orderList = (JSONArray) parser1.parse(new FileReader("data/orders.json"));
+			
+			//Formatting the database and converting it into a string
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String Human_Friendly_Data = gson.toJson(orderList);
+			
+			//Writing the string to the Human Friendly database
+			try (FileWriter file = new FileWriter("data/orders_Human_Friendly.json")) {
+				file.write(Human_Friendly_Data);
+				file.flush();
+			}
+			catch (IOException er) {
+				er.printStackTrace();
+			}
+		}
+		catch (FileNotFoundException er) {
+			er.printStackTrace();
+		} catch (IOException er) {
+			er.printStackTrace();
+		} catch (ParseException er) {
+			er.printStackTrace();
+		}
+	}
+}

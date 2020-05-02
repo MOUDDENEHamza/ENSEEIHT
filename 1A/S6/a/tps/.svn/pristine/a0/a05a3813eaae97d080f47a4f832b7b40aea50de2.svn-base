@@ -1,0 +1,81 @@
+Date de l'évaluation : lundi 20 avril 2020, 23:54:47 (UTC+0200)
+
+!!! Il est interdit de changer CoupInvalideException.java (voir evaluation1/CoupInvalideException.java.diff)
+
+Nombre de similitudes (voir evaluation1/sim_java.txt) : 14
+Les similitudes indiquent généralement du code à restructurer.
+
+Erreurs checkstyle (différentes/types) : 12/5	(voir evaluation1//checkstyle.log)
+
+Utilisation de 'Scanner' : ok
+	./allumettes/Arbitre.java:        Scanner scan = new Scanner(System.in);
+	./allumettes/StrategieHumaine.java:    private Scanner scan;
+	./allumettes/StrategieHumaine.java:        this.scan = new Scanner(System.in);
+
+Utilisation de 'split' : ok
+	./allumettes/Partie.java:			String[] tmp = str.split("@");
+
+Utilisation de 'Random' : ok
+	./allumettes/StrategieNaive.java:import java.util.Random;
+	./allumettes/StrategieNaive.java:        Random r = new Random();
+	./allumettes/StrategieExperte.java:import java.util.Random;
+	./allumettes/StrategieExperte.java:        Random r = new Random();
+
+Utilisation de '3' : la constante Jeu.PRISE_MAX doit être utilisée
+	./allumettes/Arbitre.java:        System.out.println("3.Stratègie lente");
+	./allumettes/Arbitre.java:        } else if (choice == 3) {
+	./allumettes/Partie.java:            Joueur j1 = new Joueur(tmp[2], obtenirStr(tmp[3]));
+
+Utilisation de 'System.exit' : ok
+
+Compilation de Partie.java : OK.
+Compilation de Arbitre.java : OK.
+Compilation de JoueurTest.java : OK.
+Compilation de RobustesseGameTest.java : OK.
+Compilation de StrategieExperteTest.java : OK.
+Compilation de StrategieNaiveTest.java : OK.
+Compilation de StrategieLenteTest.java : OK.
+Compilation de StrategieTricheurTest.java : OK.
+Compilation de StrategieRapideTest.java : OK.
+Compilation de RobustesseJoueurTest.java : OK.
+Compilation de RobustesseArbitreTest.java : OK.
+Compilation de ArbitreTest.java : OK.
+Test exemplePresqueSujet : ok
+Test exempleTricheurSujet : ok
+Test exempleConfiantTricheurSujet : ok
+Test exempleRobustesse : ok
+Test exempleRapideRapide : ok
+Test exempleTricheurExpert : ok
+
+On recommence avec les classes/interfaces fournies : Jeu ConfigurationException CoupInvalideException
+Compilation de Partie.java : OK.
+Compilation de Arbitre.java : OK.
+
+Vérification du respect du diagramme de classe...
+Test FormeTest : Tests run: 2,  Failures: 1	(voir evaluation1/FormeTest.log)
+    1) testerRespectArchitecture(FormeTest)
+        AssertionError: Méthode manquante dans la classe allumettes.Arbitre : arbitrer(allumettes.Jeu)
+
+
+Compilation de JoueurTest.java : OK.
+Test allumettes.JoueurTest : OK (2 tests)	(voir evaluation1/allumettes.JoueurTest.log)
+Compilation de RobustesseGameTest.java : OK.
+Test allumettes.RobustesseGameTest : OK (2 tests)	(voir evaluation1/allumettes.RobustesseGameTest.log)
+Compilation de StrategieExperteTest.java : OK.
+Test allumettes.StrategieExperteTest : OK (2 tests)	(voir evaluation1/allumettes.StrategieExperteTest.log)
+Compilation de StrategieNaiveTest.java : OK.
+Test allumettes.StrategieNaiveTest : OK (2 tests)	(voir evaluation1/allumettes.StrategieNaiveTest.log)
+Compilation de StrategieLenteTest.java : OK.
+Test allumettes.StrategieLenteTest : OK (2 tests)	(voir evaluation1/allumettes.StrategieLenteTest.log)
+Compilation de StrategieTricheurTest.java : OK.
+Test allumettes.StrategieTricheurTest : OK (2 tests)	(voir evaluation1/allumettes.StrategieTricheurTest.log)
+Compilation de StrategieRapideTest.java : OK.
+Test allumettes.StrategieRapideTest : OK (2 tests)	(voir evaluation1/allumettes.StrategieRapideTest.log)
+Compilation de RobustesseProxyTest.java : OK.
+Test allumettes.RobustesseProxyTest : OK (2 tests)	(voir evaluation1/allumettes.RobustesseProxyTest.log)
+Compilation de RobustesseJoueurTest.java : OK.
+Test allumettes.RobustesseJoueurTest : OK (8 tests)	(voir evaluation1/allumettes.RobustesseJoueurTest.log)
+Compilation de RobustesseArbitreTest.java : OK.
+Test allumettes.RobustesseArbitreTest : OK (11 tests)	(voir evaluation1/allumettes.RobustesseArbitreTest.log)
+Compilation de ArbitreTest.java : OK.
+Test allumettes.ArbitreTest : OK (5 tests)	(voir evaluation1/allumettes.ArbitreTest.log)

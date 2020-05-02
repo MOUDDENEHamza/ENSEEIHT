@@ -1,0 +1,14 @@
+all :
+	make compile -s
+	make test -s
+	make clean -s
+
+compile :
+	javac allumettes/*.java
+	javadoc -d doc allumettes/*.java
+
+test :
+	sh testeur.sh *.run
+
+clean :
+	rm allumettes/*.class

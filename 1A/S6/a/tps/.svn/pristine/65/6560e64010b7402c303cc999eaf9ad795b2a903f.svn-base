@@ -1,0 +1,65 @@
+File Cercle.java: 633 tokens, 180 lines
+Total input: 1 file (1 new, 0 old), 633 tokens
+
+Cercle.java: line 43-47 [57]
+Cercle.java: line 58-62
+< 		&& (p1.getX() != p2.getX() || p1.getY() != p2.getY())); // Précondition.
+< 		this.centre = new Point((p1.getX() + p2.getX()) / 2,
+< 			(p1.getY() + p2.getY()) / 2);
+< 		this.setRayon(p1.distance(p2) / 2);
+< 		this.setCouleur(Color.blue);
+---
+> 			|| p1.getY() != p2.getY()) && c != null); // Précondition.
+> 		this.centre = new Point((p1.getX() + p2.getX()) / 2,
+> 			(p1.getY() + p2.getY()) / 2);
+> 		this.setRayon(p1.distance(p2) / 2);
+> 		this.setCouleur(c);
+
+Cercle.java: line 41-43 [49]
+Cercle.java: line 56-58
+< 	public Cercle(Point p1, Point p2) {
+< 		assert (p1 != null && p2 != null 
+< 		&& (p1.getX() != p2.getX() || p1.getY() != p2.getY())); // Précondition.
+---
+> 	public Cercle(Point p1, Point p2, Color c) {
+> 		assert (p1 != null && p2 != null && (p1.getX() != p2.getX()
+> 			|| p1.getY() != p2.getY()) && c != null); // Précondition.
+
+Cercle.java: line 90-106 [41]
+Cercle.java: line 106-122
+< 		return this.getRayon() * 2;
+< 	}
+< 
+< 	/** Changer le centre du cercle.
+< 	 * @param c est le nouveu centre du cercle
+< 	 */
+< 	public void setCentre(Point c) {
+< 		assert (c != null); // Précondition
+< 		this.centre = c;
+< 	}
+< 
+< 	/** Changer le rayon du cercle.
+< 	 * @param r est le nouveau rayon du cercle
+< 	 */
+< 	public void setRayon(double r) {
+< 		assert (r > 0); // Précondition
+< 		this.rayon = r;
+---
+> 		this.rayon = r;
+> 	}
+> 
+> 	/** Changer la couleur du cercle.
+> 	 * @param c est la nouvelle couleur du cercle
+> 	 */
+> 	public void setCouleur(Color c) {
+> 		assert (c != null); // Précondition
+> 		this.couleur = c;
+> 	}
+> 
+> 	/** changer le diamètre du cercle.
+> 	 * @param d est le diamètre du cercle
+> 	 */
+> 	public void setDiametre(double d) {
+> 		assert (d > 0); // Précondition
+> 		this.rayon = d / 2;
+

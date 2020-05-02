@@ -1,0 +1,18 @@
+package allumettes;
+
+import java.util.Random;
+
+/** La classe StrategieHumaine définit un joueur qui prend aleatoirement sa prise.
+ * @author	Hamza MOUDDENE
+ * @version	1.0
+ */
+public class StrategieNaive implements Strategie {
+	
+	@Override
+	public int getPrise(Jeu jeucourant) {
+		Random gen;
+		int max_tirage = Math.min(Jeu.PRISE_MAX, jeucourant.getNombreAllumettes());
+		return (this.gen.nextInt(max_tirage) + 1);
+	}
+
+}

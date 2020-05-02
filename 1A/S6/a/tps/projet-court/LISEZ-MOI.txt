@@ -1,0 +1,87 @@
+Nom       : MOUDDENE
+Prénom    : Hamza
+Groupe TP : C
+
+Les « ... » indiquent les endroits à compléter.
+
+=====[ Temps passé ]============================================================
+
+Ces informations de temps sont demandées à titre indicatif et ne sont pas
+prises en compte dans la notation du projet.
+
+Toutes les durées sont à saisir en heures.  Par exemple, si vous avez passé
+1h45, il faudra indiquer 1.75.  Si vous avez passé 2h30, il faudra indiquer
+2.5.
+
+* Temps passé sur la V1 (en h) : 8h
+* Temps passé sur la V2 (en h) : ...
+
+
+=====[ Questions ]==============================================================
+
+--------------------------------------------------------------------------------
+Pourquoi l'exception OperationInterditeException ne peut pas être définie
+comme vérifiée par le compilateur ?
+--------------------------------------------------------------------------------
+
+Le compilateur vérifie que le programmeur a bien pris en compte toutes les exceptions
+vérifiées propagées par les instructions du code d’une méthode.
+Une exception vérifiée : exception qui est ni Error, ni RuntimeException
+OperationInterditeException hérite de RuntimeException donc après la définition
+précedente, l'exception OperationInterditeException ne peut pas être définie
+comme vérifiée par le compilateur.
+
+--------------------------------------------------------------------------------
+Expliquer ce qu'il faut faire pour ajouter un nouveau niveau de jeu, par
+exemple la stratégie lente (C13).  Pour plus de précision, on numérotera
+les étapes à faire.
+--------------------------------------------------------------------------------
+
+Pour ajouter un nouveau niveau de jeu, par exemple une stratègie lente, j'ai 
+procédé par plusieurs étapes qui sont :
+
+1.Créer une interface Stratègie, le choix d'une interface m'as permis plus tard
+de rajouter plusieurs stratègies.
+
+2.Puis j'ai créer la classe StrategieLente qui réalise cette interface, avec 
+bien évidemment l'implantation correspondante à une stratègie lente.
+
+3.J'ai crée une classe StrategieLenteTest de tests unitaires pour la stratégie 
+lente, pour vérifier la robustesse de l'implantation et détecter les erreurs
+probables.
+
+4.Puis j'ai rajouter dans la classe Partie le fait que je peux lancer une partie
+avec la stratègie lente.
+
+--------------------------------------------------------------------------------
+Expliquer ce qui permet, dans votre conception, de changer dynamiquement
+(en cours d'exécution du programme) la stratégie d'un joueur (C14).
+--------------------------------------------------------------------------------
+
+j'ai implementé le fait de changer dynamiquement (en cours d'exécution du 
+programme) la stratégie d'un joueur (C14), comme le suivant:
+
+j'ai dit que si un joueur souhaite modifier la stratègie pendant une partie, il
+va falloir lancer le programme avec l'option -chgStr(Change strategie), par exe-
+mple : 
+		java allumettes.Partie -chgStr player1@rapide player2@lent
+
+et donc dans la classe Partie je vérifie quand est ce que j'ai 3 string dans 
+args tel que args[0] différent de "-confiant", et puis j'envoie une boolean qui 
+a la valeur vrai pour pouvoir changer la stratègie quand un joueur souhaite la 
+changer grace setStrategie dans la classe joueur, après j'ai rajouté l'option de
+pouvoir désactiver cette option pour les deux joueurs à la fois.
+
+=====[ Explications ]===========================================================
+
+--------------------------------------------------------------------------------
+Donner ici les explications supplémentaires utiles à la compréhension du
+travail rendu.
+--------------------------------------------------------------------------------
+
+j'ai fait un Makefile qui lance le tester.sh avec les fichiers de tests de
+Junit.
+
+le répertoire doc contient la documentation en format html
+
+--------------------------------------------------------------------------------

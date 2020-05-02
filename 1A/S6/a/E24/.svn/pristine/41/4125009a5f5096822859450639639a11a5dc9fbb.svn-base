@@ -1,0 +1,162 @@
+
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.UUID;
+
+/**
+ * 
+ *
+ * @author Younes Saoudi
+ * @version 0.1
+ */
+public class NewOrder {
+
+	JFrame windowLog;
+	JLabel l2;
+	JPanel l21;
+	JLabel l3;
+	JRadioButton r1;
+	JRadioButton r2;
+	ButtonGroup bg;
+	JLabel l4;
+	JPanel l41;
+	JLabel l6;
+	JPanel l61;
+	JLabel l7;
+	JTextField text7;
+	JLabel l8;
+	JTextField text8;
+	JLabel l9;
+	JTextField text9;
+	JComboBox<String> comboBox1, comboBox2, comboBox3;
+	JButton submit;
+	private final ActionListener B_Submit = new Submit();
+
+	/**
+	 * Constructor of the registration feauture
+	 */
+	public NewOrder() {
+		GUI regiseration = new GUI();
+		
+		this.windowLog = regiseration.createWindow("Place Order", 1000, 800);
+		this.windowLog.setExtendedState(this.windowLog.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = screenSize.width; //1536
+		int height = screenSize.height;//864
+
+		this.l2 = regiseration.createLabel("Table Number", 400, 100, 100, 30);
+		this.l21 = regiseration.createPanel(600, 100, 130, 30, this.windowLog.getBackground());
+		this.comboBox1 = new JComboBox<String>();
+		comboBox1.addItem("TAKEOUT");
+		for (int i=1; i<=50; i++) {
+			comboBox1.addItem("N." + (int) i/10 + i%10);
+		}
+		this.l21.add(comboBox1);
+
+		this.l4 = regiseration.createLabel("Payment", 400, 200, 80, 30);
+		this.l41 = regiseration.createPanel(600, 200, 130, 30, this.windowLog.getBackground());
+		this.comboBox2 = new JComboBox<String>();
+		this.comboBox2.addItem("Cash");
+		this.comboBox2.addItem("Credit Card");
+		this.l41.add(comboBox2);
+
+		this.l6 = regiseration.createLabel("Status", 400, 300, 80, 30);
+		this.l61 = regiseration.createPanel(600, 300, 130, 30, this.windowLog.getBackground());
+		
+		this.comboBox3 = new JComboBox<String>();
+		this.comboBox3.addItem("In Progress");
+		this.comboBox3.addItem("Done");
+		this.comboBox3.addItem("Delayed");
+		this.comboBox3.addItem("Need Assistance!");
+		this.l61.add(comboBox3);
+		
+
+		this.l7 = regiseration.createLabel("Order", 400, 400, 80, 30);
+		this.text7 = regiseration.createText(600, 400, 100, 30);
+		
+		this.l8 = regiseration.createLabel("Price", 400, 500, 80, 30);
+		this.text8 = regiseration.createText(600, 500, 100, 30);
+		
+		this.l9 = regiseration.createLabel("Customer", 400, 600, 80, 30);
+		this.text9 = regiseration.createText(600, 600, 100, 30);
+
+		this.submit = regiseration.createButton("Submit", width*1200/1536, height/2, 100, 30, new Color(59, 114, 117), Color.WHITE);
+
+		windowLog.add(l2);
+		windowLog.add(l21);
+		windowLog.add(l4);
+		windowLog.add(l41);
+		windowLog.add(l6);
+		windowLog.add(l61);
+		windowLog.add(l7);
+		windowLog.add(text7);
+		windowLog.add(l8);
+		windowLog.add(text8);
+		windowLog.add(l9);
+		windowLog.add(text9);
+		windowLog.add(submit);
+		submit.addActionListener(this.B_Submit);
+	}
+	
+	public static String createOrderUUID() {
+		String uniqueID = UUID.randomUUID().toString();
+        return uniqueID;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void createNewOrder() {
+		JSONParser parser = new JSONParser();
+		try {
+			JSONArray orderList = (JSONArray) parser.parse(new FileReader("data/orders.json"));
+
+			// new user
+			JSONObject newOrder = new JSONObject();
+			newOrder.put("OrderNm", createOrderUUID());
+			newOrder.put("TableNm", (String)this.comboBox1.getSelectedItem());
+			newOrder.put("Payment", (String)this.comboBox2.getSelectedItem());
+			newOrder.put("Status",  (String)this.comboBox3.getSelectedItem() );
+			newOrder.put("Order", text7.getText());
+			newOrder.put("Price", text8.getText() + " €");
+			newOrder.put("Customer", text9.getText());
+			newOrder.put("Edits","");
+			
+			// Add the new order to the order list after making its format more Human-readable	
+			orderList.add(newOrder);
+			// Write the new orderList to the JSON file
+			try (FileWriter file = new FileWriter("data/orders.json")) {
+
+				file.write(orderList.toJSONString());
+				file.flush();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private class Submit implements ActionListener {
+		public void actionPerformed(ActionEvent e) { 
+			createNewOrder();
+			JOptionPane.showMessageDialog(windowLog,"Your order has been placed.");
+			windowLog.setVisible(false);
+		}
+	}
+}

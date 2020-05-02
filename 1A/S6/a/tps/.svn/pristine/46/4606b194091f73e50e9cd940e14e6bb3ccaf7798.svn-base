@@ -1,0 +1,4 @@
+13c13
+< 	/** Retirer des allumettes.  Le nombre d'allumettes doit Ãªtre compris
+---
+>     /** Retirer des allumettes.  Le nombre d'allumettes doit etre compris

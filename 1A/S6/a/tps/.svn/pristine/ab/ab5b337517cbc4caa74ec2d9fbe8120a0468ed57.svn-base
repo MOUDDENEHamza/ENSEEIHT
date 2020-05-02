@@ -1,0 +1,20 @@
+package allumettes;
+
+import java.util.Scanner;
+
+/** La classe StrategieHumaine définit un joueur qui prend toujours une prise minimale.
+ * @author	Hamza MOUDDENE
+ * @version	1.0
+ */
+public class StrategieLente implements Strategie {
+
+    /** une stratégie de jeu qui correspond à un joueur humain.
+     * @param jeu : un jeu donné
+     * @return le nombre d’allumettes qu’il veut prendre
+     * @throws CoupInvalideException tentative de prendre un nombre invalide d'alumettes
+     */
+    public int getPrise(Jeu jeu) {
+	return 1;
+    }
+
+}

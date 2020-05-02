@@ -1,0 +1,9 @@
+Début de la vérification...
+[ERROR] Cercle.java:10: Line has trailing spaces. [RegexpSingleline]
+[ERROR] Cercle.java:12:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:15: Line has trailing spaces. [RegexpSingleline]
+[ERROR] Cercle.java:17:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:19:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:21:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:42: Line has trailing spaces. [RegexpSingleline]
+Vérification terminée.

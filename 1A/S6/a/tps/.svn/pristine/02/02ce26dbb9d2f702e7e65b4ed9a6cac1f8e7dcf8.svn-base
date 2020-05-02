@@ -1,0 +1,5 @@
+12,13c12
+< 	/** Initialiser CoupInvalideException à partir du nombre d'allumettes
+< 	 * prises.
+---
+>     /** Initialiser CoupInvalideException à partir du nombre d'allumettes prises.

@@ -1,0 +1,36 @@
+Date de l'évaluation : lundi 20 avril 2020, 22:39:53 (UTC+0200)
+
+Ne pas mettre les *.html (faire : svn rm *.html)
+
+Nombre de similitudes (voir evaluation1/sim_java.txt) : 16
+Les similitudes indiquent généralement du code à restructurer.
+
+Erreurs checkstyle (différentes/types) : 0/0	(voir evaluation1//checkstyle.log)
+
+Utilisation de 'Scanner' : ok
+	./allumettes/Arbitre.java:        Scanner scan = new Scanner(System.in);
+	./allumettes/StrategieHumaine.java:    private Scanner scan;
+	./allumettes/StrategieHumaine.java:        this.scan = new Scanner(System.in);
+
+Utilisation de 'split' : ok mais un seul split devrait suffir !  Code à restructurer...
+	./allumettes/Partie.java:                String[] tmp1 = args[0].split("@");
+	./allumettes/Partie.java:                String[] tmp2 = args[1].split("@");
+	./allumettes/Partie.java:                    String[] tmp1 = args[1].split("@");
+	./allumettes/Partie.java:                    String[] tmp2 = args[2].split("@");
+
+Utilisation de 'Random' : ok
+	./allumettes/StrategieNaive.java:import java.util.Random;
+	./allumettes/StrategieNaive.java:        Random r = new Random();
+	./allumettes/StrategieExperte.java:import java.util.Random;
+	./allumettes/StrategieExperte.java:        Random r = new Random();
+
+Utilisation de '3' : la constante Jeu.PRISE_MAX doit être utilisée
+	./allumettes/Arbitre.java:        System.out.println("3.Stratègie lente");
+	./allumettes/Arbitre.java:        } else if (choice == 3) {
+	./allumettes/Joueur.java:            throw new CoupInvalideException(3, "test");
+	./allumettes/StrategieNaive.java:            return r.nextInt(3) + 1;
+
+Utilisation de 'System.exit' : ok
+
+Compilation de Partie.java : ERREUR !	(voir evaluation1/Partie.java.log)
+J'arrête les tests...

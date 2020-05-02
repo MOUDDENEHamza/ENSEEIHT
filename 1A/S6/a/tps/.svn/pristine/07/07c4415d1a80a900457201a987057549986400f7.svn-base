@@ -1,0 +1,9 @@
+all :
+	make compile -s
+	make test -s
+
+compile :
+	javac allumettes/*.java
+
+test :
+	sh testeur.sh *.run

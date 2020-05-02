@@ -1,0 +1,394 @@
+File ./allumettes/ConfigurationException.java: 21 tokens, 16 lines
+File ./allumettes/Jeu.java: 23 tokens, 21 lines
+File ./allumettes/Arbitre.java: 896 tokens, 254 lines
+File ./allumettes/Game.java: 230 tokens, 76 lines
+File ./allumettes/Strategie.java: 21 tokens, 29 lines
+File ./allumettes/StrategieTricheur.java: 89 tokens, 30 lines
+File ./allumettes/OperationInterditeException.java: 21 tokens, 21 lines
+File ./allumettes/Partie.java: 548 tokens, 120 lines
+File ./allumettes/CoupInvalideException.java: 51 tokens, 27 lines
+File ./allumettes/Joueur.java: 253 tokens, 105 lines
+File ./allumettes/StrategieNaive.java: 79 tokens, 28 lines
+File ./allumettes/StrategieExperte.java: 95 tokens, 29 lines
+File ./allumettes/Proxy.java: 68 tokens, 34 lines
+File ./allumettes/StrategieHumaine.java: 109 tokens, 43 lines
+File ./allumettes/StrategieLente.java: 33 tokens, 21 lines
+File ./allumettes/StrategieRapide.java: 46 tokens, 22 lines
+Total input: 16 files (16 new, 0 old), 2583 tokens
+
+./allumettes/Arbitre.java: line 171-180 [71]
+./allumettes/Arbitre.java: line 180-189
+<         if (choice == 1) {
+<             getJoueurCourant(tour).setStrategie(new StrategieExperte());
+<             return true;
+<         } else if (choice == 2) {
+<             getJoueurCourant(tour).setStrategie(new StrategieHumaine());
+<             return true;
+<         } else if (choice == 3) {
+<             getJoueurCourant(tour).setStrategie(new StrategieLente());
+<             return true;
+<         } else if (choice == 4) {
+---
+>         } else if (choice == 4) {
+>             getJoueurCourant(tour).setStrategie(new StrategieRapide());
+>             return true;
+>         } else if (choice == 5) {
+>             getJoueurCourant(tour).setStrategie(new StrategieNaive());
+>             return true;
+>         } else if (choice == 6) {
+>             getJoueurCourant(tour).setStrategie(new StrategieTricheur());
+>             return true;
+>         } else {
+
+./allumettes/Arbitre.java: line 230-248 [55]
+./allumettes/Game.java: line 52-70
+<             tour += 1;
+<         }
+<     }
+< 
+<     /**
+<      * Verfifier si deux arbitres sont égaux
+<      *
+<      * @param obj passé en paramètre
+<      * @return true s'il y'a égalité, sinon faux
+<      */
+<     public boolean isEquals(Object obj) {
+<         if (obj == null) {
+<             return false;
+<         }
+<         if (!(obj instanceof Arbitre)) {
+<             return false;
+<         }
+<         Arbitre a = (Arbitre) obj;
+<         if (this.j1 != a.getJ1() || this.j2 != a.getJ2()) {
+---
+>             this.nombreAllumettes -= nbPrises;
+> 		}    
+> 	}
+> 
+>     /**
+>      * Verfifier si deux game sont égales
+>      *
+>      * @param obj passé en paramètre
+>      * @return true s'il y'a égalité, sinon faux
+>      */
+>     public boolean isEquals(Object obj) {
+>         if (obj == null) {
+>             return false;
+>         }
+>         if (!(obj instanceof Game)) {
+>             return false;
+>         }
+>         Game g = (Game) obj;
+>         if (this.nombreAllumettes != g.getNombreAllumettes()) {
+
+./allumettes/Game.java: line 54-70 [52]
+./allumettes/Joueur.java: line 82-98
+< 	}
+< 
+<     /**
+<      * Verfifier si deux game sont égales
+<      *
+<      * @param obj passé en paramètre
+<      * @return true s'il y'a égalité, sinon faux
+<      */
+<     public boolean isEquals(Object obj) {
+<         if (obj == null) {
+<             return false;
+<         }
+<         if (!(obj instanceof Game)) {
+<             return false;
+<         }
+<         Game g = (Game) obj;
+<         if (this.nombreAllumettes != g.getNombreAllumettes()) {
+---
+>     }
+> 
+>     /**
+>      * Verfifier si deux joueurs sont égaux
+>      *
+>      * @param obj passé en paramètre
+>      * @return true s'il y'a égalité, sinon faux
+>      */
+>     public boolean isEquals(Object obj) {
+>         if (obj == null) {
+>             return false;
+>         }
+>         if (!(obj instanceof Joueur)) {
+>             return false;
+>         }
+>         Joueur j = (Joueur) obj;
+>         if (this.nom != j.getNom() || 
+
+./allumettes/Partie.java: line 20-26 [50]
+./allumettes/Partie.java: line 26-32
+<         if (str.equals("tricheur")) {
+<             return new StrategieTricheur();
+<         } else if (str.equals("humain")) {
+<             return new StrategieHumaine();
+<         } else if (str.equals("lent")) {
+<             return new StrategieLente();
+<         } else if (str.equals("rapide")) {
+---
+>         } else if (str.equals("rapide")) {
+>             return new StrategieRapide();
+>         } else if (str.equals("naif")) {
+>             return new StrategieNaive();
+>         } else if (str.equals("expert")) {
+>             return new StrategieExperte();
+>         } else {
+
+./allumettes/StrategieNaive.java: line 1-21 [38]
+./allumettes/StrategieExperte.java: line 1-22
+< package allumettes;
+< 
+< import java.util.Random;
+< 
+< /**
+<  * La classe StrategieHumaine définit un joueur qui prend aleatoirement sa prise.
+<  *
+<  * @author Hamza MOUDDENE
+<  * @version 1.0
+<  */
+< public class StrategieNaive implements Strategie {
+< 
+<     @Override
+<     public String getNom() {
+<         return "Naive";
+<     }
+< 
+<     @Override
+<     public int getPrise(Jeu jeu) {
+<         Random r = new Random();
+<         if (jeu.getNombreAllumettes() > Jeu.PRISE_MAX) {
+---
+> package allumettes;
+> 
+> import java.util.Random;
+> 
+> /**
+>  * Une stratègie qui essaye de gagner à tous les coups
+>  *
+>  * @author Hamza MOUDDENE
+>  * @version 1.0
+>  */
+> public class StrategieExperte implements Strategie {
+> 
+>     @Override
+>     public String getNom() {
+>         return "Experte";
+>     }
+> 
+>     @Override
+>     public int getPrise(Jeu jeu) {
+>         Random r = new Random();
+> 
+>         if ((jeu.getNombreAllumettes() - 1) % (Jeu.PRISE_MAX + 1) == 0) {
+
+./allumettes/StrategieLente.java: line 1-17 [29]
+./allumettes/StrategieRapide.java: line 1-17
+< package allumettes;
+< 
+< /**
+<  * La classe StrategieLente définit un joueur qui prend toujours une prise minimale.
+<  *
+<  * @author Hamza MOUDDENE
+<  * @version 1.0
+<  */
+< public class StrategieLente implements Strategie {
+< 
+<     @Override
+<     public String getNom() {
+<         return "Lente";
+<     }
+< 
+<     @Override
+<     public int getPrise(Jeu jeu) {
+---
+> package allumettes;
+> 
+> /**
+>  * La classe StrategieRapide définit un joueur qui prend tout une prise maximale.
+>  *
+>  * @author Hamza MOUDDENE
+>  * @version 1.0
+>  */
+> public class StrategieRapide implements Strategie {
+> 
+>     @Override
+>     public String getNom() {
+>         return "Rapide";
+>     }
+> 
+>     @Override
+>     public int getPrise(Jeu jeu) {
+
+./allumettes/StrategieExperte.java: line 1-19 [29]
+./allumettes/StrategieLente.java: line 1-17
+< package allumettes;
+< 
+< import java.util.Random;
+< 
+< /**
+<  * Une stratègie qui essaye de gagner à tous les coups
+<  *
+<  * @author Hamza MOUDDENE
+<  * @version 1.0
+<  */
+< public class StrategieExperte implements Strategie {
+< 
+<     @Override
+<     public String getNom() {
+<         return "Experte";
+<     }
+< 
+<     @Override
+<     public int getPrise(Jeu jeu) {
+---
+> package allumettes;
+> 
+> /**
+>  * La classe StrategieLente définit un joueur qui prend toujours une prise minimale.
+>  *
+>  * @author Hamza MOUDDENE
+>  * @version 1.0
+>  */
+> public class StrategieLente implements Strategie {
+> 
+>     @Override
+>     public String getNom() {
+>         return "Lente";
+>     }
+> 
+>     @Override
+>     public int getPrise(Jeu jeu) {
+
+./allumettes/StrategieTricheur.java: line 1-17 [28]
+./allumettes/StrategieNaive.java: line 1-19
+< package allumettes;
+< 
+< /**
+<  * La classe StrategieTricheur définit un joueur qui triche.
+<  *
+<  * @author Hamza MOUDDENE
+<  * @version 1.0
+<  */
+< public class StrategieTricheur implements Strategie {
+< 
+<     @Override
+<     public String getNom() {
+<         return "Tricheur";
+<     }
+< 
+<     @Override
+<     public int getPrise(Jeu jeu) throws CoupInvalideException {
+---
+> package allumettes;
+> 
+> import java.util.Random;
+> 
+> /**
+>  * La classe StrategieHumaine définit un joueur qui prend aleatoirement sa prise.
+>  *
+>  * @author Hamza MOUDDENE
+>  * @version 1.0
+>  */
+> public class StrategieNaive implements Strategie {
+> 
+>     @Override
+>     public String getNom() {
+>         return "Naive";
+>     }
+> 
+>     @Override
+>     public int getPrise(Jeu jeu) {
+
+./allumettes/Arbitre.java: line 123-126 [26]
+./allumettes/Arbitre.java: line 148-151
+<     public void strategieMenu() {
+<         System.out.println("\nQuelle stratègie souhaitez vous avoir ?");
+<         System.out.println("1.Stratègie experte");
+<         System.out.println("2.Stratègie humaine");
+---
+>                 if (choice < 1 || choice > this.NOMBRE_OPTIONS) {
+>                     System.out.print("\nErreur : "); 
+> 				    System.out.print("Votre choix doit etre compris entre 1 et 7.");
+> 					System.out.println("\nRecommencez!\n");
+
+./allumettes/Arbitre.java: line 130-133 [25]
+./allumettes/Arbitre.java: line 149-152
+<         System.out.println("6.Stratègie tricheuse");
+<         System.out.println("7.Desactiver l'option de changement dynamique");
+<         System.out.println("Entrez un entier de 1 à 7.\n");
+<     }
+---
+>                     System.out.print("\nErreur : "); 
+> 				    System.out.print("Votre choix doit etre compris entre 1 et 7.");
+> 					System.out.println("\nRecommencez!\n");
+>                 }
+
+./allumettes/Arbitre.java: line 180-183 [24]
+./allumettes/Arbitre.java: line 183-186
+<         } else if (choice == 4) {
+<             getJoueurCourant(tour).setStrategie(new StrategieRapide());
+<             return true;
+<         } else if (choice == 5) {
+---
+>         } else if (choice == 5) {
+>             getJoueurCourant(tour).setStrategie(new StrategieNaive());
+>             return true;
+>         } else if (choice == 6) {
+
+./allumettes/Arbitre.java: line 183-186 [24]
+./allumettes/Arbitre.java: line 186-189
+<         } else if (choice == 5) {
+<             getJoueurCourant(tour).setStrategie(new StrategieNaive());
+<             return true;
+<         } else if (choice == 6) {
+---
+>         } else if (choice == 6) {
+>             getJoueurCourant(tour).setStrategie(new StrategieTricheur());
+>             return true;
+>         } else {
+
+./allumettes/Arbitre.java: line 127-129 [24]
+./allumettes/Arbitre.java: line 130-132
+<         System.out.println("3.Stratègie lente");
+<         System.out.println("4.Stratègie rapide");
+<         System.out.println("5.Stratègie naive");
+---
+>         System.out.println("6.Stratègie tricheuse");
+>         System.out.println("7.Desactiver l'option de changement dynamique");
+>         System.out.println("Entrez un entier de 1 à 7.\n");
+
+./allumettes/Arbitre.java: line 17-29 [24]
+./allumettes/Joueur.java: line 12-25
+<     private Joueur j1;
+< 
+<     // La deuxième joueur.
+<     private Joueur j2;
+< 
+<     /**
+<      * Constructeur de la classe Arbitre.
+<      *
+<      * @param j1 : Le premier joueur
+<      * @param j2 : le deuxième joueur
+<      */
+<     public Arbitre(Joueur j1, Joueur j2) {
+<         assert (j1 != null && j2 != null);
+---
+>     private String nom;
+> 
+>     // La stratégie du joueur.
+>     private Strategie strategie;
+> 
+>     /**
+>      * Constructeur de la classe Joueur qui construit un joueur avec un nom et
+>      * une stratègie donnée.
+>      *
+>      * @param nom       : Le nom du joueur
+>      * @param strategie : La stratégie du joueur
+>      */
+>     public Joueur(String nom, Strategie strategie) {
+>         assert (nom != null && nom.length() > 0);
+

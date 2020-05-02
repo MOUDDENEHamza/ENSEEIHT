@@ -1,0 +1,5 @@
+Sujet retenu : Application pour gèrer un restaurant
+
+Le premier sujet "Jeu vidéo" est trop axé sur le graphisme et ce n'est pas ce que nous cherchons dans ce projet. Le second sujet est plus adéquat de ce point de vue.
+
+Pour l'envoi du message, attention de ne pas tomber dans des applications avec du réseau. Votre application doit rester "standalone". Vous pouvez au mieux envoyer un message en envoyant un mail. Ca se fait en quelques lignes (cf. https://javaee.github.io/javamail/).

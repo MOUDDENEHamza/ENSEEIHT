@@ -1,0 +1,84 @@
+
+Nombre d'allumettes restantes : 13
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 4 allumettes.
+Erreur ! Prise invalide : 4 (> 3)
+Recommencez !
+
+Nombre d'allumettes restantes : 13
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 5 allumettes.
+Erreur ! Prise invalide : 5 (> 3)
+Recommencez !
+
+Nombre d'allumettes restantes : 13
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 0 allumette.
+Erreur ! Prise invalide : 0 (< 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 13
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend -1 allumette.
+Erreur ! Prise invalide : -1 (< 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 13
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 3 allumettes.
+
+Nombre d'allumettes restantes : 10
+Au tour de Ordinateur.
+Ordinateur prend 1 allumette.
+
+Nombre d'allumettes restantes : 9
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 3 allumettes.
+
+Nombre d'allumettes restantes : 6
+Au tour de Ordinateur.
+Ordinateur prend 1 allumette.
+
+Nombre d'allumettes restantes : 5
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 1 allumette.
+
+Nombre d'allumettes restantes : 4
+Au tour de Ordinateur.
+Ordinateur prend 3 allumettes.
+
+Nombre d'allumettes restantes : 1
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 4 allumettes.
+Erreur ! Prise invalide : 4 (> 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 1
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 3 allumettes.
+Erreur ! Prise invalide : 3 (> 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 1
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 2 allumettes.
+Erreur ! Prise invalide : 2 (> 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 1
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 0 allumette.
+Erreur ! Prise invalide : 0 (< 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 1
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend -1 allumette.
+Erreur ! Prise invalide : -1 (< 1)
+Recommencez !
+
+Nombre d'allumettes restantes : 1
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 1 allumette.
+Xavier a perdu !
+Ordinateur a gagné !

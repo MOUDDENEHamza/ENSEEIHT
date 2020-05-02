@@ -1,0 +1,47 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * The class handles the page that manages the disconnection
+ *
+ * @author Hatim MESKINE
+ * @version 1.0
+ */
+
+public class Logout implements ActionListener {
+
+	RegisteredCustomer cust ;
+	JFrame wd;
+	JButton b1, b2;
+	JLabel l1;
+	
+	public Logout(RegisteredCustomer cst) {
+	     this.cust=cst;
+	     GUI Out = new GUI();
+	     this.wd = Out.createWindow("Logout ", 400, 400);
+	     this.b1 = Out.createButton("Yes ", 50, 150, 90, 30, new Color(253, 241, 184), Color.BLACK);
+	     this.b2 = Out.createButton("No ", 150, 150, 90, 30, new Color(253, 241, 184), Color.BLACK);
+	     this.l1 = Out.createLabel("Are you sure you want to disconnect ? ", 20, 50, 300, 40);
+	     this.wd.add(l1);
+	     this.wd.add(b1);
+	     this.b1.addActionListener(this);
+	     this.wd.add(b2);
+	     this.b2.addActionListener(this);
+ 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.b1) {
+            this.wd.setVisible(false);
+            this.cust.windowRegCust.setVisible(false);
+            this.wd.setVisible(false);
+	} if (e.getSource() == this.b2) {
+		 this.wd.setVisible(false);
+	}
+		else {
+        System.out.println("Unkonwn action!");
+    }
+	}
+}

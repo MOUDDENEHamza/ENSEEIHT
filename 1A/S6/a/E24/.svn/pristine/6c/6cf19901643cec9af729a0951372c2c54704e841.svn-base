@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="pics/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="libs/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/youne/Desktop/Studies/ENSEEIHT/TOB/E24/libs/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/youne/Desktop/Studies/ENSEEIHT/TOB/E24/libs/activation.jar"/>
+	<classpathentry kind="output" path="bin/production/E24"/>
+</classpath>

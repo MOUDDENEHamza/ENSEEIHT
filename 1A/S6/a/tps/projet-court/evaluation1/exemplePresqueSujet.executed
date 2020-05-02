@@ -1,0 +1,33 @@
+
+Nombre d'allumettes restantes : 13
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 2 allumettes.
+
+Nombre d'allumettes restantes : 11
+Au tour de Ordinateur.
+Ordinateur prend 3 allumettes.
+
+Nombre d'allumettes restantes : 8
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Vous devez donner un entier.
+Combien prenez-vous d'allumettes ? Xavier prend 5 allumettes.
+Erreur ! Prise invalide : 5 (> 3)
+Recommencez !
+
+Nombre d'allumettes restantes : 8
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 3 allumettes.
+
+Nombre d'allumettes restantes : 5
+Au tour de Ordinateur.
+Ordinateur prend 3 allumettes.
+
+Nombre d'allumettes restantes : 2
+Au tour de Xavier.
+Combien prenez-vous d'allumettes ? Xavier prend 1 allumette.
+
+Nombre d'allumettes restantes : 1
+Au tour de Ordinateur.
+Ordinateur prend 1 allumette.
+Ordinateur a perdu !
+Xavier a gagné !

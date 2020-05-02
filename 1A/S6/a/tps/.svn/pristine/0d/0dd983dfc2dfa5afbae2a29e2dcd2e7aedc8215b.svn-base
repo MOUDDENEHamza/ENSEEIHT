@@ -1,0 +1,44 @@
+Nom       : MOUDDENE
+Prénom    : Hamza
+Groupe TP : C
+
+
+Consigne :  Ci-dessous, répondre à la place des « ... ».
+
+
+=====[ Temps ]==================================================================
+
+Temps consacré au projet pour rendre la V1 : 2 heures 0 minutes
+Temps consacré au projet pour rendre la V2 : 2 heures 0 minutes
+(Pour la V2 on ne tiendra pas du temps passé sur la V1)
+(Bien sûr, Les temps renseignés ici ne sont pas pris en compte dans la notation)
+
+
+=====[ Questions ]==============================================================
+
+Indiquer la relation UML entre Cercle et le Point centre du cercle.
+-------------------------------------------------------------------
+
+La relation entre Cercle et Point est une relation de composition qui est un
+cas particulier de la relation d'agrégation. Elle dénote un couplage plus fort
+qui lie la durée de vie des objets: quand le tout est détruit, les parties sont 
+aussi détruites.
+
+Comment est réalisée l'exigence E18 ?
+-------------------------------------
+
+Le fait de ne pas pouvoir changer les caractéristiques d'un cercle sans passer 
+par les opérations de modification que la classe propose(translater, setRayon, 
+setDiametre,setCouleur...) ce qui est demandé dans l'exigence E18 ça revient à
+mettre les attibuts de la classe cercle en privée pour qu'un utilisateur ne 
+pourra pas savoir c'est les attibus sont calculés ou stockés, ainsi de ne pas
+créer des méthodes qui accéde à un atttribus par l'opérateur this, par exemple 
+dans getCercle on créer une copie du centre de cercle on récupère pas 
+directement la poignée.
+
+=====[ Explications ]===========================================================
+
+(Facultatif) Donner ici les explications supplémentaires utiles à la
+compréhension du travail rendu.
+
+...

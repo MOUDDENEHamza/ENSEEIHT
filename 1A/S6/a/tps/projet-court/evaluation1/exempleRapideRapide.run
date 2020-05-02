@@ -1,0 +1,3 @@
+java allumettes.Partie R1@rapide R2@rapide <<EOF
+EOF
+

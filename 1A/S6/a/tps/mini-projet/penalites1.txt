@@ -1,0 +1,10 @@
+| Attention, les pénalités sont calculées sur 6 points qui
+| seront ensuite ramenés sur 3.  Les pénalités affichées sont
+| donc le double des pénalités réelles.
+
+Compilation de Cercle.java : OK.
+Compilation de SujetCercleTest.java : OK.
+Compilation de CercleTest.java : OK.
+Test CercleTest : OK (3 tests)	(voir penalites1/CercleTest.log)
+JavaDoc automatique de Cercle : OK
+Total pénalités V1 : 0

@@ -1,0 +1,7 @@
+./allumettes/Arbitre.java:155: error: unclosed string literal
+                System.out.print("\nErreur : Vous devez donner un entier.
+                                 ^
+./allumettes/Arbitre.java:159: error: ';' expected
+        } while (choice < 1 || choice > this.NOMBRE_OPTIONS));
+                                                            ^
+2 errors

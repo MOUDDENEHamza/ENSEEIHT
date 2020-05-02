@@ -1,0 +1,11 @@
+Début de la vérification...
+[ERROR] Cercle.java:12:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:12:22: Le mot-clef 'static' n'apparaît pas dans l'ordre préconisé par les JLS. [ModifierOrder]
+[ERROR] Cercle.java:17:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:18:9: Commentaire Javadoc manquant. [JavadocVariable]
+[ERROR] Cercle.java:43: La ligne excède 90 caractères (trouvé 120). [LineLength]
+[ERROR] Cercle.java:44: La ligne excède 90 caractères (trouvé 98). [LineLength]
+[ERROR] Cercle.java:58: La ligne excède 90 caractères (trouvé 133). [LineLength]
+[ERROR] Cercle.java:59: La ligne excède 90 caractères (trouvé 98). [LineLength]
+[ERROR] Cercle.java:178:24: Le nom 'C' n'est pas conforme à l'expression '^[a-z][a-zA-Z0-9]*$'. [LocalVariableName]
+Vérification terminée.

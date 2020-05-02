@@ -1,0 +1,9 @@
+Début de la vérification...
+[ERROR] Arbitre.java:178:30: '3' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:181:30: '4' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:184:30: '5' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:187:30: '6' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Arbitre.java:201: La ligne excède 90 caractères (trouvé 95). [LineLength]
+[ERROR] Partie.java:61:33: '13' devrait être défini comme une constante. [MagicNumber]
+[ERROR] Partie.java:65:59: '3' devrait être défini comme une constante. [MagicNumber]
+Vérification terminée.

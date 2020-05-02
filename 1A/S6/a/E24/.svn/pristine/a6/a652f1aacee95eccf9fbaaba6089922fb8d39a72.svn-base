@@ -1,0 +1,362 @@
+import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ *
+ *
+ * @author Younes Saoudi
+ * @version 0.1
+ */
+public class CurrentOrders {
+	
+	//Class Attributes//
+	
+	// Swing Items
+	private JFrame window;
+	private JTable table;
+	private JScrollPane sp;
+	private JLabel logo, footerLabel, text;
+	private JButton Return, Refresh;
+	private JPanel headLeft, headCenter, headRight, footer, tablepanel;
+	private Color Background;
+    private static final String[] COLUMN_NAMES = {"TableNm", "Payment", "Status","Order","Price","Customer"};
+
+	private String[][] orders; //The 2D Array that will contain each order's details
+	
+	private final ActionListener B_Return = new Return(); //Return button's listener
+	private final ActionListener B_Refresh = new Refresh();
+	private final Employee Employee;
+
+	/**
+	 * @param Employee The Employee who is checking/modifying the current orders
+	 * @author Younes Saoudi
+	 */
+	public CurrentOrders(Employee Employee) {
+		this.Employee = Employee;
+		
+		GUI MenuCommandes = new GUI(); //Using the methods implemented in GUI.java
+		this.Background = new Color(235, 192, 81);
+		
+		//Create maximised JFrame and getting its dimensions
+		this.window = MenuCommandes.createWindow("Current Orders", 0, 0);
+		this.window.setExtendedState(this.window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		this.window.getContentPane().setBackground(Background);
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = screenSize.width; //1536
+		int height = screenSize.height;//864
+		int actual_height = height - height * 40/864 - height * 75/864  -5; //Height between footer and header
+		
+		//HEADER
+		this.headLeft = MenuCommandes.createPanel(0, 0, width *176/1536, height * 40/864, Background );
+		this.logo = MenuCommandes.createLabel("Resto'N7", 10, (height * 40/864)/2, 120, 40);
+		this.headLeft.add(logo);
+		this.window.add(this.headLeft);
+
+		this.headCenter = MenuCommandes.createPanel(width * 176/1536, 0, width * 1024/1536,  height * 40/864, Background);
+		this.window.add(this.headCenter);
+		
+		this.headRight = MenuCommandes.createPanel(width * 176/1536 + width * 1024/1536, 0, width * 336/1536,  height * 40/864, Background);
+		this.text = MenuCommandes.createLabel("Current Orders", 10, (height * 40/864)/2, 200, 40);
+		this.headRight.add(text);
+		this.window.add(this.headRight);
+
+		//Import the orders database       
+		this.orders  = importOrders(false);
+		//Setting up the column names
+		String[] columnNames = { "Table Number","Payment Method","Order Status", "Order", "Total Price", "Full Name of Customer" };
+		//Setting up the table
+		this.tablepanel = MenuCommandes.createPanel(1, height * 40/864, width, actual_height-65, Color.WHITE); //Table panel
+		this.table = new JTable(this.orders, columnNames);  //Table
+		this.sp = new JScrollPane(table); //Table with a JScrollPane
+		table.setPreferredScrollableViewportSize(new Dimension(width-width*20/1536, actual_height)); //Table dimension
+	    table.setFillsViewportHeight(true); 
+	    
+	    //Table Listener
+	    table.getModel().addTableModelListener(new TableModelListener() {
+	    	public void tableChanged(TableModelEvent e) {
+	            int row = e.getFirstRow(); //Get the row that was modified
+	            int column = e.getColumn(); //Get the column that was modified
+	            TableModel model = (TableModel)e.getSource(); //Get the modified TableModel
+	            String data = (String) model.getValueAt(row, column); //Get the new value of the modified data
+	            String [][] OrderIDs = importOrders(true); //Import only OrderIDs from the database
+	            try{
+	            	editOrder(Employee, OrderIDs[row][0], column, data); //Edit the DataBase (see editOrder JDOC for more)
+	            } catch(java.lang.ArrayIndexOutOfBoundsException error) {
+	            	new CurrentOrders(Employee);
+		    		window.dispose();
+		        	Refresh.repaint();	            	
+	            }
+	            
+	    	}
+	    });
+		//Set table column width
+		this.table.getColumnModel().getColumn(0).setPreferredWidth(width*70/1536);
+		this.table.getColumnModel().getColumn(1).setPreferredWidth(width*100/1536);
+		this.table.getColumnModel().getColumn(2).setPreferredWidth(width*100/1536);
+		this.table.getColumnModel().getColumn(3).setPreferredWidth(width*900/1536);
+		this.table.getColumnModel().getColumn(4).setPreferredWidth(width*70/1536);
+		this.table.getColumnModel().getColumn(5).setPreferredWidth(width*110/1536);
+		this.table.setRowHeight(28);
+		
+		
+		//Centre all columns
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );		
+		this.table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		this.table.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		this.table.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		this.table.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+		this.table.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+		this.table.getColumnModel().getColumn(5).setCellRenderer( centerRenderer );
+		
+		//Making an Combo Box for the Order Status Column
+		TableColumn StatusColumn = table.getColumnModel().getColumn(2);
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.addItem("Done");
+		comboBox.addItem("In Progress");
+		comboBox.addItem("Delayed");
+		comboBox.addItem("Need Assistance!");
+		StatusColumn.setCellEditor(new DefaultCellEditor(comboBox));
+		
+		//Making an Combo Box for the Order Type Column (Takeout or Table Number)
+		TableColumn TableNumberColumn = table.getColumnModel().getColumn(0);
+		JComboBox<String> comboBox2 = new JComboBox<String>();
+		comboBox2.addItem("TAKEOUT");
+		//50 tables in total
+		for (int i=1; i<=50; i++) {
+			comboBox2.addItem("N." + (int) i/10 + i%10);
+		}
+		TableNumberColumn.setCellEditor(new DefaultCellEditor(comboBox2));
+		
+		//Making an Combo Box for the Payment Option column
+		TableColumn PaymentColumn = table.getColumnModel().getColumn(1);
+		JComboBox<String> comboBox3 = new JComboBox<String>();
+		comboBox3.addItem("Cash");
+		comboBox3.addItem("Credit Card");
+		PaymentColumn.setCellEditor(new DefaultCellEditor(comboBox3));
+		
+		//Adding the table to the JFrame
+		this.tablepanel.add(this.sp);
+        this.window.add(tablepanel);
+        
+        //FOOTER
+        
+        //Making a return button
+        this.Return = MenuCommandes.createButton("Return to Employee Menu", 0, 0, 100, 40, new Color(220, 53, 69), Color.WHITE);
+        this.Refresh = MenuCommandes.createButton("Refresh", width - width*102/1536, (height * 8/864)/2, 95, 20, new Color(15, 125, 102), Color.WHITE);
+
+        Return.addActionListener(this.B_Return); //The Return button's action listener
+        Refresh.addActionListener(this.B_Refresh);
+        
+        //Footer items
+        this.footer = MenuCommandes.createPanel(0, height*725/864, width,  height * 75/864, Background);
+        this.footer.setLayout(new BorderLayout());
+        this.footerLabel = MenuCommandes.createLabel("© 2020 Resto'N7 ", 0, 0, 100, 50);
+        this.footer.add(this.Return, BorderLayout.NORTH);
+        this.footer.add(this.footerLabel, BorderLayout.CENTER);
+        this.window.add(this.footer); //Adding footer to JFrame
+        this.window.add(this.Refresh);
+        
+        try {
+		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     Font Museo_500 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 500.otf")).deriveFont(14f);
+		     ge.registerFont(Museo_500);
+		     /*Font Museo_300 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Museo Slab W00 300.ttf")).deriveFont(15f);
+		     ge.registerFont(Museo_300);*/
+		     Font Uniform_Light = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Uniform Light.ttf")).deriveFont(15f);
+		     ge.registerFont(Uniform_Light);
+		     this.table.setFont(Museo_500);
+		     this.Return.setFont(Uniform_Light);
+		     this.Refresh.setFont(Uniform_Light);
+		     this.footerLabel.setFont(Uniform_Light);
+		     this.logo.setFont(Uniform_Light);
+		     this.text.setFont(Uniform_Light);		     
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
+        
+        this.window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
+        
+	}
+	/**
+	 * Imports all the columns of the orders database aside from OrderNm OR only the Order IDs, depending on the value of OnlyOrderID
+	 * This is how the database looks like :
+	 * {"Status":"","Order":"","Payment":"","TableNm":"","Price":"","Customer":"","OrderNm":"","Edits":""}
+	 * @param OnlyOrderID if true, only the order IDs are imported instead of all the columns.
+	 * @return String[][] The 2D Array Database
+	 */
+	public String[][] importOrders(boolean OnlyOrderID) {
+		int orderCount = getOrderCount();
+		 String [][] current_orders = new String[orderCount][1];
+		 if(!OnlyOrderID) {
+			 current_orders = new String[orderCount][6];
+		 }
+		 // the above code means that if only the OrderIDs are meant to be imported, then current_orders is a vector
+		 // if OnlyOrderID is false however, then current_orders is a 2D String array containing all database columns (aside from the OrderIDs)
+        JSONParser parser = new JSONParser();
+        int i = 0;
+        try {
+        	//Importing the database
+            JSONArray orderList = (JSONArray) parser.parse(new FileReader("data/orders.json"));
+            for (Object order : orderList) {
+                JSONObject current_order = (JSONObject) order;
+
+            	String Status    = (String) current_order.get("Status");
+                //if the order hasn't already been completed, and if we want all the columns, then
+            	if((!OnlyOrderID) && (!Status.equals("Done"))) {
+                	String TableNm   = (String) current_order.get("TableNm");
+                	String Payment   = (String) current_order.get("Payment");
+                	String FullOrder = (String) current_order.get("Order");
+                	String Price     = (String) current_order.get("Price");
+                	String Customer  = (String) current_order.get("Customer");
+                	String [] this_order = {TableNm, Payment, Status, FullOrder, Price, Customer};
+                	current_orders[i] = this_order;
+                	i++;
+                } else if ((OnlyOrderID) && (!Status.equals("Done"))) {
+                	//else if we only want the OrderIDs of uncompleted orders:
+                	String OrderNm   = (String) current_order.get("OrderNm");
+                	String  this_order = OrderNm;
+                	current_orders[i][0] = this_order;
+                	i++;
+                }               
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return current_orders;
+    }
+	/**
+	 * returns the number of orders yet to be completed
+	 * @return OrderCount The number of orders not yet completed
+	 */
+	public int getOrderCount() {
+       JSONParser parser = new JSONParser();
+       int i = 0;
+       try {
+       	//Importing the database
+           JSONArray orderList = (JSONArray) parser.parse(new FileReader("data/orders.json"));
+           for (Object order : orderList) {
+        	   JSONObject current_order = (JSONObject) order;
+
+        	   String Status    = (String) current_order.get("Status");
+        	   //if the order hasn't already been completed, and if we want all the columns, then
+        	   if((!Status.equals("Done"))) {
+        		   i++;
+        	   }
+           }
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       } catch (IOException e) {
+           e.printStackTrace();
+       } catch (ParseException e) {
+           e.printStackTrace();
+       }
+       return i;
+   }
+
+	/**
+	 * Add the modification made by an employee to current orders in the database. The "Edits" column of the modifed orders will
+	 * thus contain the modified column, its old and new values as well as the time and date when it was modified
+	 * and the employee who made the modifications (their full name and function).
+	 * @author Younes Saoudi
+	 * @param Employee Employee who made the modifications
+	 * @param OrderID The Order modified
+	 * @param column The column modified
+	 * @param NewEdit The new value of the order's column
+	 */
+	@SuppressWarnings("unchecked")
+	public void editOrder(Employee Employee, String OrderID, int column, String NewEdit) {
+        JSONParser parser = new JSONParser();
+        String column_name;
+        try {
+            //Importing the database
+        	JSONArray orderList = (JSONArray) parser.parse(new FileReader("data/orders.json"));
+
+            for (Object order : orderList) {
+                JSONObject current_order = (JSONObject) order;
+                String OrderNm   = (String) current_order.get("OrderNm");
+                //Getting the name of the modified column
+                if (column >=0 && column <=5) {
+                	column_name = COLUMN_NAMES[column];
+                }else {
+                	column_name = "ILLEGAL";
+                }
+                //If the orderID is found
+                if (OrderID.equals(OrderNm) && !column_name.equals("ILLEGAL")) {
+                	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                	//Date of modification
+                    Date date = new Date(); 
+                	String Old = (String) current_order.get(column_name); //Old value before modification
+                	String Previous_Edits = (String) current_order.get("Edits"); //Previous edits made to the order by potentially other employees
+                	//adding the current edit to the list of edits:
+                	Previous_Edits = Previous_Edits 
+                					+ " \n" + Employee.getFirstName() + " " + Employee.getLastName() 
+                					+ " (" + Employee.getFunction() + " " + Employee.getId() +")"
+                					+ " modified order's " + column_name +":\n" 
+                					+ "\t Old version: " + Old +"\\n"
+                					+ "\t Modification: " + NewEdit
+                					+ "\n\t Time: " + formatter.format(date) ; 
+                	current_order.replace(column_name, NewEdit); //replace the old value with the new one
+                	current_order.replace("Edits", Previous_Edits); //replace the old list of edits with the new one
+                	 try (FileWriter file = new FileWriter("data/orders.json")) {
+                		 //Updating the database
+                         file.write(orderList.toJSONString());
+                         file.flush();
+
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	 private class Refresh implements ActionListener {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new CurrentOrders(Employee);
+	    		window.dispose();
+	        	EmployeeInterface.updateHumanFriendlyOrdersDATABASE();
+	        	Refresh.repaint();
+	        	
+			}
+	    }
+
+    private class Return implements ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		new EmployeeInterface(Employee);
+    		window.dispose();
+        	EmployeeInterface.updateHumanFriendlyOrdersDATABASE();
+		}
+    }
+}

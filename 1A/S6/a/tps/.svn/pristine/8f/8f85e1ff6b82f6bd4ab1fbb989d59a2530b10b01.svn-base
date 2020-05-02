@@ -1,0 +1,40 @@
+package allumettes;
+
+/** La classe Game permet de transmettre directement le jeu au joueur sans
+ * utiliser le proxy.
+ * @author	Hamza MOUDDENE
+ * @version	1.0
+ */
+public class Game implements Jeu {
+
+    // le Proxy du jeu.
+    private int allumettes;
+
+    /** Constructeur de la classe Proxy.
+     * @param jeu : Le jeu courant
+     */
+    public Game(int allumettes) {
+	this.allumettes = allumettes;
+    }
+
+    @override
+	/** Le joueur accéde au jeu par procuration.
+	 * @return nombre d'allumettes encore en jeu
+	 */
+	int getNombreAllumettes() {
+	    return this.allumettes;
+	}
+
+    @override
+	/** Interdire au joueur de modifier le jeu.
+	 * @param nbPrises nombre d'allumettes prises.
+	 * @throws CoupInvalideException tentative de prendre un nombre invalide d'alumettes
+	 */
+	void retirer(int nbPrises) throws CoupInvalideException {
+	    if (nbPrises < 1 || nbPrises > PRISE_MAX) {
+		throw new CoupInvalideException("Le nombre d'allumettes doit etre compris entre 1 et 3");
+	    }
+	    this.allumettes--;
+	}
+
+}

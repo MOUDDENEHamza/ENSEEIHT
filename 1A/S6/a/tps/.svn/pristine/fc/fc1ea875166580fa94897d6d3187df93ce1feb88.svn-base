@@ -1,0 +1,35 @@
+package allumettes;
+
+import java.util.Scanner;
+
+/** La classe StrategieHumaine définit un joueur humaine qui joue.
+ * @author	Hamza MOUDDENE
+ * @version	1.0
+ */
+public class StrategieHumaine implements Strategie {
+
+    /** une stratégie de jeu qui correspond à un joueur humain.
+     * @param jeu : un jeu donné
+     * @return le nombre d’allumettes qu’il veut prendre
+     * @throws CoupInvalideException tentative de prendre un nombre invalide d'alumettes
+     */
+    public int getPrise(Jeu jeu) throws CoupInvalideException {
+	int res = 0;
+	Scanner scan = new Scanner(System.in);
+
+	do {
+	    try {
+		System.out.print("Combien prenez-vous d'allumettes ? ");
+		res = Integer.parseInt(scan.nextLine());
+
+		if (res < 1 || res > 3) {
+			System.out.println("Vous devez entrez un nombre entre 1 et 3.");
+		}
+	    } catch (NumberFormatException e) {
+		System.out.print("Vous devez donner un entier compris entre 1 et " +Jeu.PRISE_MAX+ ".\n");
+	    }
+	} while (res < 1 || res > 3);
+	return res;
+    }
+
+}
