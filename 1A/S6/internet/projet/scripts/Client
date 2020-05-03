@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Set up eth0 interface of client
+ip link set dev eth0 up 
+
+# Activate DHCP on the client
+dhclient eth0
+
+# Add server DNS address IP
+#echo "nameserver 31.5.254.196" >> /etc/resolv.conf
+
+# Test the HTTP server
+# wget 31.5.254.195
+
+# Test the DNS server
+#dig www.MOUDDENE.com
+#dig -x 31.5.254.196
+
+# Test the FTP server
+#wget --user=hamza --password='hamza' ftp://31.5.254.194/msg.txt

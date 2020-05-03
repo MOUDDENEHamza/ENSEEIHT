@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Set address on eth0
+ip link set dev eth0 up
+ip addr add 31.5.254.195/26 dev eth0
+
+# Static routing
+#ip route add 31.5.254.128/25 via 31.5.254.193
+#ip route add 31.5.254.64/26 via 31.5.254.193
+#ip route add 31.5.254.0/26 via 31.5.254.193
+#ip route add 192.168.111.0/26 via 31.5.254.193
+
+# Add default route via services router
+ip route add default via 31.5.254.193
+
+# Start Apache2 Server 
+service apache2 start

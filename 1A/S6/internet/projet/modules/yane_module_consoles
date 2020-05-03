@@ -1,0 +1,56 @@
+#!/bin/bash
+#===============================================================================
+# Yane module for console management.
+# Warning : this module doesn't work alone.
+# You need some submodules like : yane_module_consoles_(xterm/tmux)
+#===============================================================================
+
+
+#-------------------------------------------------------------------------------
+# Open a console in the shell
+#   $1 : hostName
+#-------------------------------------------------------------------------------
+yaneOpenConsole () {
+   if [ -n "${hostMode[$1]}" ]; then
+     c=$(eval yaneConsoleCmd_${hostMode[$1]} $1)
+     logMessage LOG "Running console '$c'"
+     $c
+   else
+     logMessage ERR "Can't open console because Unknown host $1 in session : $SESSION_ID"
+   fi
+
+}
+
+#-------------------------------------------------------------------------------
+# Open console on listed hosts
+#-------------------------------------------------------------------------------
+yaneOpenConsoleWindows () {
+   logMessage LOG "Opening consoles"
+   for idx in ${!console_mode[@]}
+   do
+       # Appelle la fonction du sous module ${console_mode[$idx]} (tmux ou xterm)
+       yaneOpenConsoleWindow_${console_mode[$idx]} $idx
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Kill all open consoles in $SESSION_ID
+#-------------------------------------------------------------------------------
+yaneKillConsoles () {
+   logMessage LOG "Kill consoles"
+
+   if [ -f ./.yane_${SESSION_ID}_module_consoles.pid ] ; then
+      # Tue toutes les fenêtres ouvertes
+      for c in `cat ./.yane_${SESSION_ID}_module_consoles.pid`
+      do
+          $KILL $c
+      done
+      $RM ./.yane_${SESSION_ID}_module_consoles.pid
+      # Détruit toutes les autres ressources (sessions tmux par exemple)
+      for n in ${!console_mode[@]}
+      do
+        yaneKillConsoles_${console_mode[$n]} $n
+      done
+
+   fi
+}

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Set address on eth0
+ip link set dev eth0 up
+ip addr add 31.5.254.130/26 dev eth0
+
+# Set address on eth1
+ip link set dev eth1 up
+ip addr add 31.5.254.193/26 dev eth1
+
+# Static routing
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+#ip route add 31.5.254.64/26 via 31.5.254.129
+#ip route add 31.5.254.0/26 via 31.5.254.129
+#ip route add 192.168.111.0/25 via 31.5.254.129
+
+# Dynamic routing
+service quagga start
+sleep 1
+
+# Drop everything
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+
+# Allow ping
+iptables -t filter -A OUTPUT -p icmp -j ACCEPT
+iptables -t filter -A INPUT -p icmp -j ACCEPT
+iptables -t filter -A FORWARD -p icmp -j ACCEPT
+
+# Allow Rip routing
+iptables -A INPUT -p udp --dport 520 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 520 -j ACCEPT
+iptables -A FORWARD -p udp --dport 520 -j ACCEPT
+
+# Allow DNS
+iptables -t filter -A FORWARD -d 31.5.254.196/26 -p udp --dport 53 -j ACCEPT
+iptables -t filter -A FORWARD -s 31.5.254.196/26 -p udp --sport 53 -j ACCEPT
+
+# Allow HTTP
+iptables -t filter -A FORWARD -d 31.5.254.195/26 -p tcp --dport 80 -j ACCEPT
+iptables -t filter -A FORWARD -s 31.5.254.195/26 -p tcp --sport 80 -j ACCEPT
+
+# Allow FTP
+iptables -A FORWARD -d 31.5.254.194/26 -p tcp --dport 21 -j ACCEPT
+iptables -A FORWARD -s 31.5.254.194/26 -p tcp --sport 21 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 1024: --dport 1024: -j ACCEPT

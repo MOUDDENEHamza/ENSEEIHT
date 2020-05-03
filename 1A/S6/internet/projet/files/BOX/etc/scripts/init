@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Set up eth0 interface
+ip link set dev eth0 up
+# Set private address 192.168.111.1 on eth0 interface
+ip addr add 192.168.111.1/25 dev eth0
+
+# Set up eth1 interface
+ip link set dev eth1 up
+# Set public address 31.5.254.1 on eth1 interface
+ip addr add 31.5.254.1/26 dev eth1
+
+# Static routing
+# Activate the forwarding
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+# Add static routes linked the BOX to others subnet
+#ip route add 31.5.254.64/26 via 31.5.254.2
+#ip route add 31.5.254.128/26 via 31.5.254.2
+#ip route add 31.5.254.192/26 via 31.5.254.2
+
+# Configure the DHCP server
+# Start the dhcp service
+service isc-dhcp-server start
+# Set up NAT by adding rule to iptables
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+# Configure default route to allow to client to communicate with WAN
+ip route add default via 31.5.254.2
+
+# Drop everything
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+
+# Allow ping
+iptables -t filter -A OUTPUT -p icmp -j ACCEPT
+iptables -t filter -A INPUT -p icmp -j ACCEPT
+iptables -t filter -A FORWARD -p icmp -j ACCEPT
+
+# Allow DHCP
+iptables  -A INPUT -i eth0 -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+
+# Allow DNS
+iptables -t filter -A FORWARD -d 31.5.254.196/26 -p udp --dport 53 -j ACCEPT
+iptables -t filter -A FORWARD -s 31.5.254.196/26 -p udp --sport 53 -j ACCEPT
+
+# Allow HTTP
+iptables -t filter -A FORWARD -d 31.5.254.195/26 -p tcp --dport 80 -j ACCEPT
+iptables -t filter -A FORWARD -s 31.5.254.195/26 -p tcp --sport 80 -j ACCEPT
+
+# Allow FTP
+iptables -A FORWARD -d 31.5.254.194/26 -p tcp --dport 21 -j ACCEPT
+iptables -A FORWARD -s 31.5.254.194/26 -p tcp --sport 21 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 1024: --dport 1024: -j ACCEPT
+
+

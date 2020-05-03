@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Set address on eth0
+ip link set dev eth0 up
+ip addr add 31.5.254.194/26 dev eth0
+
+# Static routing
+#ip route add 31.5.254.128/25 via 31.5.254.193
+#ip route add 31.5.254.64/26 via 31.5.254.193
+#ip route add 31.5.254.0/26 via 31.5.254.193
+#ip route add 192.168.111.0/26 via 31.5.254.193
+
+# Add default route via services router
+ip route add default via 31.5.254.193
+
+# Create a new user(hamza)
+useradd hamza
+
+# create the password of hamza user(hamza)
+echo "hamza:hamza" | chpasswd
+
+# Create the hamza's home directory
+mkdir /home/hamza
+
+# Set hamza as the owner of /home/hamza
+chown hamza /home/hamza
+usermod --shell /bin/bash hamza
+
+# Launch FTP server
+hostname FTP
+echo "31.5.254.194 FTP" >> /etc/hosts
+
+# Disable world-writable mode 
+chmod o-w /etc/proftpd/ etc/proftpd/modules.conf etc/proftpd/proftpd.conf 
+
+# Start proftpd service
+service proftpd start
+
+# Test the FTP server
+TMP="
+Welcome!
+user hamza
+If you get this message, then your FTP server works correctly.
+BYE
+"
+echo -e "$TMP" >> /home/hamza/msg.txt

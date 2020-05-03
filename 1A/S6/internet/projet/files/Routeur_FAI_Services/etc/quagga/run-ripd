@@ -1,0 +1,1 @@
+/usr/lib/quagga/ripd -i /tmp/$$ -A  17.0.1.2

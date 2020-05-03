@@ -1,0 +1,56 @@
+network:
+  name: MOUDDENE
+  version: 0.1
+  hosts:
+    - Client
+      mode : netns
+      init : ./scripts/Client
+ 
+    - BOX
+      mode : docker
+      image : dhcp_n7:latest
+      files : ./files/BOX/etc:/
+ 
+    - Routeur_FAI_Acces
+      mode : docker
+      image : quagga_n7:latest
+      files : ./files/Routeur_FAI_Acces/etc:/
+ 
+    - Routeur_FAI_Interconnexion
+      mode : docker
+      image : quagga_n7:latest
+      files : ./files/Routeur_FAI_Interconnexion/etc:/
+ 
+    - Routeur_FAI_Services
+      mode : docker
+      image : quagga_n7:latest
+      files : ./files/Routeur_FAI_Services/etc:/
+ 
+ 
+    - Serveur_WEB
+      mode : docker
+      image : apache_n7:latest
+      files : ./files/Serveur_WEB/var:/
+ 
+    - Serveur_FTP
+      mode : docker
+      image : ftp_n7:latest
+      files : ./files/Serveur_FTP/etc:/
+ 
+    - Serveur_DNS
+      mode : docker
+      image : dns_n7:latest
+      files : ./files/Serveur_DNS/etc:/
+ 
+  links :
+    - Client:eth0!BOX:eth0
+    - BOX:eth1!Routeur_FAI_Acces:eth0
+    - Routeur_FAI_Acces:eth1!Routeur_FAI_Interconnexion:eth0
+    - Routeur_FAI_Interconnexion:eth1!Routeur_FAI_Services:eth0
+ 
+  bridges:
+    - Switch0
+      interfaces: Routeur_FAI_Services:eth1!Serveur_WEB:eth0!Serveur_FTP:eth0!Serveur_DNS:eth0!
+ 
+  consoles :
+    - all

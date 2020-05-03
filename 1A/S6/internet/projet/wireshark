@@ -1,0 +1,66 @@
+#!/bin/bash
+
+#On vérifie les droits d'execution
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+# Make sure we are in the script directory
+ScriptDIR=$(cd `dirname $0` && pwd)
+if [ $ScriptDIR != $PWD ]; then
+   echo "Ce script doit être executé depuis son dossier" 1>&2
+   exit
+fi
+
+#On verifie le nombre d'arguments
+if [ $# == 0 ]
+  then wireshark
+  exit
+elif [ $# -ne 1 ]
+  then echo "Utilisation :"
+  echo "wireshark <NOM DE LA MACHINE VIRTUELLE>"
+  echo "Ex: wireshark R_FAI"
+  exit
+fi
+
+#On récupère le nombre de sessions actives de Yane
+C=`sudo ./yane  -l | wc -l`
+
+#On vérifie qu'au moins une session est bien lancée
+if [ "$C" == "0" ] ; then
+  echo "Aucune session n'est lancée pour en lancer une executez :"
+  echo "   sudo ./START"
+  exit
+fi
+
+#On vérifie qu'il n'y a pas trop de sessions lancées
+if [ "$C" -gt "1" ] ; then
+  echo "Trop de sessions ouvertes !! "
+  echo "Pour voir les ID de session :"
+  echo "   sudo ./yane -l"
+  echo "Pour forcer la fermuture d'une session :"
+  echo "   sudo ./yane -s <ID SESSION> -k"
+  exit
+fi
+
+#On verifie que le nom donné est valide
+LIST="R_FAI BOX WEB RRI FTP DNS Client1"
+if [ `ip netns | grep $1 | wc -l` == 0 ]; then
+  echo "Nom de la VM invalide !"
+  echo "Choisissez entre :"
+  echo $LIST
+  exit
+fi
+if [ `ip netns | grep $1 | wc -l` -gt 1 ]; then
+  echo "Plusieurs choix possibles :"
+  echo `ip netns | grep $1`
+  exit
+fi
+
+#Tout est bon on peut récuperer l'interface virtuelle correspondante
+INTERFACE=`ip netns | grep $1`
+
+#On lance wireshark sur l'interface virtuelle
+ip netns exec "$INTERFACE" wireshark
+

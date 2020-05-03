@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# Open a console in a window in $SESSION_ID using xterm
+#   $1 : hostName
+#-------------------------------------------------------------------------------
+yaneOpenConsoleWindow_xterm () {
+   t=$XTERM
+   c=$(eval yaneConsoleCmd_${hostMode[$1]} $1)
+
+   logMessage LOG "Running console '$c' in terminal '$t'"
+
+   $t -title ${SESSION_ID}_$1 -e $c &
+
+   echo $! >> ./.yane_${SESSION_ID}_module_consoles.pid
+}
+
+yaneKillConsoles_xterm () {
+  logMessage LOG "Killing xterm $1 (nothing done)"
+}

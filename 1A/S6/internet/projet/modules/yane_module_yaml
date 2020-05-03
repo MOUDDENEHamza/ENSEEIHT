@@ -1,0 +1,293 @@
+#!/bin/bash
+#===============================================================================
+# Yaml module for yane
+#===============================================================================
+
+#-------------------------------------------------------------------------------
+# Parse a YAML config file. Thanks to
+# https://gist.github.com/DinoChiesa/3e3c3866b51290f31243a
+# (could be replaced with the following)
+# http://stackoverflow.com/questions/5014632/how-can-i-parse-a-yaml-file-from-a-linux-shell-script
+#-------------------------------------------------------------------------------
+parse_yaml() {
+    local prefix=$2
+    local s
+    local w
+    local fs
+    s='[[:space:]]*'
+    w='[a-zA-Z0-9_]*'
+    fs="$(echo @|tr @ '\034')"
+    sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+	-e "s|^\($s\)\($w\)$s[:-]$s\(.*\)$s\$|\1$fs\2$fs\3|p" "$1" |awk -F"$fs" '{
+      indent = length($1)/2;
+      if (length($2) == 0) { conj[indent]="+";} else {conj[indent]="";}
+      vname[indent] = $2;
+      for (i in vname) {if (i > indent) {delete vname[i]}}
+      if (length($3) > 0) {
+              vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+              printf("%s%s%s%s=(\"%s\")\n", "'"$prefix"'",vn, $2, conj[indent-1],$3);
+      }
+    }' | sed 's/_=/+=/g'
+}
+
+parse_yaml_1() {
+    local prefix=$2
+    local s
+    local w
+    local fs
+    s='[[:space:]]*'
+    w='[a-zA-Z0-9_]*'
+    fs="$(echo @|tr @ '\034')"
+    sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+	-e "s|^\($s\)\($w\)$s[:-]$s\(.*\)$s\$|\1$fs\2$fs\3|p" "$1" |awk -F"$fs" '{
+    depth=length($1)/2;
+    name[depth]=$2
+    if (depth == 1) {
+       nb=0;
+    } else if ((depth == 2)&& (length($2)==0)) {
+       name[2]=nb++;
+    }
+    if ((0 == 0)) {
+	val=$3;
+	if (depth < 2) {
+            vn=""; for (i=0; i<depth; i++) {vn=(vn)(name[i])("_")}
+	    vn=(vn)(name[depth]);
+	}else if (depth == 2){
+	    vn=(name[0])("_")(name[1])("[")(name[2])("]");
+	    if (length($3) ==0){val=name[2];}
+	}else{
+	    vn=(name[0])("_")(name[1])("_")(name[3])("[")(name[2])("]")
+	}
+        if (length(val) >0) {printf("%s=\"%s\"\n", vn, val);}
+    }
+  }'
+}
+
+function parse_yaml_2 {
+    local prefix=$2
+    local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+    sed -ne "s|^\($s\):|\1|" \
+	-e "s|^\($s\)\($w\)$s:$s[\"']\(.*\)[\"']$s\$|\1$fs\2$fs\3|p" \
+	-e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
+	   awk -F$fs '{
+      indent = length($1)/2;
+      vname[indent] = $2;
+      for (i in vname) {if (i > indent) {delete vname[i]}}
+      if (length($3) > 0) {
+         vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+         printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+      }
+   }'
+}
+
+#-------------------------------------------------------------------------------
+# Substitute some expressions in a variable
+#
+# $1 var name
+#
+# SUBSTITUTIONS is a substitution array (eg SUBSTITUTIONS["%h"]="HOST_NAME")
+#
+# variables must have a value
+#-------------------------------------------------------------------------------
+function yaneSubstitute () {
+    if  [ -n "$1" ] ; then
+	eval RESULT=\$$1
+	for s in ${!SUBSTITUTIONS[@]} ; do
+	    eval t=\$${SUBSTITUTIONS[$s]}
+            RESULT=${RESULT//"$s"/"$t"}
+	done
+	eval $1="\"$RESULT\""
+    fi
+}
+
+#-------------------------------------------------------------------------------
+# Read network configuration and build network variables.
+#
+# This function won't run anything. It will build the following variables
+#
+# hostNum      array (name indexed) of host number
+# hostName     array (name indexed) of host name (a bit useless !)
+# hostMode     array (name indexed) of host mode
+# hostFiles    array (name indexed) of host files
+# hostInit     array (name indexed) of init commands
+#
+# p2plinks     array of point to point links
+# console_mode     array of host name to run console
+#
+# bridgeName            array (name indexed) of BridgeName
+# bridgeInterfaces      array (name indexed) of BridgeInterface
+#
+#-------------------------------------------------------------------------------
+buildNetworkFromFile_yaml () {
+
+    declare -A SUBSTITUTIONS
+    SUBSTITUTIONS["%S"]="YANE_SESSION"
+    SUBSTITUTIONS["%N"]="NETWORK_NAME"
+    SUBSTITUTIONS["%v"]="NETWORK_VERSION"
+    SUBSTITUTIONS["%n"]="HOST_NAME"
+    SUBSTITUTIONS["%m"]="HOST_MODE"
+
+    logMessage LOG "Parsing file $1"
+    
+   # Parse the config file
+   eval $(parse_yaml_1 $1) 2> /dev/null
+
+   # First, yane configuration
+   #--------------------------
+   VERBOSE=${yane_verbose}
+   DEBUG=${yane_debug}
+
+   # Second, network config
+   #-----------------------
+   NETWORK_NAME="${network_name}"
+   NETWORK_VERSION="${network_version}"
+   
+#   for hi in ${!network_hosts[@]}
+#   do
+#         network_hosts__name[$hi]="${network_hosts[$hi]}"
+#   done
+     
+   # Build the host lists
+#   for idx in ${!network_hosts__name[@]}
+   for idx in ${!network_hosts[@]}
+   do
+      # Set the name
+#      HOST_NAME="${network_hosts__name[$idx]}"
+      if [ -n "${network_hosts_name[$idx]}" ] ; then
+         HOST_NAME="${network_hosts_name[$idx]}"
+      else
+         HOST_NAME="${network_hosts[$idx]}"
+      fi
+      
+      hostName["$HOST_NAME"]=$HOST_NAME   # a bit useless, I know
+      hostNum["$HOST_NAME"]=$idx
+
+      # If the mode is undefined, we fallback to the default one
+#      if [ -n "${network_hosts__mode[$idx]}" -a "${network_hosts__mode[$idx]}" != "default" ] ; then
+      if [ -n "${network_hosts_mode[$idx]}" -a "${network_hosts_mode[$idx]}" != "default" ] ; then
+#        HOST_MODE=${network_hosts__mode[$idx]}
+        HOST_MODE=${network_hosts_mode[$idx]}
+      else
+#        HOST_MODE=${hosts_default__mode}
+        HOST_MODE=${hosts_default_mode}
+      fi
+      hostMode["$HOST_NAME"]=$HOST_MODE
+      
+      # If image is undefined, use the mode's default
+#      if [ -n "${network_hosts__image[$idx]}" -a  "${network_hosts__image[$idx]}" != "default" ] ; then
+#	  HOST_IMAGE="${network_hosts__image[$idx]}"
+#      else
+#	  HOST_IMAGE==$(eval echo "\$${HOST_MODE}_default__image")
+#      fi
+      if [ -n "${network_hosts_image[$idx]}" -a  "${network_hosts_image[$idx]}" != "default" ] ; then
+	  HOST_IMAGE="${network_hosts_image[$idx]}"
+      else
+	  HOST_IMAGE=$(eval echo "\$${HOST_MODE}_default_image")
+      fi
+
+      yaneSubstitute "HOST_IMAGE"      
+      hostImage["$HOST_NAME"]=$HOST_IMAGE
+      
+      # If files is undefined, we use the files parameter of host mode
+#      if [ -n "${network_hosts__files[$idx]}" ] ; then
+#	  HOST_FILES=${network_hosts__files[$idx]}
+      if [ -n "${network_hosts_files[$idx]}" ] ; then
+	  HOST_FILES=${network_hosts_files[$idx]}
+      else
+#          MODE_FILES=$(eval echo "\$${HOST_MODE}_default__files")
+          MODE_FILES=$(eval echo "\$${HOST_MODE}_default_files")
+	  if [ -n "$MODE_FILES" ] ; then
+	      HOST_FILES="$MODE_FILES"
+	  fi
+      fi
+      # Substituting name in files
+      if  [ -n "$HOST_FILES" ] ; then
+	  yaneSubstitute "HOST_FILES"
+	  hostFiles["$HOST_NAME"]=$HOST_FILES
+      fi
+
+      # If init script is undefined, we use the files parameter of host mode
+      if [ -n "${network_hosts_init[$idx]}" ] ; then
+	  HOST_INIT=${network_hosts_init[$idx]}
+      else
+          MODE_INIT=$(eval echo "\$${HOST_MODE}_default_init")
+	  if [ -n "$MODE_INIT" ] ; then
+	      HOST_INIT="$MODE_INIT"
+	  fi
+      fi
+      # Substituting name in init command
+      if  [ -n "$HOST_INIT" ] ; then
+	  yaneSubstitute "HOST_INIT"
+	  hostInit["$HOST_NAME"]="$HOST_INIT"
+      fi
+      
+      logMessage LOG "Host '$HOST_NAME' mode '$HOST_MODE' image '$HOST_IMAGE'"
+      logMessage LOG " . Files '$HOST_FILES'"
+      logMessage LOG " . Init '$HOST_INIT'"
+   done
+
+   #Build the services lists
+   for idx in ${!network_services__name[@]}
+   do
+       serviceName[${network_services__name[$idx]}]=${network_services__name[$idx]}
+       serviceType[${network_services__name[$idx]}]=${network_services__type[$idx]}
+       serviceConfig[${network_services__name[$idx]}]=${network_services__config[$idx]}
+   done
+
+   # Build the console list
+   if [ "$network_consoles" == "all" ] ; then
+      for idx in ${hostName[@]}
+      do
+         console_mode[$idx]="xterm"
+      done
+   else
+      ids=0
+      for idx in ${!network_consoles__host[@]}
+      do
+         if [ "${hostName[${network_consoles__host[$idx]}]}" == "${network_consoles__host[$idx]}" ]  ; then
+             console_mode[${network_consoles__host[$idx]}]=${network_consoles__mode[$idx]}
+             if [ ${network_consoles__mode[$idx]} == "tmux" ]; then
+                 console_session_tmux[${network_consoles__host[$idx]}]=${network_consoles__session[$ids]}
+                 (( ids++ ))
+             fi
+         else
+             logMessage ERR "Cannot open console on unknown host '$idx' ..."
+         fi
+      done
+   fi
+
+   # Build the p2pLinks list
+   for idx in ${network_links[@]}
+   do
+      p2pLinks[$idx]=$idx
+   done
+
+   # Build the bridges related lists
+#   for idx in ${!network_bridges__name[@]}
+   for idx in ${!network_bridges[@]}
+   do
+#      br=${network_bridges__name[idx]}
+      if [ -n "${network_bridges_name[$idx]}" ] ; then
+         BNAME="${network_bridges_name[$idx]}"
+      else
+         BNAME="${network_bridges[$idx]}"
+      fi
+#      bridgeName[$br]="${network_bridges__name[$idx]}"
+      bridgeName[$BNAME]="$BNAME"
+#      bridgeInterfaces[$br]="${network_bridges__interfaces[$idx]}"
+      bridgeInterfaces[$BNAME]="${network_bridges_interfaces[$idx]}"
+      logMessage DEB "$idx -> $BNAME  ${bridgeInterfaces[$BNAME]}"
+   done
+
+   # Build the dumpif list
+   for idx in ${network_dumpif[@]}
+   do
+      hn=`echo $idx| cut -d: -f1`
+      if [ "${hostName[$hn]}" == "$hn" -o "$idx" == "all" ]  ; then
+          dumpIf[$idx]=$idx
+      else
+          logMessage ERR "Cannot snoop on unknown host '$hn' ..."
+      fi
+   done
+
+}

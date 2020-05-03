@@ -1,0 +1,65 @@
+#!/bin/bash
+#===============================================================================
+# Yane module for console management.
+#===============================================================================
+
+TMUX=/usr/bin/tmux
+
+#-------------------------------------------------------------------------------
+# Open a console in a window in $SESSION_ID using tmux
+#   $1 : hostName
+#-------------------------------------------------------------------------------
+yaneOpenConsoleWindow_tmux () {
+   c=$(eval yaneConsoleCmd_${hostMode[$1]} $1)
+   t=${SESSION_ID}_${console_session_tmux[$1]}
+
+   logMessage LOG "Running console '$c' in terminal '$t' "
+   $TMUX has -t $SESSION_ID$t 2> /dev/null
+   if [ $? -eq 1 ]; then  # Si cette session tmux est nouvelle
+     idpane[$t]=0
+     idwin[$t]=0
+     $TMUX new -s $SESSION_ID$t -d # Créer la session
+     $XTERM -title $t -e "$TMUX attach -t $SESSION_ID$t" &
+     echo $! >> ./.yane_${SESSION_ID}_module_consoles.pid
+     # On ouvre la console de l'hôte
+     $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.${idpane[$t]}" "$c" Enter
+     $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.${idpane[$t]}" clear Enter
+   elif [ ${idpane[$t]} -eq 3 ]; then # Sinon si la fenêtre tmux possède 4 panneaux
+     (( idwin[$t]++ ))
+     $TMUX neww -t $SESSION_ID$t -n ${idwin[$t]} # On creer une nouvelle fenêtre
+     idpane[$t]=0
+     $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.${idpane[$t]}" "$c" Enter
+     $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.${idpane[$t]}" clear Enter
+   else
+     $TMUX new -s buffer -d # On creer une nouvelle session
+     if [ ${idpane[$t]} -lt 1 ]; then
+       # On fusionne la nouvelle session à droite
+       $TMUX joinp -s buffer:0.0 -t $SESSION_ID$t:${idwin[$t]}.${idpane[$t]} -h
+       (( idpane[$t]++ ))
+       $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.${idpane[$t]}" "$c" Enter
+       $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.${idpane[$t]}" clear Enter
+     else
+       if [ ${idpane[$t]} -eq 2 ]; then
+         # On fusionne la nouvelle session en bas à droite
+         $TMUX joinp -s buffer:0.0 -t $SESSION_ID$t:${idwin[$t]}.0 -v
+         $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.1" "$c" Enter
+         $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.1" clear Enter
+         (( idpane[$t]++ ))
+       else
+         # On fusionne la nouvelle session en bas à gauche
+         $TMUX joinp -s buffer:0.0 -t $SESSION_ID$t:${idwin[$t]}.${idpane[$t]} -v
+         $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.2" "$c" Enter
+         $TMUX send-keys -t "$SESSION_ID$t:${idwin[$t]}.2" clear Enter
+         (( idpane[$t]++ ))
+       fi
+     fi
+   fi
+}
+
+#-------------------------------------------------------------------------------
+# Kill tmux session
+#    $1 : hostname
+#-------------------------------------------------------------------------------
+yaneKillConsoles_tmux () {
+  $TMUX kill-session -t $SESSION_ID${console_session_tmux[$1]} 2> /dev/null
+}

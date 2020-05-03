@@ -1,0 +1,122 @@
+#!/bin/bash
+#===============================================================================
+# netns helper functions
+#===============================================================================
+#-------------------------------------------------------------------------------
+# create host
+#    $1 : hostname
+#-------------------------------------------------------------------------------
+createHost_netns () {
+   logMessage LOG "Creating netns ${SESSION_ID}_$1"
+
+   $IP netns del ${SESSION_ID}_$1 > /dev/null 2>&1 ||$TRUE
+   $IP netns add ${SESSION_ID}_$1
+   $IP netns exec ${SESSION_ID}_$1 $IP link set lo up
+}
+
+#-------------------------------------------------------------------------------
+# boot host
+#    $1 : hostname
+#-------------------------------------------------------------------------------
+bootHost_netns () {
+   logMessage LOG "Booting netns ${SESSION_ID}_$1 (nothing done)"
+}
+
+#-------------------------------------------------------------------------------
+# shutdown host
+#    $1 : hostname
+#-------------------------------------------------------------------------------
+shutdownHost_netns () {
+   logMessage LOG "Shuting down netns ${SESSION_ID}_$1"
+}
+
+#-------------------------------------------------------------------------------
+# delete host
+#    $1 : hostname
+#-------------------------------------------------------------------------------
+deleteHost_netns () {
+   logMessage LOG "Deleting netns ${SESSION_ID}_$1"
+
+   $IP netns del ${SESSION_ID}_$1 > /dev/null 2>&1 ||$TRUE
+
+   $RM -rf /etc/netns/${SESSION_ID}_$1
+   #Remove rc file
+   $RM -rf .yane_rcfiles/${SESSION_ID}_$1.rc
+}
+
+#-------------------------------------------------------------------------------
+# return command that could open a terminal
+#    $1 : hostname
+#-------------------------------------------------------------------------------
+yaneConsoleCmd_netns() {
+  #Create rc file in order to get a custom prompt
+  mkdir -p .yane_rcfiles
+  echo "#!$BASH" > .yane_rcfiles/${SESSION_ID}_$1.rc
+  echo "PS1=\"\u@$1:[\W]# \"" >> .yane_rcfiles/${SESSION_ID}_$1.rc
+  echo "$IP netns exec ${SESSION_ID}_$1 $BASH --rcfile .yane_rcfiles/${SESSION_ID}_$1.rc"
+}
+
+#-------------------------------------------------------------------------------
+# run a single command in a running host
+#    $1 : hostname
+#    $2 : command line with args
+#-------------------------------------------------------------------------------
+yaneRunCmd_netns() {
+    logMessage LOG "Running in '$1' the following command :"
+    logMessage LOG "$2"
+    $IP netns exec "${SESSION_ID}_$1" $2
+}
+
+#-------------------------------------------------------------------------------
+# add an interface to an host
+#    $1 : hostname
+#    $2 : interface name (already created)
+#    $3 : IPv4 address (or "")
+#    $4 : netns in which $2 is defined
+#-------------------------------------------------------------------------------
+yaneAddHostInterface_netns() {
+   logMessage DEB "Adding int '$2' from '$4' in netns ${SESSION_ID}_$1"
+
+   $IP netns exec $4 $IP link set $2 netns ${SESSION_ID}_$1
+   if [ -n "$3" ] ; then
+      $IP netns exec ${SESSION_ID}_$1 $IP link set $2 up
+      $IP netns exec ${SESSION_ID}_$1 $IP addr add $3 dev $2
+   fi
+}
+
+#-------------------------------------------------------------------------------
+# Have we created host $1 ?
+#-------------------------------------------------------------------------------
+yaneHostExists_netns() {
+   if [ -z "`$IP netns list|grep $srch`" ] ; then
+      return 1
+   else
+      return 0
+   fi
+}
+
+#-------------------------------------------------------------------------------
+# Populate the filesystem of an host
+#    $1 : hostname
+#    $2 : source basedir in the host filsystem (may be relative to .)
+#    $3 : destination basedir in the guest (must be absolute)
+#-------------------------------------------------------------------------------
+yaneHostPopulateFS_netns() {
+    if [ -n "$2" -a -e "$2" ] ; then
+	logMessage LOG "Copying $2 to $3 in netns $1"
+	$MKDIR -p /etc/netns/$1 >/dev/null 2>&1 || $TRUE
+	FILE_LIST=`cd $2 ; $FIND . -true`
+	for f in $FILE_LIST
+	do
+	    if [ ! -e "/etc/$f" ] ; then
+		if [ -d "$2/$f" ] ; then
+		    $MKDIR  "/etc/$f"
+		else
+		    $TOUCH "/etc/$f"
+		fi
+	    fi
+	done
+	
+	$CP -a $2/* /etc/netns/$1 >/dev/null 2>&1 || $TRUE
+    fi
+}

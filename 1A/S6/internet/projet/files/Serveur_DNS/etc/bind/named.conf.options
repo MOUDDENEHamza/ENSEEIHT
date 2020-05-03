@@ -1,0 +1,19 @@
+options {
+        directory "/var/cache/bind";     
+	forwarders {
+         8.8.8.8;
+         };	
+	auth-nxdomain no;
+        listen-on-v6 { any; };
+        statistics-file "/var/cache/bind/named.stats";
+        rrset-order {order cyclic;};
+    allow-transfer { 127.0.0.1; };
+};
+logging {
+        channel b_query {
+                file "/var/log/bind9/query.log" versions 2 size 1m;
+                print-time yes;
+                severity info;
+        };
+        category queries { b_query; };
+};

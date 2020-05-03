@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# Set address on eth0
+ip link set dev eth0 up
+ip addr add 31.5.254.196/26 dev eth0
+
+# Static routing
+#ip route add 31.5.254.128/25 via 31.5.254.193
+#ip route add 31.5.254.64/26 via 31.5.254.193
+#ip route add 31.5.254.0/26 via 31.5.254.193
+#ip route add 192.168.111.0/26 via 31.5.254.193
+
+# Add default route via services router
+ip route add default via 31.5.254.193
+
+# Configure the DNS server
+# To enable the new configurations
+service bind9 start
+
+# Define the forward and reverse zone files
+TMP="
+zone \"MOUDDENE.com\" {
+        type master;
+        file \"/etc/bind/for.MOUDDENE.com\";
+        allow-transfer { 31.5.254.196; };
+        also-notify { 31.5.254.196; };
+ };
+zone \"254.5.31.in-addr.arpa\" {
+        type master;
+        file \"/etc/bind/rev.MOUDDENE.com\";
+        allow-transfer { 31.5.254.196; };
+        also-notify { 31.5.254.196; };
+ };"
+echo -e "$TMP" >> "/etc/bind/named.conf.local"
+
+# Create forward zone file
+TMP="
+;
+; BIND data file for local loopback interface
+;
+\$TTL    604800
+@       IN      SOA     www.MOUDDENE.com. root.MOUDDENE.com. (
+                              5         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      www.MOUDDENE.com.
+@       IN      A       31.5.254.196
+www     IN      A       31.5.254.196
+"
+echo -e "$TMP" >> "/etc/bind/for.MOUDDENE.com"
+
+# Create reverse zone file
+TMP="
+;
+; BIND reverse data file for local loopback interface
+;
+\$TTL    604800
+@       IN      SOA     www.MOUDDENE.com. root.MOUDDENE.com. (
+                              3         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      www.MOUDDENE.com.
+@       IN      PTR     MOUDDENE.com.
+www     IN  A           31.5.254.196
+196     IN  PTR         www.MOUDDENE.com.
+"
+echo -e "$TMP" >> "/etc/bind/rev.MOUDDENE.com"
+
+# Set the proper permissions and ownership to the bind9 directory
+chmod -R 755 /etc/bind
+chown -R bind:bind /etc/bind
+
+#Restart DNS Service to apply changes.
+service bind9 restart
+
+# Test configuration
+named-checkconf /etc/bind/named.conf
+named-checkconf /etc/bind/named.conf.local
+named-checkzone MOUDDENE.com "/etc/bind/for.MOUDDENE.com"
+named-checkzone MOUDDENE.com "/etc/bind/for.MOUDDENE.com"
+named-checkzone MOUDDENE.com /etc/bind/rev.MOUDDENE.com

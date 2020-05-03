@@ -1,0 +1,79 @@
+#!/bin/bash
+#===============================================================================
+# Dnsmasq
+#  Ce module se charge de la gestion du service dnsmasq
+#===============================================================================
+
+#-------------------------------------------------------------------------------
+# contantes
+#-------------------------------------------------------------------------------
+servicesVirtMode="docker"   # mode de virtualisation des services
+
+#-------------------------------------------------------------------------------
+# create services
+#  Créer un hote puis y ajoute les fichiers de configuration
+#   $1 : service name
+#-------------------------------------------------------------------------------
+yaneCreateService_dnsmasq () {
+    if (( NBDNSMASQ > 0 )); then
+      logMessage ERR "you can't have more than 1 dnsmasq"
+      exit 1
+    else
+      export NBDNSMASQ=1
+    fi
+    logMessage LOG "Creating a dnsmasq service : $1 using $servicesVirtMode"
+    createHost_$servicesVirtMode $1 ${serviceType[$1]}
+    hostName[$1]=$1
+    hostMode[$1]=$servicesVirtMode
+    hostImage[$1]=${serviceType[$1]}
+    # Load config files
+    src=$(echo "${serviceConfig[$1]}" | cut -d! -f 1)
+    dest=$(echo "${serviceConfig[$1]}" | cut -d! -f 2)
+    yaneHostPopulateFS_$servicesVirtMode $1 $src $dest
+}
+
+#-------------------------------------------------------------------------------
+# shutdown services
+#   $1 : service name
+#-------------------------------------------------------------------------------
+yaneShutdownService_dnsmasq () {
+   shutdownHost_$servicesVirtMode $1
+}
+
+#-------------------------------------------------------------------------------
+# delete services
+#   $1 : service name
+#-------------------------------------------------------------------------------
+yaneDeleteService_dnsmasq () {
+   deleteHost_$servicesVirtMode $1
+   $IP link del $SESSION_ID${serviceType[$1]}
+}
+
+#-------------------------------------------------------------------------------
+# connect dnsmasq server to "internet"
+#   $1 : service name
+#-------------------------------------------------------------------------------
+yaneRunService_dnsmasq () {
+   #----------------------------------------------------------------------------
+   # Constantes
+   #----------------------------------------------------------------------------
+   ip_addr_yanenet="" # adresse ip (CIDR) du réseau reliant le serveur dnsmasq et le réseau simulé
+   ifName_service=$($IP netns exec ${SESSION_ID}_$1 ip route | awk '/default/ { print $5 }') #interface de la route par défaut
+
+   interfaceService=$(echo "${bridgeInterfaces[@]}" | grep -b -o $1)
+   if [ $? -eq 0 ]; then   # Vérifier si une interface de bridge entre le service et le réseau yane existe
+      ip_addr_yanenet=$(echo ${bridgeInterfaces[@]} | cut -c $(echo $interfaceService | cut -d: -f 1)- | cut -d! -f 2 | cut -d: -f 3)
+   else
+      logMessage ERR "The service : $1 must be linked to hosts with a bridge"
+      # exiting safely ?
+      exit 1
+   fi
+
+   # Mise à jour du NAT du service pour donner accès à internet
+   $IP netns exec ${SESSION_ID}_$1 iptables -P FORWARD DROP
+   $IP netns exec ${SESSION_ID}_$1 iptables -F FORWARD
+   $IP netns exec ${SESSION_ID}_$1 iptables -t nat -F
+   $IP netns exec ${SESSION_ID}_$1 iptables -t nat -A POSTROUTING -s $ip_addr_yanenet -o $ifName_service -j MASQUERADE
+   $IP netns exec ${SESSION_ID}_$1 iptables -A FORWARD -i $ifName_service -o v0 -j ACCEPT
+   $IP netns exec ${SESSION_ID}_$1 iptables -A FORWARD -o $ifName_service -i v0 -j ACCEPT
+}

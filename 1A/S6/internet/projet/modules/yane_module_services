@@ -1,0 +1,84 @@
+#!/bin/bash
+#===============================================================================
+# Module services
+#   see ManuelProgrammeurServices
+#===============================================================================
+
+#-------------------------------------------------------------------------------
+# Create all services
+#-------------------------------------------------------------------------------
+yaneCreateServices () {
+  for serv in ${serviceName[@]}
+  do
+    yaneCreateService_${serviceType[$serv]} $serv
+  done
+}
+
+#-------------------------------------------------------------------------------
+# Create all services
+#-------------------------------------------------------------------------------
+yaneShutdownServices () {
+  for serv in ${serviceName[@]}
+  do
+    yaneShutdownService_${serviceType[$serv]} $serv
+  done
+}
+
+#-------------------------------------------------------------------------------
+# Deletes services + delete bridge yane0
+#-------------------------------------------------------------------------------
+yaneDeleteServices () {
+  for serv in ${serviceName[@]}
+  do
+    yaneDeleteService_${serviceType[$serv]} $serv
+  done
+  $IP link del yane0
+}
+
+#-------------------------------------------------------------------------------
+# Set NAT and connect services
+#-------------------------------------------------------------------------------
+yaneRunServices () {
+  logMessage LOG "Connecting services ..."
+  if [ -z "$serv" ] ; then
+      logMessage LOG "No service to connect !"
+      return
+  fi
+  br_name="yane0"
+  ip_addr_bridge="192.168.1.254"
+  service_ID=1
+  ip_addr_service="192.168.1.$service_ID"
+  ifName_service="int0"
+  netmask=24
+
+  # Mise en place du bridge
+  $IP link add $br_name type bridge
+  if [ $? -eq 0 ]; then
+    $IP link set $br_name up
+    $IP addr add ${ip_addr_bridge}/$netmask dev $br_name
+  fi
+
+  # Remise à zéro du NAT
+  iptables -P FORWARD DROP
+  iptables -F FORWARD
+  iptables -t nat -F
+  for serv in ${serviceName[@]}
+  do
+    # Mise en place des interfaces entre le services et la machine
+    $IP link add $SESSION_ID${serviceType[$serv]} type veth peer name int0
+    $IP link set int0 netns ${SESSION_ID}_$serv
+    $IP link set $SESSION_ID${serviceType[$serv]} up
+    $IP netns exec ${SESSION_ID}_$serv ip link set int0 up
+    $IP netns exec ${SESSION_ID}_$serv ip addr add ${ip_addr_service}/$netmask dev int0
+    $IP netns exec ${SESSION_ID}_$serv ip route add default via $ip_addr_bridge
+    $IP link set $SESSION_ID${serviceType[$serv]} master $br_name
+    yaneRunService_${serviceType[$serv]} $serv
+    (( service_ID+1 ))
+    ip_addr_service="192.168.1.$service_ID" #Warning : 256 addr max not checked
+  done
+
+  # Mise a jour du NAT du votre machine
+  iptables -t nat -A POSTROUTING -s ${ip_addr_service}/$netmask -o $($IP route | awk '/default/ { print $5 }') -j MASQUERADE
+  iptables -A FORWARD -i $($IP route | awk '/default/ { print $5 }') -o $br_name -j ACCEPT
+  iptables -A FORWARD -o $($IP route | awk '/default/ { print $5 }') -i $br_name -j ACCEPT
+}

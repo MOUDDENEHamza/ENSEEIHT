@@ -1,0 +1,848 @@
+#!/bin/bash
+#-------------------------------------------------------------------------------
+#  yane (Yet Another Network Emulator !) by E. Chaput
+#
+#    0.1   : - put it on github
+#    0.2   : - bridges
+#    0.2.1 : - introduce session (so that yane -k can kill the
+#            current (or any) session : remove netns, ...)
+#    0.2.2 : - added filesystem population
+#    0.2.2 : - clearly separate network creation and startup
+#    0.3   : - introduce Docker
+#    0.4   : - Improved configuration
+#            - update some example files
+#    0.5   : - Move some files to build a deb package
+#
+#  TBD
+#    ???   : - reorganize option parsing
+#            - remove WARNINGs (namespace specific parts)
+#    ???   : - Doc
+#            - install procedure
+#
+#-------------------------------------------------------------------------------
+#YANE_VERSION="0.1"     # First test
+#YANE_VERSION="0.1.1"   # Minor bug correction
+#YANE_VERSION="0.2"     # Introducing bridges
+#YANE_VERSION="0.2.1"   # First session management
+#YANE_VERSION="0.2.2"   # First file system management
+#YANE_VERSION="0.3"     # Docker and lots of help from SD
+#YANE_VERSION="0.4"     # Improved configuration
+YANE_VERSION="0.5"      # First deb package built !
+
+#-------------------------------------------------------------------------------
+# Main commands (do not trust $PATH)
+#-------------------------------------------------------------------------------
+BASH=/bin/bash
+BASENAME=/usr/bin/basename
+CAT=/bin/cat
+CP=/bin/cp
+DOCKER=/usr/bin/docker
+DIRNAME=/usr/bin/dirname
+FIND=/usr/bin/find
+GREP=/bin/grep
+IP=/sbin/ip
+KILL=/bin/kill
+LN=/bin/ln
+LS=/bin/ls
+MKFIFO=/usr/bin/mkfifo
+MKDIR=/bin/mkdir
+MV=/bin/mv
+RM=/bin/rm
+READLINK=/bin/readlink
+SED=/bin/sed
+TOUCH=/usr/bin/touch
+TRUE=/bin/true
+WC=/usr/bin/wc
+XTERM=/usr/bin/xterm
+
+#-------------------------------------------------------------------------------
+# Main parameters
+#-------------------------------------------------------------------------------
+YANE_ROOT_DIR=$($DIRNAME $($READLINK -f $0))
+if [ $YANE_ROOT_DIR == /usr/bin ] ; then
+    YANE_CONF_DIR=/usr/share/yane
+    YANE_MODULE_DIR=/usr/share/yane/modules
+else
+    YANE_CONF_DIR=$YANE_ROOT_DIR
+    YANE_MODULE_DIR=${YANE_ROOT_DIR}/modules
+fi
+
+BASEDIR=$PWD
+DEBUG=False
+VERBOSE=False
+NET_CONFIG_FILE=yane.yml
+TMP_CFG_FILE=./yane.$$
+YANE_DEFAULT_NETNS=yans-$$
+
+# Configuration
+YANE_DEFAULT_CONFIG_PARSER=yaml
+YANE_DEFAULT_CONFIG_FILE=${YANE_CONF_DIR}/yane-config.yml
+
+#-------------------------------------------------------------------------------
+# Some variables
+#-------------------------------------------------------------------------------
+declare -A hostNum              # Array of host numbers : 0 1, ...
+declare -A hostName             # Array of host names
+declare -A hostMode             # Array of host mode
+declare -A hostFiles            # Array of host FS
+declare -A hostImage            # Array of host image
+declare -A hostInit             # Array of init command
+declare -A console_mode         # Array of consoles mode indexed by host name
+declare -A console_session_tmux # Array of tmux sessions indexed by host name
+declare -A p2pLinks             # Array of p2p links
+declare -A interfaces           # Array of known interfaces
+declare -A dumpIf               # Array of interface to snoop
+declare -A modules              # Array o loaded modules
+declare -A bridgeName   	# Array of interfaces indexed by bridges name
+declare -A bridgeInterfaces     # Array of interfaces indexed by bridges name
+
+#-------------------------------------------------------------------------------
+# Variables of the module Services
+#-------------------------------------------------------------------------------
+declare -A serviceName          # Array of service names indexed by service names 
+declare -A serviceType          # Array of service types indexed by service names
+declare -A serviceConfig        # Array of service config files indexed by service names
+
+#-------------------------------------------------------------------------------
+# Variables of the module Consoles
+#-------------------------------------------------------------------------------
+declare -A idpane               # TMUX_MODULE : array of indexes of last opened tmux pane indexed by tmux-sessions
+declare -A idwin                # TMUX_MODULE : array of indexes of last opened tmux window indexed by tmux-sessions
+
+FIFO_ROOT=/tmp/nssi
+SNOOP_PID_FILE=./.yane_snooping_pids
+
+#===============================================================================
+# General helper functions
+#===============================================================================
+
+#-------------------------------------------------------------------------------
+# Cleanup before exit
+#-------------------------------------------------------------------------------
+cleanup () {
+   $RM $TMP_CFG_FILE > /dev/null 2>&1 || $TRUE
+}
+
+#-------------------------------------------------------------------------------
+# Basic log utility
+#   $1 : LOG (printed iif VERBOSE) ERR DEB (print iif DEBUG)
+#   $2 : message
+#-------------------------------------------------------------------------------
+logMessage () {
+   case "$1" in
+      ERR )
+         shift
+         echo "$(date +%T) [ERROR] (Session ${SESSION_ID}) $*"
+      ;;
+      LOG )
+         shift
+         if [ "$VERBOSE" == "True" ] ; then
+            echo "$(date +%T) [LOG] (Session ${SESSION_ID}) $*"
+         fi
+      ;;
+      DEB )
+         shift
+         if [ "$DEBUG" == "True" ] ; then
+            echo "$(date +%T) [DEBUG] (Session ${SESSION_ID}) $*"
+         fi
+      ;;
+   esac
+}
+
+exitYane () {
+   cleanup
+   exit
+}
+
+#-------------------------------------------------------------------------------
+# Display hosts
+#-------------------------------------------------------------------------------
+yaneDisplayHosts () {
+   for hn in ${network_hosts__name[@]}
+   do
+      echo "[${hostNum[$hn]}]  $hn mode ${hostMode[$hn]}"
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Have we created host $1 in $SESSION_ID ?
+#-------------------------------------------------------------------------------
+yaneHostExists() {
+   if [ "${hostName["$1"]}" != "$1" ] ; then
+      return 1
+   fi
+   return $(yaneHostExists_${hostMode["$1"]} ${SESSION_ID}_"$1")
+}
+
+yaneHostUnknown() {
+   if $(yaneHostExists "$1") ; then
+      return 1
+   else
+      return 0
+   fi
+}
+
+#-------------------------------------------------------------------------------
+# Can $1 host a new $2 interface in $SESSION_ID ?
+#-------------------------------------------------------------------------------
+yaneDeviceCanHostInterface() {
+   # First check : is this interface a new one ?
+   if [ ""${interfaces["$1:$2"]} == "$1:$2" ] ; then
+      return 1
+   fi
+
+   # If $1 is an host
+   if $(yaneHostExists "$1") ; then
+       # WARNING : should check for $2
+      return 0
+   fi
+
+   # If $1 is a bridge
+   if $(yaneBridgeExists "$1") ; then
+      # WARNING : should check for $2
+      return 0
+   fi
+
+   return 1
+}
+
+#-------------------------------------------------------------------------------
+#   Display network elements (debug purpose)
+#-------------------------------------------------------------------------------
+yaneDisplayNetwork () {
+   echo "Hosts : "
+   yaneDisplayHosts
+
+   echo "Bridges : "
+   for idx in ${bridgeName[@]} ; do
+      br=${bridgeName[$idx]}
+      echo "   . [$idx] '$br'"
+      il=${bridgeInterfaces["$br"]}
+      echo "       Interfaces : '$il'"
+   done
+}
+
+#-------------------------------------------------------------------------------
+#
+#-------------------------------------------------------------------------------
+yanePopulateFileSystems () {
+   for hn in ${hostName[@]}
+   do
+       fsSpec=${hostFiles["$hn"]}
+       if [ -n "$fsSpec" ] ; then
+          src=`echo $fsSpec|cut -d: -f1`
+          dst=`echo $fsSpec|cut -d: -f2`
+	  yaneHostPopulateFS_${hostMode["$hn"]} $hn $src $dst
+       fi
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Loading modules
+#-------------------------------------------------------------------------------
+yaneLoadModules() {
+   # Fisrt, we need a parser to read a config file
+   if [ -f ${YANE_MODULE_DIR}/yane_module_${YANE_DEFAULT_CONFIG_PARSER} ] ; then
+      . ${YANE_MODULE_DIR}/yane_module_${YANE_DEFAULT_CONFIG_PARSER}
+   else
+      logMessage ERR "Unable to find a parser for '${YANE_DEFAULT_CONFIG_PARSER}'"
+   fi
+   # Now, we load a config file
+   if [ -f $YANE_DEFAULT_CONFIG_FILE ] ; then
+       buildNetworkFromFile_${YANE_DEFAULT_CONFIG_PARSER} $YANE_DEFAULT_CONFIG_FILE 
+   else
+      logMessage ERR "Unable to find '${YANE_DEFAULT_CONFIG_FILE}'"
+   fi
+
+   mods=`$LS $YANE_MODULE_DIR/yane_module_*|$GREP -v \~`
+
+   for mod in $mods
+   do
+      logMessage DEB "Loading $mod"
+      . $mod
+      modules+="`$BASENAME $mod` "
+   done
+}
+
+#===============================================================================
+# Snooping helper functions based on
+#
+#   Global
+#      SESSION_ID
+#
+# Run a tcpdump on each if in dumpIf. The output is sent to a fifo.
+# WARNING : namespace specific
+#===============================================================================
+yaneStartSnooping () {
+    dumpFifo=""
+#    $RM -rf $FIFO_ROOT > /dev/null 2>&1 ||$TRUE
+    $MKDIR $FIFO_ROOT > /dev/null 2>&1 ||$TRUE
+    $MKDIR $FIFO_ROOT/$SESSION_ID > /dev/null 2>&1 ||$TRUE
+    $RM $SNOOP_PID_FILE-$SESSION_ID > /dev/null 2>&1 ||$TRUE
+
+    # If 'all' is set, build the list
+    if [ "${dumpIf['all']}" == "all" ] ; then
+       unset dumpIf["all"]
+       for i in ${interfaces[@]} ; do
+          h=`echo $i| cut -d: -f1`
+          if [ "${hostName[$h]}" == "$h" ] ; then
+             dumpIf["$i"]="$i"
+          fi
+       done
+    fi
+
+    for dif in ${dumpIf[@]} ; do
+       h=`echo $dif|cut -d: -f1`
+       i=`echo $dif|cut -d: -f2`
+       logMessage LOG "Snooping on int '$i' from '$h'"
+
+       if [ -z ""$h ] ; then
+	   logMessage ERR "No snoop host defined in '$dif'"
+	   exit
+       fi
+       if [ -z "`$IP netns list|grep $h`" ] ; then
+	   logMessage ERR "Unknown snoop host '$h'"
+	   exit
+       fi
+       if [ -z ""$i ] ; then
+	   logMessage ERR "No snoop interface defined in '$snoopi'"
+	   exit
+       fi
+
+       $MKDIR $FIFO_ROOT/$SESSION_ID/$h > /dev/null 2>&1 ||$TRUE
+       $MKFIFO $FIFO_ROOT/$SESSION_ID/$h/$i
+
+       $IP netns exec ${SESSION_ID}_$h $YANE_MODULE_DIR/yane_run_tcpdump $i $FIFO_ROOT/$SESSION_ID/$h/$i > /dev/null 2>&1 &
+       echo $! >> $SNOOP_PID_FILE-$SESSION_ID
+    done
+
+   if [ ${#dumpIf[@]} -gt 0 ] ; then
+      echo You could run
+      echo -n "wireshark "
+      for dif in ${dumpIf[@]} ; do
+          h=`echo $dif|cut -d: -f1`
+          i=`echo $dif|cut -d: -f2`
+	  echo -n "-i $FIFO_ROOT/$SESSION_ID/$h/$i "
+      done
+      echo
+   fi
+}
+
+#-------------------------------------------------------------------------------
+# Kill all open consoles
+#-------------------------------------------------------------------------------
+yaneKillSnooping () {
+   logMessage LOG "Kill snooping"
+
+   if [ -f $SNOOP_PID_FILE-$SESSION_ID ] ; then
+      for c in `cat $SNOOP_PID_FILE-$SESSION_ID`
+      do
+          $KILL $c
+      done
+      $RM $SNOOP_PID_FILE-$SESSION_ID
+   fi
+
+   $RM -rf $FIFO_ROOT/$SESSION_ID > /dev/null 2>&1 ||$TRUE
+}
+
+
+#===============================================================================
+
+#-------------------------------------------------------------------------------
+# Run the startup script for a given session
+#   Global
+#     SESSION_ID
+#-------------------------------------------------------------------------------
+runStartupScript () {
+   if [ -n "$network_startup" -a  -f "$network_startup" ] ; then
+      logMessage LOG "Running startup script '"$network_startup"' for session $SESSION_ID ..."
+      . $network_startup $SESSION_ID
+   fi
+}
+
+#-------------------------------------------------------------------------------
+# Create hosts based on
+#   Global
+#     SESSION_ID
+#     hostNum
+#     hostName
+#     hostMode
+#-------------------------------------------------------------------------------
+createHosts () {
+    for hn in ${hostName[@]}
+    do
+      ht=${hostMode[$hn]}
+      logMessage DEB "Creating host '${SESSION_ID}_$hn' (type $ht)"
+      createHost_${hostMode[$hn]} "$hn" "${hostImage[$hn]}"
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Run init scripts hosts based on
+#   Global
+#     SESSION_ID
+#     hostNum
+#     hostName
+#     hostMode
+#     hostInit
+#-------------------------------------------------------------------------------
+yaneRunInitScripts () {
+    for hn in ${hostName[@]}
+    do
+	ht=${hostMode[$hn]}
+	sc=${hostInit[$hn]}
+	if [ -n "$sc" -a -x "$sc" ] ; then
+	    logMessage DEB "Running '$sc' in '${SESSION_ID}_$hn' (type $ht)"
+	    yaneRunCmd_${hostMode[$hn]} "$hn" "$sc"
+	fi
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Boot hosts based on
+#   Global
+#     SESSION_ID
+#     hostNum
+#     hostName
+#     hostMode
+#-------------------------------------------------------------------------------
+bootHosts () {
+    for hn in ${hostName[@]}
+    do
+      ht=${hostMode[$hn]}
+      logMessage DEB "Booting host '${SESSION_ID}_$hn' (type $ht)"
+      bootHost_${hostMode[$hn]} $hn
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Shutdown hosts based on
+#   Global
+#     SESSION_ID
+#     hostNum
+#     hostName
+#     hostMode
+#-------------------------------------------------------------------------------
+shutdownHosts () {
+   for hn in ${hostName[@]}
+   do
+      shutdownHost_${hostMode[$hn]} $hn
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Delete hosts based on
+#   Global
+#     SESSION_ID
+#     hostNum
+#     hostName
+#     hostMode
+#-------------------------------------------------------------------------------
+deleteHosts () {
+   for hn in ${hostName[@]}
+   do
+      deleteHost_${hostMode[$hn]} $hn
+   done
+}
+#-------------------------------------------------------------------------------
+# Add an interface to the list
+#   $1 : host
+#   $2 : interface
+#-------------------------------------------------------------------------------
+yaneAddInterface () {
+   if [ ""${interfaces["$1:$2"]} == "$1:$2" ] ; then
+      logMessage  ERR "Interface $1:$2 already defined !"
+      exitYane
+   fi
+
+   interfaces["$1:$2"]="$1:$2"
+}
+
+#-------------------------------------------------------------------------------
+# Create a p2p link
+# Format h:i[:@]!h:i[:@]
+#
+#-------------------------------------------------------------------------------
+createLink () {
+   l=$1
+   logMessage LOG Creating link $l
+
+   src=`echo $l| cut -d! -f1`
+   srch=`echo $src|cut -d: -f1`
+   if [ -z ""$srch ] ; then
+      logMessage ERR "No source host defined in '$l'"
+      exit
+   fi
+   srci=`echo $src|cut -d: -f2`
+   if [ -z ""$srci ] ; then
+      logMessage ERR "No source interface defined in '$l'"
+      exit
+   fi
+   # WARNING : first check $srch type
+   if $(yaneHostExists "$srch") ; then
+      logMessage DEB "host $srch OK"
+   else
+      logMessage ERR "$srch name ${hostName["$srch"]} unknown"
+      exit
+   fi
+   if $(yaneDeviceCanHostInterface "$srch" "$srci") ; then
+      logMessage DEB "Source device '$srch' found"
+   else
+      logMessage ERR "Source device '$srch' can not accept interface '$srci'"
+      exit
+   fi
+   IFLIST="$IFLIST $srch:$srci"
+   srca=`echo $src|cut -d: -f3`
+   dst=`echo $l| cut -d! -f2`
+   dsth=`echo $dst|cut -d: -f1`
+   if [ -z ""$dsth ] ; then
+      logMessage ERR "No destination host defined in '$l'"
+      exit
+   fi
+   dsti=`echo $dst|cut -d: -f2`
+   if [ -z ""$dsti ] ; then
+      logMessage ERR "No destination interface defined in '$l'"
+      exit
+   fi
+
+   if $(yaneDeviceCanHostInterface "$dsth" "$dsti") ; then
+      logMessage DEB "Destination device '$dsth' found"
+   else
+      logMessage ERR "Destination device '$dsth' can not accept interface '$dsti'"
+      exit
+   fi
+   IFLIST="$IFLIST $dsth:$dsti"
+   dsta=`echo $dst|cut -d: -f3`
+   logMessage LOG "  $srch ($srci)  >--< $dsth ($dsti)"
+   if [ -n ""$srca ] ; then
+      logMessage LOG "    $srch : $srca"
+   fi
+   if [ -n ""$dsta ] ; then
+      logMessage LOG "    $dsth : $dsta"
+   fi
+
+   # Register interfaces
+   yaneAddInterface $srch $srci
+   yaneAddInterface $dsth $dsti
+
+   # We create temporary namespaces
+   $IP netns del yane-src-$$ > /dev/null 2>&1
+   $IP netns del yane-dst-$$ > /dev/null 2>&1
+   $IP netns add yane-src-$$
+   $IP netns add yane-dst-$$
+
+   # Interfaces creation
+   $IP netns exec yane-src-$$ $IP link add $srci type veth peer name $dsti netns yane-dst-$$
+   if [ $? -ne 0 ]; then
+      logMessage ERR "Can't create interface $srci or $dsti"
+      exit 1
+   fi
+   # Search for source host
+   if [[ ${hostMode["$srch"]} ]] ; then
+       logMessage DEB "source host found"
+       yaneAddHostInterface_${hostMode[$srch]} $srch $srci "$srca" yane-src-$$
+   fi
+   # Search for destination host
+   if [[ ${hostMode["$dsth"]} ]] ; then
+      logMessage DEB "destination host found"
+      yaneAddHostInterface_${hostMode[$dsth]} $dsth $dsti "$dsta" yane-dst-$$
+   elif $(yaneBridgeExists $dsth) ; then
+      logMessage DEB "destination bridge found"
+      yaneAddBridgeInterface $dsth $dsti "$dsta" yane-dst-$$
+   fi
+
+   # We can now delete transiant namespaces
+   $IP netns del yane-src-$$
+   $IP netns del yane-dst-$$
+}
+
+#-------------------------------------------------------------------------------
+# Kill a p2p link
+#-------------------------------------------------------------------------------
+killLink () {
+   logMessage DEB "killLink not yet implemented"
+}
+
+#-------------------------------------------------------------------------------
+# Create p2p links
+#-------------------------------------------------------------------------------
+createLinks () {
+   for link in ${p2pLinks[@]}
+   do
+      createLink "$link"
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Kill p2p links
+#-------------------------------------------------------------------------------
+killLinks () {
+   for link in ${network_links[@]}
+   do
+      killLink "$link"
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Booting up a network session
+#   Global
+#     SESSION_ID
+#-------------------------------------------------------------------------------
+yaneBootNetworkSession () {
+   logMessage LOG "Booting network session ${SESSION_ID}"
+
+   # Creation of the default namespace
+   YANE_DEFAULT_NETNS=yans-$SESSION_ID
+   $IP netns add $YANE_DEFAULT_NETNS
+
+   # Creating the hosts
+   logMessage DEB "Creating the hosts ..."
+   createHosts
+
+   # Creating services
+   logMessage DEB "Creating services ..."
+   yaneCreateServices
+
+   # Populating filesystems if needed
+   logMessage DEB "Populating filesystems ..."
+   yanePopulateFileSystems
+
+   # We run the startup script (if any). The session ID can be
+   # used to avoid "collisions"
+   logMessage DEB "Running startup script ..."
+   runStartupScript $SESSION_ID
+
+   # Booting up the hosts
+   logMessage DEB "Booting up the hosts ..."
+   bootHosts
+
+   logMessage DEB "Booting up the services ..."
+   yaneRunServices
+
+   # Create the bridges
+   yaneCreateBridges
+
+   # Setting up the links
+   createLinks
+
+   # Run init scripts
+   yaneRunInitScripts
+   
+   # Open the consoles
+   yaneOpenConsoleWindows
+
+   # Run snooping processes
+   yaneStartSnooping
+
+   # Add session id in active list
+   echo ${SESSION_ID} >> ${NET_CONFIG_FILE}.sessions
+}
+
+#-------------------------------------------------------------------------------
+# Shutting down a session
+#   Global
+#     SESSION_ID
+#-------------------------------------------------------------------------------
+yaneKillNetworkSession () {
+   logMessage LOG "Shutting down network session ${SESSION_ID}"
+
+   # Delete the default namespace
+   YANE_DEFAULT_NETNS=yans-$SESSION_ID
+   $IP netns del $YANE_DEFAULT_NETNS
+
+   # Stop the snooping processes
+   yaneKillSnooping
+
+   # Kill the consoles
+   yaneKillConsoles
+
+   # Kill links
+   killLinks
+
+   # Shutdown services
+   yaneShutdownServices
+
+   # Delete services
+   yaneDeleteServices
+
+   # Shutdown hosts
+   shutdownHosts
+
+   # Delete hosts
+   deleteHosts
+
+   # Remove session from list
+   $SED -e "/^${SESSION_ID}$/d" ${NET_CONFIG_FILE}.sessions > /tmp/yane-sessions.$$
+   $MV  /tmp/yane-sessions.$$ ${NET_CONFIG_FILE}.sessions
+
+}
+
+#-------------------------------------------------------------------------------
+# List active sessions
+#   Parameter
+#     None
+#   Global
+#     NET_CONFIG_FILE
+#-------------------------------------------------------------------------------
+listActiveSessions () {
+   for sessionId in `cat ${NET_CONFIG_FILE}.sessions`
+   do
+       echo "ID = $sessionId"
+   done
+}
+
+#-------------------------------------------------------------------------------
+# Cleanup before exit
+#-------------------------------------------------------------------------------
+cleanup () {
+   $RM $TMP_CFG_FILE > /dev/null 2>&1 || $TRUE
+#   $RM -rf $FIFO_ROOT > /dev/null 2>&1 ||$TRUE # WARNING only if empty
+}
+
+showHelp () {
+  $CAT << EOF
+What ?
+Yet Another Network Emulator !?
+
+Yes, by Manu Chaput. Version : $YANE_VERSION
+
+Usage (option order is important)
+
+yane [-f <cfg>] [-s <id>] [-c] [-v] [-w] [-k]  [-l]
+
+Options
+-c <host>    open a terminal on host then exit
+-f <file>    use file as config
+-h           help
+-k           kill session
+-l           list sessions based on config
+-s <id>      session id
+-v           be verbose
+-w <host>    open a forked terminal in a window on host
+
+Modules
+${modules[@]}
+EOF
+}
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit 1
+fi
+
+yaneLoadModules
+#-------------------------------------------------------------------------------
+# Parse command line options
+#-------------------------------------------------------------------------------
+while [[ $# > 0 ]] ;
+do
+  case "$1" in
+    -c )
+	  shift
+      buildNetworkFromFile_yaml $NET_CONFIG_FILE
+      if [ -z "${SESSION_ID}" ] ; then
+        nbActiveSessions=`$WC -l  ${NET_CONFIG_FILE}.sessions | cut -d" " -f 1`
+   	    if [ $nbActiveSessions == 1 ] ; then
+   		    SESSION_ID=`$CAT ${NET_CONFIG_FILE}.sessions`
+   	    else
+          echo "$nbActiveSessions active sessions, please select (option -s)"
+   	      listActiveSessions
+   	      exitYane
+   	    fi
+      fi
+      cat ${NET_CONFIG_FILE}.sessions | grep $SESSION_ID > /dev/null
+      if [ $? -eq 0 ]; then
+	      yaneOpenConsole "$1"
+	      exitYane
+      else
+        logMessage ERR "Cannot open console because Unknown session $SESSION_ID"
+        exitYane
+      fi
+    ;;
+    -d )
+      parse_yaml $NET_CONFIG_FILE
+      DEBUG=True
+	  ;;
+    -f )
+	  shift
+      NET_CONFIG_FILE="$1"
+    ;;
+    -k )
+      buildNetworkFromFile_yaml $NET_CONFIG_FILE
+ 	    if [ -z "${SESSION_ID}" ] ; then
+        nbActiveSessions=`$WC -l  ${NET_CONFIG_FILE}.sessions | cut -d" " -f 1`
+	    if [ $nbActiveSessions == 1 ] ; then
+		    SESSION_ID=`$CAT ${NET_CONFIG_FILE}.sessions`
+	    else
+        echo "$nbActiveSessions active sessions, please select (option -s)"
+	      listActiveSessions
+	      exitYane
+	    fi
+      fi
+	    if [ -z ""`$GREP $SESSION_ID ${NET_CONFIG_FILE}.sessions`  ] ; then
+	      echo "Unknown session $SESSION_ID"
+	    else
+	      yaneKillNetworkSession
+	    fi
+      #killNetwork
+	    exitYane
+    ;;
+    -l ) # List active sessions for this config
+	    listActiveSessions
+	    exit
+    ;;
+    -n )
+      PRETEND=TRUE
+      VERBOSE=TRUE
+	    echo "Pretending, won't do anything"
+    ;;
+    -p )
+      buildNetworkFromFile_yaml $NET_CONFIG_FILE
+      yaneDisplayNetwork
+      exitYane
+    ;;
+    -s )
+	  shift
+      SESSION_ID="$1"
+    ;;
+
+    -t ) # Debuging purpose. Do not use
+	parse_yaml_1 $YANE_DEFAULT_CONFIG_FILE
+	#parse_yaml_1 $NET_CONFIG_FILE
+	buildNetworkFromFile_yaml $NET_CONFIG_FILE
+	exit
+	if [ -z "${SESSION_ID}" ] ; then
+	      SESSION_ID=$$
+	fi
+
+      exit
+    ;;
+    -v )
+      VERBOSE=True
+    ;;
+    -h )
+      showHelp
+	    exit
+    ;;
+    * )
+	    echo Unknown option $1
+      showHelp
+      exit
+    ;;
+    esac
+    shift
+done
+
+
+#-------------------------------------------------------------------------------
+# Parse network config and run the network
+#-------------------------------------------------------------------------------
+
+buildNetworkFromFile_yaml $NET_CONFIG_FILE
+
+if [ -z "${SESSION_ID}" ] ; then
+   SESSION_ID=$$
+fi
+yaneBootNetworkSession
+
+exitYane
