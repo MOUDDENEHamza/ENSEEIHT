@@ -42,8 +42,10 @@ int main(int argc, char** argv) {
 		perror("[WRITE] Error ");
 		exit(1);
 	    }
-	    printf("CHILD = %d\n", i);
+	    printf("CHILD = %d\n", i); // Just for test.
+	    
 	    if (i == 10 || i == 20) {
+	    	// Move the write head to the beginning of the file.
 		if (lseek(file_desc, 0, SEEK_SET) < 0) {
 		    perror("[LSEEK] Error ");
 		    exit(1);
@@ -75,9 +77,11 @@ int main(int argc, char** argv) {
 	sleep(1);
 	for (i = 1; i <= 3; i++) {
 	    sleep(10);
+	    // Print the content of the file.
 	    while(read(file_desc, &n, sizeof(int))) {
 		printf("%d\n", n);
 	    }
+	    // Move the read head to the beginning of the file.
 	    if (lseek(file_desc, 0, SEEK_SET) < 0) {
 		perror("[LSEEK] Error ");
 		exit(1);
