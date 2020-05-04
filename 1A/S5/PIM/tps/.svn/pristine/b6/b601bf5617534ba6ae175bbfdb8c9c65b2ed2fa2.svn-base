@@ -270,6 +270,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "\n",
     "On observe les éléments suivants : \n",
     "\n",
     "- L'allocation est ici réalisée avec la fonction `malloc(taille)` qui retourne un pointeur. Elle demande l'allocation de `taille` octets. \n",
