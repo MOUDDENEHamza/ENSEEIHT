@@ -179,7 +179,8 @@ end
 % Tracé du TES en fonction de Eb/N0
 figure;
 semilogy([0 : 6], TES, 'r-*');
-grid;
+grid;grid;
+
 title("Figure 6 : TES en fonction de $\frac{Eb}{N_{o}}$", 'Interpreter', 'latex');
 xlabel("$\frac{Eb}{N_{o}}$ (dB)", 'Interpreter', 'latex');
 ylabel('TES');
