@@ -14,11 +14,12 @@ int main(){
     enum chat {SIAMOIS, CALICO, PERSAN, TABBY};
     enum chat * my_cat;
     my_cat = calloc(1, sizeof(enum chat));
-    assert(*my_cat == XXX);
+    assert(*my_cat == 0);
 
     //**** TODO **** 
     //Libérer toute la mémoire dynamique
-    
+    free(my_cat);
+    my_cat = NULL;
     assert(!my_cat);
 
     printf("%s", "Bravo ! Tous les tests passent.\n");

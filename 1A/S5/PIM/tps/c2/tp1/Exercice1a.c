@@ -12,14 +12,15 @@ int main(){
     int* ptr_int; //un entier en mémoire dynamique 
     // **** TODO ****
     // Allocation et initialisation à la valeur 100;
-
-
+    ptr_int = malloc(sizeof(int));
+    *ptr_int = 100;
     assert(*ptr_int == 100);
 
         
     //**** TODO **** 
     //Libérer toute la mémoire dynamique
-    
+    free(ptr_int);	
+    ptr_int = NULL;
     assert(!ptr_int);
 
     printf("%s", "Bravo ! Tous les tests passent.\n");

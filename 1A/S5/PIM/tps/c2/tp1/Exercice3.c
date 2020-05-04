@@ -55,7 +55,7 @@ void init_carte(carte* la_carte, couleur c, int v, bool pr){
  * \param[in] c la carte
  * \return bool vrai si la valeur est conforme, faux sinon.
  */
- bool est_conforme(carte c){
+bool est_conforme(carte c){
     return (c.valeur>=0 && c.valeur<NB_VALEURS);
 }
 
@@ -99,10 +99,10 @@ bool init_main(t_main* la_main, int N){
 void init_jeu(jeu le_jeu){
     int k=0;
     for (int i=0 ; i<4 ; i++){
-        for (int j=0 ; j<NB_VALEURS ; j++){
-            init_carte(&(le_jeu[k]), i, j, true);
-            k++;
-        }
+	for (int j=0 ; j<NB_VALEURS ; j++){
+	    init_carte(&(le_jeu[k]), i, j, true);
+	    k++;
+	}
     }
 }
 
@@ -112,7 +112,7 @@ void init_jeu(jeu le_jeu){
  */
 void afficher_jeu(jeu le_jeu){
     for (int k=0; k<NB_CARTES; k++){
-        afficher_carte(le_jeu[k]);
+	afficher_carte(le_jeu[k]);
     }
     printf("\n");
 }
@@ -123,7 +123,7 @@ void afficher_jeu(jeu le_jeu){
  */
 void afficher_main(t_main la_main){
     for (int k=0; k<la_main.nb; k++){
-        afficher_carte(la_main.main[k]);
+	afficher_carte(la_main.main[k]);
     }
     printf("\n");
 }
@@ -134,20 +134,20 @@ void afficher_main(t_main la_main){
  */
 void melanger_jeu(jeu le_jeu){
     for (int i=0; i<1000; i++){
-        // Choisir deux cartes aléatoirement
-        int i = rand()%NB_CARTES;
-        int j = rand()%NB_CARTES;        
-        // Les échanger
-        carte mem;
-        copier_carte(&mem, le_jeu[i]); 
-        copier_carte(&(le_jeu[i]), le_jeu[j]); 
-        copier_carte(&(le_jeu[j]), mem); 
+	// Choisir deux cartes aléatoirement
+	int i = rand()%NB_CARTES;
+	int j = rand()%NB_CARTES;        
+	// Les échanger
+	carte mem;
+	copier_carte(&mem, le_jeu[i]); 
+	copier_carte(&(le_jeu[i]), le_jeu[j]); 
+	copier_carte(&(le_jeu[j]), mem); 
     }
 }
 
 
 /**
- \brief Distribuer N cartes à chacun des deux joueurs, en alternant les joueurs.
+  \brief Distribuer N cartes à chacun des deux joueurs, en alternant les joueurs.
  * \param[in out] le_jeu complet.
  *       Si la carte c est distribuée dans une main, c.presente devient faux.
  * \param[in] N nombre de cartes distribuées à chaque joueur.  Précondition : N <= (NB_CARTES - 1) div 2
@@ -161,16 +161,16 @@ void distribuer_mains(jeu le_jeu, int N, t_main* m1, t_main* m2){
     bool errA = init_main(m1, N);
     bool errB = init_main(m2, N);
     assert(!errA && !errB);
-    
+
     //Distribuer les cartes
     for (int i=0; i<N; i++){
-        // ajout d'une carte dans la main m1
-        copier_carte(&(m1->main[i]), le_jeu[2*i]);
-        // ajout d'une carte dans la main m2
-        copier_carte(&(m2->main[i]), le_jeu[2*i+1]);
-        //mise à jour de presente à false dans le_jeu
-        le_jeu[2*i].presente = false;
-        le_jeu[2*i+1].presente = false;
+	// ajout d'une carte dans la main m1
+	copier_carte(&(m1->main[i]), le_jeu[2*i]);
+	// ajout d'une carte dans la main m2
+	copier_carte(&(m2->main[i]), le_jeu[2*i+1]);
+	//mise à jour de presente à false dans le_jeu
+	le_jeu[2*i].presente = false;
+	le_jeu[2*i+1].presente = false;
     }
 }
 
@@ -179,7 +179,7 @@ void distribuer_mains(jeu le_jeu, int N, t_main* m1, t_main* m2){
  * \param[in] c1 carte
  * \param[in] c2 carte
  * \return bool Vrai si les deux cartes ont même valeur et couleur.
-*/
+ */
 bool est_egale(carte c1, carte c2){
     return ((c1.couleur == c2.couleur) && (c1.valeur == c2.valeur));
 }
@@ -189,11 +189,11 @@ bool est_egale(carte c1, carte c2){
  * \param[in] main main d'un joueur
  * \param[in] c carte
  * \return bool Vrai si la carte est presente dans la main, faux sinon.
-*/
+ */
 bool est_presente_main(t_main main, carte c){
     int i = 0;
     while (i < main.nb && !est_egale(main.main[i], c)) {
-        i++;
+	i++;
     }
     return !(i == main.nb);
 }
@@ -208,27 +208,32 @@ bool est_presente_main(t_main main, carte c){
  * \param[in out] main main d'un joueur
  * \return carte * un pointeur sur la carte piochee dans le_jeu en paramètre. 
  * Ce pointeur vaut NULL si aucune carte ne peut être piochée ou si l'allocation de mémoire échoue.
-*/
+ */
 carte * piocher(jeu le_jeu, t_main* main){
     // Recherche une carte presente dans le jeu.
     carte *carte_piochee = le_jeu;
     int i = 0;
     while(i < NB_CARTES && carte_piochee->presente == false){
-        carte_piochee = carte_piochee + 1;
-        i++;
+	carte_piochee = carte_piochee + 1;
+	i++;
     }
     if (i == NB_CARTES) {
-        carte_piochee = NULL;
+	carte_piochee = NULL;
     } else {
-        // Inserer la carte dans la main       
-        //*** TODO *** ;
-        // Reallouer la mémoire pour enregistrer une carte de plus dans la main.
-        // Penser à l'echec de la reallocation
-        
-        // Copier la carte_piochee dans la main
-        
-        // Indiquer que carte_piochee n'est plus presente dans le_jeu
-        
+	// Inserer la carte dans la main       
+	//*** TODO *** ;
+	// Reallouer la mémoire pour enregistrer une carte de plus dans la main.
+	// Penser à l'echec de la reallocation
+	carte* nouveau = realloc(main->main, (main->nb + 1) * sizeof(struct main));
+	if (nouveau) {
+	    //recopie de l'adresse uniquement si succès
+	    main->main = nouveau;
+	}
+	main->nb++;
+	// Copier la carte_piochee dans la main
+	main->main[main->nb - 1] = *carte_piochee;
+	// Indiquer que carte_piochee n'est plus presente dans le_jeu
+    	carte_piochee->presente = false;
     }
     return carte_piochee;
 }
@@ -250,10 +255,10 @@ int preparer_jeu_UNO(jeu le_jeu, int N, t_main* main_A, t_main* main_B, carte* l
     //Initialiser le générateur de nombres aléatoires
     time_t t;
     srand((unsigned) time(&t));
- 
+
     //Initialiser le jeu
     init_jeu(le_jeu);
-    
+
     //Melanger le jeu
     melanger_jeu(le_jeu);
 
@@ -271,7 +276,7 @@ void test_piocher(){
     jeu le_jeu; // le jeu de cartes
     t_main main_A, main_B; // les deux mains
     carte last; // la derniere carte posee
-   
+
     //Préparer le jeu, les deux mains de 7 cartes et la carte last
     int retour = preparer_jeu_UNO(le_jeu, 7, &main_A, &main_B, &last);
     printf("\n Les deux mains : \n");
@@ -279,10 +284,10 @@ void test_piocher(){
     afficher_main(main_B);
 
     int mem_taille = main_A.nb;
-    
+    printf("1\n");
     //Le joueur A pioche une carte dans le_jeu
     carte *c_piochee = piocher(le_jeu, &main_A);
-    
+
     // Une carte a-t-elle été piochée ?
     assert(c_piochee);
     assert(c_piochee->presente==false); // absence du jeu ?
@@ -306,9 +311,9 @@ void test_piocher(){
 }
 
 int main(void) {
-  
+
     test_piocher();
-    
+
     printf("%s", "\n Bravo ! Tous les tests passent.\n");
     return EXIT_SUCCESS;
 }

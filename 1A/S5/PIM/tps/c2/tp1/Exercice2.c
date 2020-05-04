@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define NB_VALEURS XXX
+#define NB_VALEURS 10
 #define NB_CARTES 4*NB_VALEURS
 
 //Définition du type enseigne
@@ -58,7 +58,7 @@ void init_carte(carte* la_carte, couleur c, int v, bool pr){
  * \param[in] c la carte
  * \return bool vrai si la valeur est conforme, faux sinon.
  */
- bool est_conforme(carte c){
+bool est_conforme(carte c){
     return (c.valeur>=0 && c.valeur<NB_VALEURS);
 }
 
@@ -72,7 +72,7 @@ bool init_main(t_main* la_main, int N){
     assert(N <= (NB_CARTES-1)/2);
     // ***** TODO ***** 
     // Corriger l'initialisation du tableau main
-    la_main->main = NULL;
+    la_main->main = malloc(N * sizeof(carte));;
     la_main->nb = N;
     return (la_main==NULL); //allocation réussie ?
 }
@@ -85,10 +85,10 @@ bool init_main(t_main* la_main, int N){
 void init_jeu(jeu le_jeu){
     int k=0;
     for (int i=0 ; i<4 ; i++){
-        for (int j=0 ; j<NB_VALEURS ; j++){
-            init_carte(&(le_jeu[k]), i, j, true);
-            k++;
-        }
+	for (int j=0 ; j<NB_VALEURS ; j++){
+	    init_carte(&(le_jeu[k]), i, j, true);
+	    k++;
+	}
     }
 }
 
@@ -121,6 +121,14 @@ void afficher_jeu(jeu le_jeu){
     // ***** TODO ***** 
     // Afficher le jeu complet. Les carte sont listées sur une même ligne, 
     // et séparées par une tabulation \t
+    int i;
+    for (i = 0; i < NB_CARTES; i++) {
+	if ( i < NB_CARTES - 1) {
+	    printf("(%d;%d)\t", le_jeu[i].couleur, le_jeu[i].valeur); 
+	} else {
+	    printf("(%d;%d)", le_jeu[i].couleur, le_jeu[i].valeur);
+	}
+    }
     printf("\n");
 }
 
@@ -132,6 +140,14 @@ void afficher_main(t_main la_main){
     // ***** TODO ***** 
     // Afficher le jeu complet. Les carte sont listées sur une même ligne, 
     // et séparées par une tabulation \t
+    int i;
+    for (i = 0; i < la_main.nb; i++) {
+	if ( i < la_main.nb - 1) {
+	    printf("(%d;%d)\t", la_main.main[i].couleur, la_main.main[i].valeur);
+	} else {
+	    printf("(%c;%d)", la_main.main[i].couleur, la_main.main[i].valeur);
+	}
+    }
     printf("\n");
 }
 
@@ -140,17 +156,21 @@ void afficher_main(t_main la_main){
  * \param[in out] le_jeu complet mélangé
  */
 void melanger_jeu(jeu le_jeu){
-    for (int k=0; k<1000; k++){
-        // Choisir deux cartes aléatoirement
-        int i = rand()%NB_CARTES;
-        int j = rand()%NB_CARTES;        
-        // Les échanger
-        // ***** TODO **** 
+    for (int k = 0; k < 1000; k++){
+	// Choisir deux cartes aléatoirement
+	int i = rand() % NB_CARTES;
+	int j = rand() % NB_CARTES;        
+	// Les échanger
+	// ***** TODO **** 
+	carte tmp;
+	tmp = le_jeu[i];
+	le_jeu[i] = le_jeu[j];
+	le_jeu[j] = tmp;
     }
 }
 
 /**
- \brief Distribuer N cartes à chacun des deux joueurs, en alternant les joueurs.
+  \brief Distribuer N cartes à chacun des deux joueurs, en alternant les joueurs.
  * \param[in out] le_jeu complet.
  *       Si la carte c est distribuée dans une main, c.presente devient faux.
  * \param[in] N nombre de cartes distribuées à chaque joueur.  Précondition : N <= (NB_CARTES - 1) div 2
@@ -164,16 +184,16 @@ void distribuer_mains(jeu le_jeu, int N, t_main* m1, t_main* m2){
     bool errA = init_main(m1, N);
     bool errB = init_main(m2, N);
     assert(!errA && !errB);
-    
+
     //Distribuer les cartes
     for (int i=0; i<N; i++){
-        // ajout d'une carte dans la main m1
-        copier_carte(&(m1->main[i]), le_jeu[2*i]);
-        // ajout d'une carte dans la main m2
-        copier_carte(&(m2->main[i]), le_jeu[2*i+1]);
-        //mise à jour de presente à false dans le_jeu
-        le_jeu[2*i].presente = false;
-        le_jeu[2*i+1].presente = false;
+	// ajout d'une carte dans la main m1
+	copier_carte(&(m1->main[i]), le_jeu[2*i]);
+	// ajout d'une carte dans la main m2
+	copier_carte(&(m2->main[i]), le_jeu[2*i+1]);
+	//mise à jour de presente à false dans le_jeu
+	le_jeu[2*i].presente = false;
+	le_jeu[2*i+1].presente = false;
     }
 }
 
@@ -190,14 +210,14 @@ void distribuer_mains(jeu le_jeu, int N, t_main* m1, t_main* m2){
  */
 int preparer_jeu_UNO(jeu le_jeu, int N, t_main* main_A, t_main* main_B, carte* last){
     assert(N <= (NB_CARTES-1)/2);
-    
+
     //Initialiser le générateur de nombres aléatoires
     time_t t;
     srand((unsigned) time(&t));
- 
+
     //Initialiser le jeu
     init_jeu(le_jeu);
-    
+
     //Melanger le jeu
     melanger_jeu(le_jeu);
 
@@ -207,7 +227,7 @@ int preparer_jeu_UNO(jeu le_jeu, int N, t_main* main_A, t_main* main_B, carte* l
     //Initialiser last avec la (2N+1)-ème carte du jeu.
     copier_carte(last, le_jeu[2*N]);
     le_jeu[2*N].presente = false; //carte n'est plus presente dans le_jeu
-    
+
     return EXIT_SUCCESS;
 }
 
@@ -217,7 +237,7 @@ void test_preparer_jeu_UNO(){
     jeu le_jeu;
     t_main main_A, main_B;
     carte last;
- 
+
     //Préparer le jeu, les deux mains de 7 cartes et la carte last
     int retour = preparer_jeu_UNO(le_jeu, 7, &main_A, &main_B, &last);
     printf("\n Le jeu mélangé avec les cartes presentes (c ; v ; p) : \n");
@@ -236,19 +256,21 @@ void test_preparer_jeu_UNO(){
     assert(est_conforme(main_A.main[0]));
     assert(est_conforme(main_B.main[0]));
     assert(est_conforme(last));
-        
+
     //Détruire la mémoire allouée dynamiquement
     // ***** TODO *****
-    
+    free(main_A.main);
+    free(main_B.main);
+    main_A.main = NULL;
+    main_B.main = NULL;
     assert(main_A.main == NULL);
     assert(main_B.main == NULL);
- 
 }
 
 int main(void) {
-  
+
     test_preparer_jeu_UNO();
-    
+
     printf("%s", "\n Bravo ! Tous les tests passent.\n");
     return EXIT_SUCCESS;
 }

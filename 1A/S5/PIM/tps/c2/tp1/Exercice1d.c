@@ -14,9 +14,9 @@ int main(){
     // **** TODO ****
     // Allocation pour pouvoir y copier la chaine constante "LANGAGE_C"
     // à l'aide de la procédure strcpy() de string.h
-
+    chaine = malloc(9 * sizeof(char));
     strcpy(chaine, "LANGAGE_C");
-    assert(strcmp(chaine, "LANGAGE_C")==0);
+    assert(strcmp(chaine, "LANGAGE_C") == 0);
     assert(chaine[0] == 'L');
     assert(chaine[9] == '\0');
     
