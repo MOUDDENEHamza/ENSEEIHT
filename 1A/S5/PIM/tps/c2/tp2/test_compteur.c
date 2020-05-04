@@ -10,8 +10,8 @@ int main(){
   printf("Init Compteur c=%d\n", valeur());
   
   // ********* DECOMMENTER *********
-  // compteur = compteur +1;
-  // printf("Incrementer directement le compteur c=%d\n", valeur());
+  compteur = compteur +1;
+  printf("Incrementer directement le compteur c=%d\n", valeur());
   // ******* FIN DECOMMENTER *******
   
   // incrementer

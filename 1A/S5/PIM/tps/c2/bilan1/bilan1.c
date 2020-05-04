@@ -21,11 +21,10 @@ typedef struct string string;
  */
 void create(string *string_dest, char *chaine_src){
     // ****** TODO *******
-    char* nouveau;
     string_dest->N = strlen(chaine_src) + 1;
     string_dest->str = malloc((strlen(chaine_src) + 1) * sizeof(char));
     strcpy(string_dest->str, chaine_src);
-    strcat(string_dest->str, "\0"); 
+    string_dest->str[strlen(chaine_src)] = '\0';
 }
 
 /**

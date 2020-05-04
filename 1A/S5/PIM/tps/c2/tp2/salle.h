@@ -1,3 +1,6 @@
+#ifndef SALLE_H
+#define SALLE_H
+
 #include "date.h"
 
 struct salle {
@@ -6,3 +9,4 @@ struct salle {
 };
 typedef struct salle salle;
 
+#endif

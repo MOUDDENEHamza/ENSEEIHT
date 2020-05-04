@@ -1,100 +1,12 @@
-#define XXX 1
-
-// Consignes : 
-//  1. Remplacer XXX par le bon résultat dans la suite.
-//  2. Compléter avec les instructions requises en lieu et place de *** TODO ***
-
-#include <assert.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 #include <stdbool.h>
 #include <time.h>
-
-#define NB_VALEURS 10
-#define NB_CARTES (4*NB_VALEURS)
-
-//Définition du type jeu complet pour enregistrer NB_CARTES cartes.
-typedef carte jeu[NB_CARTES];
-
-/**
- * \brief Initialiser une carte avec une couleur et une valeur. 
- * \param[in] c couleur de la carte
- * \param[in] v valeur de la carte
- * \param[in] ej booléen presente
- * \param[out] la_carte 
- */
-void init_carte(carte* la_carte, couleur c, int v, bool pr){
-    la_carte->couleur = c;
-    la_carte->valeur = v;
-    la_carte->presente = pr;
-}
-
-/**
- * \brief Vérifie si la valeur de la carte est conforme à l'invariant.
- * \param[in] c la carte
- * \return bool vrai si la valeur est conforme, faux sinon.
- */
- bool est_conforme(carte c){
-    return (c.valeur>=0 && c.valeur<NB_VALEURS);
-}
-
-/**
- * \brief Copie les valeurs de la carte src dans la carte dest.
- * \param[in] src carte à copier
- * \param[out] dest carte destination de la copie 
- */
-void copier_carte(carte* dest, carte src){
-    dest->couleur = src.couleur;
-    dest->valeur = src.valeur;
-    dest->presente = src.presente;
-}
-
-void afficher_carte(carte cte){
-    printf("(%c;%d;%d)\t", C[cte.couleur],cte.valeur, cte.presente);
-}
-
-/**
- * \brief Initialiser le jeu en ajoutant toutes les cartes possibles au jeu.
- * \param[out] le_jeu tableau de cartes avec les 4 couleurs et NB_VALEURS valeurs possibles
- */
-void init_jeu(jeu le_jeu){
-    int k=0;
-    for (int i=0 ; i<4 ; i++){
-        for (int j=0 ; j<NB_VALEURS ; j++){
-            init_carte(&(le_jeu[k]), i, j, true);
-            k++;
-        }
-    }
-}
-
-/**
- * \brief Afficher le jeu.
- * \param[in] le_jeu complet avec les 4 couleurs et 910valeurs possibles
- */
-void afficher_jeu(jeu le_jeu){
-    for (int k=0; k<NB_CARTES; k++){
-        afficher_carte(le_jeu[k]);
-    }
-    printf("\n");
-}
-
-/**
- * \brief mélange le jeu.
- * \param[in out] le_jeu complet
- */
-void melanger_jeu(jeu le_jeu){
-    for (int k=0; k<10000; k++){
-        // Choisir deux cartes aléatoirement
-        int i = rand() % NB_CARTES;
-        int j = rand() % NB_CARTES;
-        // Les échanger
-        carte mem;
-        copier_carte(&mem, le_jeu[i]); 
-        copier_carte(&(le_jeu[i]), le_jeu[j]); 
-        copier_carte(&(le_jeu[j]), mem); 
-    }
-}
-
+#include "carte.h"
+#include "main.h"
+#include "jeu.h"
+#include "UNO.h"
 
 /**
  * \brief Initialise le jeu de carte, les mains des joueurs et la carte 'last'.
@@ -113,10 +25,10 @@ int preparer_jeu_UNO(jeu le_jeu, int N, t_main* main_A, t_main* main_B, carte* l
     //Initialiser le générateur de nombres aléatoires
     time_t t;
     srand((unsigned) time(&t));
- 
+
     //Initialiser le jeu
     init_jeu(le_jeu);
-    
+
     //Melanger le jeu
     melanger_jeu(le_jeu);
 
@@ -134,14 +46,14 @@ void test_preparer_jeu_UNO(){
     //Déclarer un jeu (tableau statique)
     // *** TODO ***
     jeu le_jeu;
-    
+
     //Déclarer les deux mains (tableaux dynamiques)
     // *** TODO ***
     t_main main_A, main_B;
-   
+
     //Déclarer la carte last (i.e. derniere carte jouée)
     carte last;
-   
+
     //Préparer le jeu, les deux mains de 7 cartes et la carte last
     int retour = preparer_jeu_UNO(le_jeu, 7, &main_A, &main_B, &last);
     printf("\n Le jeu mélangé avec les cartes presentes (c ; v ; p) : \n");
@@ -168,16 +80,18 @@ void test_preparer_jeu_UNO(){
     free(main_B.main);
     main_A.main = NULL;
     main_B.main = NULL;
-    
+
     assert(main_A.main == NULL);
     assert(main_B.main == NULL);
- 
+
 }
 
+
 int main(void) {
-  
+
     test_preparer_jeu_UNO();
-    
+
     printf("%s", "\n Bravo ! Tous les tests passent.\n");
     return EXIT_SUCCESS;
 }
+

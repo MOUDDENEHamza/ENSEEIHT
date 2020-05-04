@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
 
     // Read the content of argv[1] and put it in buffer.
     while (read(file_desc, buffer, sizeof(buffer)) > 0) {
-	// Print the buffer in the stdout.
-	printf("%s", buffer);
+		// Print the buffer in the stdout.
+		printf("%s", buffer);
     }
 
     // Close argv[1].

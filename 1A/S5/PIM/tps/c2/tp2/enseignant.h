@@ -1,3 +1,5 @@
+#ifndef ENSEIGNANT_H
+#define ENSEIGNANT_H
 
 #include "date.h"
 
@@ -6,3 +8,5 @@ struct enseignant {
 	Date *d_naissance;
 };
 typedef struct enseignant enseignant; 
+
+#endif
