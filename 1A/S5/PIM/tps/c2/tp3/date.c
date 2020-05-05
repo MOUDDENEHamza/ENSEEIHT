@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <math.h>
 
+/** */
 void initialiser(Date *date){
     date->jour = 1;
     date->nomJour = JEUDI;

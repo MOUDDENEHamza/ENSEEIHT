@@ -16,10 +16,10 @@ all: $(EXEC)
 depend:
 	$(MAKEDEPEND) $(SRC) -Y
 
-jouer_UNO: carte.o jeu.o main.o
+jouer_UNO: uno.o carte.o main.o jeu.o jouer_uno.o
 	$(CC) $^ $(LDFLAGS) $@
 
-test_UNO: carte.o jeu.o main.o
+test_UNO: carte.o main.o jeu.o uno.o test_uno.o
 	$(CC) $^ $(LDFLAGS) $@
 
 clean:
@@ -27,10 +27,3 @@ clean:
 
 .PHONY: clean all
 # DO NOT DELETE
-
-carte.o: carte.h
-jeu.o: jeu.h carte.h
-jouer_uno.o: uno.h carte.h main.h jeu.h
-main.o: main.h carte.h jeu.h
-test_uno.o: uno.h carte.h main.h jeu.h
-uno.o: uno.h carte.h main.h jeu.h

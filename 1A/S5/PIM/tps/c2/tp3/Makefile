@@ -1,21 +1,19 @@
 # Ceci est un commentaire pour introdure la variable CC qui comporte le nom du compilateur utilisé :
-CC=c99
+CC = c99
 # Les variables CFLAGS et LDFLAGS comportent les options de compilation et d'édition des liens :
-CFLAGS=-Wextra -pedantic -c
-LDFLAGS= -o
+CFLAGS = -Wextra -pedantic -c
+LDFLAGS = -o
 
 all: ephemeride EDT
-	make ephemeride
-	make EDT
-
-depend:
-	makedepend *.c -Y
 
 ephemeride: date.o ephemeride.o
 	$(CC) $^ $(LDFLAGS) $@
 
 EDT: date.o salle.o enseignant.o cours.o EDT.o
 	$(CC) $^ $(LDFLAGS) $@
+
+depend:
+	makedepend *.c -Y
 
 clean:
 	rm *.o ephemeride EDT
