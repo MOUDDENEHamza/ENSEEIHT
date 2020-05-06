@@ -1,36 +1,50 @@
+import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * La version swing des entrées proposées
  * @author Issam HABIBI
  *
  */
+
 public class EntreeSwing {
 
-    /**
-     * Attributs of EntreeSwing
-     */
+
     public MenuSwing menuSwing;
+
     public JFrame fenetre;
+
     //public ArrayList<PlatResto> listChoix = new ArrayList<PlatResto>(4);
-    private JLabel logo, footerLabel, dish1Label, dish2Label, dish3Label, dish4Label;
-    private JPanel headLeft, headCenter, headRight, footer, dish1, dish2, dish3, dish4, desc1, desc2, desc3, desc4;
+
+    private JLabel logo, footerLabel, pictureLabel1, pictureLabel2, pictureLabel3, pictureLabel4,
+            pictureLabel5, pictureLabel6, dish1Label,
+            dish2Label, dish3Label, dish4Label;
+
+    private JPanel headLeft, headCenter, headRight, footer, dish1, dish2, dish3, dish4,
+            desc1, desc2, desc3, desc4;
+
+    private BufferedImage img1, img2, img3, img4, img5, img6;
+
+    private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6;
+
     private JButton bChoisir1, bChoisir2, bChoisir3, bChoisir4, bBack;
 
-    /**
-     * Constructor o EntreeSwing
-     *
-     * @param menuSwing the main menu
-     */
+
     public EntreeSwing(MenuSwing menuSwing) {
+
         GUI MenuModel = new GUI();
         this.menuSwing = menuSwing;
 
         this.fenetre = MenuModel.createWindow("Menu", 1000, 800);
+
         this.fenetre.setExtendedState(this.fenetre.getExtendedState() | JFrame.MAXIMIZED_BOTH); //Maximiser automatiquement la fen�tre
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width; //1366 (delete later)
@@ -41,7 +55,7 @@ public class EntreeSwing {
         this.headLeft = MenuModel.createPanel(0, 0, width * 176 / 1536, 40, new Color(211, 211, 211));
         this.logo = MenuModel.createLabel("Resto'N7", 10, 10, 120, 40);
         this.headLeft.add(logo);
-        this.bBack = MenuModel.createButton("Back to the Menu", 400, 5, 200, 30, Color.RED, Color.WHITE);
+        this.bBack = MenuModel.createButton("Back to the Menu", 580, 5, 200, 30, Color.RED, Color.WHITE);
         this.bBack.addActionListener(new ActionBack());
         this.fenetre.add(this.bBack);
         this.fenetre.add(this.headLeft);
