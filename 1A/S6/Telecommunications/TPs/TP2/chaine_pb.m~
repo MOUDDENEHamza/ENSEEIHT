@@ -1,7 +1,7 @@
 %--------------------------------------------------------------------------
 % ENSEEIHT - 1SN - Télécommunications
 % TP2 - Etudes de chaines de transmission sur fréquence porteuse
-% chaine_fp.m
+% chaine_pb.m
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ Q = Q(retard + 1 : end);
 
 % Le signal transmis sur fréquence porteuse
 T = [0 : length(I) - 1] * Te;
-x =  I .* cos(2 * pi * fp * T) - Q .* sin(2 * pi * fp * T);
+x_e =  I .* cos(2 * pi * fp * T) - Q .* sin(2 * pi * fp * T);
 
 % Affichage du signal génerée sur la voie en phase
 figure ;
@@ -86,28 +86,24 @@ xlabel('Temps en secondes');
 ylabel('Signal émis x');
 
 %%
-% Calcul de la DSP du signal par périodogramme
-DSP_x = (1 / length(x)) * abs(fft(x, 2 ^ nextpow2(length(x)))) .^ 2;
+% Calcul de la DSP  de l’enveloppe complexe associée au signal transmis 
+% modulé sur fréquence porteuse par périodogramme
+DSP_x_e = (1 / length(I + 1i * Q)) * abs(fft(I + 1i * Q, 2 ^ nextpow2(length(I + 1i * Q)))) .^ 2;
 
-% Affichage de la DSP du signal émis
+% Affichage de la DSP de l’enveloppe complexe associée au signal transmis 
+% modulé sur fréquence porteuse par périodogramme
 figure;
-plot(linspace(-Fe / 2, Fe / 2, length(DSP_x)), fftshift(DSP_x));
+plot(linspace(-Fe / 2, Fe / 2, length(DSP_x_e)), fftshift(DSP_x_e));
 title('DSP du signal émis de la chaine sur fréquence porteuse');
 xlabel('Fréquences en Hz');
 ylabel('S_{x}(f)');
 
 %%
-% Retour en bande de base
-signal_I = x .* cos(2 * pi * fp * T);
-signal_Q = -j * x .* sin(2 * pi * fp * T);
-filtre_PB = 2 * (fc / Fe) * sinc(2 * (fc / Fe) * [-N : N]);
-signal_conv = conv(signal_I + signal_Q, filtre_PB, 'same');
-
 % Génération de la réponse impulsionnelle du filtre de réception
 h_r = h;
 
 % Filtrage de réception
-z = filter(h_r, 1, [signal_conv zeros(1,retard)]);
+z = filter(h_r, 1, [x zeros(1,retard)]);
 z = z(retard + 1 : end);
 
 % Affichage du signal reçu
