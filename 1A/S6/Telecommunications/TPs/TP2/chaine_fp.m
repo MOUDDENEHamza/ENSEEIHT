@@ -25,7 +25,7 @@ span = 8;
 fp = 2000;
 fc = 1500;
 Rs = 1000;
-nb_bits = 1000;
+nb_bits = 10000;
 Ns = Fe / Rs;
 N = 50;
 
