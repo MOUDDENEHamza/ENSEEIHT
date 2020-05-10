@@ -55,7 +55,6 @@ void handler_SIGCHLD (int signal_num) {
 	    } 
 
 	    else if (WIFEXITED(child_status) || (WIFSIGNALED(child_status))) {
-		printf("imane\n");
 		// Handle the exit termination.
 		delete_node(process_list, &pid_child);
 	    }
@@ -73,13 +72,8 @@ int main(int argc, char* argv) {
 	int nb_fils_termines = 0;
     /* Display the init bar. */
     init_bar();
-    sigset_t ens_signaux ;
  
-      sigemptyset(&ens_signaux) ;
- 
-      /* ajouter SIGCHLD à ens_signaux */
-      sigaddset(&ens_signaux, SIGCHLD) ;
-	signal(SIGCHLD, handler_SIGCHLD) ;
+    //signal(SIGCHLD, handler_SIGCHLD) ;
     /** Handle ctrl + c  */
     signal(SIGINT, &handler_SIGINT);
 
