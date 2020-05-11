@@ -18,15 +18,16 @@ clc;
 %--------------------------------------------------------------------------
 
 % Initialisation des paramètres
+% Initialisation des paramètres
 Fe = 10000;
 Te = 1 / Fe;
 alpha = 0.35;
 span = 8;
 fp = 2000;
 fc = 1500;
-Rs = 1000;
-nb_bits = 10000;
-Ns = Fe / Rs;
+Rs = 3000;
+nb_bits = 1000;
+Ns = floor(Fe / Rs);
 N = 50;
 
 %%
