@@ -50,10 +50,6 @@ retard = (span * Ns) / 2;
 x = filter(h, 1, [Suite_diracs zeros(1, retard)]);
 x = x(retard + 1 : end);
 
-% Le signal transmis sur fréquence porteuse
-T = [0 : length(x) - 1] * Te;
-x =  x .* cos(2 * pi * fp * T);
-
 % Affichage du signal transmis après le filtrage de mise en forme
 figure;
 plot(x);
@@ -63,14 +59,11 @@ xlabel('Temps en secondes');
 ylabel('x(t)');
 
 %%
-% Retour en bande de base
-y =  x .* cos(2 * pi * fp * T);
-
 % Génération de la réponse impulsionnelle du filtre de réception
 h_r = h;
 
 % Filtrage de réception
-z = filter(h_r, 1, [y zeros(1,retard)]);
+z = filter(h_r, 1, [x zeros(1,retard)]);
 z = z(retard + 1 : end);
 
 % Affichage du signal reçu
@@ -95,11 +88,11 @@ z_echant = z(1 : Ns : end);
 symboles_decides = zeros(1, length(z_echant));
 
 for i = 1 : length(z_echant)
-    if (z_echant(i) > 1)
+    if (z_echant(i) > 2)
         symboles_decides(i) = 3;
     elseif (z_echant(i) >= 0)
         symboles_decides(i) = 1;
-    elseif (z_echant(i) < -1)
+    elseif (z_echant(i) < -2)
         symboles_decides(i) = -3;
     else
         symboles_decides(i) = -1;
@@ -121,14 +114,10 @@ TEB = zeros(1,7);
 
 for i = 0 : 6
     % L'ajout du bruit blanc gaussien
-    N = randn(1, length(x));
     Puiss_sign = mean(abs(x) .^ 2);
     Puiss_bruit = Puiss_sign * Ns  / (2 * log2(4) * 10 .^ (i / 10));
-    Bruit_gauss = sqrt(Puiss_bruit) * N;
-    y = x + Bruit_gauss;
-    
-    % Retour en bande de base
-    y =  y .* cos(2 * pi * fp * T);
+    Bruit_gauss = (sqrt(Puiss_bruit) * randn(1, length(x))) + 1i * (sqrt(Puiss_bruit) * randn(1, length(x)));
+    y = x + Bruit_gauss; 
     
     % Filtrage de réception
     z = filter(h_r, 1, [y zeros(1,retard)]);
@@ -139,7 +128,7 @@ for i = 0 : 6
     
     % Les constellations en sortie du mapping et de l’échantillonneur
     figure;
-    plot(real(z_echant), imag(z_echant), 'r*');
+    plot(real(z_echant), 0, 'r*');
     xlim([-4 4])
     hold on;
     plot(Symboles, 0, 'b*');
@@ -151,11 +140,11 @@ for i = 0 : 6
     symboles_decides = zeros(1, length(z_echant));
     
     for j = 1 : length(z_echant)
-        if (z_echant(j) > 1)
+        if (real(z_echant(j)) > 2)
             symboles_decides(j) = 3;
-        elseif (z_echant(j) >= 0)
+        elseif (real(z_echant(j)) >= 0)
             symboles_decides(j) = 1;
-        elseif (z_echant(j) < -1)
+        elseif (real(z_echant(j)) < -2)
             symboles_decides(j) = -3;
         else
             symboles_decides(j) = -1;

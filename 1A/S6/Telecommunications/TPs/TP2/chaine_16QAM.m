@@ -59,8 +59,7 @@ Q = filter(h, 1, [Suite_diracs2 zeros(1, retard)]);
 Q = Q(retard + 1 : end);
 
 % Le signal transmis sur fréquence porteuse
-T = [0 : length(I) - 1] * Te;
-x =  I .* cos(2 * pi * fp * T) - Q .* sin(2 * pi * fp * T);
+x =  I + 1i * Q;
 
 % Affichage du signal génerée sur la voie en phase
 figure ;
@@ -78,25 +77,12 @@ title('Signal généré sur la voie en quadrature Q');
 xlabel('Temps en secondes');
 ylabel('Q(t)');
 
-% Affichage du signal transmis
-figure ;
-plot(x);
-axis([0 nb_bits - 1 -1 1]);
-title('Signal émis x sans bruit');
-xlabel('Temps en secondes');
-ylabel('Signal émis x');
-
 %%
-% Retour en bande de base
-signal_I = x .* cos(2 * pi * fp * T);
-signal_Q = -j * x .* sin(2 * pi * fp * T);
-y = signal_I + signal_Q;
-
 % Génération de la réponse impulsionnelle du filtre de réception
 h_r = h;
 
 % Filtrage de réception
-z = filter(h_r, 1, [y zeros(1,retard)]);
+z = filter(h_r, 1, [x zeros(1,retard)]);
 z = z(retard + 1 : end);
 
 % Affichage du signal reçu
@@ -118,7 +104,7 @@ xlabel('Temps en secondes');
 z_echant = z(1 : Ns : end);
 
 % Detecteur à seuil
-bits_decides = qamdemod(z_echant, M, pi / M);
+bits_decides = qamdemod(z_echant, M);
 
 % Calcul du TEB
 TEB = length(find(bits_decides ~= bits)) / length(bits)
@@ -134,19 +120,10 @@ TEB = zeros(1,7);
 
 for i = 0 : 6
     % L'ajout du bruit blanc gaussien
-    N = randn(1, length(x));
     Puiss_sign = mean(abs(x) .^ 2);
     Puiss_bruit = Puiss_sign * Ns  / (2 * log2(M) * 10 .^ (i / 10));
-    Bruit_gauss = sqrt(Puiss_bruit) * N;
+    Bruit_gauss = (sqrt(Puiss_bruit) * randn(1, length(x))) + 1i * (sqrt(Puiss_bruit) * randn(1, length(x)));
     y = x + Bruit_gauss;
-    
-    % Retour en bande de base
-    signal_I = y .* cos(2 * pi * fp * T);
-    signal_Q = -1i * y .* sin(2 * pi * fp * T);
-    y = signal_I + signal_Q;
-    
-    % Génération de la réponse impulsionnelle du filtre de réception
-    h_r = h;
     
     % Filtrage de réception
     z = filter(h_r, 1, [y zeros(1,retard)]);
@@ -165,10 +142,13 @@ for i = 0 : 6
     ylabel('Q');
     
     % Detecteur à seuil
-    bits_decides = pskdemod(z_echant, M, pi / M);
+    bits_decides = qamdemod(z_echant, M);
     
     % Calcul du TEB
-    TEB(i + 1) = length(find(bits_decides ~= bits)) / length(bits);
+    TES(i + 1) = length(find(bits_decides ~= bits)) / length(bits);
+    
+    % Calcul du TEB
+    TEB(i + 1) = TES(i + 1) / log2(M);
 end
 
 %%

@@ -58,8 +58,7 @@ Q = filter(h, 1, [Suite_diracs2 zeros(1, retard)]);
 Q = Q(retard + 1 : end);
 
 % Le signal transmis sur fréquence porteuse
-T = [0 : length(I) - 1] * Te;
-x =  I .* cos(2 * pi * fp * T) - Q .* sin(2 * pi * fp * T);
+x =  I + 1i * Q;
 
 % Affichage du signal génerée sur la voie en phase
 figure ;
@@ -77,14 +76,6 @@ title('Signal généré sur la voie en quadrature Q');
 xlabel('Temps en secondes');
 ylabel('Q(t)');
 
-% Affichage du signal transmis
-figure ;
-plot(x);
-axis([0 nb_bits - 1 -1 1]);
-title('Signal émis x sans bruit');
-xlabel('Temps en secondes');
-ylabel('Signal émis x');
-
 %%
 % Calcul de la DSP du signal par périodogramme
 DSP_x = (1 / length(x)) * abs(fft(x, 2 ^ nextpow2(length(x)))) .^ 2;
@@ -97,16 +88,11 @@ xlabel('Fréquences en Hz');
 ylabel('S_{x}(f)');
 
 %%
-% Retour en bande de base
-signal_I = x .* cos(2 * pi * fp * T);
-signal_Q = -j * x .* sin(2 * pi * fp * T);
-y = signal_I + signal_Q;
-
 % Génération de la réponse impulsionnelle du filtre de réception
 h_r = h;
 
 % Filtrage de réception
-z = filter(h_r, 1, [y zeros(1,retard)]);
+z = filter(h_r, 1, [x zeros(1,retard)]);
 z = z(retard + 1 : end);
 
 % Affichage du signal reçu
@@ -160,19 +146,10 @@ TEB = zeros(1,7);
 
 for i = 0 : 6
     % L'ajout du bruit blanc gaussien
-    N = randn(1, length(x));
     Puiss_sign = mean(abs(x) .^ 2);
     Puiss_bruit = Puiss_sign * Ns  / (2 * log2(4) * 10 .^ (i / 10));
-    Bruit_gauss = sqrt(Puiss_bruit) * N;
-    y = x + Bruit_gauss;
-    
-    % Retour en bande de base
-    signal_I = y .* cos(2 * pi * fp * T);
-    signal_Q = -1i * y .* sin(2 * pi * fp * T);
-    y = signal_I + signal_Q; 
-    
-    % Génération de la réponse impulsionnelle du filtre de réception
-    h_r = h;
+    Bruit_gauss = (sqrt(Puiss_bruit) * randn(1, length(x))) + 1i * (sqrt(Puiss_bruit) * randn(1, length(x)));
+    y = x + Bruit_gauss; 
     
     % Filtrage de réception
     z = filter(h_r, 1, [y zeros(1,retard)]);

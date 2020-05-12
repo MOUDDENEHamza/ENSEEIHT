@@ -11,7 +11,7 @@ Ns = 10;
 Ts = 1/Rs;
 Fc1 = fp/Fe;
 Nech = 30;
-M = 8;
+M = 16;
 
 nb_bits = 10000;
 
@@ -22,7 +22,7 @@ nb_bits = 10000;
 Bits = randi([0 M-1],1,nb_bits);
 
 % Mapping de Gray
-dk = pskmod(Bits,M,pi/M);
+dk = qammod(Bits,M);
 
 % Tracé des constellations
 scatterplot(dk,1,0,'rd')
@@ -40,6 +40,33 @@ retard = (length(h_1) - 1)/2;
 % Filtrage de mise en forme
 x_1 = filter(h_1,1,[Suite_diracs_1,zeros(1,retard)]);
 % 
+% % Tracé des signaux générés sur les voies
+% figure;
+% subplot(221)
+% plot(real(x_1), 'r')
+% xlabel('t')
+% ylabel('I(t)')scatterplot(dk,1,0,'b*')
+% title('Signal transmis sur la porteuse')
+% 
+% 
+% subplot(222)
+% plot(imag(x_1),'b')
+% xlabel('t')
+% ylabel('Q(t)')
+% title('Signal transmis sur la porteuse')
+
+
+% % Calcul et tracé de la DSP par la methode du périodogramme
+% figure;
+% dsp = (abs(fft(real(x_1))).^2)/length(real(x_1));
+% tx = linspace(-Fe/2,Fe/2,length(dsp));
+% plot(tx,fftshift(dsp),'r')
+% xlabel('f en Hz')
+% ylabel('DSP')
+% title('Tracé de la DSP du signal modulé sur porteuse')
+
+
+
 
 % Filtre de reception
 h_r_1 = h_1;   % filtrage adapté
@@ -50,22 +77,24 @@ z_1 = z_1(1,2*retard+1:end);
 
 % Diagramme de l'oeil
 n = size(z_1,2)/(2*Ns);
-z_til_arg = angle(z_1);
-z_til_arg = reshape((z_til_arg),2*Ns,n);
+z_til_real = real(z_1);
+z_til_real= reshape((z_til_real),2*Ns,n);
+z_til_im = imag(z_1);
+z_til_im= reshape((z_til_im),2*Ns,n);
 
 
 % Trace du diagramme
 figure;
-t2 = linspace(0,2*Ts,size(z_til_arg,1));
-plot(t2,z_til_arg)
+t2 = linspace(0,2*Ts,size(z_til_real,1));
+plot(t2,z_til_real)
 xlabel('Periode Ts')
-title("Diagramme de l'oeil de la chaine 8-PSK")
+title("Diagramme de l'oeil de la chaine I 16-QAM")
 
-% figure;
-% t2 = linspace(0,2*Ts,size(z_til_im,1));
-% plot(t2,z_til_im)
-% xlabel('Periode Ts')
-% title("Diagramme de l'oeil de la chaine Q QPSK")
+figure;
+t2 = linspace(0,2*Ts,size(z_til_im,1));
+plot(t2,z_til_im)
+xlabel('Periode Ts')
+title("Diagramme de l'oeil de la chaine Q 16-QAM")
 
 % Echantillonnage
 % Pour l'echantillonage on choisit t0 = Ts
@@ -80,7 +109,7 @@ dec_arg = z_1(t0:Ns:end);
 
 % bits_real = (dec_real > 0);
 % bits_im = (dec_im > 0);
-bits_recup = pskdemod(dec_arg,M,pi/M);
+bits_recup = qamdemod(dec_arg,M);
 % for i = 1 : n
 %     bits_recup(2*i -1) = bits_real(i);
 %     bits_recup(2*i) = bits_im(i);
@@ -99,8 +128,8 @@ TEB = bits_erron/length(Bits)
 
 
 
-% Simulation du taux d'erreur binaire
-% Calcul de la puissance
+%Simulation du taux d'erreur binaire
+%Calcul de la puissance
 Pre = mean(abs(x_1(1,retard+1:end)).^2);
 %disp('La puissance du signal modulé sur fréquence porteuse est :'); Pr
 TEB_bruit = zeros(1,7);
@@ -109,8 +138,9 @@ for i = 0 : 6
     sigma_real = sqrt(Ns*Pre/(2*log2(M)*Eb_No));
     sigma_im = sqrt(Ns*Pre/(2*log2(M)*Eb_No));
     
-    TEB_Theo(i+1) = 2* qfunc(sqrt(log2(M)*2*Eb_No)*sin(pi/M));
-    % Rajout du bruit
+    TEB_Theo(i+1) = 4*(1 - (1/sqrt(M))) * qfunc(sqrt(3*log2(M)*Eb_No/(M-1)));
+     TEB_Theo_1(i+1) =  qfunc(sqrt(2*Eb_No));
+    %Rajout du bruit
     N_I = sigma_real*randn(1,(nb_bits*Ns) +retard);
     N_Q = sigma_im*randn(1,(nb_bits*Ns) +retard);
     
@@ -119,28 +149,28 @@ for i = 0 : 6
     x_1_i = x_1 + Ne;
     
     
-    % Filtrage de reception avec le bruit
+    %Filtrage de reception avec le bruit
     z_x_i = filter(h_r_1,1,[x_1_i,zeros(1,retard)]);
     z_1_i = z_x_i(1,2*retard+1 : end);
     
-    % Echantillonnage
-    % Pour l'echantillonage on choisit t0 = Ts
-    % Car l'oeil est ouvert pour t = Ts
+%     Echantillonnage
+%     Pour l'echantillonage on choisit t0 = Ts
+%     Car l'oeil est ouvert pour t = Ts
     t0 = 1;
     dec_arg = z_1_i(t0:Ns:end);
      
     
-    % Prise de decisions
-    %n = size(dec_real,2);
+%     Prise de decisions
+%     n = size(dec_real,2);
 %     bits_real = (dec_real > 0);
 %     bits_im = (dec_im > 0);
-     bits_recup_i = pskdemod(dec_arg,M,pi/M);
+      bits_recup_i = qamdemod(dec_arg,M);
 %     for k = 1 : n
 %         bits_recup_i(2*k -1) = bits_real(k);
 %         bits_recup_i(2*k) = bits_im(k);
 %     end
     
-    % Calcul du TEB
+  %  Calcul du TEB
     bits_erron_i = 0;
     for j = 1 : length(Bits)
         if (Bits(j) ~= bits_recup_i(j))
@@ -150,26 +180,21 @@ for i = 0 : 6
     
     TEB_bruit(i+1) = bits_erron_i/nb_bits;
     
-    % Tracé des constellations
-    
-    
-    
-    dec_real = real(dec_arg);
+    %Tracé des constellations
+   % scatterplot(dec_arg,1,0,'b*')
+     dec_real = real(dec_arg);
     dec_im = imag(dec_arg);
     figure(21)
-    subplot(3,4,i+1)
+    subplot(3,3,i+1)
     plot(dec_real,dec_im, 'r.')
-    hold on
-    plot(real(dk),imag(dk), 'b*')
-    hold on, plot([-4 4],[0 0],'k-')
-    hold on, plot([0 0], [-4 4], 'k-')
+    %hold on, plot([-4 4],[0 0],'k-')
+    %hold on, plot([0 0], [-4 4], 'k-')
     xlabel('I')
     ylabel('Q')
     title(["Constellations pour Eb/No = ",i,"Db"])
-    
 end
 
-% Tracé du taux d'erreur binaire en fonction de Eb/No
+%Tracé du taux d'erreur binaire en fonction de Eb/No
 figure;
 semilogy(TEB_bruit,'o--')
 grid on;
@@ -177,18 +202,15 @@ xlabel("Rapport Eb/No")
 ylabel("TEB")
 title("TEB en fonction de Eb/No")
 
-% Calcul du TEB theorique
+%Calcul du TEB theorique
 figure;
 semilogy(TEB_bruit,'g')
 hold on;
 semilogy(TEB_Theo,'r')
+hold on;
+semilogy(TEB_Theo_1,'b')
 grid on;
-legend('TEB pratique', 'TEB theorique')
+legend('TEB pratique', 'TEB theorique', 'TEB BPSK')
 xlabel('Eb/N0')
 ylabel('Valeur du TEB')
 title('Comparaison des TEB')
-
-
-
-
-
