@@ -17,7 +17,6 @@ set MASK, %r2                                           // %r2 = &MASK
 set MEM, %r4                                            // %r4 = &MEM
 
 st %r0, [%r4]                                           // [%r4] = [&MEM] = 0
-ld[%r4], %r4                                            // %r4 = [&MEM]
 clr %r10                                                // %r10 = 0
 
 loop:                                                   // Start loop           
@@ -29,8 +28,10 @@ loop:                                                   // Start loop
          
          if2: cmp %r10, 0                               // if (old_SW[0] == 0)
            bne endif2                                   // if (old_SW[0] != 0) goto endif2
-             inc %r4                                    // %r4 += 1
-             st %r4, [%r9]                              // Store %r3 on the leds
+             ld [%r4], %r6                              // %r6 = MEM
+             inc %r6                                    // %r6 ++
+             st %r6, [%r4]                              // MEM = %r6
+             st %r6, [%r9]                              // Store %r6 on the leds
          endif2:                                        // Quit the if2 loop
      
      endif1:                                            // Quit the if1 loop
