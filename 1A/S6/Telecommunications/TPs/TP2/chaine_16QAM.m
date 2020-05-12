@@ -20,14 +20,15 @@ clc;
 % Initialisation des paramètres
 Fe = 10000;
 Te = 1 / Fe;
-alpha = 0.35;
+alpha = 0.5;
 span = 8;
 fp = 2000;
 fc = 1500;
-Rs = 3000;
+Rb = 48000;
+M = 16;
+Rs = Rb / (log2(M) * 8);
 nb_bits = 10000;
 Ns = floor(Fe / Rs);
-M = 8;
 
 %%
 %--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ M = 8;
 bits = randi([0, M - 1], 1, nb_bits);
 
 % Mapping permettant d'obtenir dk
-dk = pskmod(bits, M, pi / M);
+dk = qammod(bits, M);
 ak = real(dk);
 bk = imag(dk);
 
@@ -117,7 +118,7 @@ xlabel('Temps en secondes');
 z_echant = z(1 : Ns : end);
 
 % Detecteur à seuil
-bits_decides = pskdemod(z_echant, M, pi / M);
+bits_decides = qamdemod(z_echant, M, pi / M);
 
 % Calcul du TEB
 TEB = length(find(bits_decides ~= bits)) / length(bits)

@@ -20,7 +20,7 @@ clc;
 % Initialisation des paramètres
 Fe = 10000;
 Te = 1 / Fe;
-alpha = 0.35;
+alpha = 0.5;
 span = 8;
 fp = 2000;
 fc = 1500;
@@ -185,7 +185,7 @@ for i = 0 : 6
     figure;
     plot(real(z_echant), imag(z_echant), 'r*');
     hold on;
-    plot(Symboles, 0, 'b*');
+    plot(ak, bk, 'b*');
     legend('Les constellations en sortie du mapping','Les constellations en sortie de l’échantillonneur')
     xlabel('I');
     ylabel('Q');

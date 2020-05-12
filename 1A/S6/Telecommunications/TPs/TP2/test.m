@@ -159,6 +159,8 @@ for i = 0 : 6
     figure(21)
     subplot(3,4,i+1)
     plot(dec_real,dec_im, 'r.')
+    hold on
+    plot(real(dk),imag(dk), 'b*')
     hold on, plot([-4 4],[0 0],'k-')
     hold on, plot([0 0], [-4 4], 'k-')
     xlabel('I')

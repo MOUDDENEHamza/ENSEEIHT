@@ -24,7 +24,7 @@ alpha = 0.35;
 span = 8;
 fp = 2000;
 fc = 1500;
-Rs = 3000;
+Rs = 2000;
 nb_bits = 10000;
 Ns = floor(Fe / Rs);
 M = 8;
@@ -101,7 +101,7 @@ z = z(retard + 1 : end);
 % Affichage du signal reçu
 figure ;
 plot(real(z));
-axis([0 nb_bits - 1 -1.5 1.5]);
+axis([0 nb_bits - 1 -1 1]);
 title('Figure 1 : signal reçu z sans bruit');
 xlabel('Temps en secondes');
 ylabel('Signal reçu z');
@@ -117,7 +117,68 @@ xlabel('Temps en secondes');
 z_echant = z(1 : Ns : end);
 
 % Detecteur à seuil
-bits_recup = pskdemod(z_echant, M, pi / M);
+bits_decides = pskdemod(z_echant, M, pi / M);
 
 % Calcul du TEB
-TEB = TES / log2(M)
+TEB = length(find(bits_decides ~= bits)) / length(bits)
+
+%%
+%--------------------------------------------------------------------------
+% Implantation de la chaine avec bruit
+%--------------------------------------------------------------------------
+%%
+
+TES = zeros(1,7);
+TEB = zeros(1,7);
+
+for i = 0 : 6
+    % L'ajout du bruit blanc gaussien
+    N = randn(1, length(x));
+    Puiss_sign = mean(abs(x) .^ 2);
+    Puiss_bruit = Puiss_sign * Ns  / (2 * log2(M) * 10 .^ (i / 10));
+    Bruit_gauss = sqrt(Puiss_bruit) * N;
+    y = x + Bruit_gauss;
+    
+    % Retour en bande de base
+    signal_I = y .* cos(2 * pi * fp * T);
+    signal_Q = -1i * y .* sin(2 * pi * fp * T);
+    y = signal_I + signal_Q;
+    
+    % Filtrage de réception
+    z = filter(h_r, 1, [y zeros(1,retard)]);
+    z = z(retard + 1 : end);
+    
+    % Echantillonnage du signal
+    z_echant = z(1 : Ns : end);
+    
+    % Les constellations en sortie du mapping et de l’échantillonneur
+    figure;
+    plot(real(z_echant), imag(z_echant), 'r*');
+    hold on;
+    plot(ak, bk, 'b*');
+    legend('Les constellations en sortie du mapping','Les constellations en sortie de l’échantillonneur')
+    xlabel('I');
+    ylabel('Q');
+    
+    % Detecteur à seuil
+    bits_decides = pskdemod(z_echant, M, pi / M);
+    
+    % Calcul du TES
+    TES(i + 1) = length(find(bits_decides ~= bits)) / length(bits);
+    
+    % Calcul du TEB
+    TEB(i + 1) = TES(i + 1) / log2(M);
+end
+
+%%
+% Comparaison entre le taux d’erreur binaire (TEB) obtenu en fonction Eb/N0
+% et le TEB théorique
+figure;
+semilogy([0 : 6], TEB, 'r*');
+hold on
+semilogy([0 : 6], (2 / log2(M)) * qfunc(sqrt(2 * log2(M) * 10 .^ ([0 : 6] / 10)) * sin(pi / M)));
+grid
+title('Figure 8 : Comparaison entre le TEB théorique et estimé');
+legend('TEB estimé','TEB théorique')
+xlabel("$\frac{Eb}{N_{o}}$ (dB)", 'Interpreter', 'latex');
+ylabel('TEB');

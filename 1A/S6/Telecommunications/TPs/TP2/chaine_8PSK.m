@@ -24,7 +24,7 @@ alpha = 0.35;
 span = 8;
 fp = 2000;
 fc = 1500;
-Rs = 3000;
+Rs = 2000;
 nb_bits = 10000;
 Ns = floor(Fe / Rs);
 M = 8;
@@ -144,9 +144,6 @@ for i = 0 : 6
     signal_Q = -1i * y .* sin(2 * pi * fp * T);
     y = signal_I + signal_Q;
     
-    % Génération de la réponse impulsionnelle du filtre de réception
-    h_r = h;
-    
     % Filtrage de réception
     z = filter(h_r, 1, [y zeros(1,retard)]);
     z = z(retard + 1 : end);
@@ -166,8 +163,11 @@ for i = 0 : 6
     % Detecteur à seuil
     bits_decides = pskdemod(z_echant, M, pi / M);
     
+    % Calcul du TES
+    TES(i + 1) = length(find(bits_decides ~= bits)) / length(bits);
+    
     % Calcul du TEB
-    TEB(i + 1) = length(find(bits_decides ~= bits)) / length(bits);
+    TEB(i + 1) = TES(i + 1) / log2(M);
 end
 
 %%
@@ -176,7 +176,7 @@ end
 figure;
 semilogy([0 : 6], TEB, 'r*');
 hold on
-semilogy([0 : 6], 2 * qfunc(sqrt(2 * log2(M) * 10 .^ ([0 : 6] / 10)) * sin(pi / M)));
+semilogy([0 : 6], (2 / log2(M)) * qfunc(sqrt(2 * log2(M) * 10 .^ ([0 : 6] / 10)) * sin(pi / M)));
 grid
 title('Figure 8 : Comparaison entre le TEB théorique et estimé');
 legend('TEB estimé','TEB théorique')
