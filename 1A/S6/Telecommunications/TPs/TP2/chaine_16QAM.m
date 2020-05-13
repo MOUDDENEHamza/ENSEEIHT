@@ -157,7 +157,7 @@ end
 figure;
 semilogy([0 : 6], TEB, 'r*');
 hold on
-semilogy([0 : 6], 2 * qfunc(sqrt(2 * log2(M) * 10 .^ ([0 : 6] / 10)) * sin(pi / M)));
+semilogy([0 : 6], (1 - (1 / sqrt(M))) * qfunc(sqrt((4 / 5) * 10 .^ ([0 : 6] / 10))));
 grid
 title('Figure 8 : Comparaison entre le TEB théorique et estimé');
 legend('TEB estimé','TEB théorique')
