@@ -138,28 +138,40 @@ int main(int argc, char* argv) {
 		    exit(1);
 		}
 
-		// Execute the command ls --sort=t > argv[1].
-		if (execvp(cmd->seq[0][0], cmd->seq[0]) < 0) {
-                    printf("%s: command not found\n", cmd->seq[0][0]);
-                    exit(1);
+	    }
 
-                    id++;
-                    new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
-                    process_list = add_node(process_list, new_process);
-	                    exit(0);
-                }
+	    if (cmd->in != NULL) {
+		/** Open file in in read mode */
+		file_desc = open (cmd->in, O_RDONLY);
+
+		// Handle systematically errors due to open.
+		if (file_desc < 0) {
+		    perror ("[IN] FILE DESCRIPTOR] Error ");
+		    exit (1);
+		}
+
+		// Redirect the stdin to in.
+		if (dup2 (file_desc, 0) == -1) {
+		    perror ("[DUP2] Error ");
+		    exit (1);
+		}
+
+		// Close out, and handle systematically errors due to close.
+		if (close(file_desc) < 0) {
+		    perror("[CLOSE] Error ");
+		    exit(1);
+		}
 
 	    }
-	    else {
-		if (execvp(cmd->seq[0][0], cmd->seq[0]) < 0) {
-		    printf("%s: command not found\n", cmd->seq[0][0]);
-		    exit(1);
 
-		    id++;
-		    new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
-		    process_list = add_node(process_list, new_process);
-		    exit(0);
-		}
+	    if (execvp(cmd->seq[0][0], cmd->seq[0]) < 0) {
+		printf("%s: command not found\n", cmd->seq[0][0]);
+		exit(1);
+
+		id++;
+		new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
+		process_list = add_node(process_list, new_process);
+		exit(0);
 	    }
 	}
 	// Parent process.
