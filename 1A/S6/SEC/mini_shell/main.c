@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/wait.h> /* wait */
 #include <signal.h>
+#include <fcntl.h>    /* Files operations */
 #include "display_shell.h"
 #include "readcmd.h"
 #include "linked_list.h"
@@ -31,8 +32,8 @@ void handler_SIGINT(int sig) {
 void handler_SIGCHLD (int signal_num) {
     int child_status;
     pid_t pid_child;
-   
-   printf("test %d", child_status);
+
+    printf("test %d", child_status);
 
     do {
 	pid_child = (int) waitpid(-1, &child_status, WNOHANG | WUNTRACED | WCONTINUED);
@@ -69,11 +70,12 @@ int main(int argc, char* argv) {
     int process = 1;	 // The integer guaranteed the infinite loop.
     struct cmdline *cmd; // The structure containing the command line.
     List new_process;	 // The new process.
-    
+    int file_desc;	 // The file descriptor.
+
     /* Display the init bar. */
     init_bar();
- 
- 
+
+
     /** Handle ctrl + c  */
     signal(SIGINT, &handler_SIGINT);
 
@@ -113,14 +115,51 @@ int main(int argc, char* argv) {
 	    signal(SIGCHLD, &handler_SIGCHLD);
 
 	    // Execute the command.
-	    if (execvp(cmd->seq[0][0], cmd->seq[0]) < 0) {
-		printf("%s: command not found\n", cmd->seq[0][0]);
-		exit(1);
+	    if (cmd->out != NULL) {
+		/** Open file out in write mode, if it doesn't exist it will be created,
+		  and all the existing content will be erased. */
+		file_desc = open (cmd->out, O_WRONLY | O_CREAT | O_TRUNC, 0640);
 
-		id++;
-		new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
-		process_list = add_node(process_list, new_process);
-		exit(0);
+		// Handle systematically errors due to open.
+		if (file_desc < 0) {
+		    perror ("[OUT] FILE DESCRIPTOR] Error ");
+		    exit (1);
+		}
+
+		// Redirect the stdout to out.
+		if (dup2 (file_desc, 1) == -1) {
+		    perror ("[DUP2] Error ");
+		    exit (1);
+		}
+
+		// Close out, and handle systematically errors due to close.
+		if (close(file_desc) < 0) {
+		    perror("[CLOSE] Error ");
+		    exit(1);
+		}
+
+		// Execute the command ls --sort=t > argv[1].
+		if (execvp(cmd->seq[0][0], cmd->seq[0]) < 0) {
+                    printf("%s: command not found\n", cmd->seq[0][0]);
+                    exit(1);
+
+                    id++;
+                    new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
+                    process_list = add_node(process_list, new_process);
+	                    exit(0);
+                }
+
+	    }
+	    else {
+		if (execvp(cmd->seq[0][0], cmd->seq[0]) < 0) {
+		    printf("%s: command not found\n", cmd->seq[0][0]);
+		    exit(1);
+
+		    id++;
+		    new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
+		    process_list = add_node(process_list, new_process);
+		    exit(0);
+		}
 	    }
 	}
 	// Parent process.
