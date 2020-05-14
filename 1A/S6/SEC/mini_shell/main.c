@@ -13,7 +13,6 @@
 pid_t child;         // The child process. 
 List process_list;   // The list containing the whole process.
 int id;              // The id of the process.
-int nb_fils_termines ; 
 
 /** Handle ctrl + z SIGTSTP signal. */
 void handler_SIGTSTP(int sig) {
@@ -55,6 +54,7 @@ void handler_SIGCHLD (int signal_num) {
 	    } 
 
 	    else if (WIFEXITED(child_status) || (WIFSIGNALED(child_status))) {
+		printf("imane\n");
 		// Handle the exit termination.
 		delete_node(process_list, &pid_child);
 	    }
@@ -69,11 +69,11 @@ int main(int argc, char* argv) {
     int process = 1;	 // The integer guaranteed the infinite loop.
     struct cmdline *cmd; // The structure containing the command line.
     List new_process;	 // The new process.
-	int nb_fils_termines = 0;
+    
     /* Display the init bar. */
     init_bar();
  
-    //signal(SIGCHLD, handler_SIGCHLD) ;
+ 
     /** Handle ctrl + c  */
     signal(SIGINT, &handler_SIGINT);
 
