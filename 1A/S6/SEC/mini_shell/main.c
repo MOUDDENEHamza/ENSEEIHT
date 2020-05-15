@@ -65,80 +65,6 @@ void handler_SIGCHLD (int signal_num) {
     } while (pid_child > 0);
 }
 
-void exec_pipeline(char ***cmd, int index, int old_fd) {
-    
-    if (cmd[index + 1] == NULL) {
-	// Redirect the stdout argv[1].
-            if (dup2 (old_fd, 0) == -1) {
-                perror ("[DUP2] Error ");
-                exit (1);
-            }
-            if (close(old_fd) < 0) {
-                perror("[CLOSE] Error ");
-                exit(1);
-            }
-
-
-	if (execvp(cmd[index][0], cmd[index]) < 0) {
-	    printf("%s: command not found\n", cmd[index][0]);
-	    exit(1);
-	}
-	exit(0);
-    }
-    else { /* $ <in_fd cmds[pos] >fd[1] | <fd[0] cmds[pos+1] ... */
-	int fd[2]; /* output pipe */
-	if (pipe(fd) == -1) {
-	    perror ("[PIPE] Error ");
-	    exit (1);
-	}
-	// Create child process.
-	int c = fork();
-
-	// If the fork failed.
-	if (c < 0) {
-	    perror ("[FORK] Error ") ;
-	    exit (1);
-	}
-
-	// If son is created with success
-	else if (c == 0) {
-	    // Close argv[1], and handle systematically errors due to close.
-	    if (close(fd[0]) < 0) {
-		perror("[CLOSE] Error ");
-		exit(1);
-	    }
-	    
-	    // Redirect the stdout argv[1].
-            if (dup2 (old_fd, 0) == -1) {
-                perror ("[DUP2] Error ");
-                exit (1);
-            }
-	    if (close(old_fd) < 0) {
-                perror("[CLOSE] Error ");
-                exit(1);
-            }
-
-	    // Redirect the stdout argv[1].
-	    if (dup2 (fd[1], 1) == -1) {
-		perror ("[DUP2] Error ");
-		exit (1);
-	    }
-	    if (execvp(cmd[index][0], cmd[index]) < 0) {
-		printf("%s: command not found\n", cmd[index][0]);
-		exit(1);
-	    }
-	    exit(0);
-	} else {  
-	    /* parent: execute the rest of the commands */
-	    // Close argv[1], and handle systematically errors due to close.
-	    if (close(fd[1]) < 0) {
-		perror("[CLOSE] Error ");
-		exit(1);
-	    }
-	    exec_pipeline(cmd, index + 1, fd[0]); /* execute the rest */
-	}
-    }
-}
 /** The main function of this program. */
 int main(int argc, char* argv) {
     /* Local variables. */
@@ -188,12 +114,12 @@ int main(int argc, char* argv) {
 	else if (child == 0) {
 	    // Handle signals.
 	    signal(SIGCHLD, &handler_SIGCHLD);
-
-	    // Check if the command line contains >.
+	    
+	    /** REDIRECTIONS */
 	    if (cmd->seq[1] == NULL) {
+		// Check if the command line contains >.
 		if (cmd->out != NULL) {
-		    /** Open file out in write mode, if it doesn't exist it will be created,
-		      and all the existing content will be erased. */
+		    /** Open file out in write mode, if it doesn't exist it will be created			, and all the existing content will be erased. */
 		    file_desc = open (cmd->out, O_WRONLY | O_CREAT | O_TRUNC, 0640);
 
 		    // Handle systematically errors due to open.
@@ -250,7 +176,10 @@ int main(int argc, char* argv) {
 		    process_list = add_node(process_list, new_process);
 		    exit(0);
 		}
-	    } else {
+	    } 
+
+	    /** PIPELINES */
+	    else {
 		exec_pipeline(cmd->seq, 0, 0);
 	    }
 	}

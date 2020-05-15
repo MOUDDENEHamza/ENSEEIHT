@@ -18,4 +18,7 @@ void fg(pid_t pid, List process_list);
 /** Execute cmd if it is an internal command. */
 void exec_internal_cmd(List head, struct cmdline *cmd, int *process, List process_list);
 
+/** Execute a commandline containing pipelines */
+void exec_pipeline(char ***cmd, int index, int old_fd);
+
 #endif
