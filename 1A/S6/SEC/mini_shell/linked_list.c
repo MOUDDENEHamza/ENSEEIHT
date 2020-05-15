@@ -116,22 +116,23 @@ List add_node(List head, List new_node) {
 }
 
 /** Delete a node from the process list. */
-void delete_node(List head, pid_t *pid) {
+List delete_node(List head, pid_t *pid) {
     List tmp = head, prev;
     if (tmp != NULL && tmp->pid == *pid) {
 	head = get_next(tmp);
 	free(tmp);
-	return;
+	return NULL;
     }
     while (tmp != NULL && tmp->pid != *pid) {
 	prev = tmp;
 	tmp = get_next(tmp);
     }
     if (tmp == NULL) {
-	return;
+	return head;
     }
     set_next(prev, get_next(tmp));
     free(tmp);
+    return head;
 }
 
 /** Get the status in string format. */

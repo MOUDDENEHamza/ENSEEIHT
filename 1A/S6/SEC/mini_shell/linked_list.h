@@ -50,7 +50,7 @@ void update_status(List head, pid_t *pid, Status status);
 List add_node(List head, List new_node);
 
 /** Delete a node from the process list. */
-void delete_node(List head, pid_t *pid);
+List delete_node(List head, pid_t *pid);
 
 /** Traverse the process list. */
 void traverse(List head);

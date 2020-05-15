@@ -28,7 +28,7 @@ void handler_SIGINT(int sig) {
     printf("\n");
 }
 
-/** Handler of SIGCHLD signal. */
+/** Handler of SIGCHLD signal. *
 void handler_SIGCHLD (int signal_num) {
     int child_status;
     pid_t pid_child;
@@ -63,7 +63,25 @@ void handler_SIGCHLD (int signal_num) {
 	}
 
     } while (pid_child > 0);
-}
+}*/
+int nb_fils_termines = 0;
+ void handler_SIGCHLD(int signal_num) {
+      int wstatus, fils_termine ;
+ 
+      fils_termine = wait(&wstatus) ;
+      nb_fils_termines++ ;
+      if WIFEXITED(wstatus) {   /* fils terminé avec exit */
+          printf("\nMon fils de pid %d a termine avec exit %d\n",
+                  , WEXITSTATUS(wstatus)) ;
+      	 process_list = delete_node(process_list, &fils_termine);
+
+      }
+      else if WIFSIGNALED(wstatus) {  /* fils tué par un signal */
+          printf("\nMon fils de pid %d a ete tue par le signal %d\n",
+                  fils_termine, WTERMSIG(wstatus)) ;
+      }
+      return ;
+  }
 
 /** The main function of this program. */
 int main(int argc, char* argv) {
@@ -79,6 +97,7 @@ int main(int argc, char* argv) {
 
     /** Handle ctrl + c  */
     signal(SIGINT, &handler_SIGINT);
+    signal(SIGCHLD, &handler_SIGCHLD);
 
     /* Initialize the process list and set the first id to 1. */
     process_list = new_list();
@@ -87,7 +106,6 @@ int main(int argc, char* argv) {
 
     /* Inifinite loop. */
     while (process) {
-
 	// Display the prompt and read the command line.
 	do {
 	    print_prompt();
@@ -103,6 +121,7 @@ int main(int argc, char* argv) {
 
 	// Create child process.
 	child = fork();
+	signal(SIGCHLD, &handler_SIGCHLD);
 
 	// If the fork failed.
 	if (child < 0) {
@@ -113,8 +132,8 @@ int main(int argc, char* argv) {
 	// If son is created with success
 	else if (child == 0) {
 	    // Handle signals.
-	    signal(SIGCHLD, &handler_SIGCHLD);
-	    
+	    //signal(SIGCHLD, &handler_SIGCHLD);
+
 	    /** REDIRECTIONS */
 	    if (cmd->seq[1] == NULL) {
 		// Check if the command line contains >.
@@ -188,19 +207,16 @@ int main(int argc, char* argv) {
 	    // Set id to 1 if the process list becomes empty.
 	    if (process_list == NULL) {
 		id = 1;
+	    } else {
+		id++;
 	    }
+	    
+	    new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
+            process_list = add_node(process_list, new_process);
 
 	    // Parent process wait the termination of child process.
 	    if (cmd->backgrounded == NULL) {
-		id++;
-		new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
-		process_list = add_node(process_list, new_process);
 		wait(NULL);
-	    } else {
-		id++;
-		new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
-		process_list = add_node(process_list, new_process);
-
 	    }
 	}
     }
