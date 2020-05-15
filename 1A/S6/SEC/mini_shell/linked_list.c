@@ -119,8 +119,8 @@ List add_node(List head, List new_node) {
 List delete_node(List head, pid_t *pid) {
     List tmp = head, prev;
     if (tmp != NULL && tmp->pid == *pid) {
-	head = get_next(tmp);
 	free(tmp);
+	tmp = NULL;
 	return NULL;
     }
     while (tmp != NULL && tmp->pid != *pid) {
@@ -132,11 +132,12 @@ List delete_node(List head, pid_t *pid) {
     }
     set_next(prev, get_next(tmp));
     free(tmp);
+    tmp = NULL;
     return head;
 }
 
 /** Get the status in string format. */
-char* get_status_string(Status status) {
+static char* get_status_string(Status status) {
     if(status == ACTIVE) {
 	return "ACTIVE\t";
     } else {

@@ -10,6 +10,9 @@
 #include "display_shell.h"
 #include "linked_list.h"
 
+// Gloabal variables.
+extern List process_list;
+
 /* Change the directory. */
 void change_dir(char *destination) {
     if (destination == NULL) {
@@ -23,25 +26,25 @@ void change_dir(char *destination) {
 }
 
 /** Suspend a process linking to a giving pid in parameter. */
-void stop(pid_t pid, List process_list) {
+void stop(pid_t pid) {
     kill(pid, SIGSTOP);
     update_status(process_list, &pid, SUSPENDED);
 }
 
 /** Resume a suspended process in the background */
-void bg(pid_t pid, List process_list) {
+void bg(pid_t pid) {
     kill(pid, SIGCONT);
-    delete_node(process_list, &pid);
+    update_status(process_list, &pid, ACTIVE);
 }
 
 
 /** Resume a suspended process in the forground. */
-void fg(pid_t pid, List process_list) {
+void fg(pid_t pid) {
     waitpid(pid, 0, 0);
 }
 
 /* Execute cmd if it is an internal command. */
-void exec_internal_cmd(List head, struct cmdline *cmd, int *process, List process_list) {
+void exec_internal_cmd(List head, struct cmdline *cmd, int *process) {
     if (strcmp(cmd->seq[0][0], "cd") == 0) {
 	change_dir(cmd->seq[0][1]);
 	*process = 2;
@@ -60,17 +63,17 @@ void exec_internal_cmd(List head, struct cmdline *cmd, int *process, List proces
     }
     else if (strcmp(cmd->seq[0][0], "stop") == 0) {
 	pid_t pid = atoi(cmd->seq[0][1]);
-	stop(pid, process_list);
+	stop(pid);
 	*process = 2;
     }
     else if (strcmp(cmd->seq[0][0], "bg") == 0) {
 	pid_t pid = atoi(cmd->seq[0][1]);
-	bg(pid, process_list);
+	bg(pid);
 	*process = 2;
     }
     else if (strcmp(cmd->seq[0][0], "fg") == 0) {
 	pid_t pid = atoi(cmd->seq[0][1]);
-	fg(pid, process_list);
+	fg(pid);
 	*process = 2;
     }
 }
