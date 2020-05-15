@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <fcntl.h>    /* Files operations */
 #include "readcmd.h"
 #include "display_shell.h"
 #include "linked_list.h"
@@ -74,6 +75,36 @@ void exec_internal_cmd(List head, struct cmdline *cmd, int *process, List proces
     }
 }
 
+/** Execute cmd with redirections. */
+void exec_redirections(char* file_name, int to) {
+    int file_desc;       // The file descriptor.
+
+    if (to == 1) {
+	/** Open file out in write mode, if it doesn't exist it will be created                     , and all the existing content will be erased. */
+	file_desc = open (file_name, O_WRONLY | O_CREAT | O_TRUNC, 0640);
+    } else {
+	/** Open file in in read mode */
+	file_desc = open (file_name, O_RDONLY);
+    }
+    // Handle systematically errors due to open.
+    if (file_desc < 0) {
+	perror ("[IN] FILE DESCRIPTOR] Error ");
+	exit (1);
+    }
+
+    // Redirect the to to file_desc.
+    if (dup2 (file_desc, to) == -1) {
+	perror ("[DUP2] Error ");
+	exit (1);
+    }
+
+    // Close out, and handle systematically errors due to close.
+    if (close(file_desc) < 0) {
+	perror("[CLOSE] Error ");
+	exit(1);
+    }
+}
+
 /** Execute a commandline containing pipelines */
 void exec_pipeline(char ***cmd, int index, int old_fd) {
     // execute the last command, after the last pipe.
@@ -83,7 +114,7 @@ void exec_pipeline(char ***cmd, int index, int old_fd) {
 	    perror ("[DUP2] Error ");
 	    exit (1);
 	}
-        
+
 	// Close old_fd, and handle systematically errors due to close.
 	if (close (old_fd) < 0) {
 	    perror ("[CLOSE] Error ");
@@ -97,18 +128,18 @@ void exec_pipeline(char ***cmd, int index, int old_fd) {
 	}
 	exit (0);
     }
-    
+
     // If we still have pipes
     else { 
 	pid_t child;	 	// The process child.
-        int pipe_s2f[2];      	// Pipe to communicate from child to father.
-	
+	int pipe_s2f[2];      	// Pipe to communicate from child to father.
+
 	// Create pipe, handle systematically errors due to pipe.
 	if (pipe(pipe_s2f) == -1) {
 	    perror ("[PIPE] Error ");
 	    exit (1);
 	}
-	
+
 	// Create child process.
 	child = fork();
 

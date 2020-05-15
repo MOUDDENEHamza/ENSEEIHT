@@ -13,7 +13,6 @@ READ = read -p
 all :
 	$(MAKE) compile -s
 	$(MAKE) run -s
-	$(MAKE) clean -s
 
 compile :
 	$(GCC) -I $(INCLUDE) -c $(SRC)

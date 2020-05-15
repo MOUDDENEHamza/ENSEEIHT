@@ -15,25 +15,14 @@ pid_t child;         // The child process.
 List process_list;   // The list containing the whole process.
 int id;              // The id of the process.
 
-/** Handle ctrl + z SIGTSTP signal. */
-void handler_SIGTSTP(int sig) {
-    //kill(getpid(), SIGSTOP);
-    //update_status(process_list, getpid(), SUSPENDED);
-}
-
 /** Handle ctrl + c SIGINT signal. */
 void handler_SIGINT(int sig) {
-    //kill(getpid(), SIGKILL);
-    //delete_node(process_list, getpid());
-    printf("\n");
 }
 
-/** Handler of SIGCHLD signal. *
+/** Handler of SIGCHLD signal. */
 void handler_SIGCHLD (int signal_num) {
     int child_status;
     pid_t pid_child;
-
-    printf("test %d", child_status);
 
     do {
 	pid_child = (int) waitpid(-1, &child_status, WNOHANG | WUNTRACED | WCONTINUED);
@@ -51,37 +40,19 @@ void handler_SIGCHLD (int signal_num) {
 	    } 
 
 	    else if (WIFCONTINUED(child_status)) {
-		// Handle the reboot.
+		// Handle the reboot.exec_redirections(cmd->out, 1);
+
 		update_status(process_list, &pid_child, ACTIVE);
 	    } 
 
 	    else if (WIFEXITED(child_status) || (WIFSIGNALED(child_status))) {
-		printf("imane\n");
 		// Handle the exit termination.
 		delete_node(process_list, &pid_child);
 	    }
 	}
 
     } while (pid_child > 0);
-}*/
-int nb_fils_termines = 0;
- void handler_SIGCHLD(int signal_num) {
-      int wstatus, fils_termine ;
- 
-      fils_termine = wait(&wstatus) ;
-      nb_fils_termines++ ;
-      if WIFEXITED(wstatus) {   /* fils terminé avec exit */
-          printf("\nMon fils de pid %d a termine avec exit %d\n",
-                  , WEXITSTATUS(wstatus)) ;
-      	 process_list = delete_node(process_list, &fils_termine);
-
-      }
-      else if WIFSIGNALED(wstatus) {  /* fils tué par un signal */
-          printf("\nMon fils de pid %d a ete tue par le signal %d\n",
-                  fils_termine, WTERMSIG(wstatus)) ;
-      }
-      return ;
-  }
+}
 
 /** The main function of this program. */
 int main(int argc, char* argv) {
@@ -89,15 +60,13 @@ int main(int argc, char* argv) {
     int process = 1;	 // The integer guaranteed the infinite loop.
     struct cmdline *cmd; // The structure containing the command line.
     List new_process;	 // The new process.
-    int file_desc;	 // The file descriptor.
 
     /* Display the init bar. */
     init_bar();
 
-
-    /** Handle ctrl + c  */
+    /** Handle ctrl + c, so it will be ignored if there is no process in the 
+      foreground. */
     signal(SIGINT, &handler_SIGINT);
-    signal(SIGCHLD, &handler_SIGCHLD);
 
     /* Initialize the process list and set the first id to 1. */
     process_list = new_list();
@@ -121,7 +90,6 @@ int main(int argc, char* argv) {
 
 	// Create child process.
 	child = fork();
-	signal(SIGCHLD, &handler_SIGCHLD);
 
 	// If the fork failed.
 	if (child < 0) {
@@ -131,59 +99,20 @@ int main(int argc, char* argv) {
 
 	// If son is created with success
 	else if (child == 0) {
-	    // Handle signals.
-	    //signal(SIGCHLD, &handler_SIGCHLD);
+	    /** Handle SIGCHLD when the status of a child changes. */
+    	    signal(SIGCHLD, &handler_SIGCHLD);
+
 
 	    /** REDIRECTIONS */
 	    if (cmd->seq[1] == NULL) {
 		// Check if the command line contains >.
 		if (cmd->out != NULL) {
-		    /** Open file out in write mode, if it doesn't exist it will be created			, and all the existing content will be erased. */
-		    file_desc = open (cmd->out, O_WRONLY | O_CREAT | O_TRUNC, 0640);
-
-		    // Handle systematically errors due to open.
-		    if (file_desc < 0) {
-			perror ("[OUT] FILE DESCRIPTOR] Error ");
-			exit (1);
-		    }
-
-		    // Redirect the stdout to out.
-		    if (dup2 (file_desc, 1) == -1) {
-			perror ("[DUP2] Error ");
-			exit (1);
-		    }
-
-		    // Close out, and handle systematically errors due to close.
-		    if (close(file_desc) < 0) {
-			perror("[CLOSE] Error ");
-			exit(1);
-		    }
-
+			exec_redirections (cmd->out, 1);
 		}
 
 		// Check if the command line contains <.
 		if (cmd->in != NULL) {
-		    /** Open file in in read mode */
-		    file_desc = open (cmd->in, O_RDONLY);
-
-		    // Handle systematically errors due to open.
-		    if (file_desc < 0) {
-			perror ("[IN] FILE DESCRIPTOR] Error ");
-			exit (1);
-		    }
-
-		    // Redirect the stdin to in.
-		    if (dup2 (file_desc, 0) == -1) {
-			perror ("[DUP2] Error ");
-			exit (1);
-		    }
-
-		    // Close out, and handle systematically errors due to close.
-		    if (close(file_desc) < 0) {
-			perror("[CLOSE] Error ");
-			exit(1);
-		    }
-
+			exec_redirections (cmd->in, 0);
 		}
 
 		// Execute the command.
@@ -210,9 +139,9 @@ int main(int argc, char* argv) {
 	    } else {
 		id++;
 	    }
-	    
+
 	    new_process = create_process(&id, &child, ACTIVE, cmd->seq[0][0]);
-            process_list = add_node(process_list, new_process);
+	    process_list = add_node(process_list, new_process);
 
 	    // Parent process wait the termination of child process.
 	    if (cmd->backgrounded == NULL) {
@@ -220,6 +149,6 @@ int main(int argc, char* argv) {
 	    }
 	}
     }
-
+    
     return -1;
 } /* End of main. */
