@@ -2,79 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2162d559-dea1-4dab-9af9-d3230106600f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CompMonthlyEarningSwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CompMonthlyEarningSwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$Refresh.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$Refresh.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$Return.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$Return.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$actionClear.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$actionClear.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/CurrentOrders.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DepositeStatement_Swing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/DepositeStatement_Swing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/DessertSwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/EntreeSwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$Back.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$Back.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$Consult.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$Consult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialState_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/FinancialState_Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/History.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/History.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/HistorySwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/HistorySwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Home$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home$Start.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Home$Start.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/META-INF/E24.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionCancelOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionCancelOrder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionDessert.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionDessert.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionEntree.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionEntree.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionPay.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionPay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionPlatPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionPlatPrincipal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionRewardPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionRewardPoint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionShowAccDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionShowAccDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionSignOut.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionSignOut.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/MenuSwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/OldOrders$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/OldOrders$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/OldOrders$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$Back.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$Back.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$DepositeStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$DepositeStatement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$History.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$History.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$Monthly_Gain.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState$Monthly_Gain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/Operation_FinancialState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PopUpMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/PopUpMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/SignIn$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$Exit.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/SignIn$Exit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$Submit.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/SignIn$Submit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$asGuest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/SignIn$asGuest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$signUp.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/SignIn$signUp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/production/E24/SignIn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/operation.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/operation.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/orders.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/orders_Human_Friendly.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users_Human_Friendly.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/icons/Home_empty.png" beforeDir="false" afterPath="$PROJECT_DIR$/icons/Home_empty.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livrables/manuel-utilisateur2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/livrables/manuel-utilisateur2.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CurrentOrders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurrentOrders.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DepositeStatement_Swing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DepositeStatement_Swing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FinancialStateSwing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FinancialStateSwing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FinancialState_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FinancialState_Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HistorySwing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HistorySwing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MenuSwing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MenuSwing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OldOrders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OldOrders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Operation_FinancialState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Operation_FinancialState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PopUpMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PopUpMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SignIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SignIn.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/production/E24/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,7 +12,32 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DepositeStatement_Swing.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="733">
+              <caret line="120" column="71" selection-start-line="120" selection-start-column="71" selection-end-line="120" selection-end-column="71" />
+              <folding>
+                <element signature="e#3241#3242#0" expanded="true" />
+                <element signature="e#3267#3268#0" expanded="true" />
+                <element signature="e#3310#3311#0" expanded="true" />
+                <element signature="e#3338#3339#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CompMonthlyEarningSwing.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
@@ -138,7 +91,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589580731044" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589589541950" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -195,16 +148,18 @@
       <updated>1588769845363</updated>
       <workItem from="1588769886022" duration="1970000" />
       <workItem from="1589578784275" duration="2656000" />
+      <workItem from="1589588809365" duration="582000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4626000" />
+    <option name="totallyTimeSpent" value="5208000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1680" height="1023" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25275397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25581396" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -256,19 +211,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DepositeStatement_Swing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
-          <folding>
-            <element signature="e#3273#3274#0" expanded="true" />
-            <element signature="e#3291#3292#0" expanded="true" />
-            <element signature="e#3320#3321#0" expanded="true" />
-            <element signature="e#3339#3340#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -325,6 +267,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="251" selection-start-line="251" selection-end-line="251" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CompMonthlyEarningSwing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DepositeStatement_Swing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="733">
+          <caret line="120" column="71" selection-start-line="120" selection-start-column="71" selection-end-line="120" selection-end-column="71" />
+          <folding>
+            <element signature="e#3241#3242#0" expanded="true" />
+            <element signature="e#3267#3268#0" expanded="true" />
+            <element signature="e#3310#3311#0" expanded="true" />
+            <element signature="e#3338#3339#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
