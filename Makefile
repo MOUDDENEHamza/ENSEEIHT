@@ -9,5 +9,4 @@ push :
 	@$(READ) "Enter the message to set up the commit : " message; \
 	$(GIT) $(ADD) && $(GIT) $(COMMIT) "$$message" && $(GIT) $(PUSH)
 
-pull :
-	$(GIT) $(PULL)
+.PHONY : push
