@@ -83,7 +83,7 @@ DSP_x = (1 / length(x)) * abs(fft(x, 2 ^ nextpow2(length(x)))) .^ 2;
 % Affichage de la DSP du signal émis
 figure;
 plot(linspace(-Fe / 2, Fe / 2, length(DSP_x)), fftshift(DSP_x));
-title('DSP du signal émis de la chaine sur fréquence porteuse');
+title('DSP du signal émis');
 xlabel('Fréquences en Hz');
 ylabel('S_{x}(f)');
 

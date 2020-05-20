@@ -59,6 +59,17 @@ xlabel('Temps en secondes');
 ylabel('x(t)');
 
 %%
+% Calcul de la DSP  du signal transmis par périodogramme
+DSP_x = (1 / length(x)) * abs(fft(x, 2 ^ nextpow2(length(x)))) .^ 2;
+
+% Affichage du signal transmis par périodogramme
+figure;
+plot(linspace(-Fe / 2, Fe / 2, length(DSP_x)), fftshift(DSP_x));
+title('DSP du signal transmis');
+xlabel('Fréquences en Hz');
+ylabel('S_{x_{e}}(f)');
+
+%%
 % Génération de la réponse impulsionnelle du filtre de réception
 h_r = h;
 
