@@ -12,6 +12,6 @@ public class Main {
      * @param args java command line arguments
      */
     public static void main(String[] args) {
-        new Home();
+        new Home("en");
     }
 }

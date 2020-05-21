@@ -20,7 +20,7 @@ clc;
 % Initialisation des paramètres
 Fe = 10000;
 Te = 1 / Fe;
-alpha = 0.35;
+alpha = 0.5;
 span = 8;
 fp = 2000;
 fc = 1500;
