@@ -1,3 +1,5 @@
+import general.Home;
+
 /**
  * The main class that launches the program
  *
@@ -12,6 +14,6 @@ public class Main {
      * @param args java command line arguments
      */
     public static void main(String[] args) {
-        new Home("en");
+       new Home("en");
     }
 }
