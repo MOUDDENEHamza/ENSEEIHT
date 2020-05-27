@@ -60,6 +60,14 @@ Q = Q(retard + 1 : end);
 % Le signal transmis sur fréquence porteuse
 x =  I + 1i * Q;
 
+figure;
+plot(ak, bk, 'b*');
+xlim([-1.5 1.5]);
+ylim([-1.5 1.5]);
+title('Les constellations en sortie du mapping')
+xlabel('I');
+ylabel('Q');
+
 % Affichage du signal génerée sur la voie en phase
 figure ;
 plot(I);
@@ -143,13 +151,10 @@ for i = 0 : 6
     z_echant = z(1 : Ns : end);
     
     % Les constellations en sortie du mapping et de l’échantillonneur
-    figure(21);
-    subplot(3, 4, i+1);
+    figure;
     plot(real(z_echant), imag(z_echant), 'r*');
     hold on;
     plot(ak, bk, 'b*');
-    hold on, plot([-4 4],[0 0],'k-');
-    hold on, plot([0 0], [-4 4], 'k-');
     legend('Les constellations en sortie du mapping','Les constellations en sortie de l’échantillonneur')
     xlabel('I');
     ylabel('Q');

@@ -61,13 +61,13 @@ Q = Q(retard + 1 : end);
 x =  I + 1i * Q;
 
 figure;
-    plot(ak, bk, 'b*');
-    xlim([-1.5 1.5]);
-    ylim([-1.5 1.5]);
-    title('Les constellations en sortie du mapping')
-    xlabel('I');
-    ylabel('Q');
-    
+plot(ak, bk, 'b*');
+xlim([-1.5 1.5]);
+ylim([-1.5 1.5]);
+title('Les constellations en sortie du mapping')
+xlabel('I');
+ylabel('Q');
+
 % Affichage du signal génerée sur la voie en phase
 figure ;
 plot(I);
@@ -157,7 +157,7 @@ for i = 0 : 6
     Puiss_sign = mean(abs(x) .^ 2);
     Puiss_bruit = Puiss_sign * Ns  / (2 * log2(4) * 10 .^ (i / 10));
     Bruit_gauss = (sqrt(Puiss_bruit) * randn(1, length(x))) + 1i * (sqrt(Puiss_bruit) * randn(1, length(x)));
-    y = x + Bruit_gauss; 
+    y = x + Bruit_gauss;
     
     % Filtrage de réception
     z = filter(h_r, 1, [y zeros(1,retard)]);
