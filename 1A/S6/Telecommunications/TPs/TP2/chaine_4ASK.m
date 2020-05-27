@@ -50,6 +50,15 @@ retard = (span * Ns) / 2;
 x = filter(h, 1, [Suite_diracs zeros(1, retard)]);
 x = x(retard + 1 : end);
 
+% Les constellations en sortie du mapping et de l’échantillonneur
+figure;
+plot(Symboles, 0, 'b*');
+xlim([-3.5 3.5]);
+ylim([-1 1]);
+title('Les constellations en sortie du mapping')
+xlabel('I');
+ylabel('Q');
+
 % Affichage du signal transmis après le filtrage de mise en forme
 figure;
 plot(x);
@@ -80,7 +89,7 @@ z = z(retard + 1 : end);
 % Affichage du signal reçu
 figure ;
 plot(z);
-axis([0 nb_bits - 1 -3 3]);
+axis([0 nb_bits - 1 -5 5]);
 title('Signal reçu z sans bruit');
 xlabel('Temps en secondes');
 ylabel('Signal reçu z');

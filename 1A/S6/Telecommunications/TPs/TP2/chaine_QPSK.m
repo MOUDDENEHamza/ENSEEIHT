@@ -60,6 +60,7 @@ Q = Q(retard + 1 : end);
 % Le signal transmis sur fréquence porteuse
 x =  I + 1i * Q;
 
+% Les constellations en sortie du mapping et de l’échantillonneur
 figure;
 plot(ak, bk, 'b*');
 xlim([-1.5 1.5]);
