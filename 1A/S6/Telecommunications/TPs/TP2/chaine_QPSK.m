@@ -60,6 +60,14 @@ Q = Q(retard + 1 : end);
 % Le signal transmis sur fréquence porteuse
 x =  I + 1i * Q;
 
+figure;
+    plot(ak, bk, 'b*');
+    xlim([-1.5 1.5]);
+    ylim([-1.5 1.5]);
+    title('Les constellations en sortie du mapping')
+    xlabel('I');
+    ylabel('Q');
+    
 % Affichage du signal génerée sur la voie en phase
 figure ;
 plot(I);

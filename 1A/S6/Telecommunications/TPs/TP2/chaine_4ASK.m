@@ -1,4 +1,4 @@
-%--------------------------------------------------------------------------
+%-------------------------------------------------------------------------
 % ENSEEIHT - 1SN - Télécommunications
 % TP2 - Etudes de chaines de transmission sur fréquence porteuse
 % chaine_4ASK.m
@@ -25,7 +25,7 @@ span = 8;
 fp = 2000;
 fc = 1500;
 Rs = 3000;
-nb_bits = 10000;
+nb_bits = 1000;
 Ns = floor(Fe / Rs);
 N = 50;
 
@@ -143,7 +143,7 @@ for i = 0 : 6
     xlim([-4 4])
     hold on;
     plot(Symboles, 0, 'b*');
-    legend('Les constellations en sortie du mapping','Les constellations en sortie de l’échantillonneur')
+    legend('Les constellations en sortie du mapping','Les constellations en sortie de l’échantillonneur');
     xlabel('I');
     ylabel('Q');
     
@@ -168,7 +168,6 @@ for i = 0 : 6
     % Taux d'erreurs binaires
     TEB(i + 1) = TES(i + 1) / 2;
 end
-
 %%
 % Comparaison entre le taux d’erreur binaire (TEB) obtenu en fonction Eb/N0
 % et le TEB théorique
