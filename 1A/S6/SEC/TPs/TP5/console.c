@@ -54,7 +54,6 @@ int main (int argc, char *argv[]) {
 
     char tubeC2S [TAILLE_NOM+5]; /* chemin tube de service client -> serveur = pseudo_c2s */
     char tubeS2C [TAILLE_NOM+5]; /* chemin tube de service serveur -> client = pseudo_s2c */
-    char pseudo [TAILLE_NOM];
     char message [TAILLE_MSG];
     char saisie [TAILLE_SAISIE];	/* tampon recevant la ligne saisie au clavier */
     char buf [TAILLE_RECEPTION];	/* tampon recevant les messages du tube s2c */
@@ -68,33 +67,32 @@ int main (int argc, char *argv[]) {
     /* ouverture du tube d'écoute */
     ecoute = open("./ecoute",O_WRONLY);
     if (ecoute==-1) {
-	printf("Le serveur doit être lance, et depuis le meme repertoire que le client\n");
-	exit(2);
-    }
-
-    /* création des tubes de service (à faire) */
+        printf("Le serveur doit être lance, et depuis le meme repertoire que le client\n");
+        exit(2);
+    }  
+      
+    /* création des tubes de service */
     sprintf(tubeC2S, "%s_C2S", argv[1]);
     sprintf(tubeS2C, "%s_S2C", argv[1]);
 
-    /* connexion (à faire) */
     /* Création des tubes nommés en accès écriture et lecture */
     mkfifo(tubeC2S, 0600);
     mkfifo(tubeS2C, 0600);
-
+  
     /* On envoie le pseudo au serveur */
-    write(ecoute, argv[1], strlen(argv[1]) + 1);
-
+    write(ecoute, argv[1], strlen(argv[1])+1);
+    
     /* Ouverture des tubes */
     if ((C2S = open(tubeC2S, O_WRONLY)) < 0){
-	perror("open C2S");
-	exit(3);
+      perror("open C2S");
+      exit(3);
     }
     if ((S2C = open(tubeS2C, O_RDONLY)) < 0){
-	perror("open S2C");
-	exit(4);
+      perror("open S2C");
+      exit(4);
     }
 
-    if (strcmp(pseudo,"fin")!=0) { /* "console fin" provoque la terminaison du serveur */
+    if (strcmp(argv[1], "fin") != 0) { /* "console fin" provoque la terminaison du serveur */
 	/* client "normal" */
 
 	/* initialisations (à faire) */
@@ -102,6 +100,7 @@ int main (int argc, char *argv[]) {
 	   au serveur ait eu lieu pour qu'il puisse effectuer l'ouverture des tubes de service
 	   de son côté, et ainsi permettre au client d'ouvrir les tubes sans être bloqué */
 
+	strcpy(saisie, "");
 	while (strcmp(saisie,"au revoir")!=0) {
 	    /* boucle principale (à faire) :
 	     * récupérer les messages reçus éventuels, puis les afficher.
@@ -144,17 +143,17 @@ int main (int argc, char *argv[]) {
 		    bzero(message, TAILLE_MSG);
 		    bzero(saisie, TAILLE_SAISIE);
 		    read(0, saisie, TAILLE_SAISIE);
-		    sprintf(message, "[%s] %s", pseudo, saisie);
+		    sprintf(message, "[%s] %s", argv[1], saisie);
 		    write(C2S, message, TAILLE_MSG);
 		}
 	    }
 	}
+    	/* nettoyage des tubes de service (à faire) */
+    	unlink(tubeC2S);
+    	unlink(tubeS2C);
+    	printf("fin client\n");
+    	exit (0);
     }
-    /* nettoyage des tubes de service (à faire) */
-    unlink(tubeC2S);
-    unlink(tubeS2C);
-    printf("fin client\n");
-    exit (0);
 }
 
 /* Note

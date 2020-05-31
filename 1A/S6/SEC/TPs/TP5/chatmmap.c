@@ -43,7 +43,7 @@ void afficher() {
     // Nettoyage de l'affichage simple, à défaut d'être efficace.
     system("clear");
     printf("==============================(discussion)==============================\n");
-    for (i=1; i<NB_LIGNES; i++) {
+    for (i = 1; i < NB_LIGNES; i++) {
 	printf("[%s] : %s\n", discussion[i].auteur, discussion[i].texte);
     }
     printf("------------------------------------------------------------------------\n");
@@ -51,13 +51,14 @@ void afficher() {
 
 /* Traitant : rafraichir la discussion, s'il y a lieu, toutes les secondes.
  */
+/* traitant : rafraichir la discussion, s'il y a lieu */
 void traitant (struct message m) {
-    int i;
-    m.numero = (discussion[NB_LIGNES-1].numero) + 1;
-    for (i=0; i<(NB_LIGNES-1); i++) {
-	discussion[i]=discussion[i+1];
-    }
-    discussion[NB_LIGNES-1] = m;
+  int i;
+  m.numero = (discussion[NB_LIGNES-1].numero) + 1;
+  for (i=0; i<(NB_LIGNES-1); i++) {
+    discussion[i]=discussion[i+1];
+  }
+  discussion[NB_LIGNES-1] = m;
 }
 
 int main (int argc, char *argv[]) {

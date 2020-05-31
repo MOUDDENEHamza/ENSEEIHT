@@ -67,7 +67,7 @@ void desactiver (int p) {
     effacer(p);
 
     /* Signaler sa disparition */
-    //diffuser("[%s] a quitté la conversation.\n",participants[p].nom);		//Erreur de compilation...
+    diffuser("[%s] a quitté la conversation.\n",participants[p].nom);
 
     /* On retranche 1 au nombre de particpants actifs */
     nbactifs--;
@@ -155,90 +155,56 @@ sont fixées pour qu'il n'y ait pas de message tronqué, ce qui serait  pénible
 	}
 
 	/* Ecouter les file descriptor */
-	res = select(NBDESC, &readfds, NULL, NULL, NULL);
-	if (res < 0) {
-	    perror("Erreur appel select serveur\n");
-	    exit(1);
-	}
+	res= select(NBDESC, &readfds, NULL, NULL, NULL);
 
-	else if (res > 0) {
-	    printf("1\n");
-	    if (FD_ISSET(ecoute,&readfds)) {
-		/** Message pret dans le tube d'écoute **/
-		bzero(pseudo, TAILLE_NOM);   // Vider le tampon de pseudo
-		if (nbactifs < MAXPARTICIPANTS) {
-		    int rd = read(ecoute,pseudo,TAILLE_NOM);
-		    if (rd == -1) {
-			perror("Erreur de lecture sur le tube d'écoute\n");
-			exit(1);
+	if (res > 0) {
+
+	    /* On transfert les messages aux clients */
+	    for (i=0; i<nbactifs; i++) {
+		/* Si on a reçu un message d'un client */
+		if (FD_ISSET(participants[i].in, &readfds)) {
+		    bzero(buf, TAILLE_RECEPTION);
+		    /* On lit ce message */
+		    if (read(participants[i].in, buf, TAILLE_RECEPTION) < 0) {
+			perror("Lecture de message client");
+			exit(6);
 		    } else {
-			ajouter(pseudo); // Ajout du nouveau client
-			bzero(buf, TAILLE_MSG);
-			sprintf(buf,"%s a rejoint la conversation\n", pseudo);
 			diffuser(buf);
 		    }
-		} else {
-		    continue;
-		    // Gerer le cas ou le nombre de participants est superieur
 		}
-	    } else {
-		/* On transfert les messages aux clients */
-		for (i = 0; i < nbactifs; i++) {
-		    /* Si on a reçu un message d'un client */
-		    printf("1.5\n");
-		    if (FD_ISSET(participants[i].in, &readfds)) {
-			printf("2\n");
-			bzero(buf, TAILLE_RECEPTION);
-			/* On lit ce message */
-			printf("3\n");
-			if (read(participants[i].in, buf, TAILLE_RECEPTION) < 0) {
-			    perror("Lecture de message client");
-			    exit(6);
-			} 
-			int b = strlen(participants[i].nom) + 3;
-			if (strcmp(&buf[b],"au revoir\n") == 0) {
-			    bzero(buf, TAILLE_MSG);
-			    sprintf(buf,"%s a quitté la conversation\n", participants[i].nom);
-			    diffuser(buf);
-			    desactiver(i);
+	    }
+
+	    /* Si le tube ecoute a reçu un message */
+	    if (FD_ISSET(ecoute, &readfds)) {
+		bzero(pseudo,TAILLE_NOM);
+		/* Gestion des nouveaux participants */
+		if (nbactifs < MAXPARTICIPANTS) {
+		    /* On lit ce qu'on reçoit sur le tube d'écoute */
+		    if (read(ecoute, pseudo, TAILLE_NOM) < 0) {
+			perror("Fin de conversation\n");
+			exit(4);
+		    } else {
+			/* Si on n'a pas d'erreur de lecture */
+			/* Si on reçoit Fin : on termine la conversation */
+			if (strcmp(pseudo, "fin") == 0) {
+			    printf("Terminaison de la conversation.\n"); 
+			    /* nettoyage */
+			    close(ecoute);
+      			    unlink("./ecoute");
+			    exit(0);
 			} else {
-			    diffuser(buf);
+			    /* Sinon on ajoute le participant */
+			    ajouter(pseudo);
+			    printf("%s a rejoint la conversation.\n",pseudo);
 			}
 		    }
-		}
-	    }}
-	/* Si le tube ecoute a reçu un message */
-	if (FD_ISSET(ecoute, &readfds)) {
-	    bzero(pseudo, TAILLE_NOM);
-	    /* Gestion des nouveaux participants */
-	    if (nbactifs < MAXPARTICIPANTS) {
-		/* On lit ce qu'on reçoit sur le tube d'écoute */
-		if (read(ecoute, argv[1], TAILLE_NOM) < 0) {
-		    perror("Fin de conversation\n");
-		    exit(4);
 		} else {
-		    /* Si on n'a pas d'erreur de lecture */
-		    /* Si on reçoit Fin : on termine la conversation */
-		    if (strcmp(argv[1], "fin") == 0) {
-			printf("Terminaison de la conversation.\n"); 
-			exit(3);
-		    } else {
-			/* Sinon on ajoute le participant */
-			ajouter(argv[1]);
-			printf("%s a rejoint la conversation.\n", argv[1]);
-		    }
+		    /* Si le chat est plein, on notifie l'utilisateur */
+		    printf("Le chat est plein, veuillez patienter.\n");
 		}
-	    } else {
-		/* Si le chat est plein, on notifie l'utilisateur */
-		printf("Le chat est plein, veuillez patienter.\n");
 	    }
+
 	}
-
     }
-
-
-    /* nettoyage */
-    /*close(ecoute);
-      unlink("./ecoute");*/
     return 0;
 }
