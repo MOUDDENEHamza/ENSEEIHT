@@ -43,6 +43,7 @@ void afficher(int depart) {
     printf("------------------------------------------------------------------------\n");
 }
 
+
 int main (int argc, char *argv[]) {
     int i,nlus,necrits;
     char * buf0;						/* pour parcourir le contenu reçu d'un tube */
@@ -54,6 +55,7 @@ int main (int argc, char *argv[]) {
 
     char tubeC2S [TAILLE_NOM+5]; /* chemin tube de service client -> serveur = pseudo_c2s */
     char tubeS2C [TAILLE_NOM+5]; /* chemin tube de service serveur -> client = pseudo_s2c */
+    char pseudo [TAILLE_NOM];
     char message [TAILLE_MSG];
     char saisie [TAILLE_SAISIE];	/* tampon recevant la ligne saisie au clavier */
     char buf [TAILLE_RECEPTION];	/* tampon recevant les messages du tube s2c */
@@ -67,101 +69,108 @@ int main (int argc, char *argv[]) {
     /* ouverture du tube d'écoute */
     ecoute = open("./ecoute",O_WRONLY);
     if (ecoute==-1) {
-        printf("Le serveur doit être lance, et depuis le meme repertoire que le client\n");
-        exit(2);
-    }  
-      
-    /* création des tubes de service */
-    sprintf(tubeC2S, "%s_C2S", argv[1]);
-    sprintf(tubeS2C, "%s_S2C", argv[1]);
-
-    /* Création des tubes nommés en accès écriture et lecture */
-    mkfifo(tubeC2S, 0600);
-    mkfifo(tubeS2C, 0600);
-  
-    /* On envoie le pseudo au serveur */
-    write(ecoute, argv[1], strlen(argv[1])+1);
-    
-    /* Ouverture des tubes */
-    if ((C2S = open(tubeC2S, O_WRONLY)) < 0){
-      perror("open C2S");
-      exit(3);
+	printf("Le serveur doit être lance, et depuis le meme repertoire que le client\n");
+	exit(2);
     }
-    if ((S2C = open(tubeS2C, O_RDONLY)) < 0){
-      perror("open S2C");
-      exit(4);
+    /* Initialisation du pseudo*/
+    strcpy(pseudo, argv[1]);
+
+    /* création des tubes de service (à faire) */
+    sprintf(tubeC2S, "%s_C2S", pseudo);
+    sprintf(tubeS2C, "%s_S2C", pseudo);
+
+    int m1 = mkfifo(tubeC2S, 0600);
+    int m2 = mkfifo(tubeS2C, 0600);
+    if (m1 == -1) {
+	perror("Erreur creation tube client --> serveur\n");
+	exit(1);
+    }
+    if (m2 == -1) {
+	perror("Erreur creation tube serveur --> client\n");
+	exit(1);
+    }
+    /* connexion */
+    int w = write(ecoute, pseudo, strlen(pseudo) +1);
+    if (w == -1 ) {
+	perror("Erreur ecriture du pseudo dans le tube\n");
+	exit(1);
     }
 
-    if (strcmp(argv[1], "fin") != 0) { /* "console fin" provoque la terminaison du serveur */
+
+    if (strcmp(pseudo,"fin")!=0) { 
+	/* "console fin" provoque la terminaison du serveur */
 	/* client "normal" */
 
-	/* initialisations (à faire) */
+	/* initialisations */
+	strcpy(saisie,"");
+	C2S = open(tubeC2S, O_WRONLY);
+	if (C2S == -1) {
+	    perror("Erreur ouverture tube client --> serveur\n");
+	    exit(1);
+	}
+	S2C = open(tubeS2C, O_RDONLY);
+	if (S2C == -1) {
+	    perror("Erreur ouverture tube serveur --> client\n");
+	    exit(1);
+	}
+
 	/* ouverture des tubes de service seulement ici  car il faut que la connexion 
 	   au serveur ait eu lieu pour qu'il puisse effectuer l'ouverture des tubes de service
 	   de son côté, et ainsi permettre au client d'ouvrir les tubes sans être bloqué */
-
-	strcpy(saisie, "");
 	while (strcmp(saisie,"au revoir")!=0) {
-	    /* boucle principale (à faire) :
-	     * récupérer les messages reçus éventuels, puis les afficher.
-	     - tous les messages comportent TAILLE_MSG caractères, et les constantes
-	     sont fixées pour qu'il n'y ait pas de message tronqué, ce qui serait
-	     pénible à gérer.
-	     - lors de l'affichage, penser à effacer les lignes avant de les affecter
-	     pour éviter l'affichages de caractères parasites si l'ancienne ligne est
-	     plus longue que la nouvelle.
-	     * récupérer la ligne saisie éventuelle, puis l'envoyer
-	     */
-
-	    /* Préparation au select a suivre */
+	    /**Preparation du tampon fd_set du select **/
 	    FD_ZERO(&readfds);
-	    FD_SET(S2C, &readfds);
-	    FD_SET(0, &readfds);
-	    i = select(NBDESC, &readfds, NULL, NULL, NULL);
-	    if (i > 0) {
-		/* Si un canal est prêt */
-		if (FD_ISSET(S2C, &readfds)) {
-		    bzero(message, TAILLE_MSG);
-		    /* Lecture du message */
-		    if ((read(S2C, message, TAILLE_MSG)) < 0) {
-			perror("deconnexion serveur");
-		    } else {
-			/* Affichage du message */
-			strcpy(discussion[curseur], message);
-			afficher(curseur);
-			/* Positionner le curseur */
-			if(curseur < NB_LIGNES){
-			    curseur++;
-			} else {
-			    curseur = 0;
-			}
-		    }
+	    FD_SET(0,&readfds);   //Ajout du descripteur de l'entrée standard (clavier)
+	    FD_SET(S2C,&readfds);  // Ajout du descripteur du tube serveur --> client
+
+	    /** Appel de la primitive select **/
+	    int val_select = select(NBDESC, &readfds, NULL, NULL, NULL);
+
+	    if (val_select == -1) {
+		perror("Erreur appel select dans le client ");
+		exit(1);
+	    } else if (FD_ISSET(S2C, &readfds)) {
+		/** Tube serveur - client pret **/
+		bzero(message, TAILLE_MSG);
+		nlus = read(S2C,message,TAILLE_MSG);
+		if (nlus == -1) {
+		    perror("Erreur lecture message");
+		    exit(1);
 		}
-		/* Si l'écran est prêt */
-		if (FD_ISSET(0, &readfds)) {
-		    /* transmission du message au serveur */
-		    bzero(message, TAILLE_MSG);
-		    bzero(saisie, TAILLE_SAISIE);
-		    read(0, saisie, TAILLE_SAISIE);
-		    sprintf(message, "[%s] %s", argv[1], saisie);
-		    write(C2S, message, TAILLE_MSG);
+		/** Enregistrement et affichage du message**/
+		strcpy(discussion[curseur],message);
+		afficher(curseur);
+		if (curseur < NB_LIGNES) {
+		    curseur++;
+		} else {
+		    curseur = 0; 
+		}
+
+	    } else if (FD_ISSET(0,&readfds)) {
+		/**  Ecran pret **/
+
+		/* Vider les tampons de saisie et de message*/
+		bzero(message,TAILLE_MSG);
+		bzero(saisie,TAILLE_SAISIE);
+		nlus = read(0,saisie,TAILLE_SAISIE);
+		if (nlus == -1) {
+		    perror("Erreur lecture");
+		    exit(1);
+		}
+		/**Envoyer les messages de la saisie au serveur **/
+		sprintf(message, "[%s] %s", pseudo, saisie);
+		necrits = write(C2S, message, TAILLE_MSG);
+		if (necrits == -1) {
+		    perror("Erreur ecriture tube");
+		    exit(1);
 		}
 	    }
 	}
-    	/* nettoyage des tubes de service (à faire) */
-    	unlink(tubeC2S);
-    	unlink(tubeS2C);
-    	printf("fin client\n");
-    	exit (0);
     }
-}
+    /* nettoyage des tubes de service */
+    close(S2C);
+    close(C2S);
+    unlink(S2C);
+    unlink(C2S);
 
-/* Note
- * (1) :	Pour éviter un appel de system() à chaque affichage, une solution serait,
- à l'initialisation du main(), d'appeler system("clear > nettoie"), pour récupérer
- la séquence spécifique au terminal du client permettant d'effacer l'affichage, 
- puis d'ouvrir nettoie en écriture, pour en écrire le contenu à chaque affichage.
- Cependant, le surcoût n'est pas vraiment critique ici pour l'application.
- Le principe (donné dans le sujet) est que tous les processus ouvrent les tubes
- dans le même ordre, pour éviter un interblocage (méthode des classes ordonnées).
- */
+}

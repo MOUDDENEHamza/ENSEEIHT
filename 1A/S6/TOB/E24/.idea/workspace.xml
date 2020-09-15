@@ -2,254 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9cb67cdb-e244-4354-a1f9-578f15e2aafa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/TPs/TP5/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../SEC/TPs/TP5/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/TPs/TP5/chatmmap.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../SEC/TPs/TP5/chatmmap.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/TPs/TP5/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../SEC/TPs/TP5/console.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/TPs/TP5/serveur.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../SEC/TPs/TP5/serveur.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/mini_shell/command_process.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/mini_shell/display_shell.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/mini_shell/linked_list.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/mini_shell/main" beforeDir="false" afterPath="$PROJECT_DIR$/../../SEC/mini_shell/main" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/mini_shell/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SEC/mini_shell/readcmd.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E24.iml" beforeDir="false" afterPath="$PROJECT_DIR$/E24.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVN.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/AccountDetails$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/AccountDetails$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/AccountDetails$ActionEdit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/AccountDetails$ActionReturn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/AccountDetails$ActionSave.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/AccountDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Api.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceDepositStateSwing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceDepositStateSwing$Back.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceDepositStateSwing$Consult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceDepositStateSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceMonthsToCompare$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceMonthsToCompare$Back.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceMonthsToCompare$Consult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ChoiceMonthsToCompare.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Choix.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ComparaisonMonthEarningsSwing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ComparaisonMonthEarningsSwing$Refresh.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ComparaisonMonthEarningsSwing$Return.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ComparaisonMonthEarningsSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$Refresh.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$Return.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders$actionClear.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/CurrentOrders.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Customer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Date1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DepositStatementSwing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DepositStatementSwing$Refresh.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DepositStatementSwing$Return.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DepositStatementSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing$ActionBack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing$ActionChoose1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing$ActionChoose2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing$ActionChoose3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing$ActionChoose4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DessertSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Dish.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Dish1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DishIngredient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/DishSize.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Employee.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$CreateEmployee.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$OpenCurrentOrders.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$OpenFinancialState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$OpenStock.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$ShowAccDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$SignOut.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface$showOldOrders.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EmployeeRank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing$ActionBack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing$ActionChoose1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing$ActionChoose2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing$ActionChoose3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing$ActionChoose4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/EntreeSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/ExpensesComparaison.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$Back.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing$Consult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FinancialStateSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/FullOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/GUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/HalfOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/History.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/HistorySwing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/HistorySwing$Refresh.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/HistorySwing$Return.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/HistorySwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home$Start.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Home.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Ingredient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/InventoryManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/META-INF/SVN.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Menu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionCancelOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionDessert.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionEntree.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionPay.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionPlatPrincipal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionRewardPoint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionShowAccDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionShowHistory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing$ActionSignOut.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/MenuSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Months.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Observer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$MyTableRenderer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$Refresh.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$Return.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$ScrollTableCellEditor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders$actionClear.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OldOrders.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OperationsFinancialState$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OperationsFinancialState$Back.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OperationsFinancialState$DepositeStatement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OperationsFinancialState$History.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OperationsFinancialState$Monthly_Gain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OperationsFinancialState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/OrderingSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Payment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Plat$Etat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Plat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing$ActionBack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing$ActionChoose1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing$ActionChoose2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing$ActionChoose3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing$ActionChoose4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatPrincipauxSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PlatResto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PopUpMenu$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PopUpMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$Refresh.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$Return.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory$actionClear.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/PurchaseHistory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Quantity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/RewardPointSwing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/RewardPoints.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/Security.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$Exit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$Submit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$asGuest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn$signUp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignIn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignUp$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignUp$generateUsername.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SignUp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/SuperSizeOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/TestHistory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/User$Genders.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/production/E24/UserInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/inventory.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/langueEn.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/langueEn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/langueFr.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/langueFr.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/operation.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/operation.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gson-2.8.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livrables/manuel-utilisateur3.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/livrables/manuel-utilisateur3.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livrables/rapport3-ysaoudi.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/livrables/rapport3-ysaoudi.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livrables/rapport3.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/livrables/rapport3.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livrables/repartition.txt" beforeDir="false" afterPath="$PROJECT_DIR$/livrables/repartition.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/burger.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/friedChicken.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/hello.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/homeBackground.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/operation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/pizza.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/sushi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/tartiflette.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/tortilla.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AccountDetails.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Api.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChoiceDepositStateSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChoiceMonthsToCompare.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Choix.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ComparaisonMonthEarningsSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CurrentOrders.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Date1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DepositStatementSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DessertSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dish.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dish1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DishIngredient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DishSize.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Employee.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmployeeInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmployeeRank.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EntreeSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ExpensesComparaison.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FinancialState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FinancialStateMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FinancialStateSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FullOrder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HalfOrder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/History.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HistorySwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Home.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ingredient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InventoryManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Menu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MenuSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Months.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Observer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OldOrders.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OperationsFinancialState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OrderingSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Plat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlatPrincipauxSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlatResto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PopUpMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PurchaseHistory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Quantity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RewardPointSwing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RewardPoints.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SignIn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SignUp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SuperSizeOrder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -259,16 +22,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/employee/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5027">
-              <caret line="127" column="28" lean-forward="true" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
-              <folding>
-                <element signature="e#20611#20612#0" expanded="true" />
-                <element signature="e#20639#20640#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="17">
+              <caret line="127" column="28" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -276,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="43" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
+            <state relative-caret-position="51">
+              <caret line="3" column="43" selection-start-line="15" selection-start-column="4" selection-end-line="17" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -285,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/employee/EmployeeInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="60" column="20" lean-forward="true" selection-start-line="59" selection-start-column="8" selection-end-line="61" selection-end-column="62" />
+            <state relative-caret-position="850">
+              <caret line="60" column="20" selection-start-line="59" selection-start-column="8" selection-end-line="61" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -318,6 +77,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -352,7 +112,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -436,11 +195,14 @@
       <option name="presentableId" value="Default" />
       <updated>1590328937950</updated>
       <workItem from="1590328943629" duration="12513000" />
+      <workItem from="1591290624050" duration="583000" />
+      <workItem from="1591297506156" duration="596000" />
+      <workItem from="1591713791131" duration="27000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12513000" />
+    <option name="totallyTimeSpent" value="13719000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="72" y="57" width="1608" height="1023" extended-state="6" />
@@ -452,7 +214,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Learn" order="4" />
       <window_info id="Designer" order="5" />
-      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.2496799" />
+      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.25928298" />
       <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -540,13 +302,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/operation.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/employee/FinancialState.java">
@@ -584,28 +346,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="127" column="28" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="43" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
+        <state relative-caret-position="51">
+          <caret line="3" column="43" selection-start-line="15" selection-start-column="4" selection-end-line="17" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/employee/EmployeeInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="60" column="20" lean-forward="true" selection-start-line="59" selection-start-column="8" selection-end-line="61" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5027">
-          <caret line="127" column="28" lean-forward="true" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
-          <folding>
-            <element signature="e#20611#20612#0" expanded="true" />
-            <element signature="e#20639#20640#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="850">
+          <caret line="60" column="20" selection-start-line="59" selection-start-column="8" selection-end-line="61" selection-end-column="62" />
         </state>
       </provider>
     </entry>

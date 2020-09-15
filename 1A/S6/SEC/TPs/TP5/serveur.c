@@ -45,83 +45,92 @@ int nbactifs = 0;
 
 void effacer(int i) { /* efface le descripteur pour le participant i */
     participants[i].actif = false;
-    bzero(participants[i].nom, TAILLE_NOM * sizeof(char));
+    bzero(participants[i].nom, TAILLE_NOM*sizeof(char));
     participants[i].in = -1;
     participants[i].out = -1;
 }
 
 void diffuser(char *dep) { /* envoi du message référencé par dep à tous les actifs */
     int i;
-    for(i = 0; i < nbactifs; i++){
-	write(participants[i].out, dep, TAILLE_MSG);
+    for (i = 0; i< nbactifs ; i++) {
+	int w = write(participants[i].out, dep , TAILLE_MSG*sizeof(char));
+	if (w == -1) {
+	    perror("Erreur diffusion\n");
+	    exit(1);
+	}
     }
 }
 
 void desactiver (int p) {
     /* traitement d'un participant déconnecté (à faire) */
+	int i;
+
     /* Fermer les tubes */
     close(participants[p].in);
     close(participants[p].out);
 
-    /* Effacer le participant */
+
+    /* Effacer le tube de la table des participants */
     effacer(p);
 
-    /* Signaler sa disparition */
-    diffuser("[%s] a quitté la conversation.\n",participants[p].nom);
-
-    /* On retranche 1 au nombre de particpants actifs */
-    nbactifs--;
-
-    /* On actualise l'indice des participants */
-    if (p != nbactifs) {
-	participants[p] = participants[nbactifs];
+    /* Mettre a jour la table des participants */
+    participants[nbactifs] = participants[p];
+    for (i=p; i< nbactifs; i++) {
+	participants[i] = participants[i+1];
     }
+    unlink(participants[nbactifs-1].in);
+    unlink(participants[nbactifs-1].out);
+    nbactifs--;	
 }
 
 void ajouter(char *dep) { // traite la demande de connexion du pseudo référencé par dep
     /*  Si le participant est "fin", termine le serveur (et gère la terminaison proprement)
 	Sinon, ajoute le participant de pseudo référencé par dep
-	(à faire)
      */
-    int C2S, S2C;
-    char tubeC2S[TAILLE_NOM+5];
-    char tubeS2C[TAILLE_NOM+5];
-    char err_msg[80];
+    int cmp = strcmp(dep, "fin");
+    if (cmp == 0) {
+	// Terminer le serveur
+	exit(0);
+    } else {
+	/* ajouter le participant */
+	int C2S, S2C;
+	char tubeC2S [TAILLE_NOM+5]; 
+	char tubeS2C [TAILLE_NOM+5]; 
 
-    /* Création des tubes nommés */
-    sprintf(tubeC2S, "%s_C2S", dep);
-    sprintf(tubeS2C, "%s_S2C", dep);
 
-    /* Ouverture des tubes nommés */
-    if ((C2S = open(tubeC2S, O_RDONLY)) < 0){		//Tube cient vers serveur
-	sprintf(err_msg, "open C2S: %s\n", tubeC2S);
-	perror(err_msg);
-	exit(1);
+	sprintf(tubeC2S, "%s_C2S", dep);
+	sprintf(tubeS2C, "%s_S2C", dep);
+
+	// Ouverture
+	C2S = open(tubeC2S, O_RDONLY);
+	if (C2S == -1) {
+	    perror("Erreur d'ouverture du tube client -> serveur\n");
+	    exit(1);
+	}
+
+	S2C = open(tubeS2C, O_WRONLY);
+	if (S2C == -1) {
+	    perror("Erreur d'ouverture du tube serveur -> client\n");
+	    exit(1);
+	}
+
+	nbactifs++;
+	participants[nbactifs-1].actif = true;
+	strcpy(participants[nbactifs-1].nom, dep);
+	participants[nbactifs-1].in = C2S;
+	participants[nbactifs-1].out = S2C;
+
     }
-    if ((S2C = open(tubeS2C, O_WRONLY, 0666)) < 0){		//Tube serveur vers client
-	sprintf(err_msg, "open S2C: %s\n", tubeS2C);
-	perror(err_msg);
-	exit(4);
-    }
-
-    /* Actualiser la structure participants */
-    participants[nbactifs].actif = true;
-    strcpy(participants[nbactifs].nom, dep);
-    participants[nbactifs].in = C2S;
-    participants[nbactifs].out = S2C;
-
-    /* On augment le nombre de participants de 1*/
-    nbactifs++;
 }
-
 int main (int argc, char *argv[]) {
-    int i,nlus,necrits,res;
+    int i,nlus,necrits,res,k;
     int ecoute;					/* descripteur d'écoute */
     fd_set readfds; 		/* ensemble de descripteurs écoutés par le select */
     char * buf0; 				/* pour parcourir le contenu du tampon de réception */
     char bufDemandes [TAILLE_NOM*sizeof(char)*MAXPARTICIPANTS]; 
     /* tampon requêtes de connexion. Inutile de lire plus de MAXPARTICIPANTS requêtes */
     char pseudo[TAILLE_NOM];	// Pseudo entré
+
     /* création (puis ouverture) du tube d'écoute */
     mkfifo("./ecoute",S_IRUSR|S_IWUSR); // mmnémoniques sys/stat.h: S_IRUSR|S_IWUSR = 0600
     ecoute=open("./ecoute",O_RDONLY);
@@ -133,78 +142,63 @@ int main (int argc, char *argv[]) {
     while (true) {
 	printf("participants actifs : %d\n",nbactifs);
 
-	/* boucle du serveur : traiter les requêtes en attente 
-	 * sur le tube d'écoute : lorsqu'il y a moins de MAXPARTICIPANTS actifs.
-	 ajouter de nouveaux participants et les tubes d'entrée.			  
-	 * sur les tubes de service : lire les messages sur les tubes c2s, et les diffuser.
-Note : tous les messages comportent TAILLE_MSG caractères, et les constantes
-sont fixées pour qu'il n'y ait pas de message tronqué, ce qui serait  pénible 
-à gérer. Enfin, on ne traite pas plus de TAILLE_RECEPTION/TAILLE_MSG*sizeof(char)
-à chaque fois.
-- dans le cas où la terminaison d'un participant est détectée, gérer sa déconnexion
-
-(à faire)
-	 */
-	/* Initialisation du tube nommé d'écoute */
+	// Preparation du tampoon fd_set du SELECT
 	FD_ZERO(&readfds);
-	FD_SET(ecoute, &readfds);
-
-	/* Pour chaque participant actif : on rend prêt l'écouteur */
+	FD_SET(ecoute, &readfds);   // Ajout du descripteur d'ecoute
+	/** Ajout des descripteurs des participants actifs **/
 	for (i=0; i<nbactifs; i++) {
 	    FD_SET(participants[i].in, &readfds);
 	}
 
-	/* Ecouter les file descriptor */
-	res= select(NBDESC, &readfds, NULL, NULL, NULL);
-
-	if (res > 0) {
-
-	    /* On transfert les messages aux clients */
-	    for (i=0; i<nbactifs; i++) {
-		/* Si on a reçu un message d'un client */
-		if (FD_ISSET(participants[i].in, &readfds)) {
-		    bzero(buf, TAILLE_RECEPTION);
-		    /* On lit ce message */
-		    if (read(participants[i].in, buf, TAILLE_RECEPTION) < 0) {
-			perror("Lecture de message client");
-			exit(6);
-		    } else {
-			diffuser(buf);
-		    }
-		}
-	    }
-
-	    /* Si le tube ecoute a reçu un message */
-	    if (FD_ISSET(ecoute, &readfds)) {
-		bzero(pseudo,TAILLE_NOM);
-		/* Gestion des nouveaux participants */
+	/** Appel de la primitive select **/
+	int val_select = select(NBDESC, &readfds,NULL,NULL,NULL);
+	if (val_select == -1) {
+	    perror("Erreur appel select serveur\n");
+	    exit(1);
+	} else if (val_select>0) {
+	    if (FD_ISSET(ecoute,&readfds)) {
+		/** Message pret dans le tube d'écoute **/
+		bzero(pseudo, TAILLE_NOM);   // Vider le tampon de pseudo
 		if (nbactifs < MAXPARTICIPANTS) {
-		    /* On lit ce qu'on reçoit sur le tube d'écoute */
-		    if (read(ecoute, pseudo, TAILLE_NOM) < 0) {
-			perror("Fin de conversation\n");
-			exit(4);
+		    int rd = read(ecoute,pseudo,TAILLE_NOM);
+		    if (rd == -1) {
+			perror("Erreur de lecture sur le tube d'écoute\n");
+			exit(1);
 		    } else {
-			/* Si on n'a pas d'erreur de lecture */
-			/* Si on reçoit Fin : on termine la conversation */
-			if (strcmp(pseudo, "fin") == 0) {
-			    printf("Terminaison de la conversation.\n"); 
-			    /* nettoyage */
-			    close(ecoute);
-      			    unlink("./ecoute");
-			    exit(0);
-			} else {
-			    /* Sinon on ajoute le participant */
-			    ajouter(pseudo);
-			    printf("%s a rejoint la conversation.\n",pseudo);
-			}
+			ajouter(pseudo); // Ajout du nouveau client
+			bzero(buf, TAILLE_MSG);
+			sprintf(buf,"%s a rejoint la conversation\n", pseudo);
+			diffuser(buf);
+
 		    }
 		} else {
-		    /* Si le chat est plein, on notifie l'utilisateur */
-		    printf("Le chat est plein, veuillez patienter.\n");
+		    continue;
+		    // Gerer le cas ou le nombre de participants est superieur
+		}
+	    } else {
+		for (k = 0; k<nbactifs; k++) {
+		    if (FD_ISSET(participants[k].in, &readfds)) {
+			/** Message pret pour un participant**/
+			bzero(buf, TAILLE_MSG);
+			int rdp = read(participants[k].in, buf, TAILLE_MSG);
+			if (rdp == -1) {
+			    perror("Erreur lecture message participants");
+			    exit(1);
+			}
+			int b = strlen(participants[k].nom) + 3;
+			if (strcmp(&buf[b],"au revoir\n") == 0) {
+			    bzero(buf, TAILLE_MSG);
+			    sprintf(buf,"%s a quitté la conversation\n", participants[k].nom);
+			    diffuser(buf);
+			    desactiver(k);
+			} else {
+			    diffuser(buf);
+			}
+		    }
 		}
 	    }
-
 	}
     }
     return 0;
 }
+

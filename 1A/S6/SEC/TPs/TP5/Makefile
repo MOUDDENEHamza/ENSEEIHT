@@ -10,6 +10,6 @@ compile : $(SRC)
 	$(GCC) serveur.c $(FLAG) serveur
 
 clean :
-	$(RM) $(BIN) *_S2C *_C2S
+	$(RM) $(BIN) ecoute *_S2C *_C2S
 
 .PHONY : clean
