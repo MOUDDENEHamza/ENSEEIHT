@@ -1,0 +1,7 @@
+EXCLUDE_QUERY_DIR
+B /usr/lib/ocaml
+B _build/default/.tp1.objs/byte
+S /usr/lib/ocaml
+S .
+FLG -ppx ''\''/home/hamza/Desktop/ENSEEIHT/2A/S7/Programmation Fonctionnelle/TP/TP1/_build/default/.ppx/b9cd4cde10e1e3e883032dd57f86c54d/ppx.exe'\'' --as-ppx --cookie '\''library-name="tp1"'\'''
+FLG -open Tp1 -w -40

@@ -33,7 +33,16 @@ let%test _ = coeff_directeur (1., 2.) (2., 1.) = -1.
 (* i : l'indice de l'élèment dans le triplet *)
 (* renvoie le ième élément t *)
 (* précondition : 1 =< i =< 3 *)
-let ieme t i =  failwith "TO DO"
+let ieme t i =  
+   let (item1, item2, item3) = t in
+  if i = 1 then
+    item1 
+  else  
+    
+  if i = 2 then
+    item2
+  else 
+    item3
 
 let%test _ = ieme (5,60,7) 1 = 5
 let%test _ = ieme (5,60,17) 2 = 60

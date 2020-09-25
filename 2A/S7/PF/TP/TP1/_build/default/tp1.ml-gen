@@ -1,0 +1,11 @@
+(** @canonical Tp1.Affichage *)
+module Affichage = Tp1__Affichage
+
+(** @canonical Tp1.Fact *)
+module Fact = Tp1__Fact
+
+(** @canonical Tp1.Pgcd *)
+module Pgcd = Tp1__Pgcd
+
+(** @canonical Tp1.Tp *)
+module Tp = Tp1__Tp

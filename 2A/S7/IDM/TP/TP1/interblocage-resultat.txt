@@ -1,0 +1,83 @@
+Tina version 2.8.0 -- 03/14/06 -- LAAS/CNRS
+
+mode -R
+
+INPUT NET ------------------------------------------------------- 
+
+parsed net noname
+
+## Description textuelle du reseau (voir FAQ) 
+
+5 places, 4 transitions
+
+net noname
+tr OqpA A idle -> WaitB 
+tr OqpAB B WaitB -> A B idle 
+tr OqpB B idle -> WaitA 
+tr OqpBA A WaitA -> A B idle 
+pl A (1)
+pl B (1)
+pl idle (2)
+
+0.000s
+
+
+REACHABILITY ANALYSIS ------------------------------------------- 
+
+bounded 
+## Reseau Borne 
+
+4 marking(s), 6 transition(s)
+## Le graphe des marquages est constitué
+## de 4 états (marquages) et 6 transitions
+
+MARKINGS:
+
+## Liste des marquages
+
+0 : A B idle*2
+1 : B WaitB idle
+2 : WaitA WaitB
+3 : A WaitA idle
+
+## Liste des transitions
+
+REACHABILITY GRAPH:
+
+0 -> OqpA/1, OqpB/3
+1 -> OqpAB/0, OqpB/2
+2 -> 
+3 -> OqpA/2, OqpBA/0
+
+0.000s
+
+LIVENESS ANALYSIS ----------------------------------------------- 
+
+not live
+## reseau non vivant
+
+1 dead marking(s), 1 live marking(s)
+0 dead transition(s), 0 live transition(s)
+
+dead marking(s): 2
+## un marquage bloquant 
+
+## Analyse des composantes fortements connexes 
+## A voir si on a du temps.
+
+STRONG CONNECTED COMPONENTS:
+
+1 : 0 1 3
+0 : 2
+
+SCC GRAPH:
+
+1 -> OqpA/1, OqpB/1, OqpAB/1, OqpB/0, OqpA/0, OqpBA/1
+0 -> 
+
+0.010s
+
+ANALYSIS COMPLETED ---------------------------------------------- 
+
+
+

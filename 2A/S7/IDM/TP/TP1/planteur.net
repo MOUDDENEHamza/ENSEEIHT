@@ -1,0 +1,7 @@
+pl champ (1) 
+tr rentre champ  -> table 
+tr leve   table  -> jardin 
+tr dort   jardin -> 
+tr cueille champ -> champ banane 
+tr mange table banane -> table peau 
+tr jette peau jardin -> jardin 
