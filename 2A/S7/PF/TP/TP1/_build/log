@@ -1,10 +1,10 @@
 # dune utop
 # OCAMLPARAM: unset
-# Workspace root: "/home/hamza/Desktop/ENSEEIHT/2A/S7/Programmation Fonctionnelle/TP/TP1"
-$ /usr/bin/nproc > /tmp/dune68033b.output 2> /dev/null
+# Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP1
+$ /usr/bin/nproc > /tmp/dune7fbf07.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /usr/bin/ocamlc.opt -config > /tmp/dunefcd44c.output
+$ /usr/bin/ocamlc.opt -config > /tmp/dune20f091.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -25,18 +25,18 @@ $ /usr/bin/ocamlc.opt -config > /tmp/dunefcd44c.output
 #    map
 #      {
 #      "CAML_LD_LIBRARY_PATH" :
-#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/Programmation Fonctionnelle/TP/TP1/_build/install/default/lib/stublibs"
+#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP1/_build/install/default/lib/stublibs"
 #      ; "DUNE_CONFIGURATOR" : "/usr/bin/ocamlc.opt"
 #      ; "INSIDE_DUNE" : "1"
 #      ;
 #      "MANPATH" :
-#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/Programmation Fonctionnelle/TP/TP1/_build/install/default/bin"
+#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP1/_build/install/default/bin"
 #      ;
 #      "OCAMLFIND_IGNORE_DUPS_IN" :
-#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/Programmation Fonctionnelle/TP/TP1/_build/install/default/lib"
+#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP1/_build/install/default/lib"
 #      ;
 #      "OCAMLPATH" :
-#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/Programmation Fonctionnelle/TP/TP1/_build/install/default/lib"
+#        "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP1/_build/install/default/lib"
 #      ; "OCAML_COLOR" : "always"
 #      ; "OPAMCOLOR" : "always"
 #      }
