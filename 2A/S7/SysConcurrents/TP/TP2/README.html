@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="exclusion-mutuelle-et-synchronisation-élémentaire">Exclusion mutuelle et synchronisation élémentaire</h1>
+<h2 id="objectifs">Objectifs</h2>
+<ul>
+<li>réfléchir sur les protocoles de base de gestion de la cohérence par exclusion mutuelle</li>
+<li>première approche de la synchronisation de processus au travers de l'utilisation d'un mécanisme élémentaire de verrouillage/déverrouillage</li>
+</ul>
+<h2 id="préparation">Préparation</h2>
+<h3 id="les-verrous-java-complément">Les verrous Java (complément)</h3>
+<p><strong>Au sein d'un bloc <code>synchronized</code></strong> contrôlé par un objet <code>unObj</code>, il est possible de réaliser une synchronisation élémentaire au moyen des deux méthodes suivantes, fournies par tout objet :</p>
+<ul>
+<li><code>unObj.wait()</code> libère l’accès exclusif à <code>unObj</code> et bloque l’activité appelante en attente d’un réveil via une opération</li>
+<li><code>unObj.notify()</code> ou <code>unObj.notifyAll()</code> qui réveille une (ou toutes les) activité(s) bloquées sur <code>unObj.wait()</code></li>
+<li>Remarques
+<ol style="list-style-type: decimal">
+<li>les activités réveillées par <code>notify</code> sont mises en attente du verrou et ne poursuivent effectivement qu'une fois celui-ci obtenu</li>
+<li>une activité en bloquée sur <code>wait</code> <em>peut</em> être réveillée spontanément... Il est donc conseillé que l'attente soit gardée par une condition logique, et que cette condition logique soit évaluée dans une boucle <code>while</code>, selon le schéma suivant :<br />
+<code>synchronized (obj) {        while ( condition invalide ) { unObjbj.wait(); }             &lt;opérations à réaliser une fois la condition vérifiée &gt;  }</code></li>
+</ol></li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>Note</strong> : Pour les besoins de ce TP, <em>la synchronisation des exercices qui suivent doit être traitée en utilisant des <strong>verrous</strong>, à l'exclusion de tout autre outil (sémaphores, moniteurs...)</em>. (Ces outils conviendraient, mais ce n'est pas l'objet de ces exercices.)</p>
+<h3 id="exclusion-mutuelle">Exclusion mutuelle</h3>
+<ol style="list-style-type: decimal">
+<li><p>La classe <code>Peterson</code> fournie dans l'archive propose une implémentation du protocole d'exclusion mutuelle de Peterson vu en cours. Vérifiez et complétez éventuellement cette implémentation.</p></li>
+<li><p>L'ordre des deux premières affectations de la méthode entrer() (lignes 29 et 30 : <code>Peterson.demande[id] = true;</code> et <code>Peterson.tour = di ;</code>) est-il important ? Pourquoi ?</p></li>
+<li>La classe <code>java.util.concurrent.atomic.AtomicBoolean</code> propose une implantation logicielle de primitives de type TestAndSet, CompareAndSwap...
+<ul>
+<li>Utiliser l'une de ces primitives pour réaliser un protocole d'exclusion mutuelle pour N processus.</li>
+<li>Réaliser une version vivace du protocole, garantissant que toute demande d'entrée en section critique finira par être servie.</li>
+<li>Comparer les performances des deux versions, entre elles et par rapport à une version utilisant un bloc <code>synchronized</code> pour assurer l'exclusion mutuelle.</li>
+<li>Comparer, pour 2 processus, ces versions à une version utilisant le protocole de Peterson</li>
+</ul></li>
+</ol>
+<h3 id="schéma-producteurs-consommateurs">Schéma producteurs consommateurs</h3>
+<ol start="4" style="list-style-type: decimal">
+<li>Compléter la classe <code>TamponBorné</code> fournie, qui ne comporte aucune synchronisation, afin de gérer convenablement les accès concurrents.</li>
+</ol>
+<ul>
+<li>seules les méthodes <code>déposer</code> et <code>retirer</code> de la classe <code>TamponBorné</code> sont à modifier. Les parties du code où l'on suggère d'intervenir sont signalées par un commentaire <code>//*** A compléter</code></li>
+<li><p>le test intégré à l'application est conçu pour vérifier le comportement attendu suivant :</p>
+<ul>
+<li>initialement, les consommateurs doivent attendre, car le tampon est vide</li>
+<li>les consommateurs retirent des entiers différents, dans l'ordre croissant, sans trous dans la numérotation</li>
+<li>progressivement, de plus en plus de producteurs doivent attendre</li>
+</ul></li>
+</ul>
+<p>Vous pouvez commencer par exécuter le code fourni sans synchronisation, et constater qu'il ne produit pas vraiment le comportement attendu...</p>
+</body>
+</html>
