@@ -1,0 +1,29 @@
+t 30.0 315.0 rentre 0 w n
+t 30.0 165.0 leve 0 w n
+t 30.0 25.0 dort 0 w n
+t 145.0 390.0 cueille 0 w n
+t 150.0 245.0 mange 0 w n
+t 150.0 100.0 jette 0 w n
+p 65.0 385.0 champ 1 n
+p 65.0 240.0 table 0 n
+p 65.0 90.0 jardin 0 n
+p 185.0 320.0 banane 0 n
+p 190.0 170.0 peau 0 n
+e jette jardin 1 n
+e peau jette 1 n
+e jardin jette 1 n
+e mange table 1 n
+e mange peau 1 n
+e table mange 1 n
+e banane mange 1 n
+e cueille champ 1 n
+e cueille banane 1 n
+e champ cueille 1 n
+e jardin dort 1 n
+e leve jardin 1 n
+e table leve 1 n
+e rentre table 1 n
+e champ rentre 1 n
+h planteur
+
+
