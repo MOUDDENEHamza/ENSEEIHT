@@ -1,0 +1,15 @@
+
+--This line, and those below, will be ignored--
+
+A    livrables/PetriNet.aird
+A    livrables/PetriNet.ecore
+A    livrables/PetriNet.ocl
+AM   livrables/PetriNet.png
+A    livrables/SimplePDL.aird
+A    livrables/SimplePDL.ecore
+A    livrables/SimplePDL.ocl
+AM   livrables/SimplePDL.png
+A    livrables/ko-netIncorrect.xmi
+A    livrables/ko-pdl.xmi
+A    livrables/netCorrect.xmi
+A    livrables/sujet-pdl.xmi

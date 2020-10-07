@@ -1,0 +1,27 @@
+import 'PetriNet.ecore'
+
+package PetriNet
+
+
+context PetriNet
+inv validName('Invalid name: ' + self.name):
+    self.name.matches('[A-Za-z][A-Za-z0-9]*')
+
+
+context Place
+inv Initialize: self.tokens >= 0
+
+context Arc
+inv tokensMoving: self.tokens >= 1
+
+
+context Arc
+inv arcCoherence: self.cible.oclIsTypeOf(Place) <> self.source.oclIsTypeOf(Place)
+
+context Place
+inv nameIsDefined: if self.name.oclIsUndefined() then false
+                   else self.name <> ''
+                   endif
+
+
+endpackage
