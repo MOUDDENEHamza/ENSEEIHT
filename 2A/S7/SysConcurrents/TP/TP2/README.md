@@ -45,7 +45,7 @@ implémentation.
 
 2. L'ordre des deux premières affectations de la méthode entrer() (lignes 29 et 30 : 
 `Peterson.demande[id] = true;` et `Peterson.tour = di ;`) est-il important ? Pourquoi ?
-
+Non, parce qu'elles ne change pas dans la méthode entrer().
 
 3. La classe `java.util.concurrent.atomic.AtomicBoolean` propose une implantation 
 logicielle de primitives de type TestAndSet, CompareAndSwap...
@@ -55,6 +55,12 @@ processus.
 	en section critique finira par être servie.
 	- Comparer les performances des deux versions, entre elles et par rapport à une 
 	version utilisant un bloc `synchronized` pour assurer l'exclusion mutuelle.
+	
+	la version `synchronized` est moins performante que la version atomic. 
+	`synchronized` est souvent implémenté pour un algortihme concurrent, alors
+	que atomic et volatile nous proposes un algorithme non bloquant qui est 
+	plus évolutif.
+	
 	- Comparer, pour 2 processus, ces versions à une version utilisant le protocole de Peterson
 	
 ### Schéma producteurs consommateurs

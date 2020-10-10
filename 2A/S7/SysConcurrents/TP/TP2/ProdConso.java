@@ -1,6 +1,6 @@
 // v0.1, 25/09/20 (PM)
 
-class TamponBorné
+class TamponBorné {
 /* Pour simplifier la mise en œuvre du test, on se limite ici à un tampon d'entiers */
     private int taille; 			// nombre de cases du tampon
     private int nbOccupé = 0; // nombre d'items présents dans le tampon (vide initialement)
@@ -27,12 +27,19 @@ class TamponBorné
   *
   *
   **/
-
-        // dépôt
-        tampon[queue] = trace++; 			// tampon[queue] = i;
-        queue = (queue + 1) % taille;
-        nbOccupé++;
-
+		if (nbOccupé == taille) {
+        	try {
+	        	Thread.currentThread().wait();
+	        } catch (InterruptedException e)  {
+	            Thread.currentThread().interrupt();
+	        }
+        } else {
+        	// dépôt
+        	tampon[queue] = trace++; 			// tampon[queue] = i;
+        	queue = (queue + 1) % taille;
+        	nbOccupé++;
+		}
+		
         // affichage pour le test uniquement
         String msg="P : "+(trace-1);
         if (nbOccupé == taille) msg=msg+ " (PLEIN)";
@@ -42,6 +49,7 @@ class TamponBorné
   *
   *
   **/
+  		if (nbOccupé == taille) notify();
     } //déposer()
 
     public int retirer() {	// Item remove()
@@ -53,14 +61,21 @@ class TamponBorné
   *
   *
   **/
-
-        // retrait
-        i = tampon[tête];
-        tête = (tête + 1) % taille;
-        nbOccupé--;
-
+  		i = tampon[tête];
+		if (nbOccupé == 0) {
+        	try {
+	        	Thread.currentThread().wait();
+	        } catch (InterruptedException e)  {
+	            Thread.currentThread().interrupt();
+	        }
+        } else {
+		    // retrait
+		    tête = (tête + 1) % taille;
+		    nbOccupé--;
+		}
+		
         // affichage pour le test uniquement
-        String msg="C : "+i;
+        String msg= "C : " + i;
         if (nbOccupé == 0) msg=msg+ " (VIDE)";
         System.out.println(msg);
 
@@ -68,6 +83,7 @@ class TamponBorné
   *
   *
   **/
+  		if (nbOccupé == 0) notify();
         return i;
     } // retirer
 } // TamponBorné
