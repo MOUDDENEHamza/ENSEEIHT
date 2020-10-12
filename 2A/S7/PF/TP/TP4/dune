@@ -1,0 +1,11 @@
+(executable
+ (name appli_chaines)
+ (modules appli_chaines)
+ (libraries tp))
+
+(library
+ (name tp)
+ (modules :standard \ appli_chaines)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test)))

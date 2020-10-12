@@ -14,7 +14,6 @@ let rec pgcd (a, b) =
   else
     pgcd (a, b - a)
 
-(** Tests unitaires *)
 let%test _ = pgcd 8 4 = 4 ;;
 let%test _ = pgcd 4 4 = 4 ;;
 let%test _ = pgcd 12 2 = 2 ;;
