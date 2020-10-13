@@ -1,0 +1,9 @@
+(jbuild_version 1)
+
+(ocamllex (Lexer))
+
+(menhir
+ ((modules (Parser))))
+
+(executable
+ ((name MainJSON)))

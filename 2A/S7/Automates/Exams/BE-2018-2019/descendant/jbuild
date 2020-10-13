@@ -1,0 +1,7 @@
+(jbuild_version 1)
+
+(ocamllex (Scanner))
+
+(executables
+ ((names (MainJSON)))
+)

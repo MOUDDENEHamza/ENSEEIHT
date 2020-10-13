@@ -1,0 +1,4 @@
+(ocamllex lexerJava)
+
+(executable
+ (name mainJava))

@@ -1,0 +1,11 @@
+{
+   "prenom" : "Marc",
+   "nom" : "Pantel",
+   "naissance" : {
+      "jour" : 4,
+      "mois" : "mai",
+      "annee" : 1966
+   },
+   "matiere" : [ "OMI", "TOB", "GLS", "STL", "SCP", "CL" ]
+}
+
