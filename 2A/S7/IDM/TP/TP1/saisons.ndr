@@ -1,11 +1,11 @@
 t 135.0 235.0 h2p 0 w n
-t 25.0 140.0 p2e 0 w n
+t 25.0 135.0 p2e 0 w n
 t 120.0 25.0 e2a 0 w n
 t 235.0 125.0 a2h 0 w n
+p 210.0 200.0 Hiver 1 n
 p 60.0 210.0 Printemps 0 n
 p 50.0 60.0 Ete 0 n
 p 200.0 50.0 Automne 0 n
-p 210.0 200.0 Hiver 1 n
 e a2h Hiver 1 n
 e Automne a2h 1 n
 e e2a Automne 1 n

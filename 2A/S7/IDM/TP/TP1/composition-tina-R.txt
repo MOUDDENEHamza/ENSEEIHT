@@ -1,0 +1,61 @@
+Tina version 3.6.0 -- 07/06/20 -- LAAS/CNRS
+
+mode -R
+
+INPUT NET ------------------------------------------------------- 
+
+parsed net composition
+
+10 places, 6 transitions, 18 arcs
+
+net composition
+tr Cl1_enter Cl1_wait2 G2_Cl1_ack  -> Cl1_work 
+tr Cl1_exit Cl1_work  -> Cl1_G1_release Cl1_G2_release Cl1_idle 
+tr Cl1_req1 Cl1_idle  -> Cl1_G1_req Cl1_wait1 
+tr Cl1_req2 Cl1_wait1 G1_Cl1_ack  -> Cl1_G2_req Cl1_wait2 
+tr Gest1_ack Cl1_G1_req  -> G1_Cl1_ack 
+tr Gest2_ack Cl1_G2_req  -> G2_Cl1_ack 
+pl Cl1_idle (1)
+
+0.000s
+
+REACHABILITY ANALYSIS ------------------------------------------- 
+
+net unbounded
+
+unbounded places include: Cl1_G1_release Cl1_G2_release 
+
+path from 0 to 6 increases marking
+
+7 marking(s), 6 transition(s)
+
+MARKINGS:
+
+0 : Cl1_idle
+1 : Cl1_G1_req Cl1_wait1
+2 : Cl1_wait1 G1_Cl1_ack
+3 : Cl1_G2_req Cl1_wait2
+4 : Cl1_wait2 G2_Cl1_ack
+5 : Cl1_work
+6 : Cl1_G1_release Cl1_G2_release Cl1_idle
+
+REACHABILITY GRAPH:
+
+0 -> Cl1_req1/1
+1 -> Gest1_ack/2
+2 -> Cl1_req2/3
+3 -> Gest2_ack/4
+4 -> Cl1_enter/5
+5 -> Cl1_exit/6
+6 -> 
+
+0.000s
+
+LIVENESS ANALYSIS ----------------------------------------------- 
+
+enumeration not completed
+
+ANALYSIS COMPLETED ---------------------------------------------- 
+
+
+

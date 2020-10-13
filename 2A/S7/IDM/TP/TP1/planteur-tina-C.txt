@@ -1,0 +1,65 @@
+Tina version 3.6.0 -- 07/06/20 -- LAAS/CNRS
+
+mode -C
+
+INPUT NET ------------------------------------------------------- 
+
+parsed net planteur
+
+5 places, 6 transitions, 15 arcs
+
+net planteur
+tr cueille champ  -> banane champ 
+tr dort jardin  -> 
+tr jette jardin peau  -> jardin 
+tr leve table  -> jardin 
+tr mange banane table  -> peau table 
+tr rentre champ  -> table 
+pl champ (1)
+
+0.000s
+
+REACHABILITY ANALYSIS ------------------------------------------- 
+
+unbounded
+
+11 classe(s), 13 transition(s)
+
+CLASSES:
+
+0 : champ
+1 : banane*w champ
+2 : table
+3 : banane*w table
+4 : jardin
+5 : banane*w jardin
+6 : banane*w peau*w table
+7 : 
+8 : banane*w
+9 : banane*w jardin peau*w
+10 : banane*w peau*w
+
+REACHABILITY GRAPH:
+
+0 -> cueille/1, rentre/2
+1 -> cueille/1, rentre/3
+2 -> leve/4
+3 -> leve/5, mange/6
+4 -> dort/7
+5 -> dort/8
+6 -> leve/9, mange/6
+7 -> 
+8 -> 
+9 -> dort/10, jette/9
+10 -> 
+
+0.000s
+
+LIVENESS ANALYSIS ----------------------------------------------- 
+
+not applicable, net is unbounded
+
+ANALYSIS COMPLETED ---------------------------------------------- 
+
+
+

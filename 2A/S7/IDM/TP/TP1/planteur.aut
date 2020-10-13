@@ -1,0 +1,16 @@
+des(0,13,11)
+(0,"cueille",1)
+(0,"rentre",2)
+(1,"cueille",1)
+(1,"rentre",3)
+(2,"leve",4)
+(3,"leve",5)
+(3,"mange",6)
+(4,"dort",7)
+(5,"dort",8)
+(6,"leve",9)
+(6,"mange",6)
+(9,"dort",10)
+(9,"jette",9)
+
+

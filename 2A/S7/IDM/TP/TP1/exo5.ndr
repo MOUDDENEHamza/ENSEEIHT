@@ -1,0 +1,20 @@
+t 25.0 125.0 t0 0 w n
+p 85.0 50.0 X 4 n
+p 90.0 270.0 Y 2 n
+p 525.0 275.0 Z 0 n
+t 285.0 280.0 t4 0 w n
+t 290.0 165.0 t2 0 w n
+t 180.0 165.0 t1 0 w n
+e t4 Z 1 n
+e Y t4 9 n
+e t2 X 5 n
+e Y t2 5 n
+e t1 Y 3 n
+e X t1 2 n
+e Y t1 1 n
+e t0 Y 3 n
+e t0 X 2 n
+e X t0 5 n
+h exo5
+
+

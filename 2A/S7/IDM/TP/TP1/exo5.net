@@ -1,0 +1,8 @@
+pl X (4)
+tr t0 X -> Y
+tr t0 X -> X
+tr t1 X -> Y
+pl Y (2)
+tr t1 Y -> Y
+tr t2 Y -> X
+tr t4 Y -> Z
