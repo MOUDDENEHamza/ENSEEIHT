@@ -1,0 +1,163 @@
+ndrio(n)                                                              ndrio(n)
+
+
+
+NAME
+       ndrio  - conversion tool for Petri nets and Time Petri nets
+
+       Part of Tina Toolbox for analysis of Petri nets and Time Petri nets.
+
+
+SYNOPSIS
+       ndrio [-help]
+             [-NET | -NDR | -PNML | -TPN]
+             [-net | -ndr | -pnml | -tpn | -pnt | -romeo | -lola]
+             [-graphplace  |  -dot  |  -neato | -circo | -textify] [-ren] [-d]
+       [-rev]
+             [infile] [outfile] [errorfile]
+
+
+DESCRIPTION
+       ndrio converts Petri nets and Time Petri nets between several,  graphic
+       or textual, formats. ndrio handles delay intervals asociated with tran-
+       sitions, and generalized inhibitor and read (test) arcs.   The  formats
+       manipulated are the following:
+
+       name      file ext  description
+       ------------------------------------------------------
+       net       .net      tina textual format
+       ndr       .ndr      tina graphic format (produced by nd)
+       tpn       .tpn      tina textual scripts format
+       pnml      .pnml          Petri Net Markup Language format
+                           (with or without graphics)
+       pnt       .pnt      INA format
+                           (If the net is timed, the intervals
+                            are saved into a companion .tim file)
+       romeo          .romeo     romeo format (without graphics)
+       lola      .lola          LoLA format
+
+
+OPTIONS
+       -help Recalls options.
+
+
+       Input format flags:
+
+
+       -NET | -NDR | -PNML | -TPN
+              Specifies  the  format  of the input net. This flag is necessary
+              when the input net is read on standard input,  or  read  from  a
+              file that does not bear the expected extension. Default is -NET.
+
+
+       Output format flags:
+
+
+       -net | -ndr | -pnml | -tpn | -pnt
+              Specifies  the   format of the output  net. This flag  is neces-
+              sary when the output net  is written on standard output, or into
+              a file that does not bear the expected extension.
+
+              Export  to  romeo  and lola is preliminary. The graphic informa-
+              tion, if any, is currently not exported to romeo. Also, the user
+              should  make  sure  the  place  and transition names used in the
+              input file are legal romeo or lola names; ndrio does not attempt
+              to convert them.
+
+
+       Drawing options:
+
+
+       -graphplace | -dot | -neato | -circo
+
+              Specify  a placement filter for nodes. Necessary when converting
+              from a graphics-free format  into .ndr.   Optional when convert-
+              ing  into .pnml (graphics information is only  generated if some
+              filter is specified).  When  converting  from  a   graphic  for-
+              mat,   the   original  placement information is always retained,
+              whatever the tool specified.
+
+
+       Textifying option:
+
+
+       -textify
+
+              Removes any graphics information from the input file when graph-
+              ics is optional in the output format.
+
+
+
+       Other flags:
+
+
+       -ren | -r
+
+              Renames places and transitions with integers prefixed by "p" and
+              "t", respectively.  Old names become labels.
+
+
+       -d
+
+              Drops all labels of places and transitions.
+
+
+       -rev
+
+              Reverses the direction of normal edges (inhibitor,  read,  stop-
+              watch, stopwatch-inhibitor and priority edges are unchanged).
+
+
+       Input source:
+
+
+       infile Where  the   net  is   read. The  input format is  determined by
+              the file type, according to the table above. If absent or speci-
+              fied  by "-", the net is  read on standard  input in the  format
+              specified by  the input flag. If   both  an   infile  and   some
+              input flag  are present,  then the format defined  by the  input
+              flag supersedes  that determined  by the infile extension.
+
+
+       Output destination:
+
+
+       outfile
+              Where the net is written. The output format is determined by the
+              file  type, according  to the  table above. If  absent or speci-
+              fied  by "-", then the net is written on standard output in  the
+              format  specified  by  the  output flag. If both an  outfile and
+              some output flag are present, then the format  defined  by   the
+              output flag supersedes that determined by the outfile extension.
+
+
+       Errors destination:
+
+
+       errorfile
+              Where error messages are written. By default, errors are printed
+              on standard error.
+
+
+
+EXAMPLES
+       ndrio abp.net abp.pnml
+       ndrio abp.ndr abp.net
+       ndrio -NDR -pnml -neato < abp.ndr > abp.pnml
+       ndrio abp.ndr -NET
+       ndrio abp.ndr abp.pnt
+
+
+SEE ALSO
+       nd(n),  tina(n),  sift(n),  tedd(n),  plan(n),   struct(n),   ktzio(n),
+       selt(n), muse(n), pathto(n), play(n), formats(n)
+
+
+AUTHORS
+       Bernard  Berthomieu,  with  contributions  by Florent Peres, LAAS/CNRS,
+       2000-2012, Bernard.Berthomieu@laas.fr.
+
+
+
+
+Tina Tools                       Version 3.5.0                        ndrio(n)

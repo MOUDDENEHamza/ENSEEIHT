@@ -1,0 +1,231 @@
+tedd(n)                                                                tedd(n)
+
+
+
+NAME
+       tedd - logic symbolic state space explorator and checker (in progress)
+
+       Part of Tina Toolbox for analysis of Petri nets and Time Petri nets.
+
+
+SYNOPSIS
+       tedd [-help] [-p]
+            [-bdd | -sdd | -pnmc]
+            [-R | -F1]
+            [-order-lexical | -order-force]
+            [-transitions] [-dead-states] [-dead-transitions] [-t s]
+            [-q | -v] [-NET | -NDR | -TPN | -PNML | -TTS]
+            [-inh] [-tc] [-dt] [-pr] [-stats] [-b n]
+            [infile] [outfile] [digestfile] [errorfile]
+
+
+
+DESCRIPTION
+       tedd computes the state space of a Petri net or of a discrete time Time
+       Petri using logic-based symbolic techniques  (decision  diagrams).   It
+       takes  as  input  descriptions in textual form  (.net, .pnml, .tpn for-
+       mats) or graphical form  (.ndr format of files produced  by  nd,  .pnml
+       with  graphics).   Priorities  in PN or TPN, and Time Transition System
+       descriptions in .tts format are not supported yet.  tedd also allows to
+       compute dead states and transitions on the spaces explored.
+
+
+
+OPTIONS
+       -help Recalls options.
+
+
+       Operating mode options:
+
+
+       -R     Builds  the marking reachability set of a Petri net (untimed, or
+              with temporal information discarded).  This option forgets  time
+              constraints, it sets flag -tc.
+
+
+       -F1    Builds  the state reachability set of s discrete time Time Petri
+              net (with unit  time  elapsing  transitions).   If  no  temporal
+              information  is  specified,  or if all transitions bear interval
+              [0,w[, then -F1 is silently replaced by -R.
+
+
+
+       Decision diagram tool options:
+
+
+       -sdd   (Default) Use the builtin sdd tool, based  on  hierarchical  set
+              decision  diagramss.   Applicable  to  any net without time con-
+              straints, priorities and data.
+
+
+       -pnmc  Use the external pnmc tool (http://ahamez.github.io/pnmc).   The
+              pnmc  binary  must be installed by the user and should be in the
+              search path. Option -pnmc is applicable to any net without  pri-
+              orities and data, in any input format accepted by tina or sift.
+
+
+       -bdd   Use  the  builtin bdd tool, a binary decision diagram tool built
+              on top of muddy/buddy (http://github.com/kfl/muddy).  This  tool
+              is  provided  for  experiments  and comparisons; it is typically
+              slower than option -sdd.  Option -bdd is only applicable to safe
+              nets  without  time  constraints,  priorities and data.  tedd is
+              statically linked with buddy/muddy, so no  installation  of  the
+              bdd package is required.
+
+
+       Variable order options:
+
+
+       -order-lexical
+              Order variables according to place names, lexicographically.
+
+
+       -order-lexical
+              Order viarables using force heuristic.
+
+
+       Build options:
+
+
+       -transitions
+              Compute  and print the number of transitions of the state space.
+              This option is only available for tool bdd.  By defaut,  neither
+              tool  computes  the  transition count as this can be very expen-
+              sive.
+
+
+       -dead-states
+              Once the state space is built, compute the dead  states  (states
+              without successors) and prints them.
+
+
+       -dead-transitions
+              Once  the  state  space  is  built, compute the dead transitions
+              (those never fired) and prints them.
+
+
+       -inh   Removes inhibitor arcs from the input net.
+
+
+       -pr    Removes priority constraints from the input net.
+
+
+       -tc    Removes time constraints  from the input net.
+
+
+       -dt    Forgets data processing when reading a tts description.
+
+
+
+       Stopping conditions:
+
+
+       -t n   Stop if computation lasts longer than n seconds; no  effects  if
+              n=0.
+
+
+
+       Input format and source:
+
+
+       -NET | -NDR | -PNML | -TPN | -TTS
+              Specifies  the  format  of the input net. This flag is necessary
+              when the input net is read on standard input,  or  read  from  a
+              file  that does not bear the expected extension. By default, the
+              net is assumed in .net or
+
+
+       infile Where the  net is  read. The  input  format  is   determined  by
+              the file type, according to the table below. If absent or speci-
+              fied by "-", the net is  read on standard  input in the   format
+              specified  by   the  input  flag.  If  both an  infile and  some
+              input flag  are present,  then the format defined  by the  input
+              flag supersedes  that determined  by the infile extension.
+
+              file extension      input format
+              --------------------------------------------------------------
+              .net           net format
+              .ndr           ndr format
+              .tpn           tpn format
+              .pnml               pnml format
+              .tts           tts format
+
+
+       Output options and destination:
+
+
+       -q | -v
+              Specifies the format of the output, quiet (-q) or verbose (-v).
+
+
+       outfile
+              Where results are written.
+
+
+       Digest destination:
+
+
+       digestfile
+
+              In  addition to (possibly) its results in file outfile, tedd may
+              prints a summary of results in file digestfile (default stdout).
+
+
+       Errors destination:
+
+
+       errorfile
+              Where error messages are written. By default, errors are printed
+              on standard error.
+
+
+
+       Other flags:
+
+
+       -p     Disables state space generation, just parses input net.
+
+
+       -stats Prints progress information on the fly, if available.
+
+
+       -b n   Indicates  that  the marking of each place cannot exceed n. Tedd
+              does not check it but may take advantage of this information for
+              optimizing the state space representation.
+
+
+       Default options:
+
+              tedd -sdd -q -pr -dt
+
+
+
+EXAMPLES
+       tedd ifip.ndr
+       tedd -bdd tpn_examples/milner_scheduler/m100.tpn
+       tedd -pnmc tpn_examples/dining_philosophers/p1000.tpn -dead-states
+
+
+NOTES
+       All  available decision diagram tools use -order-lexical by default for
+       ordering decision diagram variabes.  So, naming variables so  that  all
+       places  sharing  some  neighbour transition have close names in lexical
+       order favors performances.  If the nets are built by tpn scripts repli-
+       cating  components,  then  it is guaranteed by the tpn interpreter that
+       all places belonging to the same component are contiguous in the  lexi-
+       cal order.
+
+
+
+SEE ALSO
+       nd(n),   tina(n),  plan(n),  struct(n),  ktzio(n),  ndrio(n),  tedd(n),
+       selt(n), sift(n), muse(n), pathto(n), play(n), formats(n)
+
+
+AUTHORS
+       Bernard Berthomieu LAAS/CNRS,  2000-2012, Bernard.Berthomieu@laas.fr.
+
+
+
+
+Tina Tools                       Version 3.5.0                         tedd(n)

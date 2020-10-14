@@ -1,0 +1,162 @@
+#!/bin/sh
+#
+echo " 
+As of  Version 2.7.4, nd offers  the users the  capability of invoking
+their own  tools from  nd; this file  explains how to  proceed.  These
+tools may be  for instance transformation tools for  nets or automata,
+or  tools for computing  specific information  from nets  or automata.
+This  text is itself  produced by  a tool  interfaced that  way, named
+plughelp.
+
+Plugging a new tool is done in 2 steps:
+---------------------------------------
+
+1. Declare the  tool by adding  a mount command  for the tool  in file
+bin/plugins/ndmount. For  instance, for having access  to the plughelp
+tool in this particular edition mode of nd, we added the line:
+
+ mount PlugHelp {how to add your own tools here} $2 .txt plughelp.tcl
+
+The synopsis of  the mount command is:
+
+    mount name label intype outtype [script]
+
+Where the arguments are:
+
+name: Identifies the tool, must be a legal tcl namespace identifier.
+
+label: The  entry added  into the  nd tool menu  for the  tool. Unless
+entirely alphanumeric, should be enclosed in braces.
+
+intype: The  type of  data expected  by the tool,  one of  .ndr, .net,
+.adr, .aut.  The tool will  be mounted whenever the nd buffer contains
+data of that type.  If your tool can operate on several input types, a
+mount command must be provided for each type.
+
+outtype:  The type  of results  produced by  the tool,  all  types are
+accepted but the  data should be textual.  The  results will appear in
+an nd window that can be  saved or closed.  In addition, if outtype is
+one of the types accepted as  input by nd, the window contents will be
+loadable into nd.  Click in the window for the available choices.
+
+script: If the tool has no  options, the name of the executable is the
+first parameter  (name), and  the tool operates  as a  filter (reading
+data on standard input and returning results on standard output), then
+this parameter may  be omitted.  Otherwise you must  specify a control
+panel  and a  commandline for  the tool,  as explained  in  (2) below.
+Argument  script   is  the   name  of  the   tcl  file   holding  this
+specification.
+
+When started, nd searches  for file bin/plugins/ndmount.  If that file
+exists,  then the  mount commands  it contains  are  evaluated.  Thus,
+modifications of ndmount will be effective at the next call of nd.
+
+If your tina distribution is  shared among several users, and you want
+to plug a private application,  then you should first create a private
+setup file for nd (help->setup,  then save), and append the above line
+to the setup  file created in your home  directory (.ndrc or ndrc.txt,
+depending on platform) instead of the ndmount file.
+
+
+2. Optionally, specify  a control  panel for the  tool, and  a command
+line.  This is done by creating a tcl file defining a namespace fo the
+tool holding  two procedures: controls  and command. At run  time, the
+file    must    reside    in    bin/plugins.   For    instance,    the
+bin/plugins/plughelp.tcl file holds:
+
+  namespace eval PlugHelp {
+
+    proc controls {} {
+        radiobox PlugHelp::flg1 \"first flag\" \"quiet verbose\" \"-q -v\" -v
+        fieldsbox PlugHelp::values \"parameters\" \"first second\" \"0 {}\"
+        radiobox PlugHelp::flg2 \"second flag\" \"slow fast\" \"-O1 -O6\" -O1
+    }
+
+    proc command {} {
+        return \"plughelp $::bin $::intype \\
+	        \$PlugHelp::values(first) \$PlugHelp::flg1 \\
+	        \$PlugHelp::flg2 \$PlugHelp::values(second)\"
+    }
+  }
+
+The name of the namespace MUST  be identical to the first parameter of
+the mount command for the tool.
+
+Procedure controls  offer the  user to set  the options for  the tool.
+Additional Confirmation and Cancel buttons  are provided by nd. If you
+are  fluent in  tcl, you  can  put what  you want  in this  procedure,
+suffice  to know that  all widgets  defined in  the procedure  must be
+packed into a  frame named .z.controls. In most  cases, however, these
+controls  can be easily  specified using  the two  predefined commands
+provided by nd explained below. These are:
+
+radiobox:
+  Defines a group of radiobuttons, typically for choosing the
+  value of an option among several choices.
+  Its synopsis is:	
+    radiobox var label choices values initial
+  where:
+    var is a variable of shape Name::flagname (Name is the namespace);
+    label is a title for the group of radiobuttons;
+    choices is a list of labels identifying the different options;
+    values is the list of corresponding option values;
+    initial is the default value.
+
+fieldsbox:
+  Defines a group of parameter entries.
+  Its synopsis is:    
+    fieldsbox var label tags initials
+  where:
+    var is an array variable of shape Name::aname (Name is the
+	namespace identifier, aname is a tcl array);
+    label is a title for the group of entries;
+    tags is a list of labels identifying nthe individual entries;
+    initials is the list of default values for the entried.
+
+Procedure command returns a suitable  command line for the tool, built
+from the  name of the executable,  possibly prefixed by  its path, and
+from the values  of the options and parameters, as  shown in the above
+example. It is the responsability  of the tool to check consistency of
+parameters and options.
+
+nd will first search for the  executable in the bin directory of tina.
+Unless the  home directory of your  tool is the Path  variable of your
+environment,  you should  put a  copy of  the executavble  in  the bib
+directory of tina.
+
+Finally, nd assumes  by default that tools operate  as filters, taking
+their  input  on standard  input  and  returning  results on  standard
+output. If your tool operates  on file(s) instead, then you must place
+the keywords infile and/or outfile in the command line description, at
+the places where the input  file and/or output file are expected.  For
+invoking the  tool, nd  will create temporary  files if  necessary and
+replace these keywords with their names, with intype and/or outtype as
+extensions.
+
+What information is available to the tools:
+-------------------------------------------
+
+The tool receives  on its standard input, or  through a temporary file
+if made precise  in the command procedure, the  description of the net
+or automaton in the current nd buffer.
+
+The parameters  specified in the  control procedure are passed  to the
+tool  as  specified in  the  command  procedure.  For this  call,  for
+instance, we have:
+
+    first flag = $4
+    second flag = $5
+    first parameter = $3
+    second parameter = $6
+
+In  addition, a  few predefined  variables  may be  useful for  tools.
+These include:
+
+::home contains the path of tina bin directory (where nd resides).
+::intype : contains  the input type of the  tool invoked.
+
+For this call, we have:
+
+    $::home = $1
+    $::intype = $2
+"

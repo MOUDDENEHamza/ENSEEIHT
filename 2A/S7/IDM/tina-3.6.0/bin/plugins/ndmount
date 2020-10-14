@@ -1,0 +1,36 @@
+
+# One line per tool, and per input format for which the tool is available.
+# Each line constituted of:
+#
+# mount
+# name	
+#	plugin identifier
+#	if desc.tcl is provided
+#	then must be the name of the namespace declared in desc.tcl
+#	else must be the name of the executable
+# label 
+#	entry label in tool menu
+# input_format
+#	input format, one of .ndr, .net, .adr, .aut
+# output_format
+#	arbitrary, but textual
+# desc.tcl
+#	optional
+#	tcl file specifying the control panel and the command line
+#	if no controls are necessary and the tool operates as a filter
+#	then the file may be omitted. The executable name is then
+#	taken then as the above name.
+
+
+# .ndr tools
+mount PlugHelp {how to add your own tools here} .ndr .txt plughelp.tcl
+
+# .net tools
+mount PlugHelp {how to add your own tools here} .net .txt plughelp.tcl
+
+# .adr tools
+mount PlugHelp {how to add your own tools here} .adr .txt plughelp.tcl
+
+# .aut tools
+mount PlugHelp {how to add your own tools here} .aut .txt plughelp.tcl
+
