@@ -54,7 +54,7 @@
 
 %% /* Regles de productions */
 
-fichier : programme FIN { (print_endline "fichier : programme FIN"); (print_string "Nombre de méthodes = "); (print_int $2); (print_newline ()) }
+fichier : programme FIN { (print_endline "fichier : programme FIN"); (print_string "Nombre de méthodes = "); (print_int $1); (print_newline ()) }
 
 programme : /* Lambda, mot vide */ { (print_endline "programme : /* Lambda, mot vide */"); 0 }
           | fonction programme { (print_endline "programme : fonction programme"); ($2 + 1) }
@@ -83,7 +83,11 @@ suiteParsFormels : /* Lambda, mot vide */ { (print_endline "suiteParsFormels : /
                  | VIRG typeStruct IDENT suiteParsFormels { (print_endline "suiteParsFormels : VIRG typeStruct IDENT suiteParsFormels") }
 
 bloc : ACCOUV variables instructions ACCFER { 
-        (print_endline "bloc : ACCOUV variables instructions ACCFER"); (print_string "Nombre de variables = "); (print_int $2); (print_newline ()) }
+                (print_endline "bloc : ACCOUV variables instructions ACCFER");
+                (print_string "Nombre de variables = ");
+                (print_int $2);
+                (print_newline ());
+        }
 
 variables : /* Lambda, mot vide */ { (print_endline "variables : /* Lambda, mot vide */"); 0 }
           | variable variables { (print_endline "variables : variable variables"); ($2 + 1) }
@@ -91,8 +95,12 @@ variables : /* Lambda, mot vide */ { (print_endline "variables : /* Lambda, mot 
 variable : typeStruct IDENT PTVIRG { (print_endline "variable : typeStruct IDENT PTVIRG") }
 
 /* A FAIRE : Completer pour decrire une liste d'instructions eventuellement vide */
-instructions : /* Lambda, mot vide */ { (print_endline "variables_bis : /* Lambda, mot vide */"); }
-                | instruction_bis { (print_endline "instructions : instruction") }
+instructions : instruction_bis {
+                (print_endline "instructions : instruction");
+                (print_string "Nombre d'instructions = ");
+                (print_int $1);
+                (print_newline ());         
+        }
 
 /* A FAIRE : Completer pour ajouter les autres formes d'instructions */
 instruction : expression PTVIRG { (print_endline "instruction : expression PTVIRG") }
@@ -106,8 +114,8 @@ corps : ACCOUV variables_bis instruction_bis ACCFER { (print_endline "instructio
 variables_bis : /* Lambda, mot vide */ { (print_endline "variables_bis : /* Lambda, mot vide */"); }
                 | variables variables_bis { (print_endline "variables_bis : variables"); }
 
-instruction_bis : /* Lambda, mot vide */ { (print_endline "instruction_bis : /* Lambda, mot vide */"); }
-                | instruction instruction_bis { (print_endline "instruction_bis : instruction"); }
+instruction_bis : /* Lambda, mot vide */ { (print_endline "instruction_bis : /* Lambda, mot vide */"); 0 }
+                | instruction instruction_bis { (print_endline "instruction_bis : instruction"); ($2 + 1) }
 
 /* A FAIRE : Completer pour ajouter les autres formes d'expressions */
 expression : ENTIER { (print_endline "expression : ENTIER") }
