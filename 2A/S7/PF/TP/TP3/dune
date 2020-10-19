@@ -1,5 +1,0 @@
-(library
- (name tp3)
- (inline_tests)
- (preprocess
-  (pps ppx_inline_test)))

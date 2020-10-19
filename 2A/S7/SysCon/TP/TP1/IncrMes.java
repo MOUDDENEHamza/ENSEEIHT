@@ -12,7 +12,7 @@ interface Incrémenteur extends Runnable{
 
 public class IncrMes {
 
-    static long cpt = 0L;
+    volatile static long cpt = 0L;
     static final long NB_IT = 1000L;			 //Nb d'itérations de la boucle externe
     static final long NB_IT_INTERNES = 1000000L; //Nb d'itérations de la boucle interne
     static long Attente_ms = 10L;
@@ -31,14 +31,18 @@ public class IncrMes {
 
         for (int i = 0; i < nbA ; i++) {
             try {
-                IncrMes.activités[i] = new Thread(r,"t"+i);
+                               
+                 IncrMes.activités[i] = new Thread(r,"t"+i);
+                 
+                  
             }
             catch (Exception e)
             {
                 System.out.println(e);
             }
+            
             IncrMes.activités[i].start();
-        }
+                    }
     }
 
     static void finir() {
@@ -128,10 +132,13 @@ class IncrémenteurNonSync implements Incrémenteur {
      */
     public void incr() {
         for (long i = 0L; i < IncrMes.NB_IT; i++) {
+            
             // boucle imbriquée pour permettre (éventuellement) de tester différents
             // grains de synchronisation
             for (long j = 1; j<=IncrMes.NB_IT_INTERNES; j++) {
+                
                 IncrMes.cpt=IncrMes.cpt+j/j;
+                
             }
             try {
                 Thread.sleep(IncrMes.Attente_ms, IncrMes.Attente_nano);
@@ -147,12 +154,17 @@ class IncrémenteurNonSync implements Incrémenteur {
             {
                 System.out.println("InterruptedException : " + ie);
             }
+            
         }
+            
     }
 
     public void run() {
         // afficher éventuellement la valeur du compteur avant/après
         // pour vérifier la cohérence des incrémentations
+        System.out.println("avant le thread " + Thread.currentThread().getName() + " : " +IncrMes.cpt);
         this.incr();
+        System.out.println("après le thread " + Thread.currentThread().getName() + " : "+IncrMes.cpt);
     }
 }
+

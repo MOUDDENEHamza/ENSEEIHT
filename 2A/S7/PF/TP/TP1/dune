@@ -1,7 +1,0 @@
-(library
- (name tp1)
- (inline_tests)
- (libraries graphics)
- (modules fact pgcd Affichage tp)
- (preprocess
-  (pps ppx_inline_test)))

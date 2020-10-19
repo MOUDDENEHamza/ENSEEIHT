@@ -1,0 +1,31 @@
+EXCLUDE_QUERY_DIR
+B /home/hamza/.opam/4.07.1/lib/base
+B /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types
+B /home/hamza/.opam/4.07.1/lib/base/caml
+B /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib
+B /home/hamza/.opam/4.07.1/lib/jane-street-headers
+B /home/hamza/.opam/4.07.1/lib/ppx_compare/runtime-lib
+B /home/hamza/.opam/4.07.1/lib/ppx_enumerate/runtime-lib
+B /home/hamza/.opam/4.07.1/lib/ppx_hash/runtime-lib
+B /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config
+B /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib
+B /home/hamza/.opam/4.07.1/lib/ppx_sexp_conv/runtime-lib
+B /home/hamza/.opam/4.07.1/lib/sexplib0
+B /home/hamza/.opam/4.07.1/lib/time_now
+B _build/default/.appli_chaines.eobjs/byte
+B _build/default/.tp.objs/byte
+S /home/hamza/.opam/4.07.1/lib/base
+S /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types
+S /home/hamza/.opam/4.07.1/lib/base/caml
+S /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib
+S /home/hamza/.opam/4.07.1/lib/jane-street-headers
+S /home/hamza/.opam/4.07.1/lib/ppx_compare/runtime-lib
+S /home/hamza/.opam/4.07.1/lib/ppx_enumerate/runtime-lib
+S /home/hamza/.opam/4.07.1/lib/ppx_hash/runtime-lib
+S /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config
+S /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib
+S /home/hamza/.opam/4.07.1/lib/ppx_sexp_conv/runtime-lib
+S /home/hamza/.opam/4.07.1/lib/sexplib0
+S /home/hamza/.opam/4.07.1/lib/time_now
+S .
+FLG -w -40 -open Tp -w -40

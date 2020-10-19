@@ -1,0 +1,14 @@
+(** @canonical Tp.Arbre *)
+module Arbre = Tp__Arbre
+
+(** @canonical Tp.Assoc *)
+module Assoc = Tp__Assoc
+
+(** @canonical Tp.Chaines *)
+module Chaines = Tp__Chaines
+
+(** @canonical Tp.Menu_dico *)
+module Menu_dico = Tp__Menu_dico
+
+(** @canonical Tp.Trie *)
+module Trie = Tp__Trie
