@@ -936,7 +936,7 @@ and (xv_variables_bis, xv_variables, xv_variable, xv_typeStruct, xv_typeBase, xv
                 (print_endline "bloc : ACCOUV variables instructions ACCFER");
                 (print_string "Nombre de variables = ");
                 (print_int _2);
-                (print_newline ());
+                (print_newline ()); 
         )
 # 942 "parserJava__mock.ml.mock"
      : 'tv_bloc) in

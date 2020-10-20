@@ -595,7 +595,7 @@ and _menhir_goto_instruction_bis : _menhir_env -> 'ttv_tail -> _menhir_state -> 
                 (print_endline "bloc : ACCOUV variables instructions ACCFER");
                 (print_string "Nombre de variables = ");
                 (print_int _2);
-                (print_newline ());
+                (print_newline ()); 
         )
 # 601 "parserJava.ml"
              in

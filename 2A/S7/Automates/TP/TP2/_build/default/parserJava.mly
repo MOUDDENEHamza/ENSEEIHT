@@ -86,7 +86,7 @@ bloc : ACCOUV variables instructions ACCFER {
                 (print_endline "bloc : ACCOUV variables instructions ACCFER");
                 (print_string "Nombre de variables = ");
                 (print_int $2);
-                (print_newline ());
+                (print_newline ()); 
         }
 
 variables : /* Lambda, mot vide */ { (print_endline "variables : /* Lambda, mot vide */"); 0 }
