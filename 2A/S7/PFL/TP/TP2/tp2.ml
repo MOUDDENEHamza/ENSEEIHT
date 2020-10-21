@@ -10,7 +10,21 @@ Paramètre : elt, l'élement à ajouter
 Paramètre : l, la liste triée dans laquelle ajouter elt
 Résultat : une liste triée avec les éléments de l, plus elt
 *)
-let rec insert ordre elt l = failwith "TO DO"
+let rec insert ordre elt l =
+  match l with
+  | [] -> [elt]
+  | t::q ->
+    match ordre with
+    | ( < ) ->
+      if elt <= t then
+        elt::l
+      else
+        t::(insert ordre elt q)
+    | ( > ) ->
+      if elt >= t then
+        elt::l
+      else
+        t::(insert ordre elt q)
 
 (* TESTS *)
 let%test _ = insert (fun x y -> x<y) 3 []=[3]
@@ -101,7 +115,7 @@ let print_stat (sexe,nom,annee,nb) =
  et construit une liste de quadruplet (sexe,prénom,année,nombre d'affectation)
 *)
 let listStat = 
-  let input = open_in "/mnt/n7fs/ens/tp_guivarch/pf/nat2016.txt" in 
+  let input = open_in "/home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP2/nat2016.txt" in 
   let filebuf = Lexing.from_channel input in
   Parser.main Lexer.token filebuf
   
@@ -110,7 +124,7 @@ let listStat =
  et construit une liste de quadruplets (sexe,prénom,année,nombre d'affectations)
 *)
 let listStatHomme = 
-  let input = open_in "/mnt/n7fs/ens/tp_guivarch/pf/nathomme2016.txt" in 
+  let input = open_in "/home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP2/nathomme2016.txt" in 
   let filebuf = Lexing.from_channel input in
   Parser.main Lexer.token filebuf
   

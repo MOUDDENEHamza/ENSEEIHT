@@ -1,0 +1,5 @@
+type token = XXXX | NAME of string | INT of int | EOF
+val menhir_begin_marker : int
+val xv_main : (int * string * int * int) list
+val xv_ligne : int * string * int * int
+val menhir_end_marker : int
