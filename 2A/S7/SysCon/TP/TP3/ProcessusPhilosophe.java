@@ -27,14 +27,12 @@ public class ProcessusPhilosophe implements Runnable
             for (;;) {
                 // Demande
                 IHMPhilo.changerEtat (no, EtatPhilosophe.Demande);
+                simu.sleep (no, Main.MinDelayMange, Main.MaxDelayMange);
                 strategie.demanderFourchettes (no);
-
                 // Mange
                 IHMPhilo.changerEtat (no, EtatPhilosophe.Mange);
                 simu.sleep (no, Main.MinDelayMange, Main.MaxDelayMange);
-
                 strategie.libererFourchettes (no);
-
                 // Pense
                 IHMPhilo.changerEtat (no, EtatPhilosophe.Pense);
                 simu.sleep (no, Main.MinDelayPense, Main.MaxDelayPense);

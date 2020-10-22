@@ -1,11 +1,15 @@
 // Time-stamp: <08 déc 2009 08:30 queinnec@enseeiht.fr>
 
 import java.util.concurrent.Semaphore;
+//import Synchro.Simulateur;
 
 public class PhiloSem implements StrategiePhilo {
 
     /** Attribut de classe */
     private static Semaphore[] fourchettes;
+    
+    /** Le simulateur d'avancement du temps. */
+    //private Simulateur simu;
 
     /** Constructeur de classe */
     public PhiloSem (int nbPhilosophes) {
@@ -20,6 +24,7 @@ public class PhiloSem implements StrategiePhilo {
     public void demanderFourchettes (int no) throws InterruptedException{
         this.fourchettes[Main.FourchetteDroite(no)].acquire();
         IHMPhilo.poser(Main.FourchetteDroite(no), EtatFourchette.AssietteGauche);
+        //simu.sleep (no, Main.MinDelayMange, Main.MaxDelayMange);
         this.fourchettes[Main.FourchetteGauche(no)].acquire();
         IHMPhilo.poser(Main.FourchetteGauche(no), EtatFourchette.AssietteDroite);
     }
@@ -36,7 +41,7 @@ public class PhiloSem implements StrategiePhilo {
 
     /** Nom de cette stratégie (pour la fenêtre d'affichage). */
     public String nom() {
-        return "Implantation Sémaphores, stratégie ???";
+        return "Implantation Sémaphores, stratégie 1";
     }
 
 }
