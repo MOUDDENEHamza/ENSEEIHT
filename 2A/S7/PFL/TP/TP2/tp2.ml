@@ -14,24 +14,15 @@ let rec insert ordre elt l =
   match l with
   | [] -> [elt]
   | t::q ->
-    match ordre with
-    | ( < ) ->
-      if elt <= t then
-        elt::l
-      else
-        t::(insert ordre elt q)
-    | ( > ) ->
-      if elt >= t then
-        elt::l
-      else
-        t::(insert ordre elt q)
+    if ordre elt t then
+      elt::l
+    else
+      t::(insert ordre elt q)
 
 (* TESTS *)
-let%test _ = insert (fun x y -> x<y) 3 []=[3]
-let%test _ = insert (fun x y -> x<y) 3 [2;4;5]=[2;3;4;5]
+let%test _ = insert (fun x y -> x < y) 3 []=[3]
+let%test _ = insert (fun x y -> x < y) 3 [2;4;5]=[2;3;4;5]
 let%test _ = insert (fun x y -> x > y) 6 [3;2;1]=[6;3;2;1]
-
-
 
 (*CONTRAT
 Fonction qui trie une liste, selon un ordre donné
@@ -40,13 +31,13 @@ Paramètre : ordre  ('a->'a->bool), un ordre sur les éléments de la liste
 Paramètre : l, la liste à trier
 Résultat : une liste triée avec les éléments de l
 *)
-let rec tri_insertion ordre l = failwith "TO DO"
+let rec tri_insertion ordre l =
+  List.fold_right (insert ordre) l []
 
 (* TESTS *)
 let%test _ = tri_insertion (fun x y -> x<y) [] =[]
 let%test _ = tri_insertion (fun x y -> x<y) [4;2;4;3;1] =[1;2;3;4;4]
 let%test _ = tri_insertion (fun x y -> x > y) [4;7;2;4;1;2;2;7]=[7;7;4;4;2;2;2;1]
-
 
 (** Tri fusion **)
 
@@ -55,7 +46,13 @@ Fonction qui décompose une liste en deux listes de tailles égales à plus ou m
 Paramètre : l, la liste à couper en deux
 Retour : deux listes
 *)
-let rec scinde l =  failwith "TO DO"
+let rec scinde l =
+  match l with
+  | [] -> [], []
+  | [_] -> l, []
+  | e1::e2::q -> 
+    let (l1, l2) = (scinde q) in 
+    e1::l1, e2::l2
 
 (* TESTS *)
 (* Peuvent être modifiés selon l'algorithme choisi *)
@@ -70,7 +67,16 @@ Paramètre : ordre  ('a->'a->bool), un ordre sur les éléments de la liste
 Paramètre : l1 et l2, les deux listes triées
 Résultat : une liste triée avec les éléments de l1 et l2
 *)
-let rec fusionne ordre l1 l2 = failwith "TO DO"
+let rec fusionne ordre l1 l2 =
+  match l1, l2 with
+  | _, [] -> l1
+  | [], _ -> l2
+  | t1::q1, t2::q2 ->
+    if ordre t1 t2 then
+      t1::(fusionne ordre q1 l2)
+    else
+      t2::(fusionne ordre q2 l1)
+
 
 (*TESTS*)
 let%test _ = fusionne (fun x y -> x<y) [1;2;4;5;6] [3;4] = [1;2;3;4;4;5;6]
@@ -90,8 +96,13 @@ Paramètre : ordre  ('a->'a->bool), un ordre sur les éléments de la liste
 Paramètre : l, la liste à trier
 Résultat : une liste triée avec les éléments de l
 *)
-let rec tri_fusion ordre l =failwith "TO DO"
-
+let rec tri_fusion ordre l =
+  match l with
+  | [] -> []
+  | [_] -> l
+  | _ -> 
+    let (l1, l2) = scinde l in 
+    fusionne ordre (tri_fusion ordre l1) (tri_fusion ordre l2);;
 
 (* TESTS *)
 let%test _ = tri_fusion (fun x y -> x<y) [] =[]
