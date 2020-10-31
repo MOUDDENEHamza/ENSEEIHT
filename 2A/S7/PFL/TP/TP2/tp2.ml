@@ -131,7 +131,7 @@ let listStat =
   Parser.main Lexer.token filebuf
   
 
-(* Analyse le fichier nathomme2016.txt (stratistique des prénoms d'homme commençant par un A ou un B entre 1900 et 2016) 
+(* Analyse le fichier nathomme2016.txt (statistique des prénoms d'homme commençant par un A ou un B entre 1900 et 2016) 
  et construit une liste de quadruplets (sexe,prénom,année,nombre d'affectations)
 *)
 let listStatHomme = 
