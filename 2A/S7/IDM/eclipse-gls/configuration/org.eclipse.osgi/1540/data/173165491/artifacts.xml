@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='update site: http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/site.xml' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='3'>
+    <property name='p2.timestamp' value='1604234999446'/>
+    <property name='eclipse.p2.force.threading' value='true'/>
+    <property name='site.checksum' value='4250483099'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='5'>
+    <artifact classifier='osgi.bundle' id='org.irit.emf.ecore.docgen.ui' version='1.0.0.201407181747'>
+      <repositoryProperties size='1'>
+        <property name='artifact.reference' value='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/plugins/org.irit.emf.ecore.docgen.ui_1.0.0.201407181747.jar'/>
+      </repositoryProperties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.irit.emf.ecore.docgen.feature' version='1.0.0.201407181747'>
+      <repositoryProperties size='1'>
+        <property name='artifact.reference' value='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/features/org.irit.emf.ecore.docgen.feature_1.0.0.201407181747.jar'/>
+      </repositoryProperties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.irit.emf.ecore.docgen' version='1.0.0.201407181747'>
+      <repositoryProperties size='1'>
+        <property name='artifact.reference' value='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/plugins/org.irit.emf.ecore.docgen_1.0.0.201407181747.jar'/>
+      </repositoryProperties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.irit.emf.modelToXmi.feature' version='1.0.0.201407181747'>
+      <repositoryProperties size='1'>
+        <property name='artifact.reference' value='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/features/org.irit.emf.modelToXmi.feature_1.0.0.201407181747.jar'/>
+      </repositoryProperties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.irit.emf.modelToXmi' version='1.0.0.201407181747'>
+      <repositoryProperties size='1'>
+        <property name='artifact.reference' value='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/plugins/org.irit.emf.modelToXmi_1.0.0.201407181747.jar'/>
+      </repositoryProperties>
+    </artifact>
+  </artifacts>
+</repository>

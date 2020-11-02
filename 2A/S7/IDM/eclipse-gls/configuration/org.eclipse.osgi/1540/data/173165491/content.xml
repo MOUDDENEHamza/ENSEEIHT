@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?metadataRepository version='1.2.0'?>
+<repository name='update site: http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/site.xml' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1604161687697'/>
+    <property name='site.checksum' value='4250483099'/>
+  </properties>
+  <references size='2'>
+    <repository uri='http://dieumegard.perso.enseeiht.fr/bl/Progress/DocumentationGeneration.html' url='http://dieumegard.perso.enseeiht.fr/bl/Progress/DocumentationGeneration.html' type='1' options='0'/>
+    <repository uri='http://dieumegard.perso.enseeiht.fr/bl/Progress/DocumentationGeneration.html' url='http://dieumegard.perso.enseeiht.fr/bl/Progress/DocumentationGeneration.html' type='0' options='0'/>
+  </references>
+  <units size='9'>
+    <unit id='org.irit.emf.ecore.docgen' version='1.0.0.201407181747' singleton='false'>
+      <update id='org.irit.emf.ecore.docgen' range='[0.0.0,1.0.0.201407181747)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.partial.iu' value='true'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen' version='1.0.0.201407181747'/>
+        <provided namespace='osgi.bundle' name='org.irit.emf.ecore.docgen' version='1.0.0.201407181747'/>
+        <provided namespace='osgi.identity' name='org.irit.emf.ecore.docgen' version='1.0.0.201407181747'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.irit.emf.ecore.docgen' version='1.0.0.201407181747'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.irit.emf.ecore.docgen&#xA;Bundle-Version: 1.0.0.201407181747&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.irit.emf.modelToXmi' version='1.0.0.201407181747' singleton='false'>
+      <update id='org.irit.emf.modelToXmi' range='[0.0.0,1.0.0.201407181747)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.partial.iu' value='true'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.modelToXmi' version='1.0.0.201407181747'/>
+        <provided namespace='osgi.bundle' name='org.irit.emf.modelToXmi' version='1.0.0.201407181747'/>
+        <provided namespace='osgi.identity' name='org.irit.emf.modelToXmi' version='1.0.0.201407181747'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.irit.emf.modelToXmi' version='1.0.0.201407181747'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.irit.emf.modelToXmi&#xA;Bundle-Version: 1.0.0.201407181747&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.irit.emf.ecore.docgen.feature.feature.group' version='1.0.0.201407181747' singleton='false'>
+      <update id='org.irit.emf.ecore.docgen.feature.feature.group' range='[0.0.0,1.0.0.201407181747)' severity='0'/>
+      <properties size='5'>
+        <property name='org.eclipse.equinox.p2.name' value='Ecore to reStructuredText documentation generation'/>
+        <property name='org.eclipse.equinox.p2.description' value='Ecore to RestructuredText documentation generation'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://dieumegard.perso.enseeiht.fr/bl/Progress/DocumentationGeneration.html'/>
+        <property name='org.eclipse.equinox.p2.provider' value='IRIT'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen.feature.feature.group' version='1.0.0.201407181747'/>
+      </provides>
+      <requires size='15'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.emf.ecore' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.emf.ecore.xmi' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ocl' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ocl.ecore' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.acceleo.common' range='3.1.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.acceleo.model' range='3.1.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.acceleo.profiler' range='3.1.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.acceleo.engine' range='3.1.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen' range='[1.0.0.201407181747,1.0.0.201407181747]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen.ui' range='[1.0.0.201407181747,1.0.0.201407181747]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen.feature.feature.jar' range='[1.0.0.201407181747,1.0.0.201407181747]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license uri='' url=''>
+          This program is free software; you can redistribute it and/or&#xA;modify it under the terms of the GNU General Public License as&#xA;published by the Free Software Foundation, either version 3 of&#xA;the License, or (at your option) any later version.&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details. You should have&#xA;received a copy of the GNU General Public License along with&#xA;this program. If not, see http://www.gnu.org/licenses/
+        </license>
+      </licenses>
+      <copyright>
+        Copyright (C) 2012-2013&#xA;by IRIT-CNRS, INP Toulouse&#xA;supported by FUI P Project&#xA;ITEA2 OPEES Project&#xA;Maintainer and Technical Support:&#xA;arnaud.dieumegard@enseeiht.fr
+      </copyright>
+    </unit>
+    <unit id='org.irit.emf.modelToXmi.feature.feature.group' version='1.0.0.201407181747' singleton='false'>
+      <update id='org.irit.emf.modelToXmi.feature.feature.group' range='[0.0.0,1.0.0.201407181747)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='EMF model to XMI conversion'/>
+        <property name='org.eclipse.equinox.p2.description' value='EMF model to XMI'/>
+        <property name='org.eclipse.equinox.p2.provider' value='IRIT'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.modelToXmi.feature.feature.group' version='1.0.0.201407181747'/>
+      </provides>
+      <requires size='6'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.xtext' range='2.0.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.modelToXmi' range='[1.0.0.201407181747,1.0.0.201407181747]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.modelToXmi.feature.feature.jar' range='[1.0.0.201407181747,1.0.0.201407181747]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license uri='' url=''>
+          This program is free software; you can redistribute it and/or&#xA;modify it under the terms of the GNU General Public License as&#xA;published by the Free Software Foundation, either version 3 of&#xA;the License, or (at your option) any later version.&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details. You should have&#xA;received a copy of the GNU General Public License along with&#xA;this program. If not, see http://www.gnu.org/licenses/
+        </license>
+      </licenses>
+      <copyright>
+        Copyright © 2007, 2008, 2009, 2010, 2011, 2012, 2013 Lars Vogel&#xA;and Eclipse Forum&#xA;This work was adapted from:&#xA;http://www.vogella.com/articles/EclipseEMFPersistence/article.html
+      </copyright>
+    </unit>
+    <unit id='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/site.xml.docGen' version='1.0.0.2--cKHPpV7735A3G5I5GAG'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='Documentation generation'/>
+        <property name='org.eclipse.equinox.p2.description' value='Contains documentation generation plugins'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/site.xml.docGen' version='1.0.0.2--cKHPpV7735A3G5I5GAG'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen.feature.feature.group' range='[1.0.0.201407181747,1.0.0.201407181747]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='org.irit.emf.modelToXmi.feature.feature.jar' version='1.0.0.201407181747'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='EMF model to XMI conversion'/>
+        <property name='org.eclipse.equinox.p2.description' value='EMF model to XMI'/>
+        <property name='org.eclipse.equinox.p2.provider' value='IRIT'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.modelToXmi.feature.feature.jar' version='1.0.0.201407181747'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='org.irit.emf.modelToXmi.feature' version='1.0.0.201407181747'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='org.irit.emf.modelToXmi.feature' version='1.0.0.201407181747'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <licenses size='1'>
+        <license uri='' url=''>
+          This program is free software; you can redistribute it and/or&#xA;modify it under the terms of the GNU General Public License as&#xA;published by the Free Software Foundation, either version 3 of&#xA;the License, or (at your option) any later version.&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details. You should have&#xA;received a copy of the GNU General Public License along with&#xA;this program. If not, see http://www.gnu.org/licenses/
+        </license>
+      </licenses>
+      <copyright>
+        Copyright © 2007, 2008, 2009, 2010, 2011, 2012, 2013 Lars Vogel&#xA;and Eclipse Forum&#xA;This work was adapted from:&#xA;http://www.vogella.com/articles/EclipseEMFPersistence/article.html
+      </copyright>
+    </unit>
+    <unit id='org.irit.emf.ecore.docgen.feature.feature.jar' version='1.0.0.201407181747'>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='Ecore to reStructuredText documentation generation'/>
+        <property name='org.eclipse.equinox.p2.description' value='Ecore to RestructuredText documentation generation'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://dieumegard.perso.enseeiht.fr/bl/Progress/DocumentationGeneration.html'/>
+        <property name='org.eclipse.equinox.p2.provider' value='IRIT'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen.feature.feature.jar' version='1.0.0.201407181747'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='org.irit.emf.ecore.docgen.feature' version='1.0.0.201407181747'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='org.irit.emf.ecore.docgen.feature' version='1.0.0.201407181747'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <licenses size='1'>
+        <license uri='' url=''>
+          This program is free software; you can redistribute it and/or&#xA;modify it under the terms of the GNU General Public License as&#xA;published by the Free Software Foundation, either version 3 of&#xA;the License, or (at your option) any later version.&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details. You should have&#xA;received a copy of the GNU General Public License along with&#xA;this program. If not, see http://www.gnu.org/licenses/
+        </license>
+      </licenses>
+      <copyright>
+        Copyright (C) 2012-2013&#xA;by IRIT-CNRS, INP Toulouse&#xA;supported by FUI P Project&#xA;ITEA2 OPEES Project&#xA;Maintainer and Technical Support:&#xA;arnaud.dieumegard@enseeiht.fr
+      </copyright>
+    </unit>
+    <unit id='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/site.xml.tooling' version='1.0.0.2--cKHvM67735A3G5I5GAG'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='EMF/XText Tooling'/>
+        <property name='org.eclipse.equinox.p2.description' value='Tooling easing the use of EMF/XText resources.'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='http://dieumegard.perso.enseeiht.fr/plugins/org.irit.emf/site.xml.tooling' version='1.0.0.2--cKHvM67735A3G5I5GAG'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.modelToXmi.feature.feature.group' range='[1.0.0.201407181747,1.0.0.201407181747]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='org.irit.emf.ecore.docgen.ui' version='1.0.0.201407181747' singleton='false'>
+      <update id='org.irit.emf.ecore.docgen.ui' range='[0.0.0,1.0.0.201407181747)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.partial.iu' value='true'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.irit.emf.ecore.docgen.ui' version='1.0.0.201407181747'/>
+        <provided namespace='osgi.bundle' name='org.irit.emf.ecore.docgen.ui' version='1.0.0.201407181747'/>
+        <provided namespace='osgi.identity' name='org.irit.emf.ecore.docgen.ui' version='1.0.0.201407181747'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.irit.emf.ecore.docgen.ui' version='1.0.0.201407181747'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.irit.emf.ecore.docgen.ui&#xA;Bundle-Version: 1.0.0.201407181747&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+  </units>
+</repository>
