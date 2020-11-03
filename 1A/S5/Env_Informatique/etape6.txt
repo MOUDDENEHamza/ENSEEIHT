@@ -1,0 +1,8 @@
+find Projets_C | grep ".c" | wc -l
+128
+find Projets_C/ -type d | wc -l
+41
+cat `find Projets_C | grep ".c"` | grep printf | wc -l
+96
+sed -i 's/printf/afficher/g' `find Projets_C | grep ".c"`
+

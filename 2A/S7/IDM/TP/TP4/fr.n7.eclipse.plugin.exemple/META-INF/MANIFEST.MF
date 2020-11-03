@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Exemple
+Bundle-SymbolicName: fr.n7.eclipse.plugin.exemple;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.ui
+Automatic-Module-Name: fr.n7.eclipse.plugin.exemple
+Bundle-RequiredExecutionEnvironment: JavaSE-11

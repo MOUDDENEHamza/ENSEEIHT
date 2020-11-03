@@ -1,0 +1,8 @@
+ls | wc -w
+8
+ls * | wc -w
+72
+ls Projet_?/* | wc -w
+160
+cat Projet_?/Module_?/*.c | wc -l
+672

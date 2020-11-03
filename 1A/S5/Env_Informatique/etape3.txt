@@ -1,0 +1,12 @@
+unzip tps_C.tar
+mkdir Sources Executables
+mv TPS_C/TP1/*.c Sources/
+mv TPS_C/TP2/*.c Sources/
+mv TPS_C/TP.3/*.c Sources/
+mv TPS_C/TP1/* Executables/
+mv TPS_C/TP2/* Executables/
+mv TPS_C/TP3/* Executables/
+rm -rf TPS_C/TP1 TPS_C/TP2 TPS_C/TP3
+mv TPS_C Progs_C
+zip -r Progs_C Progs_C
+
