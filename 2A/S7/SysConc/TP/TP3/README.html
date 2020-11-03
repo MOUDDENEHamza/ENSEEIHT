@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="problème-des-philosophes">Problème des philosophes</h1>
+<h2 id="énoncé">Énoncé</h2>
+<p>N philosophes sont autour d'une table. Il y a une assiette par philosophe, et <em>une</em> fourchette entre chaque assiette. Pour manger, un philosophe doit utiliser les deux fourchettes adjacentes à son assiette (et celles-là seulement).</p>
+<p>Un philosophe peut être dans l'état :</p>
+<ul>
+<li>penseur : il n'utilise pas de fourchettes ;</li>
+<li>mangeur : il utilise les deux fourchettes adjacentes ; aucun de ses voisins ne peut manger ;</li>
+<li>demandeur : il souhaite manger mais ne dispose pas des deux fourchettes.</li>
+</ul>
+<p>Visuellement les états mangeur/demandeur/penseur sont représentés par un rond noir (ou rouge en cas de possible problème)/un rond blanc/rien.</p>
+<h2 id="code-fourni">Code fourni</h2>
+<ul>
+<li><code>StrategiePhilo.java</code> : interface de la synchronisation entre philosophes.</li>
+<li><code>PhiloSem.java</code> : une implantation de cette interface.</li>
+<li><code>ProcessusPhilosophe.java</code> : code d'un philosophe.</li>
+<li><code>Main.java</code> : programme principal. Définit aussi les <code>PhiloDroite(i)</code>, <code>PhiloGauche(i)</code>, <code>FourchetteGauche(i)</code>, <code>FourchetteDroite(i)</code>.</li>
+<li><code>EtatFourchette.java</code> : définition des constantes pour fourchette placée sur la table, l'assiette gauche, l'assiette droite.</li>
+<li><code>EtatPhilosophe.java</code> : définition des constantes pour philosophe penseur, demandeur ou mangeur.</li>
+<li><code>IHM*.java</code> : interface utilisateur.</li>
+<li><p><code>Synchro/Simulateur.java</code> : le simulateur de temps.</p></li>
+<li><p>Compilation:<br />
+<code>javac *.java Synchro/*.java</code><br />
+<strong>Note</strong> : selon votre configuration, il est possible que le format par défaut pour les fichiers source Java soit le format ASCII. Dans ce cas, des erreurs apparaitront lors de la compilation des fichiers de l'archive, qui sont codés en UTF8. Pour remédier à cela, il est possible de positionner la variable d'environnement JAVA_TOOL_OPTIONS (en bash : <code>export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8</code>), ou encore de lancer la compilation avec l'option <code>-encoding UTF8</code>, ce qui donne ici :</p>
+<pre><code>javac -encoding UTF8 *.java Synchro/*.java</code></pre></li>
+<li><p>Exécution:<br />
+<code>java Main</code><br />
+<code>java Main PhiloSem 10</code><br />
+(classe implantant l'interface StrategiePhilo) (nb de philosophes)</p>
+<p>Le bouton d'aide de la fenêtre affichée par l'application en présente les fonctionnalités.</p></li>
+</ul>
+<h2 id="la-classe-semaphore">La classe Semaphore</h2>
+<p>La plateforme Java fournit la classe <code>java.util.concurrent.Semaphore</code> qui propose une implantation des sémaphores généraux, avec notamment :</p>
+<ul>
+<li><p>un constructeur prenant un paramètre entier, correspondant à la valeur initiale du sémaphore. Un second paramètre <em>optionnel</em> booléen, qui permet de préciser si le sémaphore créé est FIFO. Par défaut, les sémaphores de la classe <code>java.util.concurrent.Semaphore</code> ne sont pas FIFO.<br />
+Par exemple : <code>s=new Semaphore(5,true)</code> crée un sémaphore FIFO de valeur initiale 5.</p></li>
+<li>une méthode <code>acquire()</code>, qui correspond à l'opération <code>P()</code></li>
+<li><p>une méthode <code>release()</code>, qui correspond à l'opération <code>V()</code></p></li>
+</ul>
+<p>Cette classe fournit en outre différentes méthodes destinées à faciliter l'écriture des programmes (au risque d'altérer la clarté et la sûreté de la conception). Il est ainsi possible d'effectuer des <code>P()</code>non bloquants (<code>tryAcquire()</code>), de demander à augmenter ou diminuer la valeur du sémaphore de plusieurs unités en une seule opération (<code>acquire(k)</code>, <code>release(j)</code>), de consulter et modifier la valeur du sémaphore, le nombre de processus en attente sur le sémaphore, et d'autres choses bien pires encore, qu'il est possible d'utiliser, mais avec recul, précaution et modération...</p>
+<h2 id="à-faire">À faire</h2>
+<h3 id="première-approche-les-fourchettes-sont-des-ressources-critiques">Première approche : les fourchettes sont des ressources critiques</h3>
+<p>=&gt; associer un sémaphore à chacune des fourchettes</p>
+<ul>
+<li>Implanter une version de base, où tous les philosophes commencent par prendre leur fourchette de droite avant de prendre leur fourchette de gauche.</li>
+<li>Mettre en évidence la situation d'interblocage pouvant se produire avec cette version. Un moyen simple pour cela est d'introduire une temporisation suffisante entre les prises de fourchette.</li>
+<li>Implanter (en utilisant des sémaphores) différentes adaptations de cette version de base afin d'éviter les interblocages. Justifier en quoi chaque adaptation évite les interblocages.</li>
+</ul>
+<h3 id="seconde-approche-contrôler-la-progression-dun-philosophe-en-fonction-de-létat-de-ses-voisins.">Seconde approche : contrôler la progression d'un philosophe en fonction de l'état de ses voisins.</h3>
+<p>=&gt; introduire explicitement la notion d'état des philosophes, et associer un sémaphore « privé » à chaque philosophe :un philosophe peut manger si aucun de ses voisins ne mange, il doit attendre sinon. Les principales difficultés sont :</p>
+<ul>
+<li>d'assurer la cohérence des tests sur l'état des philosophes : le (dé)blocage d'un philosophe doit être effectué de manière simultanée (atomique) à l'évaluation de l'état qui motive la décision de (dé)blocage;</li>
+<li>la gestion du déblocage d'un philosophe qui ne pouvait pas manger précédemment et qui peut le faire suite aux changements d'états d'un ou de ses deux voisins.</li>
+</ul>
+<p>Cette solution est optimale en termes de degré de parallélisme, dans le sens où un philosophe qui demande et dont les voisins ne mangent pas peut manger directement. Evaluer ce degré de parallélisme, en fonction du nombre de philosophes, et le comparer avec celui de la solution 1.</p>
+<h4 id="equité">Equité</h4>
+<p>Montrer (en exhibant un scénario avec 4 ou 5 philosophes) que cette solution « optimale » peut conduire à la famine d'un philosophe.</p>
+<p>Imaginer une solution gérant une priorité entre les philosophes permettant de résoudre ce problème. Etudier</p>
+<ul>
+<li>le degré de parallélisme dans le pire des cas. Comparer avec la solution optimale.</li>
+<li>l'attente maximum pour un philosophe demandeur (en termes nombre de philosophes servis avant le philosophe demandeur)</li>
+<li>les limites éventuelles de la solution proposée.</li>
+</ul>
+<h2 id="indications">Indications</h2>
+<ul>
+<li><p><code>PhiloSem.java</code> est la seule classe à modifier. Le constructeur de cette classe prend un paramètre correspondant au nombre de philosophes lancés. Les variables d'état ou les sémaphores utilisés par les méthodes de cette classes seront (déclarés comme) des attributs de cette classe.</p></li>
+<li><p>Il est possible de contrôler la progression des philosophes pas à pas, en mettant la simulation en pause, puis en cliquant sur les philosophes (voir l'aide de la fenêtre), ce qui peut être très utile pour mettre en évidence des scénarios conduisant à des situations pathologiques (famine, erreur...)</p></li>
+<li><p>Utiliser <code>Main.java</code> pour les numéros (<code>Main.FourchetteGauche</code> / <code>Main.FourchetteDroite</code> / <code>Main.PhiloGauche</code> / <code>Main.PhiloDroite</code>).</p></li>
+<li><p>(Optionnel) Pour pour poser la fourchette n°f sur l'assiette à <em>sa</em> droite, à <em>sa</em> gauche ou sur la table, utiliser</p>
+<pre><code>IHMPhilo.poser (f, EtatFourchette.AssietteDroite);
+IHMPhilo.poser (f, EtatFourchette.AssietteGauche);
+IHMPhilo.poser (f, EtatFourchette.Table);</code></pre></li>
+</ul>
+</body>
+</html>
