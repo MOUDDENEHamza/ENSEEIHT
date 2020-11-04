@@ -36,7 +36,9 @@ particulière par :
 
 par exemple:
 
-`java Main MonImplantation 6 4`des lecteurs/rédacteurs
+`java Main MonImplantation 6 4`
+
+des lecteurs/rédacteurs
 ================================
 
 Objectif
