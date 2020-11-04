@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="problème-des-lecteursrédacteurs">Problème des lecteurs/rédacteurs</h1>
+<h2 id="objectif">Objectif</h2>
+<p>Écrire des implantations de LectRed.java.</p>
+<p>Stratégies à implanter</p>
+<ul>
+<li><p>priorité aux rédacteurs ou aux lecteurs</p></li>
+<li><p>équitable (absence de famine que ce soient des lecteurs ou des rédacteurs)</p></li>
+</ul>
+<h2 id="compilation">Compilation</h2>
+<p><code>javac *.java Synchro/*.java</code></p>
+<h2 id="exécution">Exécution</h2>
+<p><code>java Main</code></p>
+<ul>
+<li>Le programme trouve automatiquement toutes les implantations disponibles dans le répertoire (par réflexivité), et en particulier les nouvelles implantations rajoutées.</li>
+<li>Le bouton d'aide de la fenêtre affichée par l'application en présente les fonctionnalités.</li>
+</ul>
+<p>Il est par ailleurs également possible de lancer une implantation particulière par :</p>
+<p><code>java Main &lt;l'implantation écrite&gt; &lt;nb lecteurs&gt; &lt;nb rédacteurs&gt;</code></p>
+<p>par exemple:</p>
+<p><code>java Main MonImplantation 6 4</code></p>
+</body>
+</html>
