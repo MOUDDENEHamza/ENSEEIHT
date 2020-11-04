@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.n7.petriNet/src" modelPluginID="fr.n7.petriNet"
+    modelName="PetriNet" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>PetriNet.ecore</foreignModel>
+  <genPackages prefix="Petrinet" disposableProviderFactory="true" ecorePackage="PetriNet.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="PetriNet.ecore#//arc_type">
+      <genEnumLiterals ecoreEnumLiteral="PetriNet.ecore#//arc_type/normal"/>
+      <genEnumLiterals ecoreEnumLiteral="PetriNet.ecore#//arc_type/read_arc"/>
+    </genEnums>
+    <genClasses ecoreClass="PetriNet.ecore#//PetriNet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PetriNet.ecore#//PetriNet/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PetriNet.ecore#//PetriNet/petrinetelement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PetriNet.ecore#//PetriNet/edge"/>
+    </genClasses>
+    <genClasses ecoreClass="PetriNet.ecore#//Edge">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PetriNet.ecore#//Edge/cible"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PetriNet.ecore#//Edge/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PetriNet.ecore#//Edge/tokens"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PetriNet.ecore#//Edge/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PetriNet.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PetriNet.ecore#//Node/name"/>
+    </genClasses>
+    <genClasses ecoreClass="PetriNet.ecore#//Place">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PetriNet.ecore#//Place/tokens"/>
+    </genClasses>
+    <genClasses ecoreClass="PetriNet.ecore#//Transition"/>
+  </genPackages>
+</genmodel:GenModel>

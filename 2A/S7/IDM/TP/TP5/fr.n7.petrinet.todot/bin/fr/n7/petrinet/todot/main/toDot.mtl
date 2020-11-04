@@ -1,0 +1,10 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://petrinet/')]
+
+
+[template public PetriNetToDot(aPetriNet : PetriNet)]
+[comment @main/]
+[file (aPetriNet.name, false, 'UTF-8')]
+
+[/file]
+[/template]

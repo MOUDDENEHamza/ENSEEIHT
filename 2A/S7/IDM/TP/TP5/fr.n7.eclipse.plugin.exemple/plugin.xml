@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="fr.n7.eclipse.plugin.exemple.commands.category"
+            name="Sample Category">
+      </category>
+      <command
+            categoryId="fr.n7.eclipse.plugin.exemple.commands.category"
+            name="Sample Command"
+            id="fr.n7.eclipse.plugin.exemple.commands.sampleCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="fr.n7.eclipse.plugin.exemple.handlers.SampleHandler"
+            commandId="fr.n7.eclipse.plugin.exemple.commands.sampleCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="fr.n7.eclipse.plugin.exemple.commands.sampleCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="fr.n7.eclipse.plugin.exemple.menus.sampleMenu"
+               label="Sample Menu"
+               mnemonic="M">
+            <command
+                  commandId="fr.n7.eclipse.plugin.exemple.commands.sampleCommand"
+                  id="fr.n7.eclipse.plugin.exemple.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="fr.n7.eclipse.plugin.exemple.toolbars.sampleToolbar">
+            <command
+                  id="fr.n7.eclipse.plugin.exemple.toolbars.sampleCommand"
+                  commandId="fr.n7.eclipse.plugin.exemple.commands.sampleCommand"
+                  icon="icons/sample.png"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>

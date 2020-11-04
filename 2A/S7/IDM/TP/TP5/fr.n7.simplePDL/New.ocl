@@ -1,0 +1,18 @@
+import 'SimplePDL.ecore'
+
+package simplepdl
+
+context Process
+inv TwoActivitiesHaveDifferentNames: 
+	Process.allInstances() -> select(WorkDefinition)
+	-> forAll(w1, w2 | w1 <> w2 implies w1.name <> w2.name)
+
+context WorkDefinition
+inv validName:
+	self.name.matches('[A-Za-z_][A-Za-z0-9_]+')
+
+context WorkSequence
+inv notReflexive:
+	self.predecessor <> self.successor
+
+endpackage
