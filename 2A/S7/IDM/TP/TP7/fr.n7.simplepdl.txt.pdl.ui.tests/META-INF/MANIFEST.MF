@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: fr.n7.simplepdl.txt.pdl.ui.tests
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.n7.simplepdl.txt.pdl.ui.tests
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: fr.n7.simplepdl.txt.pdl.ui.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: fr.n7.simplepdl.txt.pdl.ui,
+ fr.n7.simplePDL,
+ org.junit.jupiter.api;bundle-version="[5.0.0,6.0.0)",
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.junit4,
+ org.eclipse.xtext.xbase.junit,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.workbench;resolution:=optional
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: fr.n7.simplepdl.txt.ui.tests;x-internal=true

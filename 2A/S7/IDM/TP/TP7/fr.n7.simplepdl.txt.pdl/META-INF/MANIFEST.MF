@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: fr.n7.simplepdl.txt.pdl
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.n7.simplepdl.txt.pdl
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: fr.n7.simplepdl.txt.pdl; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: fr.n7.simplePDL,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: fr.n7.simplepdl.txt.parser.antlr.internal,
+ fr.n7.simplepdl.txt.serializer,
+ fr.n7.simplepdl.txt.formatting2,
+ fr.n7.simplepdl.txt,
+ fr.n7.simplepdl.txt.validation,
+ fr.n7.simplepdl.txt.services,
+ fr.n7.simplepdl.txt.scoping,
+ fr.n7.simplepdl.txt.generator,
+ fr.n7.simplepdl.txt.parser.antlr
+Import-Package: org.apache.log4j

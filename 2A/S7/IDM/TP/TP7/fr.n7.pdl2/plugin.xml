@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package 
+			uri = "http://www.n7.fr/PDL2"
+			class = "fr.n7.pDL2.PDL2Package"
+			genModel = "model/generated/PDL2.genmodel" />
+	</extension>
+</plugin>

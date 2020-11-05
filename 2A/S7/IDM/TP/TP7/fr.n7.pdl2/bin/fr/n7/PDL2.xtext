@@ -1,0 +1,36 @@
+grammar fr.n7.PDL2 with org.eclipse.xtext.common.Terminals
+
+generate pDL2 "http://www.n7.fr/PDL2"
+
+Process :
+	'process' name=ID '{'
+	    processElements+=ProcessElement*
+	'}' ;
+
+ProcessElement :
+	WorkDefinition | Guidance ;
+
+WorkDefinition :
+	'wd' name=ID '{'
+		( 'starts' 'if' (linksToPredecessors+=DependanceStart)+ )?
+		( 'finishes' 'if' (linksToPredecessors+=DependanceFinish)+ )?
+	'}' ;
+
+DependanceStart :
+	predecessor=[WorkDefinition] link=WorkSequenceKindStart ;
+
+WorkSequenceKindStart:
+	Started2Start = 'started'
+	| Started2Finish = 'finished'
+	;
+
+DependanceFinish :
+	predecessor=[WorkDefinition] link=WorkSequenceKindFinish ;
+		
+WorkSequenceKindFinish:
+	Finished2Start = 'started'
+	| Finished2Finish = 'finished'
+	;
+	
+Guidance :
+	'note' texte=STRING ;
