@@ -9,7 +9,7 @@ public class LectRedPrioRed implements LectRed {
     /** Attributs of LectRedPrioRed. */	
     private Lock monitor;           // The monitor we will use.
     private Condition read;         // Read condition.
-    private Condition write;         // Write condition.
+    private Condition write;        // Write condition.
     private boolean writing;        // True, if the current process is writing, otherwise false.
     private int redactorWaiting;    // The redactor waiting due to write.await.
     private int reader;             // Number of reader.

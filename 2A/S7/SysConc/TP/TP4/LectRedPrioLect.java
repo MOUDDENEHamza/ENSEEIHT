@@ -6,15 +6,25 @@ import java.util.concurrent.locks.*;
  */
 public class LectRedPrioLect implements LectRed {
     
-    /** Attributs of LectRedPrioLect. */	
-    private Lock monitor;
+    /** Attributs of LectRedPrioRed. */	
+    private Lock monitor;           // The monitor we will use.
+    private Condition read;         // Read condition.
+    private Condition write;        // Write condition.
+    private boolean writing;        // True, if the current process is writing, otherwise false.
+    private int redactorWaiting;    // The redactor waiting due to write.await.
+    private int reader;             // Number of reader.
 
     /** 
-     * Constructor of LectRedPrioLect. 
-     * Initialize the monitor.
+     * Constructor of LectRedPrioRed. 
+     * Initialize the monitor, read and write condition.
      * */
     public LectRedPrioLect () {
         this.monitor = new ReentrantLock ();
+        this.read = this.monitor.newCondition ();
+        this.write = this.monitor.newCondition ();
+        this.writing = false;
+        this.reader = 0;
+        this.redactorWaiting = 0;
     }
     
     /**
@@ -22,7 +32,12 @@ public class LectRedPrioLect implements LectRed {
      * @throws InteruptedException
      */
     public void demanderLecture () throws InterruptedException {
-
+        this.monitor.lock ();
+        while (this.writing) {
+            this.read.await (); 
+        }
+        this.reader ++;
+        this.monitor.unlock ();
     }
     
     /**
@@ -30,7 +45,13 @@ public class LectRedPrioLect implements LectRed {
      * @throws InteruptedException
      */
     public void terminerLecture () throws InterruptedException {
-
+        this.monitor.lock ();
+        this.reader --;
+        this.read.signal (); 
+        if (this.reader == 0) {
+            this.write.signal ();
+        }
+        this.monitor.unlock ();
     }
     
     /**
@@ -38,7 +59,15 @@ public class LectRedPrioLect implements LectRed {
      * @throws InteruptedException
      */
     public void demanderEcriture () throws InterruptedException {
-
+        this.monitor.lock ();
+        this.redactorWaiting ++;
+        while (this.writing || this.reader > 0) {    
+            this.write.await ();
+        }
+        this.redactorWaiting --;
+        this.writing = true;
+        this.write.signal ();
+        this.monitor.unlock ();
     }
     
     /**
@@ -46,7 +75,10 @@ public class LectRedPrioLect implements LectRed {
      * @throws InterruptedException
      */
     public void terminerEcriture () throws InterruptedException {
-
+        this.monitor.lock ();
+        this.writing = false;
+        this.read.signal ();
+        this.monitor.unlock ();
     }
     
     /**
