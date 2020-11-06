@@ -22,6 +22,9 @@ public class LectRedPrioRed implements LectRed {
         this.monitor = new ReentrantLock ();
         this.read = this.monitor.newCondition ();
         this.write = this.monitor.newCondition ();
+        this.writing = false;
+        this.reader = 0;
+        this.redactorWaiting = 0;
     }
     
     /**
@@ -34,6 +37,7 @@ public class LectRedPrioRed implements LectRed {
             this.read.await (); 
         }
         this.reader ++;
+        this.read.signal ();
         this.monitor.unlock ();
     }
     
@@ -43,7 +47,7 @@ public class LectRedPrioRed implements LectRed {
      */
     public void terminerLecture () throws InterruptedException {
         this.monitor.lock ();
-        this.reader --;
+        this.reader --; 
         if (this.reader == 0) {
             this.write.signal ();
         }
@@ -56,11 +60,11 @@ public class LectRedPrioRed implements LectRed {
      */
     public void demanderEcriture () throws InterruptedException {
         this.monitor.lock ();
-        while (this.writing || this.redactorWaiting > 0) {
-            this.redactorWaiting ++;
+        this.redactorWaiting ++;
+        while (this.writing || this.reader > 0) {    
             this.write.await ();
-            this.redactorWaiting --;
         }
+        this.redactorWaiting --;
         this.writing = true;
         this.monitor.unlock ();
     }
@@ -72,9 +76,9 @@ public class LectRedPrioRed implements LectRed {
     public void terminerEcriture () throws InterruptedException {
         this.monitor.lock ();
         this.writing = false;
-        this.write.signal();
-        if (this.redactorWaiting == 0) {
-            this.read.signalAll ();
+        this.write.signal ();
+        if (!this.writing) {
+            this.read.signal ();
         }
         this.monitor.unlock ();
     }
