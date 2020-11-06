@@ -1,12 +1,13 @@
 import java.util.concurrent.locks.*;
+import Synchro.Assert;
 
 /**
- * Implement a strategy that gives the priority to redactor.
+ * Implement a strategy that gives the priority to reader.
  * @author Hamza Mouddene
  */
-public class LectRedPrioRed implements LectRed {
+public class LectRed_PrioLecteur implements LectRed {
     
-    /** Attributs of LectRedPrioRed. */	
+    /** Attributs of LectRed_PrioLecteur. */	
     private Lock monitor;           // The monitor we will use.
     private Condition read;         // Read condition.
     private Condition write;        // Write condition.
@@ -15,10 +16,10 @@ public class LectRedPrioRed implements LectRed {
     private int reader;             // Number of reader.
 
     /** 
-     * Constructor of LectRedPrioRed. 
+     * Constructor of LectRed_PrioLecteur. 
      * Initialize the monitor, read and write condition.
      * */
-    public LectRedPrioRed () {
+    public LectRed_PrioLecteur () {
         this.monitor = new ReentrantLock ();
         this.read = this.monitor.newCondition ();
         this.write = this.monitor.newCondition ();
@@ -33,11 +34,10 @@ public class LectRedPrioRed implements LectRed {
      */
     public void demanderLecture () throws InterruptedException {
         this.monitor.lock ();
-        while (this.redactorWaiting > 0 || this.writing) {
+        while (this.writing) {
             this.read.await (); 
         }
         this.reader ++;
-        this.read.signal ();
         this.monitor.unlock ();
     }
     
@@ -47,7 +47,8 @@ public class LectRedPrioRed implements LectRed {
      */
     public void terminerLecture () throws InterruptedException {
         this.monitor.lock ();
-        this.reader --; 
+        this.reader --;
+        this.read.signal (); 
         if (this.reader == 0) {
             this.write.signal ();
         }
@@ -66,6 +67,7 @@ public class LectRedPrioRed implements LectRed {
         }
         this.redactorWaiting --;
         this.writing = true;
+        this.write.signal ();
         this.monitor.unlock ();
     }
     
@@ -76,10 +78,7 @@ public class LectRedPrioRed implements LectRed {
     public void terminerEcriture () throws InterruptedException {
         this.monitor.lock ();
         this.writing = false;
-        this.write.signal ();
-        if (!this.writing) {
-            this.read.signal ();
-        }
+        this.read.signal ();
         this.monitor.unlock ();
     }
     
@@ -88,7 +87,7 @@ public class LectRedPrioRed implements LectRed {
      * @return strategy's name
      */
     public String nomStrategie () {
-        return "Stratégie priorité aux rédacteurs";
+        return "Stratégie: Priorité Lecteurs.";
     }
 
 }

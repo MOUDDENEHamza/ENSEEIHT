@@ -1,38 +1,95 @@
-// Time-stamp: <08 Apr 2008 11:35 queinnec@enseeiht.fr>
-
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.*;
 import Synchro.Assert;
 
-/** Lecteurs/rédacteurs
- * stratégie d'ordonnancement: priorité aux rédacteurs,
- * implantation: avec un moniteur. */
-public class LectRed_PrioRedacteur implements LectRed
-{
+/**
+ * Implement a strategy that gives the priority to redactor.
+ * @author Hamza Mouddene
+ */
+public class LectRed_PrioRedacteur implements LectRed {
+    
+    /** Attributs of LectRed_PrioRedacteur. */	
+    private Lock monitor;           // The monitor we will use.
+    private Condition read;         // Read condition.
+    private Condition write;        // Write condition.
+    private boolean writing;        // True, if the current process is writing, otherwise false.
+    private int redactorWaiting;    // The redactor waiting due to write.await.
+    private int reader;             // Number of reader.
 
-    public LectRed_PrioRedacteur()
-    {
+    /** 
+     * Constructor of LectRed_PrioRedacteur. 
+     * Initialize the monitor, read and write condition.
+     * */
+    public LectRed_PrioRedacteur () {
+        this.monitor = new ReentrantLock ();
+        this.read = this.monitor.newCondition ();
+        this.write = this.monitor.newCondition ();
+        this.writing = false;
+        this.reader = 0;
+        this.redactorWaiting = 0;
     }
-
-    public void demanderLecture() throws InterruptedException
-    {
+    
+    /**
+     * Ask for read.
+     * @throws InteruptedException
+     */
+    public void demanderLecture () throws InterruptedException {
+        this.monitor.lock ();
+        while (this.redactorWaiting > 0 || this.writing) {
+            this.read.await (); 
+        }
+        this.reader ++;
+        this.read.signal ();
+        this.monitor.unlock ();
     }
-
-    public void terminerLecture() throws InterruptedException
-    {
+    
+    /**
+     * Finish reading.
+     * @throws InteruptedException
+     */
+    public void terminerLecture () throws InterruptedException {
+        this.monitor.lock ();
+        this.reader --; 
+        if (this.reader == 0) {
+            this.write.signal ();
+        }
+        this.monitor.unlock ();
     }
-
-    public void demanderEcriture() throws InterruptedException
-    {
+    
+    /**
+     * Ask for write.
+     * @throws InteruptedException
+     */
+    public void demanderEcriture () throws InterruptedException {
+        this.monitor.lock ();
+        this.redactorWaiting ++;
+        while (this.writing || this.reader > 0) {    
+            this.write.await ();
+        }
+        this.redactorWaiting --;
+        this.writing = true;
+        this.monitor.unlock ();
     }
-
-    public void terminerEcriture() throws InterruptedException
-    {
+    
+    /**
+     * Finish writing.
+     * @throws InterruptedException
+     */
+    public void terminerEcriture () throws InterruptedException {
+        this.monitor.lock ();
+        this.writing = false;
+        this.write.signal ();
+        if (!this.writing) {
+            this.read.signal ();
+        }
+        this.monitor.unlock ();
     }
-
-    public String nomStrategie()
-    {
+    
+    /**
+     * Display strategy's name.
+     * @return strategy's name
+     */
+    public String nomStrategie () {
         return "Stratégie: Priorité Rédacteurs.";
     }
+
 }
