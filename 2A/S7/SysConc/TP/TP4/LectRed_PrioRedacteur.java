@@ -7,11 +7,10 @@ import java.util.concurrent.locks.*;
 public class LectRed_PrioRedacteur implements LectRed {
     
     /** Attributs of LectRed_PrioRedacteur. */	
-    private Lock monitor;           // The monitor we will use.
+    private ReentrantLock monitor;  // The monitor we will use.
     private Condition read;         // Read condition.
     private Condition write;        // Write condition.
     private boolean writing;        // True, if the current process is writing, otherwise false.
-    private int redactorWaiting;    // The redactor waiting due to write.await.
     private int reader;             // Number of reader.
 
     /** 
@@ -24,7 +23,6 @@ public class LectRed_PrioRedacteur implements LectRed {
         this.write = this.monitor.newCondition ();
         this.writing = false;
         this.reader = 0;
-        this.redactorWaiting = 0;
     }
     
     /**
@@ -33,7 +31,7 @@ public class LectRed_PrioRedacteur implements LectRed {
      */
     public void demanderLecture () throws InterruptedException {
         this.monitor.lock ();
-        while (this.redactorWaiting > 0 || this.writing) {
+        while (this.monitor.getWaitQueueLength(this.write) > 0 || this.writing) {
             this.read.await (); 
         }
         this.reader ++;
@@ -60,11 +58,9 @@ public class LectRed_PrioRedacteur implements LectRed {
      */
     public void demanderEcriture () throws InterruptedException {
         this.monitor.lock ();
-        this.redactorWaiting ++;
         while (this.writing || this.reader > 0) {    
             this.write.await ();
         }
-        this.redactorWaiting --;
         this.writing = true;
         this.monitor.unlock ();
     }

@@ -11,7 +11,6 @@ public class LectRed_PrioLecteur implements LectRed {
     private Condition read;         // Read condition.
     private Condition write;        // Write condition.
     private boolean writing;        // True, if the current process is writing, otherwise false.
-    private int redactorWaiting;    // The redactor waiting due to write.await.
     private int reader;             // Number of reader.
 
     /** 
@@ -24,7 +23,6 @@ public class LectRed_PrioLecteur implements LectRed {
         this.write = this.monitor.newCondition ();
         this.writing = false;
         this.reader = 0;
-        this.redactorWaiting = 0;
     }
     
     /**
@@ -60,11 +58,9 @@ public class LectRed_PrioLecteur implements LectRed {
      */
     public void demanderEcriture () throws InterruptedException {
         this.monitor.lock ();
-        this.redactorWaiting ++;
         while (this.writing || this.reader > 0) {    
             this.write.await ();
         }
-        this.redactorWaiting --;
         this.writing = true;
         this.write.signal ();
         this.monitor.unlock ();
