@@ -1,5 +1,4 @@
 import java.util.concurrent.locks.*;
-import Synchro.Assert;
 
 /**
  * Implement a strategy that gives the priority to reader.

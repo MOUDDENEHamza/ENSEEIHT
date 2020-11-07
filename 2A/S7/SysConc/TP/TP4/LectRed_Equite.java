@@ -1,31 +1,28 @@
 import java.util.concurrent.locks.*;
-import java.util.Queue;
-import java.util.LinkedList;
-import Synchro.Assert;
 
 /**
  * Implement a fairness readers/writers.
  * @author Hamza Mouddene
  */
 public class LectRed_Equite implements LectRed {
-    
-    /** Attributs of LectRed_Equite. */
-    private Lock monitor;           // The monitor we will use.
-    private Condition read;         // Read condition.
-    private Condition write;        // Write condition.
-    private boolean reading;        // True, if the current process is reading, otherwise false.
-    private boolean writing;        // True, if the current process is writing, otherwise false.
-    private int redactorWaiting;    // The redactor waiting due to write.await.
-    private int reader;             // Number of reader.
 
+    /** Attributs of LectRed_Equite. */
+    private ReentrantLock lock;
+    private Condition readPass;
+    private Condition writePass;
+    private int writers;
+    private int readers;
+    
     /** 
      * Constructor of LectRed_Equite. 
-     * Initialize the monitor, read and write condition.
-     * */
+     * Initialize the lock, read and write condition.
+     */
     public LectRed_Equite () {
-        this.monitor = new ReentrantLock ();
-        this.readPass = this.monitor.newCondition ();
-        this.write = this.monitor.newCondition ();
+    	this.lock = new ReentrantLock (true);
+    	this.readPass = this.lock.newCondition ();
+    	this.writePass = this.lock.newCondition ();
+    	this.writers = 0;
+    	this.readers = 0;
     }
 
     /**
@@ -33,61 +30,59 @@ public class LectRed_Equite implements LectRed {
      * @throws InteruptedException
      */
     public void demanderLecture () throws InterruptedException {
-        this.monitor.lock ();
-        while (this.reading || this.writing) {
-            this.read.await (); 
+        this.lock.lock ();
+        if(this.lock.getWaitQueueLength (this.writePass) > 0 
+        || this.lock.getWaitQueueLength (this.readPass) > 0 
+        || this.writers > 0) {
+            this.readPass.await ();
         }
-        this.reader ++;
-        this.read.signal ();
-        this.monitor.unlock ();
+        this.readers ++;
+        this.readPass.signal ();
+    	this.lock.unlock ();
     }
-    
+
     /**
      * Finish reading.
      * @throws InteruptedException
      */
-    public void terminerLecture () throws InterruptedException {
-        this.monitor.lock ();
-        this.reader --; 
-        if (this.reader == 0) {
-            this.write.signal ();
+    public void terminerLecture  () throws InterruptedException {
+        this.lock.lock ();
+        this.readers --;
+        if(this.readers == 0) {
+            if(this.lock.getWaitQueueLength (this.writePass) > 0) {
+                this.writePass.signal ();
+            } else {
+                this.readPass.signal ();
+            }
         }
-        this.monitor.unlock ();
+        this.lock.unlock ();
     }
-    
+
     /**
      * Ask for write.
      * @throws InteruptedException
      */
     public void demanderEcriture () throws InterruptedException {
-        this.monitor.lock ();
-        if (this.reading || this.reader > 0) {    
-            this.redactorWaiting ++;
-            this.read.await ();
-            this.redactorWaiting --;
-        }
-        while (this.reader > 0) {
-            this.writing = true;
-            this.write.signal ();
-            this.writing = false;
-        }
-        this.reading = true;
-        this.monitor.unlock ();
+    	this.lock.lock ();
+    	if(this.readers > 0 || this.writers > 0) {
+    	    this.readPass.await ();
+    	    if(this.readers > 0) {
+    	        this.writePass.await ();
+    	    }
+    	}
+    	this.writers ++;
+    	this.lock.unlock ();
     }
-    
+
     /**
      * Finish writing.
      * @throws InterruptedException
      */
     public void terminerEcriture () throws InterruptedException {
-        this.monitor.lock ();
-        this.reading = false;
-        if (this.writing) {
-            this.write.signal ();
-        } else {
-            this.read.signal ();
-        }
-        this.monitor.unlock ();
+        this.lock.lock ();
+    	this.writers --;
+        this.readPass.signal ();
+        this.lock.unlock ();
     }
     
     /**
