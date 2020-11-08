@@ -12,7 +12,7 @@ public class LectRed_PrioRedacteur implements LectRed {
     private Condition write;        // Write condition.
     private boolean writing;        // True, if the current process is writing, otherwise false.
     private int reader;             // Number of reader.
-
+    
     /** 
      * Constructor of LectRed_PrioRedacteur. 
      * Initialize the monitor, read and write condition.
