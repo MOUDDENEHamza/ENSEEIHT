@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ASCII"?>
+<petrinet:PetriNet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:petrinet="http://petrinet/" name="p">
+  <petrinetelement xsi:type="petrinet:Place" name="a_ready" linkToSource="//@petrinetelement.6" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="a_started" linkToSource="//@petrinetelement.22" linkToCible="//@petrinetelement.8"/>
+  <petrinetelement xsi:type="petrinet:Place" name="a_running" linkToSource="//@petrinetelement.7" linkToCible="//@petrinetelement.9"/>
+  <petrinetelement xsi:type="petrinet:Place" name="a_finished" linkToCible="//@petrinetelement.10"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="a_start" linkToSource="//@petrinetelement.8 //@petrinetelement.9" linkToCible="//@petrinetelement.6"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="a_finish" linkToSource="//@petrinetelement.10" linkToCible="//@petrinetelement.7"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.4" source="//@petrinetelement.0" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.5" source="//@petrinetelement.2" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.1" source="//@petrinetelement.4" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.2" source="//@petrinetelement.4" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.3" source="//@petrinetelement.5" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="b_ready" linkToSource="//@petrinetelement.17" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="b_started" linkToCible="//@petrinetelement.19"/>
+  <petrinetelement xsi:type="petrinet:Place" name="b_running" linkToSource="//@petrinetelement.18" linkToCible="//@petrinetelement.20"/>
+  <petrinetelement xsi:type="petrinet:Place" name="b_finished" linkToCible="//@petrinetelement.21"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="b_start" linkToSource="//@petrinetelement.19 //@petrinetelement.20" linkToCible="//@petrinetelement.17 //@petrinetelement.22"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="b_finish" linkToSource="//@petrinetelement.21" linkToCible="//@petrinetelement.18"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.15" source="//@petrinetelement.11" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.16" source="//@petrinetelement.13" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.12" source="//@petrinetelement.15" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.13" source="//@petrinetelement.15" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.14" source="//@petrinetelement.16" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.15" source="//@petrinetelement.1" tokens="1" type="read_arc"/>
+</petrinet:PetriNet>

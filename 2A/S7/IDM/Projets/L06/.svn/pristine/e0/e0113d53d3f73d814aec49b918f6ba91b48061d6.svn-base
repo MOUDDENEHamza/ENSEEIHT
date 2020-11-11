@@ -1,0 +1,48 @@
+#
+
+pluginName = SimplePDL Edit Support
+providerName = www.example.org
+
+_UI_CreateChild_text = {0}
+_UI_CreateChild_text2 = {1} {0}
+_UI_CreateChild_text3 = {1}
+_UI_CreateChild_tooltip = Create New {0} Under {1} Feature
+_UI_CreateChild_description = Create a new child of type {0} for the {1} feature of the selected {2}.
+_UI_CreateSibling_description = Create a new sibling of type {0} for the selected {2}, under the {1} feature of their parent.
+
+_UI_PropertyDescriptor_description = The {0} of the {1}
+
+_UI_Process_type = Process
+_UI_WorkDefinition_type = Work Definition
+_UI_WorkSequence_type = Work Sequence
+_UI_ProcessElements_type = Process Elements
+_UI_Guidance_type = Guidance
+_UI_Ressource_type = Ressource
+_UI_Allocate_type = Allocate
+_UI_Unknown_type = Object
+
+_UI_Unknown_datatype= Value
+
+_UI_Process_name_feature = Name
+_UI_Process_processElements_feature = Process Elements
+_UI_WorkDefinition_linksToPredecessors_feature = Links To Predecessors
+_UI_WorkDefinition_linksToSuccessors_feature = Links To Successors
+_UI_WorkDefinition_name_feature = Name
+_UI_WorkDefinition_Allocate_feature = Allocate
+_UI_WorkSequence_predecessor_feature = Predecessor
+_UI_WorkSequence_successor_feature = Successor
+_UI_WorkSequence_linkType_feature = Link Type
+_UI_Guidance_text_feature = Text
+_UI_Guidance_elements_feature = Elements
+_UI_Ressource_name_feature = Name
+_UI_Ressource_quantite_feature = Quantite
+_UI_Ressource_Allocate_feature = Allocate
+_UI_Allocate_occurences_feature = Occurences
+_UI_Allocate_ressource_feature = Ressource
+_UI_Allocate_workdefinition_feature = Workdefinition
+_UI_Unknown_feature = Unspecified
+
+_UI_WorkSequenceType_startToStart_literal = startToStart
+_UI_WorkSequenceType_finishToStart_literal = finishToStart
+_UI_WorkSequenceType_startToFinish_literal = startToFinish
+_UI_WorkSequenceType_finishToFinish_literal = finishToFinish

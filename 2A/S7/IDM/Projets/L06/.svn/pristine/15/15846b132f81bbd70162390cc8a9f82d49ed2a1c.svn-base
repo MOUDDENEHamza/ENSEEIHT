@@ -1,0 +1,13 @@
+net p
+pl a_ready (1)
+pl a_started (0)
+pl a_running (0)
+pl a_finished (0)
+pl b_ready (1)
+pl b_started (0)
+pl b_running (0)
+pl b_finished (0)
+tr a_start a_start a_start -> a_start
+tr a_finish a_finish -> a_finish
+tr b_start b_start b_start -> b_start b_start
+tr b_finish b_finish -> b_finish

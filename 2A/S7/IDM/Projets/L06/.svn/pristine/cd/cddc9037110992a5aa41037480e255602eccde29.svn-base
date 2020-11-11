@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IFile"
+            nameFilter="*.simplepdl"
+            id="fr.n7.simplepdl.todot.ui.popupMenus.contribution.IFile">
+         <menu id="org.eclipse.acceleo.module.menu" label="Acceleo Model to Text" path="additionsAcceleo">
+               <groupMarker name="acceleo"/> 
+         </menu>
+         <action
+               class="fr.n7.simplepdl.todot.ui.popupMenus.AcceleoGenerateTodotAction"
+               enablesFor="+"
+               id="fr.n7.simplepdl.todot.ui.popupMenus.acceleoGenerateTodotAction"
+               icon="icons/default.gif"
+               label="Generate Todot"
+               menubarPath="org.eclipse.acceleo.module.menu/acceleo"/>
+      </objectContribution>
+   </extension>
+</plugin>
