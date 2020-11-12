@@ -3028,3 +3028,12 @@ java.io.IOException: Unable to resolve plug-in "org.eclipse.epp.mpc.ui".
 
 !ENTRY org.eclipse.jdt.core 4 969 2020-11-12 01:22:33.213
 !MESSAGE fr.n7.petrinet.totina does not exist
+
+!ENTRY org.eclipse.emf.ecp.core 4 0 2020-11-12 02:49:00.899
+!MESSAGE bundle org.eclipse.emf.ecp.core:1.20.0.20190311-1236 (235)[org.eclipse.emf.ecp.core.ecpProviderRegistry(28)] : findMethod: Suitable but non-accessible method deactivate found in class org.eclipse.net4j.util.lifecycle.Lifecycle, subclass of org.eclipse.emf.ecp.internal.core.ECPProviderRegistryImpl
+
+!ENTRY org.eclipse.emf.ecp.core 4 0 2020-11-12 02:49:00.901
+!MESSAGE bundle org.eclipse.emf.ecp.core:1.20.0.20190311-1236 (235)[org.eclipse.emf.ecp.core.ecpRepositoryManager(29)] : findMethod: Suitable but non-accessible method deactivate found in class org.eclipse.net4j.util.lifecycle.Lifecycle, subclass of org.eclipse.emf.ecp.internal.core.ECPRepositoryManagerImpl
+
+!ENTRY org.eclipse.emf.ecp.core 4 0 2020-11-12 02:49:00.902
+!MESSAGE bundle org.eclipse.emf.ecp.core:1.20.0.20190311-1236 (235)[org.eclipse.emf.ecp.core.ecpProjectManager(30)] : findMethod: Suitable but non-accessible method deactivate found in class org.eclipse.net4j.util.lifecycle.Lifecycle, subclass of org.eclipse.emf.ecp.internal.core.ECPProjectManagerImpl

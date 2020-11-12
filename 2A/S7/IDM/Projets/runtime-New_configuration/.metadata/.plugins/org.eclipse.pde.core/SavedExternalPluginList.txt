@@ -1,4 +1,4 @@
-# List of external plug-in models previously loaded. Timestamp: 1605140169775
+# List of external plug-in models previously loaded. Timestamp: 1605197751897
 file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/com.google.gson_2.8.2.v20180104-1110.jar
 file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/com.google.guava_27.1.0.v20190517-1946.jar
 file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/com.google.guava_21.0.0.v20170206-1425.jar
@@ -10,12 +10,16 @@ file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petriNet
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petriNet.edit/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petriNet.editor/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petriNet.tests/
+file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petrinet.toTina/
+file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petrinet.toTina.ui/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplePDL/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplePDL.edit/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplePDL.editor/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplePDL.tests/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.toHTML/
 file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.toHTML.ui/
+file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.todot/
+file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.todot.ui/
 file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/javax.annotation_1.2.0.v201602091430.jar
 file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/javax.el_2.2.0.v201303151357.jar
 file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/javax.inject_1.0.0.v20091030.jar
