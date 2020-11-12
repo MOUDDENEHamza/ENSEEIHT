@@ -1,0 +1,7 @@
+digraph process {
+   		Conception -> RédactionDoc [arrowhead=vee label=s2s]
+   		Conception -> RédactionDoc [arrowhead=vee label=f2f]
+   		Conception -> Programmation [arrowhead=vee label=f2s]
+   		Conception -> RédactionTests [arrowhead=vee label=s2s]
+   		Programmation -> RédactionTests [arrowhead=vee label=f2f]
+}

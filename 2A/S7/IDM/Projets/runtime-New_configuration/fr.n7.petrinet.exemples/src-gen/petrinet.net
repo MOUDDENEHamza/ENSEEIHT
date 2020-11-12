@@ -1,0 +1,4 @@
+net petrinet
+pl p1 (0)
+pl p2 (0)
+tr tra p1 -> p2

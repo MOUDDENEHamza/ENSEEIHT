@@ -1,0 +1,44 @@
+import 'SimplePDL.ecore'
+
+package simplepdl
+
+context Process
+
+
+context Process
+inv validName('Invalid name: ' + self.name):
+	self.name.matches('[A-Za-z_][A-Za-z0-9_]*')
+
+context ProcessElements
+def: process(): Process =
+	Process.allInstances()
+		->select(p | p.processElements->includes(self))
+		->asSequence()->first()
+
+context WorkSequence
+inv successorAndPredecessorInSameProcess('Activities not in the same process : '
+		+ self.predecessor.name + ' in ' + self.predecessor.process().name+ ' and '
+		+ self.successor.name + ' in ' + self.successor.process().name
+):
+	self.process() = self.successor.process()
+	and self.process() = self.predecessor.process()
+	
+context WorkDefinition
+inv uniqNames: self.Process.processElements
+               ->select(pe | pe.oclIsKindOf(WorkDefinition))
+               ->collect(pe | pe.oclAsType(WorkDefinition))
+               ->forAll(w | self = w or self.name <> w.name)
+
+context WorkSequence
+inv notReflexive: self.predecessor <> self.successor
+
+context Process
+inv nameIsDefined: if self.name.oclIsUndefined() then false
+                 else self.name.size() > 1
+                 endif
+
+context Allocate
+inv ressourceSuffisante:
+	self.occurences <= self.ressource.quantite
+	
+endpackage

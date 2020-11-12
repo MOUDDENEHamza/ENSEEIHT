@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ASCII"?>
+<petrinet:PetriNet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:petrinet="http://petrinet/" name="process">
+  <petrinetelement xsi:type="petrinet:Place" name="Conception_ready" linkToSource="//@petrinetelement.6" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Conception_started" linkToSource="//@petrinetelement.44 //@petrinetelement.47" linkToCible="//@petrinetelement.8"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Conception_running" linkToSource="//@petrinetelement.7" linkToCible="//@petrinetelement.9"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Conception_finished" linkToSource="//@petrinetelement.45 //@petrinetelement.46" linkToCible="//@petrinetelement.10"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="Conception_start" linkToSource="//@petrinetelement.8 //@petrinetelement.9" linkToCible="//@petrinetelement.6"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="Conception_finish" linkToSource="//@petrinetelement.10" linkToCible="//@petrinetelement.7"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.4" source="//@petrinetelement.0" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.5" source="//@petrinetelement.2" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.1" source="//@petrinetelement.4" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.2" source="//@petrinetelement.4" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.3" source="//@petrinetelement.5" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionDoc_ready" linkToSource="//@petrinetelement.17" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionDoc_started" linkToCible="//@petrinetelement.19"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionDoc_running" linkToSource="//@petrinetelement.18" linkToCible="//@petrinetelement.20"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionDoc_finished" linkToCible="//@petrinetelement.21"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="R&#xe9;dactionDoc_start" linkToSource="//@petrinetelement.19 //@petrinetelement.20" linkToCible="//@petrinetelement.17 //@petrinetelement.44"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="R&#xe9;dactionDoc_finish" linkToSource="//@petrinetelement.21" linkToCible="//@petrinetelement.18 //@petrinetelement.45"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.15" source="//@petrinetelement.11" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.16" source="//@petrinetelement.13" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.12" source="//@petrinetelement.15" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.13" source="//@petrinetelement.15" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.14" source="//@petrinetelement.16" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Programmation_ready" linkToSource="//@petrinetelement.28" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Programmation_started" linkToCible="//@petrinetelement.30"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Programmation_running" linkToSource="//@petrinetelement.29" linkToCible="//@petrinetelement.31"/>
+  <petrinetelement xsi:type="petrinet:Place" name="Programmation_finished" linkToSource="//@petrinetelement.48" linkToCible="//@petrinetelement.32"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="Programmation_start" linkToSource="//@petrinetelement.30 //@petrinetelement.31" linkToCible="//@petrinetelement.28 //@petrinetelement.46"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="Programmation_finish" linkToSource="//@petrinetelement.32" linkToCible="//@petrinetelement.29"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.26" source="//@petrinetelement.22" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.27" source="//@petrinetelement.24" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.23" source="//@petrinetelement.26" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.24" source="//@petrinetelement.26" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.25" source="//@petrinetelement.27" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionTests_ready" linkToSource="//@petrinetelement.39" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionTests_started" linkToCible="//@petrinetelement.41"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionTests_running" linkToSource="//@petrinetelement.40" linkToCible="//@petrinetelement.42"/>
+  <petrinetelement xsi:type="petrinet:Place" name="R&#xe9;dactionTests_finished" linkToCible="//@petrinetelement.43"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="R&#xe9;dactionTests_start" linkToSource="//@petrinetelement.41 //@petrinetelement.42" linkToCible="//@petrinetelement.39 //@petrinetelement.47"/>
+  <petrinetelement xsi:type="petrinet:Transition" name="R&#xe9;dactionTests_finish" linkToSource="//@petrinetelement.43" linkToCible="//@petrinetelement.40 //@petrinetelement.48"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.37" source="//@petrinetelement.33" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.38" source="//@petrinetelement.35" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.34" source="//@petrinetelement.37" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.35" source="//@petrinetelement.37" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.36" source="//@petrinetelement.38" tokens="1"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.15" source="//@petrinetelement.1" tokens="1" type="read_arc"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.16" source="//@petrinetelement.3" tokens="1" type="read_arc"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.26" source="//@petrinetelement.3" tokens="1" type="read_arc"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.37" source="//@petrinetelement.1" tokens="1" type="read_arc"/>
+  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.38" source="//@petrinetelement.25" tokens="1" type="read_arc"/>
+</petrinet:PetriNet>
