@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
+org.eclipse.acceleo.debug.messages.enable=true
 org.eclipse.acceleo.ui.notification=true

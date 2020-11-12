@@ -21,6 +21,11 @@ fr.n7.simplepdl.toHTML,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7
 fr.n7.simplepdl.toHTML.ui,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.toHTML.ui/,4,false
 fr.n7.simplepdl.todot,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.todot/,4,false
 fr.n7.simplepdl.todot.ui,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.todot.ui/,4,false
+fr.n7.simplepdl.txt.pdl,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.txt.pdl/,4,false
+fr.n7.simplepdl.txt.pdl.ide,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.txt.pdl.ide/,4,false
+fr.n7.simplepdl.txt.pdl.tests,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.txt.pdl.tests/,4,false
+fr.n7.simplepdl.txt.pdl.ui,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.txt.pdl.ui/,4,false
+fr.n7.simplepdl.txt.pdl.ui.tests,1.0.0.qualifier,file:/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplepdl.txt.pdl.ui.tests/,4,false
 javax.annotation,1.2.0.v201602091430,file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/javax.annotation_1.2.0.v201602091430.jar,4,false
 javax.el,2.2.0.v201303151357,file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/javax.el_2.2.0.v201303151357.jar,4,false
 javax.inject,1.0.0.v20091030,file:/mnt/n7fs/ens/tp_cregut/eclipse/gls-v2019/eclipse-gls/plugins/javax.inject_1.0.0.v20091030.jar,4,false

@@ -3,8 +3,13 @@
 	<section name="org.eclipse.debug.ui.LAUNCH_CONFIGURATIONS_DIALOG_SECTION">
 		<item key="org.eclipse.debug.ui.DIALOG_SASH_WEIGHTS_1" value="237"/>
 		<item key="org.eclipse.debug.ui.DIALOG_SASH_WEIGHTS_2" value="762"/>
-		<item key="org.eclipse.debug.ui.EXPANDED_NODES" value="org.eclipse.pde.ui.RuntimeWorkbench, org.eclipse.jdt.launching.localJavaApplication, "/>
+		<item key="org.eclipse.debug.ui.EXPANDED_NODES" value="org.eclipse.pde.ui.RuntimeWorkbench, org.eclipse.jdt.launching.localJavaApplication, org.eclipse.emf.mwe2.launch.Mwe2LaunchConfigurationType, org.eclipse.m2m.atl.adt.launching.atlTransformation, "/>
 		<item key="DIALOG_WIDTH" value="1265"/>
+		<item key="DIALOG_HEIGHT" value="677"/>
+		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
+	</section>
+	<section name="org.eclipse.debug.ui.SINGLE_LAUNCH_CONFIGURATION_DIALOG_SECTION">
+		<item key="DIALOG_WIDTH" value="753"/>
 		<item key="DIALOG_HEIGHT" value="677"/>
 		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
 	</section>

@@ -22,9 +22,23 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="/home/hmoudden/runtime-EclipseApplication/fr.n7.simplepdl.design/description"/>
+			<item value="/home/hmoudden/runtime-EclipseApplication/fr.n7.simplepdl.samples"/>
 			<item value="/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.petriNet"/>
 			<item value="/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplePDL"/>
 			<item value="/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/L06/runtime-EclipseApplication/fr.n7.simplepdl.exemples"/>
 		</list>
+	</section>
+	<section name="NewWizardAction">
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.xtext.xtext.ui.wizard.project.NewXtextProjectWizard"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.sirius.category"/>
+			<item value="org.eclipse.xtext.projectwiz"/>
+		</list>
+	</section>
+	<section name="EditorSelectionDialog">
+		<item key="EditorSelectionDialog.STORE_ID_FILE_EXTENSION" value=".pdl"/>
+		<item key="EditorSelectionDialog.STORE_ID_INTERNAL_EXTERNAL" value="false"/>
+		<item key="EditorSelectionDialog.STORE_ID_DESCR" value="org.eclipse.emf.ecore.presentation.ReflectiveEditorID"/>
 	</section>
 </section>

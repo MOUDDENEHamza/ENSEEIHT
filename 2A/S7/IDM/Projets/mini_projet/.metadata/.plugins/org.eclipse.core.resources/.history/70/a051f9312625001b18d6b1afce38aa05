@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:petrinet="http://petrinet/">
+  <petrinet:PetriNet name="process"/>
+  <petrinet:Place net="/0" name="Conception_ready" linkToSource="/7" tokens="1"/>
+  <petrinet:Place net="/0" name="Conception_running" linkToSource="/10" linkToCible="/9"/>
+  <petrinet:Place net="/0" name="Conception_finished" linkToSource="/46 /47" linkToCible="/11"/>
+  <petrinet:Place net="/0" name="Conception_started" linkToSource="/45 /48" linkToCible="/8"/>
+  <petrinet:Transition net="/0" name="Conception_start" linkToSource="/8 /9" linkToCible="/7"/>
+  <petrinet:Transition net="/0" name="Conception_finish" linkToSource="/11" linkToCible="/10"/>
+  <petrinet:Edge net="/0" cible="/5" source="/1" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/4" source="/5" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/2" source="/5" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/6" source="/2" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/3" source="/6" tokens="1"/>
+  <petrinet:Place net="/0" name="RédactionDoc_ready" linkToSource="/18" tokens="1"/>
+  <petrinet:Place net="/0" name="RédactionDoc_running" linkToSource="/21" linkToCible="/20"/>
+  <petrinet:Place net="/0" name="RédactionDoc_finished" linkToCible="/22"/>
+  <petrinet:Place net="/0" name="RédactionDoc_started" linkToCible="/19"/>
+  <petrinet:Transition net="/0" name="RédactionDoc_start" linkToSource="/19 /20" linkToCible="/18 /45"/>
+  <petrinet:Transition net="/0" name="RédactionDoc_finish" linkToSource="/22" linkToCible="/21 /46"/>
+  <petrinet:Edge net="/0" cible="/16" source="/12" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/15" source="/16" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/13" source="/16" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/17" source="/13" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/14" source="/17" tokens="1"/>
+  <petrinet:Place net="/0" name="Programmation_ready" linkToSource="/29" tokens="1"/>
+  <petrinet:Place net="/0" name="Programmation_running" linkToSource="/32" linkToCible="/31"/>
+  <petrinet:Place net="/0" name="Programmation_finished" linkToSource="/49" linkToCible="/33"/>
+  <petrinet:Place net="/0" name="Programmation_started" linkToCible="/30"/>
+  <petrinet:Transition net="/0" name="Programmation_start" linkToSource="/30 /31" linkToCible="/29 /47"/>
+  <petrinet:Transition net="/0" name="Programmation_finish" linkToSource="/33" linkToCible="/32"/>
+  <petrinet:Edge net="/0" cible="/27" source="/23" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/26" source="/27" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/24" source="/27" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/28" source="/24" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/25" source="/28" tokens="1"/>
+  <petrinet:Place net="/0" name="RédactionTests_ready" linkToSource="/40" tokens="1"/>
+  <petrinet:Place net="/0" name="RédactionTests_running" linkToSource="/43" linkToCible="/42"/>
+  <petrinet:Place net="/0" name="RédactionTests_finished" linkToCible="/44"/>
+  <petrinet:Place net="/0" name="RédactionTests_started" linkToCible="/41"/>
+  <petrinet:Transition net="/0" name="RédactionTests_start" linkToSource="/41 /42" linkToCible="/40 /48"/>
+  <petrinet:Transition net="/0" name="RédactionTests_finish" linkToSource="/44" linkToCible="/43 /49"/>
+  <petrinet:Edge net="/0" cible="/38" source="/34" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/37" source="/38" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/35" source="/38" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/39" source="/35" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/36" source="/39" tokens="1"/>
+  <petrinet:Edge net="/0" cible="/16" source="/4" tokens="1" type="read_arc"/>
+  <petrinet:Edge net="/0" cible="/17" source="/3" tokens="1" type="read_arc"/>
+  <petrinet:Edge net="/0" cible="/27" source="/3" tokens="1" type="read_arc"/>
+  <petrinet:Edge net="/0" cible="/38" source="/4" tokens="1" type="read_arc"/>
+  <petrinet:Edge net="/0" cible="/39" source="/25" tokens="1" type="read_arc"/>
+</xmi:XMI>

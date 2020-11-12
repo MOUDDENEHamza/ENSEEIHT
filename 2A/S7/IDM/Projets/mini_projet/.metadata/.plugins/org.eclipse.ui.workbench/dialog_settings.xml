@@ -22,15 +22,18 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/mini_projet/fr.n7.simplePDL"/>
+			<item value="/home/hmoudden/eclipse-workspace/fr.n7.simplepdl2petrinet"/>
 			<item value="/home/hmoudden/eclipse-workspace/fr.n7.simplePDL/src/manip"/>
 			<item value="/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/L06/fr.n7.simplePDL"/>
 			<item value="/home/hmoudden/Bureau/ENSEEIHT/2A/S7/IDM/Projets/L06/fr.n7.petriNet"/>
 		</list>
 	</section>
 	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.acceleo.ide.ui.wizards.newproject.AcceleoNewProjectWizard"/>
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="atlProjectWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.eclipse.acceleo.ide.ui"/>
+			<item value="atlWizard"/>
 			<item value="org.eclipse.emf.codegen.ecore.ui.wizardCategory"/>
 		</list>
 	</section>
