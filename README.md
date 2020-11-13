@@ -14,7 +14,7 @@
 
 ## Questions?
 
-If you have anu question, you can contact me on Gmail: hz.mouddene@gmail.com
+If you have any question, you can contact me on Gmail: hz.mouddene@gmail.com
 
 ## License
 
