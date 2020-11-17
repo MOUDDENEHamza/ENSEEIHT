@@ -1,0 +1,5 @@
+(library
+ (name tp5)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test)))

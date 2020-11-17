@@ -1,0 +1,6 @@
+(library
+ (name tp6_etu)
+ (inline_tests)
+ (modules tp6_etu)
+ (preprocess
+  (pps ppx_inline_test)))
