@@ -1,4 +1,0 @@
-net petrinet
-pl p1 (0)
-pl p2 (0)
-tr tr a tr a -> tr a

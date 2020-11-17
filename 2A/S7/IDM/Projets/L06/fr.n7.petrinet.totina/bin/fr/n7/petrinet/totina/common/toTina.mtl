@@ -1,7 +1,0 @@
-[comment encoding = UTF-8 /]
-[module toTina('http://petrinet/')]
-
-
-[template public petrinettoTina(aPetriNet : PetriNet)]
-
-[/template]

@@ -1,9 +1,0 @@
-Process exemple {
-	wd a
-	wd b
-	wd c
-	ws s2s from a to b
-	ws f2f from b to c
-	note a
-	rs r1 3
-}

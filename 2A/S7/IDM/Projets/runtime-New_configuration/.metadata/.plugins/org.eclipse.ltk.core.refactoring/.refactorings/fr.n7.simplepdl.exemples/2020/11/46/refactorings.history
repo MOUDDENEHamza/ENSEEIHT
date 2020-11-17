@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;fr.n7.simplepdl.exemples/SimplePDL.xmi&apos; to &apos;SimplePDL.simplepdl&apos;" description="Rename resource &apos;SimplePDL.xmi&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="SimplePDL.xmi" name="SimplePDL.simplepdl" stamp="1605140182502" updateReferences="true"/>
-</session>

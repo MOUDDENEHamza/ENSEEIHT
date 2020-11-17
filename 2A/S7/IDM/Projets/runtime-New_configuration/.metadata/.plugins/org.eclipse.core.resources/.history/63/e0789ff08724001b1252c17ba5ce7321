@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<petrinet:PetriNet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:petrinet="http://petrinet/" name="petrinet">
-  <petrinetelement xsi:type="petrinet:Place" name="p1" linkToSource="//@petrinetelement.1"/>
-  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.2" source="//@petrinetelement.0" tokens="1"/>
-  <petrinetelement xsi:type="petrinet:Transition" name="tr a" linkToSource="//@petrinetelement.3" linkToCible="//@petrinetelement.1"/>
-  <petrinetelement xsi:type="petrinet:Edge" cible="//@petrinetelement.4" source="//@petrinetelement.2" tokens="1"/>
-  <petrinetelement xsi:type="petrinet:Place" name="p2" linkToCible="//@petrinetelement.3"/>
-</petrinet:PetriNet>
