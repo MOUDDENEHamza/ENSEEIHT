@@ -1,5 +1,117 @@
-# dune ocaml-merlin --no-print-directory
+# dune build MainMonad.exe
 # OCAMLPARAM: unset
 # Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP3
-$ /usr/bin/nproc > /tmp/duneee1c49.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dune3a0ed0.output 2> /dev/null
 # Auto-detected concurrency: 4
+# disable binary cache
+$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune8ea987.output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dyn
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = "default"
+#  ; toplevel_path = Some External "/home/hamza/.opam/4.07.1/lib/toplevel"
+#  ; ocaml_bin = External "/home/hamza/.opam/4.07.1/bin"
+#  ; ocaml = Ok External "/home/hamza/.opam/4.07.1/bin/ocaml"
+#  ; ocamlc = External "/home/hamza/.opam/4.07.1/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/hamza/.opam/4.07.1/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlmklib.opt"
+#  ; env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP3/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP3/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP3/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP3/_build/install/default/lib/toplevel"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_path = [ External "/home/hamza/.opam/4.07.1/lib" ]
+#  ; arch_sixtyfour = true
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
+#  ; ocaml_config =
+#      { version = "4.07.1"
+#      ; standard_library_default = "/home/hamza/.opam/4.07.1/lib/ocaml"
+#      ; standard_library = "/home/hamza/.opam/4.07.1/lib/ocaml"
+#      ; standard_runtime = "/home/hamza/.opam/4.07.1/bin/ocamlrun"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "gcc"
+#      ; ocamlc_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon"; "-fPIC" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; bytecomp_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fcommon"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-ldl"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fcommon"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; native_c_libraries = [ "-lm"; "-ldl" ]
+#      ; cc_profile = [ "-pg" ]
+#      ; architecture = "amd64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "linux"
+#      ; asm = [ "as" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "x86_64-unknown-linux-gnu"
+#      ; target = "x86_64-unknown-linux-gnu"
+#      ; profiling = true
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = false
+#      ; exec_magic_number = "Caml1999X023"
+#      ; cmi_magic_number = "Caml1999I024"
+#      ; cmo_magic_number = "Caml1999O023"
+#      ; cma_magic_number = "Caml1999A023"
+#      ; cmx_magic_number = "Caml1999Y023"
+#      ; cmxa_magic_number = "Caml1999Z023"
+#      ; ast_impl_magic_number = "Caml1999M023"
+#      ; ast_intf_magic_number = "Caml1999N023"
+#      ; cmxs_magic_number = "Caml1999D023"
+#      ; cmt_magic_number = "Caml1999T024"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  }
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl SyntaxMonad.ml) > _build/default/.Main.eobjs/SyntaxMonad.ml.d
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I .Main.eobjs/byte -no-alias-deps -opaque -o .Main.eobjs/byte/syntaxMonad.cmo -c -impl SyntaxMonad.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I .Main.eobjs/byte -no-alias-deps -opaque -o .Main.eobjs/byte/mainMonad.cmo -c -impl MainMonad.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I .Main.eobjs/byte -I .Main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o .Main.eobjs/native/mainMonad.cmx -c -impl MainMonad.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I .Main.eobjs/byte -I .Main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o .Main.eobjs/native/syntaxMonad.cmx -c -impl SyntaxMonad.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o MainMonad.exe .Main.eobjs/native/lex.cmx .Main.eobjs/native/scanner.cmx .Main.eobjs/native/syntaxMonad.cmx .Main.eobjs/native/mainMonad.cmx)
