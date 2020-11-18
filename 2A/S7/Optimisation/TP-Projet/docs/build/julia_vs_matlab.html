@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Julia vs MatLab · Optinum.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="index.html"><img src="assets/logo.png" alt="Optinum.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit">Optinum.jl</span></div><form class="docs-search" action="search.html"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="index.html">Accueil</a></li><li><a class="tocitem" href="Sujet.html">Sujet</a></li><li><span class="tocitem">Algorithmes</span><ul><li><a class="tocitem" href="Algorithme_de_newton.html">L&#39;algorithme de Newton local</a></li><li><a class="tocitem" href="Regions_de_confiance.html">La méthode des régions de confiance</a></li><li><a class="tocitem" href="Lagrangien_augmente.html">La méthode du Lagrangien augmenté</a></li></ul></li><li><a class="tocitem" href="fct_index.html">Index des fonctions</a></li><li><a class="tocitem" href="Annexes.html">Annexes</a></li><li><a class="tocitem" href="mise_en_place.html">Installation de Julia et tests unitaires</a></li><li><a class="tocitem" href="FAQ.html">Foire aux Questions</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="julia_vs_matlab.html">Julia vs MatLab</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="julia_vs_matlab.html">Julia vs MatLab</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/mathn7/Optinum/blob/master/docs/src/julia_vs_matlab.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Julia-vs-MatLab-1"><a class="docs-heading-anchor" href="#Julia-vs-MatLab-1">Julia vs MatLab</a><a class="docs-heading-anchor-permalink" href="#Julia-vs-MatLab-1" title="Permalink"></a></h1><p>Cette page se veut une description sommaire des différences entre les languages de programmation MatLab et Julia. Cette page ne se veut pas être une revue exhaustive ni complète des différences entre ces deux langages, mais un sommaire permettant à un utilisateur habitué à MatLab de pouvoir être minimalement fonctionnel sur Julia. Un complément d&#39;informations peut être trouvé sur cette page web de la documentation de Julia <a href="https://docs.julialang.org/en/v1/manual/noteworthy-differences/">Noteworthy Differences from other Languages</a>.</p><h2 id="Quelques-fonctions-usuelles-1"><a class="docs-heading-anchor" href="#Quelques-fonctions-usuelles-1">Quelques fonctions usuelles</a><a class="docs-heading-anchor-permalink" href="#Quelques-fonctions-usuelles-1" title="Permalink"></a></h2><p>Le tableau suivant se veut un recensement non-exhaustif de certaines commandes usuelles sur MatLab et Julia.</p><table><tr><th style="text-align: center">Opération</th><th style="text-align: center">MatLab</th><th style="text-align: center">Julia</th><th style="text-align: center">Librairie requise</th></tr><tr><td style="text-align: center">Vecteur linéairement espacé</td><td style="text-align: center">linspace</td><td style="text-align: center">LinRange</td><td style="text-align: center"></td></tr><tr><td style="text-align: center">Valeur maximale d&#39;un array</td><td style="text-align: center">max</td><td style="text-align: center">maximum</td><td style="text-align: center"></td></tr><tr><td style="text-align: center">Valeur minimale d&#39;un array</td><td style="text-align: center">min</td><td style="text-align: center">minimum</td><td style="text-align: center"></td></tr><tr><td style="text-align: center">Résolution système linéaire</td><td style="text-align: center">\</td><td style="text-align: center">\</td><td style="text-align: center">LinearAlgebra</td></tr><tr><td style="text-align: center">Norme d&#39;un vecteur</td><td style="text-align: center">norm</td><td style="text-align: center">norm</td><td style="text-align: center">LinearAlgebra</td></tr><tr><td style="text-align: center">Norm d&#39;une matrice</td><td style="text-align: center">norm</td><td style="text-align: center">opnorm</td><td style="text-align: center">LinearAlgebra</td></tr><tr><td style="text-align: center">Affichage sur la console</td><td style="text-align: center">fprintf</td><td style="text-align: center">@printf</td><td style="text-align: center">Printf</td></tr><tr><td style="text-align: center">Moyenne d&#39;un array</td><td style="text-align: center">mean</td><td style="text-align: center">mean</td><td style="text-align: center">Statistics</td></tr><tr><td style="text-align: center">Affichage d&#39;un graphique</td><td style="text-align: center">plot</td><td style="text-align: center">plot</td><td style="text-align: center">Plots</td></tr></table><p>Une des différences majeures entre Julia et MatLab est que MatLab représente par défaut ces données dans dans des matrices contenant des <code>Float64</code>, tandis que Julia type <em>fortement</em> ces variables. Notamment, Julia distingue les <code>integer</code> et les <code>float</code> à l&#39;aide d&#39;un point <code>.</code> suivant immédiatemment le nombre. Par exemple, la commande suivante crée un <code>integer</code> (<code>Int64</code> sur la majorité des machines):</p><pre><code class="language-julia-repl">julia&gt; a = 3
+3
+
+julia&gt; typeof(a)
+Int64</code></pre><p>Alors que la syntaxe suivante crée un <code>float</code> (<code>Float64</code> sur la majorité des machines):</p><pre><code class="language-julia-repl">julia&gt; b = 3.
+3.0
+
+julia&gt; typeof(b)
+Float64</code></pre><p>Aussi, Julia fait la différence entre une variable de type <code>Float64</code> et un vecteur contenant des <code>Float64</code>.</p><pre><code class="language-julia-repl">julia&gt; c = -1.
+-1.0
+
+julia&gt; d = [-1.]
+1-element Array{Float64,1}:
+ -1.0</code></pre><p>Ceci engendre donc des différences dans l&#39;utilisation de certaines fonctions. Par exemple, si l&#39;on veut calculer les valeurs absolues d&#39;un <code>Float64</code> et les valeurs absolues des éléments d&#39;un vecteur (ou d&#39;une matrice), on obtient les résultats suivants:</p><pre><code class="language-julia-repl">julia&gt; abs(c)
+1.0
+
+julia&gt; abs(d)
+ERROR: MethodError: no method matching abs(::Array{Float64,1})
+Closest candidates are:
+  abs(!Matched::Bool) at bool.jl:83
+  abs(!Matched::Float16) at float.jl:526
+  abs(!Matched::Float32) at float.jl:527
+  ...</code></pre><p>Il sera indiqué à la section <a href="julia_vs_matlab.html#creation_vec_mat-1"><code>Opérations sur des vecteurs et des matrices</code></a> comment effectuer cette opération simple à effectuer sur MatLab.</p><h2 id="Création-de-vecteurs-et-de-matrices-1"><a class="docs-heading-anchor" href="#Création-de-vecteurs-et-de-matrices-1">Création de vecteurs et de matrices</a><a class="docs-heading-anchor-permalink" href="#Création-de-vecteurs-et-de-matrices-1" title="Permalink"></a></h2><p>La première différence notable avec MatLab est le fait que Julia distingue les vecteurs des matrices. Les vecteurs sont des <code>array</code> de dimension 1, alors que les matrices sont des <code>array</code> dimension 2. En Julia, la convention adoptée est de type <em>column-major order</em>, les vecteurs sont de type colonne. Afin de créer un vecteur sur Julia, on emploie les crochets <code>[]</code> et on sépare les éléments par des virgules ou des point-virgules <code>;</code>.</p><pre><code class="language-julia-repl">julia&gt; x = [1,2,3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
+
+julia&gt; y = [1;2;3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3</code></pre><p>Les matrices sont quant à elles créées encore à l&#39;aide de crochets <code>[]</code>, mais les éléments sur une même ligne doivent être séparés pas des espaces et un saut de ligne s&#39;indique par le point-virgule <code>;</code>.</p><pre><code class="language-julia-repl">julia&gt; A = [1 2 3; 4 5 6]
+2×3 Array{Int64,2}:
+ 1  2  3
+ 4  5  6</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>La commande suivante créera un <code>array</code> de dimension 2 possédant une ligne et 3 colonnes au lieu d&#39;un vecteur</p><pre><code class="language-">z = [1 2 3]</code></pre></div></div><h2 id="creation_vec_mat-1"><a class="docs-heading-anchor" href="#creation_vec_mat-1">Opérations sur des vecteurs et des matrices</a><a class="docs-heading-anchor-permalink" href="#creation_vec_mat-1" title="Permalink"></a></h2><p>Julia récupère quelques éléments syntaxiques de MatLab concernant les opérations sur <em>arrays</em>, mais diffère sur quelques points. Comme dans MatLab, les opérations <em>élément par élément</em> s&#39;effectuent à l&#39;aide du point <code>.</code>. Ainsi, les opérations suivantes sont les mêmes que sur MatLab.</p><pre><code class="language-julia-repl">julia&gt; v=[1,2]
+2-element Array{Int64,1}:
+ 1
+ 2
+
+julia&gt; B=[1 2 ; 3 4]
+2×2 Array{Int64,2}:
+ 1  2
+ 3  4
+
+julia&gt; C=[5 -6 ; -7 8]
+2×2 Array{Int64,2}:
+  5  -6
+ -7   8
+
+julia&gt; B*C
+2×2 Array{Int64,2}:
+  -9  10
+ -13  14
+
+julia&gt; B.*C
+2×2 Array{Int64,2}:
+   5  -12
+ -21   32
+
+julia&gt; B^2
+2×2 Array{Int64,2}:
+  7  10
+ 15  22
+
+julia&gt; B.^2
+2×2 Array{Int64,2}:
+ 1   4
+ 9  16
+
+julia&gt; B*v
+2-element Array{Int64,1}:
+  5
+ 11
+
+julia&gt; B.*v
+2×2 Array{Int64,2}:
+ 1  2
+ 6  8</code></pre><p>La multiplication d&#39;un vecteur ou une matrice par un nombre est définie comme sur MatLab.</p><pre><code class="language-julia-repl">julia&gt; 2.5*v
+2-element Array{Float64,1}:
+ 2.5
+ 5.0
+
+julia&gt; 2.5*B
+2×2 Array{Float64,2}:
+ 2.5   5.0
+ 7.5  10.0
+
+julia&gt; C/3
+2×2 Array{Float64,2}:
+  1.66667  -2.0
+ -2.33333   2.66667</code></pre><p>Les opérations différentes concernent notamment les opérations d&#39;addition/soustraction et les comparaison logique. L&#39;addition/soustraction d&#39;un nombre et d&#39;un vecteur/matrice n&#39;est pas définie en Julia, il faut donc utiliser le <code>.</code>.</p><pre><code class="language-julia-repl">julia&gt; 2 + B
+ERROR: MethodError: no method matching +(::Int64, ::Array{Int64,2})
+Closest candidates are:
+  +(::Any, ::Any, !Matched::Any, !Matched::Any...) at operators.jl:529
+  +(::T, !Matched::T) where T&lt;:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} at int.jl:53
+  +(::Union{Int16, Int32, Int64, Int8}, !Matched::BigInt) at gmp.jl:528
+  ...
+
+julia&gt; 2 .+ B
+2×2 Array{Int64,2}:
+ 3  4
+ 5  6
+
+julia&gt; B - C
+2×2 Array{Int64,2}:
+ -4   8
+ 10  -4
+
+julia&gt; B .- C
+2×2 Array{Int64,2}:
+ -4   8
+ 10  -4</code></pre><p>Pour les opérateurs logiques, il faut aussi employer le <code>.</code> afin de comparer <em>éléments par éléments</em>.</p><pre><code class="language-julia-repl">julia&gt; 2 == B
+false
+
+julia&gt; 2 .== B
+2×2 BitArray{2}:
+ 0  1
+ 0  0
+
+julia&gt; 2 .&lt;= B
+2×2 BitArray{2}:
+ 0  1
+ 1  1
+
+julia&gt; B&lt;C
+ERROR: MethodError: no method matching isless(::Array{Int64,2}, ::Array{Int64,2})
+Closest candidates are:
+  isless(!Matched::Missing, ::Any) at missing.jl:87
+  isless(::Any, !Matched::Missing) at missing.jl:88
+
+julia&gt; B.&lt;C
+2×2 BitArray{2}:
+ 1  0
+ 0  1</code></pre><div class="admonition is-warning"><header class="admonition-header">Important</header><div class="admonition-body"><p>Étant donné que le point <code>.</code> permet à la fois de définir un <code>float</code> et d&#39;effectuer les opérations <em>éléments par éléments</em>, il faut mettre des espaces entre les points afin de pouvoir distinguer la signification de chaque point <code>.</code>. La commande suivante:</p><pre><code class="language-repl">5.+[1,2]</code></pre><p>produira le message d&#39;erreur suivant:</p><pre><code class="language-repl">ERROR: syntax: invalid syntax &quot;5.*&quot;; add space(s) to clarify</code></pre><p>Il faut alors utiliser la syntaxe suivante:</p><pre><code class="language-none">5. .+ [1,2]</code></pre></div></div><p>Les fonctions mathématiques standards définies sur <span>$\mathbb{R}$</span> n&#39;acceptent pas des vecteurs sous Julia. Il faut donc employer le point <code>.</code> immédiatemment après le nom de la fonction afin d&#39;appliquer la fonction <em>élément par élément</em>.</p><pre><code class="language-julia-repl">julia&gt; cos(v)
+ERROR: MethodError: no method matching cos(::Array{Int64,1})
+Closest candidates are:
+  cos(!Matched::BigFloat) at mpfr.jl:744
+  cos(!Matched::Missing) at math.jl:1167
+  cos(!Matched::Complex{Float16}) at math.jl:1115
+  ...
+
+julia&gt; cos.(v)
+2-element Array{Float64,1}:
+  0.5403023058681398
+ -0.4161468365471424
+
+julia&gt; mod(B,3)
+ERROR: MethodError: no method matching mod(::Array{Int64,2}, ::Int64)
+Closest candidates are:
+  mod(!Matched::Missing, ::Number) at missing.jl:115
+  mod(!Matched::Unsigned, ::Signed) at int.jl:225
+  mod(!Matched::T, ::T) where T&lt;:Integer at int.jl:221
+  ...
+
+julia&gt; mod.(B,3)
+2×2 Array{Int64,2}:
+ 1  2
+ 0  1</code></pre><p>Cette syntaxe s&#39;applique à toute les fonctions écrit sur Julia, que cela soit les fonctions des librairies standards de Julia ou des fonctions créées par l&#39;utilisateur.</p><div class="admonition is-warning"><header class="admonition-header">Avertissement</header><div class="admonition-body"><p>Certaines fonctions mathématiques sont définies sur des matrices carrés, tels les fonctions trigonométriques, l&#39;exponentiation et la puissance. Il faut donc faire attention à savoir si l&#39;on veut effectuer ces opérations sur la matrice ou sur les éléments de la matrice. L&#39;exemple suivant illustre ces différences:</p><pre><code class="language-repl">M=[0 1 ; 2 -1]
+exp(M)</code></pre><p>produit le résultat suivant:</p><pre><code class="language-repl">2×2 Array{Float64,2}:
+1.8573   0.860982
+1.72196  0.996317</code></pre><p>Alors que la commande suivante:</p><pre><code class="language-repl">exp.(M)</code></pre><p>effectue l&#39;exponentiation <em>élément par élément</em>:</p><pre><code class="language-repl">2×2 Array{Float64,2}:
+1.0      2.71828
+7.38906  0.367879</code></pre></div></div><h2 id="Indexation,-*slices*-et-concaténation-de-vecteurs-et-de-matrices-1"><a class="docs-heading-anchor" href="#Indexation,-*slices*-et-concaténation-de-vecteurs-et-de-matrices-1">Indexation, <em>slices</em> et concaténation de vecteurs et de matrices</a><a class="docs-heading-anchor-permalink" href="#Indexation,-*slices*-et-concaténation-de-vecteurs-et-de-matrices-1" title="Permalink"></a></h2><p>On accède aux éléments d&#39;un vecteur ou d&#39;une matrice à l&#39;aide des crochets <code>[]</code> comparativement à MatLab ou l&#39;on accède aux éléments avec les parenthèse <code>()</code>. Le reste de la syntaxe est identique à celle de MatLab, la numérotation commence à 1 et le dernier élément peut être extrait avec <code>end</code>. Les dimensions sont aussi séparées par des virgules <code>,</code>.</p><pre><code class="language-julia-repl">julia&gt; w=[-1,2,3]
+3-element Array{Int64,1}:
+ -1
+  2
+  3
+
+julia&gt; E=[1 2 3 ; 4 5 6 ; 7 8 9]
+3×3 Array{Int64,2}:
+ 1  2  3
+ 4  5  6
+ 7  8  9
+
+julia&gt; w[2:end]
+2-element Array{Int64,1}:
+ 2
+ 3
+
+julia&gt; E[[1,3],1:2]
+2×2 Array{Int64,2}:
+ 1  2
+ 7  8
+
+julia&gt; E[[1,3],[1:2]]
+ERROR: ArgumentError: invalid index: UnitRange{Int64}[1:2] of type Array{UnitRange{Int64},1}</code></pre><p>La dernière commande engendre une erreur, ce qui permet d&#39;illustrer une subtile différence entre Julia et MatLab. MatLab interprète la commande <code>[1:2]</code> en créant un vecteur contenant <code>[1,2]</code>, alors que Julia crée un <em>array</em> d&#39;<em>array</em>, ce qui génère l&#39;erreur.</p><p>La concaténation s&#39;effectue selon la même logique que la création d&#39;une matrice, on emploie l&#39;espace pour concaténer horizontalement et le point-virgule <code>;</code> pour concaténer verticalement  </p><pre><code class="language-julia-repl">julia&gt; [E E]
+3×6 Array{Int64,2}:
+ 1  2  3  1  2  3
+ 4  5  6  4  5  6
+ 7  8  9  7  8  9
+
+julia&gt; [E;E]
+6×3 Array{Int64,2}:
+ 1  2  3
+ 4  5  6
+ 7  8  9
+ 1  2  3
+ 4  5  6
+ 7  8  9
+
+julia&gt; [w E]
+3×4 Array{Int64,2}:
+ -1  1  2  3
+  2  4  5  6
+  3  7  8  9
+
+julia&gt; [E ; w&#39;]
+4×3 Array{Int64,2}:
+  1  2  3
+  4  5  6
+  7  8  9
+ -1  2  3</code></pre><p>La syntaxe pour modifier un ou des éléments d&#39;un vecteur ou d&#39;une matrice est la même que sur MatLab. Toutefois, puisque Julia est <em>fortement typé</em>, les commandes suivantes produisent des erreurs étant donné que les types ne concordent pas.</p><pre><code class="language-julia-repl">julia&gt; E[1,1] = [-1]
+ERROR: MethodError: Cannot `convert` an object of type Array{Int64,1} to an object of type Int64
+Closest candidates are:
+  convert(::Type{T}, !Matched::T) where T&lt;:Number at number.jl:6
+  convert(::Type{T}, !Matched::Number) where T&lt;:Number at number.jl:7
+  convert(::Type{T}, !Matched::Ptr) where T&lt;:Integer at pointer.jl:23
+  ...
+
+julia&gt; E[2:3,[1,3]] = -4
+ERROR: ArgumentError: indexed assignment with a single value to many locations is not supported; perhaps use broadcasting `.=` instead?</code></pre><p>En comparaison, les commandes suivantes ne produisent pas d&#39;erreurs:</p><pre><code class="language-julia-repl">julia&gt; E[1,1] = -1
+-1
+
+julia&gt; E[1:1,1] = [-1]
+1-element Array{Int64,1}:
+ -1
+
+julia&gt; E[2:3,[1,3]] .= -4
+2×2 view(::Array{Int64,2}, 2:3, [1, 3]) with eltype Int64:
+ -4  -4
+ -4  -4</code></pre><h2 id="Passer-par-valeur-ou-par-référence?-1"><a class="docs-heading-anchor" href="#Passer-par-valeur-ou-par-référence?-1">Passer par valeur ou par référence?</a><a class="docs-heading-anchor-permalink" href="#Passer-par-valeur-ou-par-référence?-1" title="Permalink"></a></h2><p>Une différence majeure entre MatLab et Julia est le fait que MatLab effectue des copies de ses variables, alors que Julia effectue parfois le référencement.</p><pre><code class="language-julia-repl">julia&gt; A = [1 2 ; 3 4]
+2×2 Array{Int64,2}:
+ 1  2
+ 3  4
+
+julia&gt; B = A;
+
+julia&gt; B[1,1] = -9;
+
+julia&gt; A
+2×2 Array{Int64,2}:
+ -9  2
+  3  4</code></pre><p>La deuxième commande ne crée pas une copie de <code>A</code>, mais indique plutôt que <code>B</code> pointe vers le même espace mémoire que <code>A</code>. Ainsi, toute modification à <code>A</code> ou à <code>B</code> sera effectuée sur les deux variables.</p><p>Toutefois, dès qu&#39;une opération de <em>slices</em> consistant à extraire un sous-vecteur d&#39;un <em>array</em> est effectuée, une copie est créée.</p><pre><code class="language-julia-repl">julia&gt; A = [1 2 ; 3 4]
+2×2 Array{Int64,2}:
+ 1  2
+ 3  4
+
+julia&gt; C = A[1,:]
+2-element Array{Int64,1}:
+ 1
+ 2
+
+julia&gt; A[1,1] = -5;
+
+julia&gt; C
+2-element Array{Int64,1}:
+ 1
+ 2</code></pre><p>Si l&#39;on veut que la variable <code>C</code> pointe vers l&#39;espace mémoire de <code>A</code>, il faut plutôt employer la fonction <code>view</code>.</p><pre><code class="language-julia-repl">julia&gt; A = [1 2 ; 3 4]
+2×2 Array{Int64,2}:
+ 1  2
+ 3  4
+
+julia&gt; D = view(A,1,1:2)
+2-element view(::Array{Int64,2}, 1, 1:2) with eltype Int64:
+ 1
+ 2
+
+julia&gt; A[1,1] = -3;
+
+julia&gt; D
+2-element view(::Array{Int64,2}, 1, 1:2) with eltype Int64:
+ -3
+  2</code></pre><p>Lorsqu&#39;un <em>array</em> est passé en argument dans une fonction, l&#39;argument est passé par référence. Ainsi, toute modification de cet <em>array</em> dans la fonction se réflètera à l&#39;extérieur de cette fonction. Ceci constitue une très grosse différence par rapport à MatLab, où toutes les variables modifiées au sein d&#39;une fonction sont passées par valeur et non par référence.</p><pre><code class="language-julia-repl">julia&gt; A = [1 2 ; 3 4]
+2×2 Array{Int64,2}:
+ 1  2
+ 3  4
+
+julia&gt; function demo!(M)
+           M[1,1] = -11
+           T = 1 .+ M
+           return T
+       end
+demo! (generic function with 1 method)
+
+julia&gt; S = demo!(A)
+2×2 Array{Int64,2}:
+ -10  3
+   4  5
+
+julia&gt; A
+2×2 Array{Int64,2}:
+ -11  2
+   3  4</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>Par convention, les fonctions modifiant les variables passées en arguments sont notées avec un point d&#39;exclamation <code>!</code>.</p></div></div><h2 id="Création-d&#39;une-fonction-1"><a class="docs-heading-anchor" href="#Création-d&#39;une-fonction-1">Création d&#39;une fonction</a><a class="docs-heading-anchor-permalink" href="#Création-d&#39;une-fonction-1" title="Permalink"></a></h2><p>Sur MatLab, la création de fonctions ne peut s&#39;effectuer qu&#39;à la fin d&#39;un script ou en écrivant un fichier <code>.m</code> contenant la définition d&#39;une fonction. Julia est plus versatile, car des fonctions peuvent être définies n&#39;importe où dans un script et même à l&#39;intérieur d&#39;autres fonctions. L&#39;exemple suivant permet de définir la fonction <span>$y(x) = x \cos(x) -e^x$</span>.</p><pre><code class="language-julia-repl">julia&gt; function exemple1(x)
+           y = x * cos(x) - exp(x)
+           return y
+       end
+exemple1 (generic function with 1 method)
+
+julia&gt; x = LinRange(0,1,250)
+250-element LinRange{Float64}:
+ 0.0,0.00401606,0.00803213,0.0120482,…,0.987952,0.991968,0.995984,1.0
+
+julia&gt; z1 = exemple1.(x)
+250-element Array{Float64,1}:
+ -1.0
+ -1.0000081075796525
+ -1.0000326031788653
+ -1.0000737462793636
+ -1.0001317966146634
+ -1.0002070141659003
+ -1.0002996591576678
+ -1.0004099920538576
+ -1.0005382735535076
+ -1.0006847645866503
+  ⋮
+ -2.083500102225461
+ -2.0950350572987104
+ -2.106648119542739
+ -2.1183395175454183
+ -2.130109479580855
+ -2.141958233610092
+ -2.1538860072818515
+ -2.1658930279333086
+ -2.1779795225909053</code></pre><div class="admonition is-warning"><header class="admonition-header">Important</header><div class="admonition-body"><p>la fonction est appellée avec un point étant donné que le veut évaluer la fonction sur chaque élément du vecteur <code>x</code>.</p></div></div><p>Cette dernière fonction peut être définie de manière plus compacte ainsi:</p><pre><code class="language-julia-repl">julia&gt; exemple2(x) = x * cos(x) - exp(x)
+exemple2 (generic function with 1 method)
+
+julia&gt; z2 = exemple2.(x)
+250-element Array{Float64,1}:
+ -1.0
+ -1.0000081075796525
+ -1.0000326031788653
+ -1.0000737462793636
+ -1.0001317966146634
+ -1.0002070141659003
+ -1.0002996591576678
+ -1.0004099920538576
+ -1.0005382735535076
+ -1.0006847645866503
+  ⋮
+ -2.083500102225461
+ -2.0950350572987104
+ -2.106648119542739
+ -2.1183395175454183
+ -2.130109479580855
+ -2.141958233610092
+ -2.1538860072818515
+ -2.1658930279333086
+ -2.1779795225909053</code></pre><p>Voici un exemple d&#39;une fonction permettant de retourner les éléments d&#39;un vecteur plus petit ou égal à une valeur <code>p</code> et les valeurs strictement plus grande que <code>p</code>.</p><pre><code class="language-julia-repl">julia&gt; function exemple3(x,p)
+           vector_petit = x[x .&lt;= p]
+           vector_grand = x[x .&gt; p]
+           return vector_petit , vector_grand
+       end
+exemple3 (generic function with 1 method)
+
+julia&gt; test = [1,5,-9,3,-5,2,8,12,7]
+9-element Array{Int64,1}:
+  1
+  5
+ -9
+  3
+ -5
+  2
+  8
+ 12
+  7
+
+julia&gt; (vec1,vec2) = exemple3(test,2);
+
+julia&gt; vec1
+4-element Array{Int64,1}:
+  1
+ -9
+ -5
+  2
+
+julia&gt; vec2
+5-element Array{Int64,1}:
+  5
+  3
+  8
+ 12
+  7</code></pre><h2 id="Scope/portée-des-variables-1"><a class="docs-heading-anchor" href="#Scope/portée-des-variables-1">Scope/portée des variables</a><a class="docs-heading-anchor-permalink" href="#Scope/portée-des-variables-1" title="Permalink"></a></h2><p>Une autre différence majeure entre MatLab et Julia réside dans la portée/scope des variables. Sur MatLab, les variables globales doivent être déclarées à la fois dans le script et dans les fonctions employant ces variables. Ces variables peuvent être modifiées et ces modifications seront accessibles partout. Sur Julia, les variables globales sont celles définies dans un script, le REPL ou dans un module. Les variables globales dans Julia peuvent seulement être modifiées dans le <em>scope</em> global (changer des éléments d&#39;un <em>array</em> ne consiste pas à changer la variable). Les fonctions et les boucles <code>for/while</code> introduisent un <em>scope</em> local qui hérite de toutes les variables du <em>scope parent</em> (qu&#39;elles soient globales ou locales). Si une variable introduite dans le <em>scope</em> local possède le même nom qu&#39;une variable globale, une nouvelle variable possédant le même nom sera créée, mais sa portée sera restreint qu&#39;au <em>scope</em> local (c&#39;est pourquoi, dans l&#39;exemple suivant,  la variable <code>c</code> n&#39;est pas définie en dehors de la boucle <code>for</code>).</p><pre><code class="language-julia-repl">julia&gt; b = 1
+1
+
+julia&gt; for t=1:5
+           b = -2
+           c = t + b
+           println(c)
+       end
+-1
+0
+1
+2
+3
+
+julia&gt; b
+1
+
+julia&gt; c
+ERROR: UndefVarError: c not defined
+
+julia&gt; function test1()
+           b = 3
+           println(b)
+       end
+test1 (generic function with 1 method)
+
+julia&gt; test1()
+3
+
+julia&gt; b
+1</code></pre><p>Le script suivant produit une erreur étant donné que la variable <code>b</code> dans le <em>scope</em> de la boucle <code>for</code> ne correspond pas au <code>b</code> du scope global. Une nouvelle variable <code>b</code> est alors créée dans le scope de la boucle <code>for</code>, ce qui engendre une erreur puisque cette variable n&#39;est pas initialisée.</p><pre><code class="language-julia-repl">julia&gt; b = 1
+1
+
+julia&gt; for t=1:10
+           b = b + 1
+       end
+ERROR: UndefVarError: b not defined</code></pre><p>Les variables locales sont aussi passées aux <em>scopes enfants</em>. Ces variables peuvent toutefois être modifiées à l&#39;intérieur de ces <em>scopes enfants</em>, contrairement aux variables globales.</p><pre><code class="language-julia-repl">julia&gt; b = 1
+1
+
+julia&gt; function test2()
+           x = 2
+           function test_in()
+               x = 3
+               return x + b
+           end
+           return test_in() + x
+       end
+test2 (generic function with 1 method)
+
+julia&gt; test2()
+7</code></pre><h2 id="Affichage-de-textes-et-de-tableaux-sur-la-console-1"><a class="docs-heading-anchor" href="#Affichage-de-textes-et-de-tableaux-sur-la-console-1">Affichage de textes et de tableaux sur la console</a><a class="docs-heading-anchor-permalink" href="#Affichage-de-textes-et-de-tableaux-sur-la-console-1" title="Permalink"></a></h2><p>Afin d&#39;afficher une ligne de texte sur MatLab, on emploie la commande <code>fprintf</code>, alors que sur Julia, il faut utiliser la macro <code>@printf</code>. Cette macro se retrouve dans le package <code>Printf</code> qui doit être importé. Le reste de la syntaxe reste néanmoins similaire à celle de MatLab.</p><pre><code class="language-julia-repl">julia&gt; using Printf
+
+julia&gt; n = 1:6; v1 = 2 .^ n; v2 = 2 .^ (1 ./ n);
+
+julia&gt; @printf(&quot;n   2^n   2^(1/n)\n&quot;)
+n   2^n   2^(1/n)
+
+julia&gt; for t=1:length(n)
+           @printf(&quot;%2d   %2d   %16.15e\n&quot;,n[t],v1[t],v2[t])
+       end
+ 1    2   2.000000000000000e+00
+ 2    4   1.414213562373095e+00
+ 3    8   1.259921049894873e+00
+ 4   16   1.189207115002721e+00
+ 5   32   1.148698354997035e+00
+ 6   64   1.122462048309373e+00</code></pre><h2 id="Affichage-de-graphiques-1"><a class="docs-heading-anchor" href="#Affichage-de-graphiques-1">Affichage de graphiques</a><a class="docs-heading-anchor-permalink" href="#Affichage-de-graphiques-1" title="Permalink"></a></h2><p>Afin d&#39;afficher des graphiques avec Julia, il faut utiliser le <em>package</em> <a href="http://docs.juliaplots.org/latest/">Plots</a>, en employant la commande <code>using Plots</code>. Les attributs spécifiant les propriétés des courbes et des graphiques doivent être décrites lors de la création de ces mêmes courbes, comparativement à Matlab. L&#39;exemple suivant permet de créer une courbe rouge représentant la fonction sin et une courbe bleue représentant la fonction cos.</p><pre><code class="language-julia-repl">julia&gt; using Plots
+
+julia&gt; x = LinRange(-2*pi,2*pi,250); y1 = sin.(x); y2 = cos.(x);
+
+julia&gt; plot(x,y1,label=&quot;sin(x)&quot;,color=&quot;red&quot;)
+Plot{Plots.GRBackend() n=1}
+
+julia&gt; plot!(x,y2,label=&quot;cos(x)&quot;,color=&quot;blue&quot;,xlabel=&quot;x&quot;,ylabel=&quot;y&quot;,title=&quot;Un premier graphique&quot;)
+Plot{Plots.GRBackend() n=2}
+
+┌ Warning: Keyword argument letter not supported with Plots.GRBackend().  Choose from: Set([:top_margin, :group, :background_color, :yforeground_color_text, :yguidefontcolor, :seriesalpha, :legendfontcolor, :seriescolor, :ztick_direction, :zlims, :overwrite_figure, :xguidefonthalign, :normalize, :linestyle, :xflip, :fillcolor, :ygrid, :background_color_inside, :zguidefonthalign, :bins, :yscale, :xtickfontcolor, :xguide, :fillalpha, :tick_direction, :yguidefontsize, :legendfontfamily, :foreground_color, :xtickfonthalign, :x, :ytickfontrotation, :legend, :discrete_values, :ytick_direction, :xguidefontrotation, :ribbon, :tickfontrotation, :xdiscrete_values, :legendtitle, :xgridstyle, :orientation, :gridstyle, :markersize, :camera, :xforeground_color_grid, :quiver, :zticks, :markerstrokecolor, :ztickfontrotation, :ztickfonthalign, :legendfonthalign, :xtickfontsize, :levels, :zgridstyle, :foreground_color_border, :zguidefontvalign, :marker_z, :markerstrokealpha, :markeralpha, :tickfontvalign, :zguidefontcolor, :ygridlinewidth, :zlink, :zscale, :smooth, :xticks, :zguidefontsize, :y, :margin, :ytickfontcolor, :yforeground_color_border, :zguidefontfamily, :zgridalpha, :yguidefontvalign, :yguidefonthalign, :ztickfontcolor, :html_output_format, :tickfontcolor, :titlefontrotation, :legendfontvalign, :tickfontsize, :z, :yforeground_color_axis, :xtickfontrotation, :xerror, :contour_labels, :xguidefontcolor, :primary, :guidefonthalign, :aspect_ratio, :link, :colorbar_title, :yguide, :guidefontvalign, :yguidefontfamily, :layout, :polar, :right_margin, :xlink, :series_annotations, :inset_subplots, :ytickfontsize, :tickfontfamily, :show_empty_bins, :xgrid, :ygridalpha, :xtick_direction, :colorbar, :zflip, :ticks, :legendfontrotation, :linealpha, :arrow, :xtickfontvalign, :zgrid, :bar_width, :zguide, :zforeground_color_text, :weights, :xgridalpha, :ygridstyle, :fill_z, :ztickfontfamily, :markershape, :background_color_subplot, :xguidefontvalign, :markerstrokewidth, :xguidefontfamily, :gridlinewidth, :foreground_color_subplot, :xgridlinewidth, :foreground_color_text, :titlefonthalign, :yerror, :zgridlinewidth, :grid, :xguidefontsize, :xforeground_color_axis, :background_color_outside, :titlefontcolor, :line_z, :size, :projection, :zguidefontrotation, :ydiscrete_values, :seriestype, :yflip, :fillrange, :ztickfontvalign, :xlims, :xforeground_color_border, :markercolor, :ylink, :yforeground_color_grid, :color_palette, :lims, :xscale, :left_margin, :annotations, :window_title, :foreground_color_axis, :yguidefontrotation, :guidefontsize, :zdiscrete_values, :tickfonthalign, :bottom_margin, :framestyle, :zerror, :scale, :zforeground_color_border, :background_color_legend, :linecolor, :foreground_color_legend, :title, :subplot_index, :flip, :titlefontvalign, :foreground_color_grid, :linewidth, :ztickfontsize, :gridalpha, :guidefontfamily, :ylims, :xtickfontfamily, :ytickfontvalign, :ytickfontfamily, :xforeground_color_text, :show, :guidefontrotation, :legendfontsize, :subplot, :label, :ytickfonthalign, :guide, :guidefontcolor, :match_dimensions, :titlefontsize, :titlefontfamily, :zforeground_color_axis, :zforeground_color_grid, :colorbar_entry, :yticks])
+└ @ Plots ~/.julia/packages/Plots/8GUYs/src/args.jl:1140</code></pre><p><img src="tutorial-plot1.png" alt="Graphique #1"/></p><p>Le titre de chaque courbe est spécifié avec l&#39;attribut <code>label</code> et la couleur avec l&#39;attribut <code>color</code>. Pour afficher plusieurs courbes sur le même graphique, il faut utiliser la commande terminée par un <code>!</code> (ici la commande est <code>plot!</code>). Finalement, le titre des axes et du graphiques sont spécifiés.</p><p>Afin d&#39;afficher des points sur un graphique, on change l&#39;attribut <code>linetype</code> pour <code>scatter</code>.</p><pre><code class="language-julia-repl">julia&gt; y3 = 2 .* rand(length(x)) .- 1;
+
+julia&gt; plot!(x,y3,label=&quot;random&quot;,color=&quot;green&quot;,linetype=&quot;scatter&quot;)
+Plot{Plots.GRBackend() n=4}</code></pre><p><img src="tutorial-plot2.png" alt="Graphique #1"/></p><p>Afin de créer un graphique avec des axes en base logarithmique, il faut employer l&#39;attribut <code>xscale=:log10</code> pour l&#39;axe x ou <code>yscale=:log10</code> pour l&#39;axe y. Le package <code>Plots</code> génèrera toutefois des erreurs si des éléments sont nuls ou négatifs lorsque l&#39;on emploie des axes logarithmiques. Il faut donc seulement selectionner les éléments strictement plus grand que 0.</p><pre><code class="language-julia-repl">julia&gt; data_x = 1:5;
+
+julia&gt; data_y = [1e-3,1e-7,-1e-4,1e-5,0];
+
+julia&gt; plot(data_x[data_y.&gt;0],data_y[data_y.&gt;0],yscale=:log10,title=&quot;Graphique avec axe y de type log&quot;)
+Plot{Plots.GRBackend() n=1}</code></pre><p><img src="tutorial-plot3.png" alt="Graphique #2"/></p><p>La description complète des attributs des graphiques est disponible à ce lien: <a href="http://docs.juliaplots.org/latest/attributes/">http://docs.juliaplots.org/latest/attributes/</a>.</p></article></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 9 November 2020 23:10">Monday 9 November 2020</span>. Using Julia version 1.4.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

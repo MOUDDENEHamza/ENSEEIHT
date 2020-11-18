@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>- · Optinum.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="index.html"><img src="assets/logo.png" alt="Optinum.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit">Optinum.jl</span></div><form class="docs-search" action="search.html"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="index.html">Accueil</a></li><li><a class="tocitem" href="Sujet.html">Sujet</a></li><li><span class="tocitem">Algorithmes</span><ul><li><a class="tocitem" href="Algorithme_de_newton.html">L&#39;algorithme de Newton local</a></li><li><a class="tocitem" href="Regions_de_confiance.html">La méthode des régions de confiance</a></li><li><a class="tocitem" href="Lagrangien_augmente.html">La méthode du Lagrangien augmenté</a></li></ul></li><li><a class="tocitem" href="fct_index.html">Index des fonctions</a></li><li><a class="tocitem" href="Annexes.html">Annexes</a></li><li><a class="tocitem" href="mise_en_place.html">Installation de Julia et tests unitaires</a></li><li><a class="tocitem" href="FAQ.html">Foire aux Questions</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="create_package.html">-</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="create_package.html">-</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/mathn7/Optinum/blob/master/docs/src/create_package.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h2 id="Créer-un-Module-en-Julia-1"><a class="docs-heading-anchor" href="#Créer-un-Module-en-Julia-1">Créer un Module en Julia</a><a class="docs-heading-anchor-permalink" href="#Créer-un-Module-en-Julia-1" title="Permalink"></a></h2><p>Pour générer un nouveau module :</p><pre><code class="language-julia">julia&gt;]
+pkg&gt; generate Module
+julia&gt;;
+shell&gt;cd Module/</code></pre><p>deux fichiers seront crées : <code>Project.toml</code> qui contient le nom du package, son UUID unique, sa version, l&#39;auteur et les éventuelles dépendances  et le fichier <code>src/Module.jl</code> qui contient :</p><pre><code class="language-julia">module Module
+
+greet() = print(&quot;Hello World!&quot;)
+
+end # module</code></pre><p>ensuite vous pouvez activer le module pour pouvoir l&#39;utiliser en faisant :</p><pre><code class="language-julia">pkg&gt; activate .
+julia&gt; import Module
+
+julia&gt; Module.greet()
+Hello World!</code></pre><h3 id="Ajout-des-dépendances-au-Module-1"><a class="docs-heading-anchor" href="#Ajout-des-dépendances-au-Module-1">Ajout des dépendances au Module</a><a class="docs-heading-anchor-permalink" href="#Ajout-des-dépendances-au-Module-1" title="Permalink"></a></h3><p>Pour ajouter des dépendances au Module (les packages utilisés dans le Module):</p><pre><code class="language-julia">pkg&gt; add Module1 Module2
+ Resolving package versions...
+ Updating &quot;/Module/Project.toml&quot;
+ + ...
+ + ...</code></pre><p>les dépendances résultantes sont ajoutées au fichier <code>Manifest.toml</code></p><p>voici un exemple de fichier <code>Project.toml</code>:</p><pre><code class="language-julia">name = &quot;Module&quot;
+uuid = &quot;d9fbbd2f-b07c-4129-9383-1eb96f1f244d&quot;
+authors = [&lt;nom &amp; adresse mail&gt;]
+version = &quot;0.1.0&quot;
+
+[deps]
+LinearAlgebra = &quot;37e2e46d-f89d-539d-b4ee-838fcccc9c8e&quot;
+Markdown = &quot;d6f4376e-aef5-505a-96c1-9c027394607a&quot;
+Test = &quot;8dfed614-e22c-5e08-85e1-65c5234f0b40&quot;
+</code></pre><p>maintenant on peut faire une mise à jour du fichier <code>src/Module.jl</code>:</p><pre><code class="language-julia">module Module
+
+import Module1
+import Module2
+
+greet() = print(&quot;Hello World!&quot;)
+
+end # module</code></pre><h3 id="Ajouter-des-tests-1"><a class="docs-heading-anchor" href="#Ajouter-des-tests-1">Ajouter des tests</a><a class="docs-heading-anchor-permalink" href="#Ajouter-des-tests-1" title="Permalink"></a></h3><p>les tests à réaliser doivent être inclus dans le fichier <code>test/runtests.jl</code> une fois fait, on peut lancer les tests : </p><pre><code class="language-julia">(Module) pkg&gt; test
+   Testing Module
+ Resolving package versions...
+...
+   Testing Module tests passed</code></pre><h5 id="Ajouter-des-dépendances-spécifiques-aux-tests-1"><a class="docs-heading-anchor" href="#Ajouter-des-dépendances-spécifiques-aux-tests-1">Ajouter des dépendances spécifiques aux tests</a><a class="docs-heading-anchor-permalink" href="#Ajouter-des-dépendances-spécifiques-aux-tests-1" title="Permalink"></a></h5><p>pour ajouter des dépendances spécifiques aux tests (ou à la génération de la documentation) il faut activer l&#39;environnement <code>test/</code> et ajouter les modules utilisés:</p><pre><code class="language-julia">(Module) pkg&gt; activate ./test
+[ Info: activating environment at `/Module/test/Project.toml`.
+(test) pkg&gt; add Module3
+ Resolving package versions...
+  Updating `/Module/test/Project.toml`
+  [8dfed614] + Module3
+  Updating `/Module/test/Manifest.toml`
+  [...]</code></pre><p>comme pour l&#39;environnement principal les dépendances sont ajoutées dans un fichier <code>test/Manifest.toml</code>.</p><p>Consultez <a href="https://julialang.github.io/Pkg.jl/v1/creating-packages/">cette page</a> savoir plus sur la création des packages en Julia.</p></article></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 9 November 2020 23:10">Monday 9 November 2020</span>. Using Julia version 1.4.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

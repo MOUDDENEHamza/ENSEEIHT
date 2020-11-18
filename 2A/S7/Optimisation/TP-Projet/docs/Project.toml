@@ -1,0 +1,4 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+Optinum = "289cfbba-6966-46b0-8dde-953cd55d6e8f"
+TestOptinum = "a6016688-b6f6-4950-8384-ab0954b6af15"
