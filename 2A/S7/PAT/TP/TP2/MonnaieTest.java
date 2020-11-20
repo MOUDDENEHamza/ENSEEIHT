@@ -1,3 +1,5 @@
+package TP2;
+
 /** Classe regroupant les tests unitaires de la classe Monnaie.  */
 public class MonnaieTest {
 

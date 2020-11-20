@@ -1,3 +1,5 @@
+package TP2;
+
 /** L'exception Echec permet de signaler l'erreur fonctionnelle d'un test.
  * @author	Xavier Crégut
  * @version	$Revision: 1.1 $

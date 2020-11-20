@@ -1,3 +1,5 @@
+package TP2;
+
 /** L'exception DeviseInvalideException indique des devises incompatibles sur
  * des opérations entre monnaies.
  *

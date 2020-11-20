@@ -1,3 +1,5 @@
+package TP2;
+
 /** La classe Monnaie est caractérisée par une valeur et une devise.  Deux
  * monnaies peuvent être ajoutées ou retranchées.
  *

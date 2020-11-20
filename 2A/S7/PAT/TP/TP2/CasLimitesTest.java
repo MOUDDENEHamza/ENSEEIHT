@@ -1,3 +1,5 @@
+package TP2;
+
 /** Tester quelques cas limites.
   * @author	Xavier Crégut
   * @version	$Revision$

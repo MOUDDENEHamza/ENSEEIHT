@@ -1,3 +1,5 @@
+package TP2;
+
 /** La classe Assert définit des méthodes de vérification.  Pour l'instant, la
  * seule méthode de vérification est assertTrue mais d'autres pourraient être
  * définies (voir JUnit).
