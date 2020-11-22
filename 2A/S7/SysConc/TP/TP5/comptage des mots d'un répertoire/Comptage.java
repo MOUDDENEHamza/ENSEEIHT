@@ -38,7 +38,34 @@ class CompterMots extends RecursiveTask<Long> {
         long cpt = 0L;
         List<RecursiveTask<Long>> filles = new LinkedList<>();
         DirectoryStream<Path> ls = null;
-// ********* A compléter
+
+        if (Files.isDirectory(this.racine, LinkOption.NOFOLLOW_LINKS)) {
+            try {
+                ls = Files.newDirectoryStream(this.racine);
+            } catch (IOException iox) {
+                System.err.println("(JF)" + iox);
+            }
+
+            // fork
+            for (Path f : ls) {
+                if (Files.isRegularFile(f, LinkOption.NOFOLLOW_LINKS)) {
+                    RecursiveTask<Long> subTask = new CompterMots(f, this.mot);
+                    subTask.fork (); 
+                    filles.add (subTask);
+                }
+            }
+            
+            // join
+            if (!(filles.isEmpty())) {
+                for (RecursiveTask<Long> subTask : filles) {
+                    long tmp = subTask.join ();
+                    cpt += tmp;
+                }
+            }
+        } else {
+            cpt += Comptage.nbOccurrences (this.racine, this.mot);
+        }
+
         return cpt;
     }
 }
@@ -87,8 +114,8 @@ public class Comptage {
     }
 
     static Long comptageFJ(ForkJoinPool f, Path p, String mot) {
-        Long cpt = 0L; // ********* A corriger
-
+        CompterMots all = new CompterMots (p, mot);
+        Long cpt = f.invoke (all);
         return cpt;
     }
 
