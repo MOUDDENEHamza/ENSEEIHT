@@ -44,7 +44,7 @@ class TraiterFragment extends RecursiveTask<int[]> {
     private int début;
     private int fin;
     private int[] tableau;
-    int[] resTri=null;
+    int[] resTri = {};
 
     private int max = 0;
 
@@ -56,9 +56,23 @@ class TraiterFragment extends RecursiveTask<int[]> {
 
     @Override
     protected int[] compute() {
-        int taille;
+        int taille = this.fin - this.début;
+        
         //si la tâche est trop grosse, on la décompose en 2
-// ********* A compléter
+        if (taille > TF.seuil) {
+            TraiterFragment sp1 = new TraiterFragment (this.tableau, this.début, Math.round ((this.fin + this.début) / 2));
+            TraiterFragment sp2 = new TraiterFragment (this.tableau, Math.round ((this.fin + this.début) / 2), this.fin);
+    
+            sp1.fork ();
+            sp2.fork ();
+
+            int[] resTri1 = sp1.join ();
+            int[] resTri2 = sp2.join ();
+    
+            this.resTri = TF.fusion (resTri1, resTri2);
+        } else {
+            TF.traiterTronçon(this.tableau, this.début, this.fin);
+        }
     	return resTri;
     }
 }
@@ -130,16 +144,26 @@ public class TF {
         List<int[]> resTri = new LinkedList<int[]>(); //recueille et fusionne les résultats
 
         //soumettre les tâches
-// ********* A compléter
+        for (int i = 0; i * grain < t.length; i++) {
+            résultats.add (xs.submit (new TriLocal(t, i * grain, (i + 1) * grain)));
+        }
+
         //récupérer et fusionner les résultats.
-// ********* A compléter
-		return null; // *********** A corriger
+        for (int i= 0; i < nbT; i++) {
+            resTri.add (résultats.get (i).get ());
+        }
+        int[] res = resTri.get (0);
+        for (int[] tab : resTri) {
+            res = TF.fusion(res, tab);
+        }
+        
+        return res;
     }
     
 //-------- Pool ForkJoin
     static int[] TFForkJoin(ForkJoinPool f, int[] t) {
         TraiterFragment tout = new TraiterFragment(t,0, t.length-1);
-        int[] resTri = null; // ********* A corriger
+        int[] resTri = f.invoke(tout);
         return resTri;
     }
 

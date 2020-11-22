@@ -31,9 +31,11 @@ class MaxLocal  implements Callable<Integer> {
     }
 
     @Override
-    public	Integer call() { // le résultat doit être un objet
+    public Integer call () { // le résultat doit être un objet
         int ml = 0;
-// ********* A compléter
+        for (int i = this.début; i < this.fin; i++) {
+            ml = Math.max (this.tableau[i], ml);
+        }
         return ml;
     }
 }
@@ -54,10 +56,26 @@ class TraiterFragment extends RecursiveTask<Integer> {
     }
 
     protected Integer compute() {
-        int taille;
+        int taille = this.fin - this.début;
+
         // si la tâche est trop grosse, on la décompose en 2
-// ********* A compléter
-            return max;
+        if (taille > TraiterFragment.seuil) {
+        TraiterFragment sp1 = new TraiterFragment (this.tableau, this.début, Math.round ((this.fin + this.début) / 2));
+        TraiterFragment sp2 = new TraiterFragment (this.tableau, Math.round ((this.fin + this.début) / 2), this.fin);
+
+        sp1.fork ();
+        sp2.fork ();
+
+        int max1 = sp1.join ();
+        int max2 = sp2.join ();
+
+        this.max = Math.max (max1, max2);
+        } else {
+            for (int i = this.début; i < this.fin; i++) {
+                this.max = Math.max(this.tableau[i], this.max);
+            }
+        }
+        return this.max;
     }
 }
 
@@ -76,25 +94,30 @@ public class MaxTab {
     throws InterruptedException, ExecutionException {
         int max = 0;
         int d;									//indice de départ d'une recherche locale
-        int f = 0;  						//indice de fin d'une recherche locale
-        int grain = Math.max(1,t.length/nbT); 	/*taille d'une recherche locale 
+        int f = 0;  						    //indice de fin d'une recherche locale
+        int grain = Math.max(1,t.length/nbT); 	/* taille d'une recherche locale 
         										 * = taille du tableau/nombre de tâches lancées
         										 * (ou 1 dans le cas (aberrant) où il y a plus
         										 * de tâches que d'éléments du tableau) */
         List<Future<Integer>> résultats=new LinkedList<Future<Integer>>();
 
         //soumettre les tâches
-// ********* A compléter
+        for (int i = 0; i * grain < t.length; i++) {
+            résultats.add (xs.submit (new MaxLocal(t, i * grain, (i + 1) * grain)));
+        }
 
         //récupérer les résultats
-// ********* A compléter
+        for (Future<Integer> item : résultats) {
+            max = Math.max(item.get(), max);
+        }
+
         return max;
     }
 
 //-------- Pool ForkJoin
     static int maxForkJoin(ForkJoinPool f, int[] t) {
         TraiterFragment tout = new TraiterFragment(t,0, t.length-1);
-        int max = 0; // ********* A corriger
+        int max = f.invoke(tout);
         return max;
     }
 
@@ -150,7 +173,7 @@ public class MaxTab {
 
         //créer un pool ForkJoin
         ForkJoinPool fjp = new ForkJoinPool();
-        TraiterFragment.seuil=tailleTronçon;
+        TraiterFragment.seuil = tailleTronçon;
 
         for (int i = 0; i < nbEssais; i++) {
             départ = System.nanoTime();
@@ -172,7 +195,7 @@ public class MaxTab {
         }
         poule.shutdown();
         System.out.println("--------------------");
-
+        
         for (int i = 0; i < nbEssais; i++) {
             départ = System.nanoTime();
             max = maxForkJoin(fjp,tableau);
