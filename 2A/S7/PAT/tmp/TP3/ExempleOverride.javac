@@ -1,0 +1,7 @@
+ExempleOverride.java:13: error: method does not override or implement a method from a supertype
+	@Override
+	^
+ExempleOverride.java:19: error: method does not override or implement a method from a supertype
+	@Override
+	^
+2 errors
