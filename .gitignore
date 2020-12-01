@@ -1,0 +1,5 @@
+# .class Java files
+*.class
+
+# jupyter notebook files
+*.ipynb
