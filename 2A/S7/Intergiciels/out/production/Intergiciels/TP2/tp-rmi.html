@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE"
+ content="text/html; charset=windows-1252">
+  <title></title>
+  <meta name="GENERATOR" content="OpenOffice.org 1.1.4  (Win32)">
+  <meta name="CREATED" content="20051027;135681">
+  <meta name="CHANGEDBY" content="Daniel Hagimont">
+  <meta name="CHANGED" content="20051106;19023960">
+  <meta name="ProgId" content="FrontPage.Editor.Document">
+  <meta name="Originator" content="Microsoft Word 10">
+  <meta name="Template"
+ content="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>95</w:Zoom>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:HyphenationZone>21</w:HyphenationZone>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Tableau Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]--><!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1025" type="#_x0000_t75" style='width:172.5pt;
+ height:114pt'>
+ <v:imagedata src="TP1_fichiers/image001.gif" o:title="logo_inpg"/>
+</v:shape><![endif]-->
+  <style>
+	<!--
+		P { color: #000000 }
+		A:link { color: #0000ff }
+		A:visited { color: #800080 }
+	-->
+	</style>
+</head>
+<body dir="ltr" lang="fr-FR" link="#0000ff" text="#000000"
+ vlink="#800080">
+<br>
+<p align="center"><font style="font-size: 20pt;" size="5"><b>TP RMI</b></font></p>
+<p style="margin-bottom: 0cm;" align="center"><font size="3">Daniel
+Hagimont</font></p>
+<p style="margin-bottom: 0cm;" align="center"><font size="3">Daniel.Hagimont@enseeiht.fr</font></p>
+<p align="center"><br>
+<br>
+</p>
+<p style="margin-left: 1.27cm;">L'objectif de ce TP est d'utiliser Java
+RMI pour implanter une petite application dans laquelle une applet
+permet de saisir les coordonnées d'une personne (nom, adresse email) et
+de les enregistrer dans un serveur. L'interface permet de sélectionner
+le serveur dans lequel la personne doit être enregistrée. On gèrera 2
+serveurs.<br>
+L'application permet également de rechercher l'email d'une personne qui
+a été enregistrée en indiquant le serveur dans lequel faire cette
+recherche.<br>
+</p>
+<p style="margin-left: 1.27cm; text-align: center;"><img
+ style="width: 329px; height: 162px;" alt="fig" src="fig.jpg"><br>
+</p>
+<p style="margin-left: 1.27cm;"><br>
+Si on ne trouve pas la personne dans le serveur indiqué, la recherche
+est alors propagée au second serveur.<br>
+</p>
+<p style="margin-left: 1.27cm;"><br>
+L'interface d'un serveur est la suivante :<br>
+</p>
+<p style="margin-left: 1.27cm;">public interface Carnet extends Remote {<br>
+&nbsp;&nbsp;&nbsp; public void Ajouter(SFiche sf) throws
+RemoteException;<br>
+&nbsp;&nbsp;&nbsp; public RFiche Consulter(String n, boolean forward)
+throws RemoteException;<br>
+}<br>
+</p>
+<p style="margin-left: 1.27cm;">public interface SFiche extends
+Serializable {<br>
+&nbsp;&nbsp;&nbsp; public String getNom ();<br>
+&nbsp;&nbsp;&nbsp; public String getEmail ();<br>
+}<br>
+public interface RFiche extends Remote {<br>
+&nbsp;&nbsp;&nbsp; public String getNom () throws RemoteException;<br>
+&nbsp;&nbsp;&nbsp; public String getEmail () throws RemoteException;<br>
+}</p>
+<p style="margin-left: 1.27cm;"><br>
+L'enregistrement d'une personne utilise la sérialisation pour envoyer
+au serveur une copie d'un objet d'interface SFiche.<br>
+La consultation retourne une référence à un objet RMI d'interface
+RFiche ; l'applet qui consulte peut alors récupérer l'adresse email par
+un appel à distance sur cette référence.<br>
+La méthode de consultation inclut un paramètre booléen <span
+ style="font-style: italic;">forward </span>indiquant si la requête
+doit être propogée à l'autre serveur (pour éviter de boucler).<br>
+</p>
+<p style="margin-left: 1.27cm;">On vous donne :<br>
+- Carnet.java : l'interface d'un serveur<br>
+- SFiche.java : l'interface de l'objet
+sérialisé pour l'enregistrement auprès d'un serveur<br>
+- RFiche.java : l'interface de l'objet
+RMI retourné lors de la consultation auprès d'un serveur<br>
+- Saisie.java et page.html : l'applet implantant l'interface graphique
+de l'application<br>
+&nbsp;&nbsp;&nbsp; Pour lancer l'applet :<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - en standalone : java Saisie<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - avec l'appletviewer :
+appletviewer -J-Djava.security.policy=java.policy<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - depuis un navigateur, plus
+compliqué, il faut signer l'applet ...<br>
+</p>
+<p style="margin-left: 1.27cm;">Vous devez :<br>
+- implanter CarnetImpl.java : la classe d'un serveur<br>
+- implanter SFicheImpl.java : la classe de l'objet sérialisé<br>
+- implanter RFicheImpl.java : la classe de l'objet RMI retourné par le
+serveur<br>
+- compléter Saisie.java : pour faire les appels aux serveurs<br>
+</p>
+</body>
+</html>

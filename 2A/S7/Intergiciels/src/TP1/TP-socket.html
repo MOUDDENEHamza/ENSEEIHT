@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html;
+      charset=windows-1252">
+    <title></title>
+    <meta name="GENERATOR" content="OpenOffice.org 1.1.4 (Win32)">
+    <meta name="CREATED" content="20051027;135681">
+    <meta name="CHANGEDBY" content="Daniel Hagimont">
+    <meta name="CHANGED" content="20051106;19023960">
+    <meta name="ProgId" content="FrontPage.Editor.Document">
+    <meta name="Originator" content="Microsoft Word 10">
+    <meta name="Template" content="C:\PROGRAM FILES\MICROSOFT
+      OFFICE\OFFICE\html.dot">
+    <!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>95</w:Zoom>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:HyphenationZone>21</w:HyphenationZone>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Tableau Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]--><!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1025" type="#_x0000_t75" style='width:172.5pt;
+ height:114pt'>
+ <v:imagedata src="TP1_fichiers/image001.gif" o:title="logo_inpg"/>
+</v:shape><![endif]-->
+    <style>
+	<!--
+		P { color: #000000 }
+		A:link { color: #0000ff }
+		A:visited { color: #800080 }
+	-->
+	</style>
+  </head>
+  <body dir="ltr" lang="fr-FR" link="#0000ff" text="#000000"
+    vlink="#800080">
+    <p align="center"><br>
+      <b><font style="font-size: 20pt;" size="5">Cours Intergiciels<br>
+        </font></b></p>
+    <p align="center"><font style="font-size: 20pt;" size="5"><b>ENSEEIHT
+
+
+
+          – Département Informatique – 2ième année</b></font></p>
+    <p align="center"><font style="font-size: 20pt;" size="5"><b>TP
+          sockets</b></font></p>
+    <p style="margin-bottom: 0cm;" align="center"><font size="3">Daniel
+        Hagimont</font></p>
+    <p style="margin-bottom: 0cm;" align="center"><font size="3">Daniel.Hagimont@enseeiht.fr</font></p>
+    <p align="center"><br>
+      <br>
+    </p>
+    <p style="margin-left: 1.27cm; text-indent: -0.64cm;"><a
+        name="_Toc432321016"></a> <font face="Arial"><font
+          style="font-size: 13pt;" size="3"><b>Objectif</b></font></font></p>
+    <p style="margin-left: 1.27cm;">L'objectif de ce TP est l'initiation
+      à la programmation répartie. Il consiste à programmer une
+      application typique comportant de la répartition à l'aide de
+      Socket. Vous devez implanter un répartiteur de charge (<i>Load
+        Balancer</i>) qui reçoit des requêtes HTTP et les redirige de
+      façon aléatoire vers un ensemble de serveurs Web. <br>
+    </p>
+    <p style="margin-left: 1.27cm;">Le début de cette classe est le
+      suivant :<br>
+    </p>
+    <blockquote>
+      <blockquote>
+        <p class="western" style="margin-bottom: 0cm" lang="fr-FR"
+          align="JUSTIFY"> <font face="Times, serif"><font
+              style="font-size: 11pt" size="2"><i>public class
+                LoadBalancer {</i></font></font></p>
+        <font face="Times, serif"><font style="font-size: 11pt" size="2"><i>static
+
+
+              String hosts[] = {"localhost", "localhost"};</i></font></font><br>
+        <font face="Times, serif"><font style="font-size: 11pt" size="2"><i>static
+
+
+              int ports[] = {8081,8082};</i></font></font><br>
+        <font face="Times, serif"><font style="font-size: 11pt" size="2"><i>static
+
+
+              int nbHosts = 2;</i></font></font><br>
+        <font face="Times, serif"><font style="font-size: 11pt" size="2"><i>static
+
+
+              Random rand = new Random();</i></font></font><br>
+        <font face="Times, serif"><font style="font-size: 11pt" size="2"><i>…</i></font></font><br>
+        <font face="Times, serif"><font style="font-size: 11pt" size="2"><i>}</i></font></font>
+      </blockquote>
+    </blockquote>
+    <blockquote>
+      <p class="western" style="margin-bottom: 0cm" lang="fr-FR"
+        align="JUSTIFY"> A chaque réception d'une requête HTTP (une
+        connexion TCP), <i>LoadBalancer</i> transfère la requête à un
+        des serveurs web (les adresses de ces serveurs sont données par
+        les tables <i>hosts</i> et <i>ports</i>) et <i>LoadBalancer</i>
+        transfère le résultat de la requête à l'émetteur. Le choix du
+        serveur Web est aléatoire (<i>rand.nextInt(nbHosts)</i> retourne
+        un entier entre 0 et <i>nbHosts-1</i>). Pour être efficace, <i>LoadBalancer</i>
+        est évidemment multi-threadé.</p>
+      <p class="western" style="margin-bottom: 0cm" lang="fr-FR"
+        align="JUSTIFY"> <br>
+      </p>
+      <p class="western" style="margin-bottom: 0cm" lang="fr-FR"
+        align="JUSTIFY"> Pour la programmation des entrées/sorties, on
+        utilisera :</p>
+    </blockquote>
+    <ul>
+      <ul>
+        <p class="western" style="margin-bottom: 0cm" lang="fr-FR"
+          align="JUSTIFY"> <font style="font-size: 11pt" size="2"><i>-
+              InputStream<br>
+              &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </i></font><font
+            size="2"><i></i></font><font style="font-size: 11pt"
+            size="2"><i>- public int read(byte[] b); // bloquante,
+              retourne le nombre de bytes lus</i></font></p>
+      </ul>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+      <ul>
+        <p class="western" style="margin-bottom: 0cm" lang="fr-FR"
+          align="JUSTIFY"> <font style="font-size: 11pt" size="2"><i>-
+              OutputStream</i></font><font style="font-size: 11pt"
+            size="2"><i><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - public void
+              write(byte[] b, int off, int len); // écrit les len bytes
+              à la position off</i></font></p>
+      </ul>
+      <ul>
+        <p class="western" style="margin-right: 0.56cm; margin-bottom:
+          0cm; font-style: normal" lang="fr-FR" align="JUSTIFY"> et on
+          suppose que les requêtes et réponses sont lues ou écrites en
+          un seul appel de méthode avec un buffer de 1024 bytes. Notez
+          que cette hypothèse n'est pas vérifieée dans la vrai vie.<br>
+        </p>
+      </ul>
+    </ul>
+    <br>
+    <p></p>
+    <p style="margin-left: 1.27cm; text-indent: -0.64cm;"><a
+        name="_Toc432321016"></a> <font size="3"><font face="Arial"><b>Tests</b></font></font></p>
+    <p style="margin-left: 1.27cm;"> <br>
+      Pour tester, vous disposez d'un petit serveur Web (Comanche.java).<br>
+      Vous pouvez en lancer 2 depuis 2 terminaux avec :<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; java
+      Comanche 8081<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; java
+      Comanche 8082<br>
+    </p>
+    <p style="margin-left: 1.27cm;">Lancez votre LoadBalancer sur la
+      même machine (il accepte les connexions sur le port 8080).<br>
+    </p>
+    <p style="margin-left: 1.27cm;">Entrez dans un navigateur (sur la
+      même machine) l'URL : localhost:8080/page.html<br>
+      (la page page.html est sensée est présente dans le répertoire où
+      vous avez lancé Comanche)<br>
+      <br>
+    </p>
+  </body>
+</html>
