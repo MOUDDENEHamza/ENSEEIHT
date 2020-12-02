@@ -1,5 +1,7 @@
 package TP1;
 
+import org.junit.Test;
+
 /**
   * ExpressionTest :
   *

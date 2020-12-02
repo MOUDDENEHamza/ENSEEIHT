@@ -1,6 +1,6 @@
 package TP1;
 
-public class AfficheurPostfixe {
+public class AfficheurPostfixe implements VisiteurExpression<String> {
 
     public String visiterAccesVariable(AccesVariable v) {
         return "(" + v.getNom() + ")";
@@ -29,5 +29,16 @@ public class AfficheurPostfixe {
 
     public String visiterNegation(Negation n) {
         return "-";
+    }
+
+    @Override
+    public String visiterSoustraction(ExpressionBinaire e) {
+        return "(" + e.getOperandeGauche().accepter(this) + " " + e.getOperandeDroite().accepter(this)
+                + " " + e.getOperateur().accepter(this) + ")";
+    }
+
+    @Override
+    public String visiterLetIn(LetIn e) {
+        return "(" + e.getEEval() + " " + e.getIdent() + " ni " + e.getEFinal().accepter(this) + " tel )";
     }
 }

@@ -39,4 +39,18 @@ public class AfficheurInfixe implements VisiteurExpression<String> {
 		return "-";
 	}
 
+	@Override
+	public String visiterSoustraction(ExpressionBinaire e) {
+		return "(" + e.getOperandeGauche().accepter(this)
+				+ " " + e.getOperateur().accepter(this)
+				+ " " + e.getOperandeDroite().accepter(this)
+				+ ")" ;
+	}
+
+	@Override
+	public String visiterLetIn(LetIn e) {
+		return "(let " + e.getIdent() + " = " + e.getEEval().accepter(this) + " in " +
+				e.getEFinal().accepter(this) + ")";
+	}
+
 }

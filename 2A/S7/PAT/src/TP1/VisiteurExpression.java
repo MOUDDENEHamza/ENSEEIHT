@@ -34,7 +34,7 @@ public interface VisiteurExpression<R> {
 	R visiterMultiplication(Multiplication m);
 
 	/** Visiter une expression unaire.
-	  * @param v l'expression unaire à visiter
+	  * @param e l'expression unaire à visiter
 	  */
 	R visiterExpressionUnaire(ExpressionUnaire e);
 
@@ -43,4 +43,13 @@ public interface VisiteurExpression<R> {
 	  */
 	R visiterNegation(Negation n);
 
+	/** Visiter une soustraction.
+	 * @param e l'expression binaire à visiter
+	 */
+	R visiterSoustraction(ExpressionBinaire e);
+
+	/** Visiter un opérateur "let .. in".
+	 * @param e l'opérateur unaire à visiter
+	 */
+	R visiterLetIn(LetIn e);
 }
