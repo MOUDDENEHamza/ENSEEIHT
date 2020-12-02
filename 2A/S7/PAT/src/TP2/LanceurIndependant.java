@@ -62,20 +62,21 @@ public class LanceurIndependant {
     private void testerUneClasse(String nomClasse) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         // Récupérer la classe
-		Class c = Class.forName(nomClasse);
-
+        Class<?> Classe = Class.forName(nomClasse);
         // Récupérer les méthodes "preparer" et "nettoyer"
-        Method preparer = c.getMethod("preparer");
-        Method nettoyer = c.getMethod("netoyer");
+        Method preparer = Classe.getMethod("preparer", null);
+        Method nettoyer = null;
 
         // Instancier l'objet qui sera le récepteur des tests
-        Object objet = c.getDeclaredConstructor().newInstance();
+        Object objet = Classe.getDeclaredConstructor().newInstance();
+        System.out.println(objet);
 
-
-		// Exécuter les méthods de test
-		for(int i = 0; i < c.getMethods().length; i++) {
-			System.out.println(c.getMethods()[i]);
-		}
+        // Exécuter les méthods de test
+        for (Method m : Classe.getMethods()) {
+            if (m.getName().startsWith("tester")) {
+                //m.invoke(objet);
+            }
+        }
     }
 
     public static void main(String[] args) {

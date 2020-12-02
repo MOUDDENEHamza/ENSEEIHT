@@ -1,3 +1,5 @@
+package TP3;
+
 class A {
 	public String unNomTresTresLong(int n) {
 		return "A" + n;
@@ -10,13 +12,11 @@ class B extends A {
 }	}
 
 class C extends A {
-	@Override
 	public String unNonTresTresLong(int n) {
 		return "C" + n;
 }	}
 
 class D extends A {
-	@Override
 	public String unNomTresTresLong(long n) {
 		return "D" + n;
 }	}

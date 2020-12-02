@@ -1,3 +1,7 @@
+package TP3;
+
+import lombok.Data;
+
 /** DÃ©finir une position.  */
 @Data
 public class Position {
