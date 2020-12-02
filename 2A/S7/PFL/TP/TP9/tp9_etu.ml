@@ -2,11 +2,11 @@
 module GreenThreads =
   struct
     (* à compléter/modifier *)
-    type res = unit
+    type res = Request of res | Done
 
     let scheduler proc_init = assert false;;
-
-    let yield () = assert false;;
+    let p = Delimcc.new_prompt ();;
+    let yield () = Delimcc.shift p (fun k -> Request );;
     let fork proc = assert false;;
     let exit () = assert false;;
   end
