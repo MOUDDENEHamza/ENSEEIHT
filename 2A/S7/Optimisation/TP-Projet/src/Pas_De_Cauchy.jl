@@ -38,5 +38,7 @@ function Pas_De_Cauchy(g,H,delta)
     n = length(g)
     s = zeros(n)
     
+    
+    
     return s, e
 end

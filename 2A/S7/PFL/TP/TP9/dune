@@ -1,0 +1,6 @@
+(library
+ (name tp9_etu)
+ (libraries delimcc)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test)))
