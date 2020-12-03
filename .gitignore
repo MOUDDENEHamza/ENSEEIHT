@@ -3,3 +3,6 @@
 
 # jupyter notebook files
 *.ipynb
+
+# Ignore Julia files
+*.jl
