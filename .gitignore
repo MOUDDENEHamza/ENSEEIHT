@@ -1,3 +1,6 @@
+# Ignore .swp
+*.swp
+
 # .class Java files
 *.class
 
