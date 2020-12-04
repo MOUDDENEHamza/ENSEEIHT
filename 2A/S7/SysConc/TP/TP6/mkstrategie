@@ -1,0 +1,145 @@
+#!/bin/sh
+# 11/19
+
+actuelle=vrai
+if [ $# -gt 1 ]
+then
+	echo 'usage : mkstrategie [-i]'
+	exit 1
+elif [ $# -eq 1 ]
+then # menu interactif
+	if  [ $1 != '-i' ]
+	then
+		echo 'usage : mkstrategie [-i]'
+		exit 1
+	else
+		cible=""
+		for f in *
+		do
+			if expr $f : 'lr-synchro-[^.]*\.ads' > /dev/null
+			then
+				cible=$cible`expr $f : 'lr-synchro-\([^.]*\)\.ads'`" "
+			fi
+		done
+		
+		if [ -z "$cible" ]
+		then
+			echo 'Pas de paquetage conforme.'
+			echo 'Les paquetages décrivant une stratégie doivent avoir une spécification'\
+			'nommée "lr-synchro-<nom_stratégie>.ads".'
+			echo 'Le script mkstrategie et les paquetages décrivant les stratégies doivent'\
+			"être dans le même répertoire, avec les différents paquetages de l'application."
+			echo 'Le répertoire contenant le script mkstrategie doit au moins contenir'\
+			"la définition et l'implantation de la stratégie Exclusion mutuelle"\
+			'(fichiers "lr-synchro-exclusion.adb" et "lr-synchro-exclusion.ads").'
+		else					
+			reponse=999999
+			nbpaq=`echo $cible | wc -w` # nombre de paquetages
+			nbpaq=`expr $nbpaq + 2`
+			while [ $reponse -gt $nbpaq ]
+			do
+				liste=$cible
+				echo 'Choisir une stratégie :'
+				echo '-----------------------'
+				echo '  0) Pas de choix (Abandon)'
+				echo "  1) Création d'une nouvelle stratégie..."
+				echo '  2) Stratégie actuelle ('`cat lr-synchro.adb | \
+				  grep 'with LR\.Synchro\.' | head -1 | cut -f 3 -d . | cut -f 1 -d \;`')'
+				i=3
+				while [ $i -le $nbpaq ]
+				do
+					strategie=`echo $liste | cut -f 1 -d " "`
+					liste=`echo $liste | cut -f 2- -d " "`
+					echo "  $i) "$strategie
+					i=`expr $i + 1`
+				done
+				read reponse
+				if [ -z "$reponse" ] || expr $reponse : '[^0-9]*' > /dev/null
+				then
+					reponse=999999
+				fi
+			done
+			case $reponse in
+				0) 	echo "Abandon : aucune modification n'a été faite."
+					exit 2;;
+				1) 	reponse=""
+					while [ -z "$reponse" ]
+					do
+						echo 'Nom de la nouvelle stratégie (q pour abandonner)'
+						read reponse
+						if [ -n "$reponse" ]
+						then
+							alerte=""
+							if expr "X$reponse" : 'X[Qq].*' >/dev/null
+							then
+								echo "Abandon : aucune modification n'a été faite."
+								exit 3
+							else
+								message="Créer une nouvelle stratégie de nom "$reponse" (o/n) ?"
+								nomfic=lr-synchro-`echo $reponse | tr '[:upper:]' '[:lower:]'`.ads
+								if [ -e $nomfic ]
+								then 
+									alerte='--> ** Attention ** Une stratégie de même nom existe déjà.\n'
+									alerte=$alerte'--> Elle sera **écrasée** par la stratégie créée'
+								fi
+							fi
+							rep=c
+							until expr "X$rep" : 'X[ONon].*' >/dev/null
+							do
+  							echo "$alerte"
+  							echo $message
+ 								read rep
+							done
+							if expr "$rep" : '[Nn].*' >/dev/null
+							then
+								reponse=""
+							fi
+						fi
+					done
+					cible=$reponse
+					radical=`echo $reponse | tr '[:upper:]' '[:lower:]'`
+					echo "création d'un fichier de spécification (lr-synchro-"$radical".ads)"\
+					 "pour la stratégie "$reponse
+					cp lr-synchro.ads lr-synchro-$radical.ads
+					sed -i.old s/"\(package LR.Synchro\)\( *is\)"/"\1\.$reponse\2"/\
+						lr-synchro-$radical.ads
+					sed -i.old s/"\(end LR.Synchro\)\(;\)"/"\1\.$reponse\2"/ lr-synchro-$radical.ads
+					rm lr-synchro-$radical.ads.old 
+					# supprime la version d'origine sauvegardée par sed -i.old 
+					# (pas de sed --in-place sans sauvegarde sous FreeBSD/MacOS)
+					echo "création d'un fichier d'implémentation (lr-synchro-"$radical".adb)"\
+					 "pour la stratégie "$reponse	
+					cp lr-synchro-exclusion.adb lr-synchro-$radical.adb
+					sed -i.old s/"\(package body LR.Synchro.\)\([^ ]*\)\( *is\)"/"\1$reponse\3"/\
+						lr-synchro-$radical.adb
+					sed -i.old s/"\(end LR.Synchro.\)\([^;]*\)\(;\)"/"\1$reponse\3"/\
+						lr-synchro-$radical.adb						 	
+					msg="Stratégie : $reponse"	
+					sed -i.old s/'\([^"]*"\)\(Exclusion mutuelle simple\)\(.*$\)'/"\1$msg\3"/\
+					 lr-synchro-$radical.adb											 	
+					rm lr-synchro-$radical.adb.old
+					actuelle=faux ;;
+				2) 	;;
+				*) 	i=`expr $reponse - 2`
+					cible=`echo $cible | cut -f $i -d " "`
+					actuelle=faux ;;
+			esac
+		fi
+	fi
+fi
+
+# edition
+if [ $actuelle = 'vrai' ]
+then 
+	cible=`cat lr-synchro.adb | head -1 | cut -f 3 -d . | cut -f 1 -d \;`
+else
+	radical=`echo $cible | tr '[:upper:]' '[:lower:]'`
+	nom=`cat lr-synchro-"$radical".ads | grep "package LR.Synchro." | cut -f 3 -d . | cut -f 1 -d ' '`
+	echo "Edition du fichier lr-synchro.adb pour la stratégie "$nom
+	sed -i.old s/"\(LR\.Synchro\.\)\([^;]*\)\(;.*-- XXXX\)"/"\1$nom\3"/ lr-synchro.adb
+	rm lr-synchro.adb.old
+fi
+
+# compilation
+echo "compilation pour $cible"
+gprbuild build.gpr

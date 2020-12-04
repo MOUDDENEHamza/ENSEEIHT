@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="tp-synchronisation-en-ada-lecteursrédacteurs">TP Synchronisation en Ada : lecteurs/rédacteurs</h1>
+<h2 id="objectif">Objectif</h2>
+<p>Réaliser une tâche Ada gérant les accès à un fichier partagé, en garantissant une cohérence des accès concurrents (accès exclusif pour les écritures) et en suivant différentes stratégies de service :</p>
+<ul>
+<li>priorité aux rédacteurs ou aux lecteurs ;</li>
+<li>FIFO ;</li>
+<li>équitable (absence de famine que ce soient des lecteurs ou des rédacteurs).</li>
+</ul>
+<h2 id="les-fournitures-et-paquetages">Les fournitures et paquetages</h2>
+<p><code>mkstrategie</code> : script shell permettant de définir, choisir et compiler une stratégie</p>
+<p><code>LR</code> : vide, requis par l'implantation d'Ada utilisée ici (gnat)<br />
+<code>LR.Affic</code> : tout ce qui concerne l'affichage<br />
+<code>LR.Main</code> : programme principal<br />
+<code>LR.Simu</code> : simulateur temporel<br />
+<code>LR.Synchro</code> : paquetage de redirection vers la stratégie choisie<br />
+<code>LR.Synchro.Exclusion</code> : implantation LR par exclusion mutuelle (approche par conditions d'acceptation)<br />
+<code>LR.Synchro.Exclusion2</code> : implantation alternative de LR par exclusion mutuelle (approche par automates)<br />
+<code>LR.Synchro.Basique</code> : 1er exercice, à compléter<br />
+<code>LR.Tasks</code> : les tâches clientes (lecteurs et rédacteurs)</p>
+<p>Les paquetages à consulter sont principalement les paquetages <code>LR.Synchro.*</code></p>
+<p>Au besoin, il est possible de consulter <code>LR.Tasks</code> qui contient la défintion du comportement des lecteurs et des rédacteurs. Le code est simple, et il peut être utile de jouer (en les éditant) sur les paramètres qui fixent la fréquence avec laquelle les différentes entrées sont appelées.</p>
+<p>Par curiosité, on peut aussi consulter <code>LR.Main</code> (qui lance les tâches) et les interfaces de <code>LR.Simu</code> et <code>LR.Affic</code> mais il n'est pas utile de se pencher sur les détails de l'implantation de ces deux derniers paquetages, qui ne présente pas d'intérêt particulier.</p>
+<h2 id="principe-de-la-synchronisation">Principe de la synchronisation</h2>
+<p>Comme présenté en cours, deux approches sont possibles :</p>
+<p>1 - définir une tâche de synchronisation (par exemple <code>LectRedTask</code> dans <code>LR.Synchro.Exclusion</code>) qui possède des entrées ouvertes ou pas selon son état interne. La tâche de synchronisation est alors conçue comme un <em>automate</em>. L'interface (= les entrées) et leur implantation peuvent varier selon la stratégie implantée. Les procédures <code>Demander_*</code> et <code>Terminer_*</code> permettent de présenter une interface uniforme pour les tâches définies dans <code>LR.Tasks</code>.</p>
+<p>2 - définir une tâche fournissant un <em>service</em>, en attente cyclique d'appels (requêtes) sur ses différentes entrées. A chaque itération, la tâche traite un appel. Elle reste en attente s'il n'y a pas de client. La démarche de conception est alors très proche de celle des moniteurs : à chaque entrée est associé un traitement, gardé par une condition d'acceptation ; la condition d'acceptation détermine la décision d'entamer (ou non) le traitement, en fonction du maintien de la cohérence (ou non) de la ressource gérée par le service.</p>
+<h2 id="à-faire">À Faire</h2>
+<ol style="list-style-type: decimal">
+<li><p>Écrire dans <code>lr-synchro-basique.adb</code> une version basique autorisant plusieurs lecteurs simultanés. Ne pas se préoccuper d'implanter une stratégie particulière. Pour cela, utiliser un automate fini à états (approche 1) déterminant les entrées ouvertes dans chaque état.</p></li>
+<li><p>Définir une tâche serveur réalisant le même service (approche 2).</p></li>
+<li><p>Modifier les versions précédentes pour implanter une stratégie de type priorité aux rédacteurs.</p></li>
+<li><p>Modifier les versions précédentes pour implanter une stratégie FIFO.</p></li>
+<li><p>Construire un automate pour une stratégie équitable (autre que FIFO), i.e. qui garantit l'absence de famine des lecteurs et des rédacteurs, et implanter cet automate.</p></li>
+</ol>
+<h2 id="définition-des-stratégies">Définition des stratégies</h2>
+<p>L'absence d'introspection en Ada, qui aurait par exemple permis de paramétrer <code>LR.Synchro</code> avec le nom des paquetages/stratégies disponibles, alourdit un peu le travail d'édition des différents composants.</p>
+<p>Le script shell <code>./mkstrategie</code> vise à faciliter ce travail d'édition :</p>
+<ul>
+<li>appelé sans paramètres (<code>./mkstrategie</code>), il permet de recompiler la dernière stratégie &quot;installée&quot; ;</li>
+<li>avec l'option -i (<code>./mkstrategie -i</code>), il permet de créer et installer une nouvelle stratégie, d'installer une stratégie existante, ou de recompiler la dernière stratégie installée.</li>
+</ul>
+<p>Pour définir une stratégie (<code>Xxxx</code>), il suffit de travailler sur le fichier <code>lr-synchro-xxxx.adb</code>, correspondant à son implantation. Seul le corps de la tâche <code>LectRedTask</code>, ainsi que la fonction <code>Nom_Strategie</code> doivent être modifiés. En particulier, les procédures <code>Demander_Lecture</code>, <code>Demander_Ecriture</code>, <code>Terminer_Lecture</code>, <code>Terminer_Ecriture</code> qui appellent les entrées correspondantes de la tâche <code>LectRedTask</code> n'ont pas à être modifiées (sauf, bien sûr, si l'on souhaite modifier l'interface de la tâche <code>LectRedTask</code>). Leur rôle est d'abord d'assurer une modularité, en permettant leur appel (depuis d'autres paquetages) en tant que procédures de paquetages, sans référence à la tâche <code>LectRedTask</code>.</p>
+<p>Il est par ailleurs possible de réaliser les opérations du script <code>./mkstrategie</code> à la main. Le détail des opérations est donné en fin de document.</p>
+<h2 id="pour-exécuter">Pour exécuter</h2>
+<pre><code>./lr-main 5 4    (nb lecteurs, nb rédacteurs)</code></pre>
+<p><em>Note :</em> le bouton d'aide de la fenêtre affichée par l'application en présente les fonctionnalités.</p>
+<h1 id="annexe">Annexe</h1>
+<h2 id="rappel-tâches-ada">Rappel tâches Ada</h2>
+<ul>
+<li>Pour une entrée de rendez-vous <code>Rdv</code>, <code>Rdv'count</code> est le nombre de tâches clientes en attente de l'acceptation du rendez-vous.</li>
+</ul>
+<h2 id="ajouter-une-nouvelle-stratégie-sans-utiliser-le-script-mkstrategie">Ajouter une nouvelle stratégie sans utiliser le script <code>mkstrategie</code></h2>
+<p>Soit la stratégie <code>Toto</code> que l'on souhaite implanter :</p>
+<ul>
+<li>dupliquer <code>lr-synchro.ads</code> dans <code>lr-synchro-toto.ads</code> ;</li>
+<li>éditer <code>lr-synchro-toto.ads</code> pour nommer le paquetage <code>LR.Synchro.Toto</code> ; toutes les stratégies ont ainsi la même interface, mais des noms différents.</li>
+<li>dans <code>lr-synchro.adb</code>, remplacer <code>LR.Synchro.Exclusion</code> (en supposant que <code>Exclusion</code> est la dernière stratégie utilisée) par <code>LR.Synchro.Toto</code> (deux emplacements marqués par <code>XXXX</code>) ; cette manipulation (pas vraiment élégante...) vise à pallier l'absence d'introspection en Ada, qui aurait ici permis de paramétrer <code>LR.Synchro</code> avec le nom des paquetages/stratégies disponibles.</li>
+<li>écrire l'implantation du paquetage <code>LR.Synchro.Toto</code> dans le fichier <code>lr-synchro-toto.adb</code> en s'inspirant d'une stratégie déjà existante.</li>
+</ul>
+<h2 id="pour-compiler">Pour compiler</h2>
+<p><code>make</code> ou <code>gprbuild build.gpr</code> ou <code>./mkstrategie</code></p>
+</body>
+</html>
