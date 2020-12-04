@@ -69,11 +69,66 @@ function Lagrangien_Augmente(algo,fonc::Function,contrainte::Function,gradfonc::
 		tho = options[6]
 	end
 
-    n = length(x0)
-    xmin = zeros(n)
-	fxmin = 0
-	flag = 0
+    "Initialisation des parametres"
 	iter = 0
-	
+	xk = x0
+	xk_1 = x0
+	mu = mu0
+	lambda = lambda0
+	betha = 0.9
+	alpha = 0.1
+	etha_c = 0.1258925
+	epsilon0 = 1
+	etha = etha_c/(mu^alpha)
+	flag = 0
+
+
+
+	while true
+		xk = xk_1
+		iter+=1
+		"Definition de la fonction Lagrangien"
+		Lx(x) = fonc(x) + lambda'*contrainte(x) + (mu/2)*(norm(contrainte(x)))^2
+		grad_x_Lx(x) = gradfonc(x) + lambda'*grad_contrainte(x) + mu*grad_contrainte(x)*contrainte(x)
+		Hess_x_Lx(x) = hessfonc(x) + lambda'*hess_contrainte(x) + mu*hess_contrainte(x)*contrainte(x) + mu*grad_contrainte(x)*grad_contrainte(x)'
+
+		if algo=="newton"
+			xk_1, ~ = Algorithme_De_Newton(Lx,grad_x_Lx,Hess_x_Lx,xk,[])
+		elseif algo == "cauchy" || algo == "gct"
+			xk_1, ~ = Regions_De_Confiance(algo,Lx,grad_x_Lx,Hess_x_Lx,xk,[])
+		end
+
+		"convergence "
+	        if norm(gradfonc(xk_1))<=max(tol, tol*norm(gradfonc(x0)))
+	            flag = 0
+	            break
+	        elseif norm(xk_1-xk)<=max(tol, tol*norm(xk))
+	            flag = 1
+	            break
+	        elseif abs(fonc(xk_1)-fonc(xk))<=max(tol, tol*abs(fonc(xk)))
+	            flag = 2
+	            break
+			elseif iter == itermax
+		        flag = 3
+				break
+			elseif norm(grad_x_Lx(xk_1),2)<=epsilon
+				flag = -1
+				break
+			else
+				if norm(contrainte(xk_1))<=etha
+					lambda = lambda + mu*contrainte(xk_1)
+					epsilon = epsilon/mu
+					etha = etha/(mu^betha)
+				else
+					mu = tho*mu
+					epsilon = epsilon0/mu
+					etha = etha_c/(mu^alpha)
+				end # if
+			end # if
+
+	end	# while
+	xmin = xk_1
+	fxmin = fonc(xmin)
+
 	return xmin,fxmin,flag,iter
 end

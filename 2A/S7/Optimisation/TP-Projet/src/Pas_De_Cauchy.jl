@@ -34,11 +34,24 @@ s1, e1 = Pas_De_Cauchy(g1,H1,delta1)
 """
 function Pas_De_Cauchy(g,H,delta)
 
-    e = 0
-    n = length(g)
-    s = zeros(n)
+    if norm(g) == 0 
+        n = length(g)
+        s = zeros(n)
+        e = 0
     
+    else
+        t = norm(g) ^ 2 / (g' * H * g) 
+        s = -t * g
+        # si on sature la boule implique que norm(s) > delta"
+        
+        if norm(s) > delta
+                s = - (delta / norm(g)) * g
+                e = -1
+        else
+                e = 1
+        end
     
+    end
     
     return s, e
 end
