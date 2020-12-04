@@ -1,4 +1,5 @@
-With "gtkada";
+with "gtkada";
+
 project Build is
   for Main use ("lr-main");
 end Build;
