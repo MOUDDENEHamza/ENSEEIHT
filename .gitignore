@@ -9,3 +9,6 @@
 
 # Ignore Julia files
 *.jl
+
+# Ignore SHS's S7 folder
+2A/S7/spanish
