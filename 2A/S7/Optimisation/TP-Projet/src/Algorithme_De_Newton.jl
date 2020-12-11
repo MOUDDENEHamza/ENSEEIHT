@@ -61,10 +61,10 @@ function Algorithme_De_Newton(f::Function,gradf::Function,hessf::Function,x0,opt
     while (norm(gradf(xk)) > max(Tol_rel * norm(gradf(x0)), Tol_abs))
         nb_iters += 1
         xk_1 = xk
-        dk = -gradf(xk) \ hessf(xk) 
+        dk = -hessf(xk)\gradf(xk)
         xk = xk + dk
         
-        if norm(gradf(xk_1)) <= max(Tol_abs, Tol_rel * norm(gradf(f(x0))))
+        if norm(gradf(xk_1)) <= max(Tol_abs, Tol_rel * norm(gradf(x0)))
             flag = 0
             break
         

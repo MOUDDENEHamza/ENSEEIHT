@@ -49,22 +49,22 @@ function Regions_De_Confiance(algo,f::Function,gradf::Function,hessf::Function,x
             xk_1 = xk
         end # if
 
-        if rho_k>eta2
+        if rho_k > eta2
             delta = min(gamma2*delta, deltaMax)
-        elseif rho_k>eta1
+        elseif rho_k > eta1
             delta = delta
         else
             delta = gamma1*delta
         end # if
 
         "condition d'arret "
-        if norm(gradf(xk_1))<=CondConvergence
+        if norm(gradf(xk_1)) <= CondConvergence
             flag = 0
             break
-        elseif norm(sk)<=max(Tol_abs, Tol_rel*norm(xk))
+        elseif norm(sk) <= max(Tol_abs, Tol_rel*norm(xk))
             flag = 1
             break
-        elseif abs(f(xk+sk)-f(xk))<=max(Tol_abs, Tol_rel*abs(f(xk)))
+        elseif abs(f(xk+sk)-f(xk)) <= max(Tol_abs, Tol_rel*abs(f(xk)))
             flag = 2
             break
         end
