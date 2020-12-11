@@ -46,6 +46,21 @@ public class StatistiquesTest {
 		assertEquals(2, r.nbMax);
 	}
 
+	@Test
+	public void testStatistiquesNominal3() {
+		List<Integer> l = new ArrayList<>();
+		Collections.addAll(l, 3, 2, 3, 2, 3, 2);
+		Statistiques.Resultat<Integer> r = new Statistiques().statistiques(l);
+		assertEquals(Integer.valueOf(2), r.min);
+		assertNotEquals(Integer.valueOf(67), r.min);
+		assertEquals(Integer.valueOf(3), r.max);
+		assertNotEquals(Integer.valueOf(13), r.max);
+		assertEquals(3, r.nbMin);
+		assertNotEquals(34, r.nbMin);
+		assertEquals(3, r.nbMax);
+		assertNotEquals(99, r.nbMax);
+	}
+
 	@Test(expected = NullPointerException.class)
 	public void testStatistiquesLimites1() {
 		List<Integer> l = new ArrayList<>();

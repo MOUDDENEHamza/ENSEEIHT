@@ -29,18 +29,19 @@ public class Somme {
 				}
 			} catch (NumberFormatException e) {
 				erreurs.signaler(ligne, "Pas un entier !");
+				throw e;
 			}
 		}
 		return resultat;
 	}
 
-    public static void main(String[] args) throws Exception {
+    public static int main(String[] args) throws Exception {
 		if (args.length == 1) {
 			BufferedReader br = new BufferedReader(new FileReader(args[0]));
-			System.out.println(new Somme().somme(br));
+			return (new Somme().somme(br));
 		} else {
 			System.out.println("Un nom de fichier attendu sur la ligne de commande !");
-			System.exit(1);
+			return -1;
 		}
     }
 
