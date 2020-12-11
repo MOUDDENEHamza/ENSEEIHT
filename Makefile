@@ -6,7 +6,7 @@ PUSH = push
 PULL = pull
 
 push :
-	@$(READ) "Enter the message : " message; \
+	@$(READ) "The message to commit : " message; \
 	$(GIT) $(ADD) && $(GIT) $(COMMIT) "#$$message" && $(GIT) $(PUSH)
 
 .PHONY : push
