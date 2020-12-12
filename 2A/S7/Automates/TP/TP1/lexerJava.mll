@@ -67,7 +67,7 @@ let hexadecimalFloating = hexSignificand binaryExponent (floatTypeSuffix)?
 let specialCharacter = "'" ("\\b" | "\\t" | "\\n" | "\\f" | "\\r" | "\\\"" | "\\\'" | "\\\\" | "\\" octalDigit) "'"
 
 (* Comments *)
-let commentaireBloc =  "/*" _* "*/" 
+let commentaireBloc =  "/*" _* "*/" "/*" [^ '*']* '*'* ([^ '*' '/'] [^ '*']* '*'*)* '/'
 let commentaireLigne = "//" [^'\n']* '\n'
 
 (* Analyseur lexical : expression reguliere { action CaML } *)
