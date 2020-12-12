@@ -24,10 +24,10 @@ let commentaire =
   (* Commentaire fin de ligne *)
   |  "//" [^'\n']*
 
+
 rule main = parse
   | ['\n' '\t' ' ']+					{ main lexbuf }
   | commentaire						{ (main lexbuf) }
-  | "import"						{ IMPORT }
   | "int"						{ INT }
   | "float"						{ FLOAT }
   | "boolean"						{ BOOL }
@@ -72,6 +72,7 @@ rule main = parse
   | '\"' ([^ '\"' '\\'] | ('\\' _))* '\"' as texte 	{ (CHAINE texte) }
   | "null"						{ VIDE }
   | "new"						{ NOUVEAU }
+  | "import " (majuscule | minuscule) alphanum* (('.' ((majuscule | minuscule) alphanum* | '*'))* )? ";" as texte      { (IMPORT texte) }
   | ('_' | minuscule) alphanum* as texte		{ (IDENT texte) }
   | majuscule alphanum* as texte			{ (TYPEIDENT texte) }
   | eof							{ FIN }

@@ -4,7 +4,7 @@ open ParserJava
 let printToken t =
   (print_endline
      (match t with
-       | IMPORT -> "import"
+       | IMPORT (texte) -> texte
        | IDENT (texte) -> texte
        | TYPEIDENT (texte) -> texte
        | INT -> "int"

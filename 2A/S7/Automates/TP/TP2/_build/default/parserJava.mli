@@ -31,7 +31,7 @@ type token =
   | OPDIV
   | NOUVEAU
   | INT
-  | IMPORT
+  | IMPORT of (string)
   | IDENT of (string)
   | FLOTTANT of (float)
   | FLOAT

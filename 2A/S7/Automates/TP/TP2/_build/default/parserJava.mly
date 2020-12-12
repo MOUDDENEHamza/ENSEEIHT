@@ -10,7 +10,7 @@
 
 /* Declaration des unites lexicales et de leur type si une valeur particuliere leur est associee */
 
-%token IMPORT
+%token <string> IMPORT
 %token <string> IDENT TYPEIDENT
 %token INT FLOAT BOOL CHAR VOID STRING
 %token ACCOUV ACCFER PAROUV PARFER CROOUV CROFER
@@ -54,7 +54,11 @@
 
 %% /* Regles de productions */
 
+imports : /* Lambda, mot vide */ { (print_endline "imports : /* Lambda, mot vide */"); }
+          | IMPORT imports { (print_endline "imports : IMPORT imports"); }
+
 fichier : programme FIN { (print_endline "fichier : programme FIN"); (print_string "Nombre de méthodes = "); (print_int $1); (print_newline ()) }
+        | imports programme FIN { (print_endline "fichier : programme FIN"); (print_string "Nombre de méthodes = "); (print_int $2); (print_newline ()) }
 
 programme : /* Lambda, mot vide */ { (print_endline "programme : /* Lambda, mot vide */"); 0 }
           | fonction programme { (print_endline "programme : fonction programme"); ($2 + 1) }
@@ -86,7 +90,7 @@ bloc : ACCOUV variables instructions ACCFER {
                 (print_endline "bloc : ACCOUV variables instructions ACCFER");
                 (print_string "Nombre de variables = ");
                 (print_int $2);
-                (print_newline ()); 
+                (print_string "Nombre d'instructions = ");
         }
 
 variables : /* Lambda, mot vide */ { (print_endline "variables : /* Lambda, mot vide */"); 0 }
@@ -94,15 +98,11 @@ variables : /* Lambda, mot vide */ { (print_endline "variables : /* Lambda, mot 
 
 variable : typeStruct IDENT PTVIRG { (print_endline "variable : typeStruct IDENT PTVIRG") }
 
-/* A FAIRE : Completer pour decrire une liste d'instructions eventuellement vide */
-instructions : instruction_bis {
-                (print_endline "instructions : instruction");
-                (print_string "Nombre d'instructions = ");
+instructions :  instruction_bis {(print_endline "instructions : instruction");(print_string "Nombre d'instructions = ");
                 (print_int $1);
                 (print_newline ());         
         }
 
-/* A FAIRE : Completer pour ajouter les autres formes d'instructions */
 instruction : expression PTVIRG { (print_endline "instruction : expression PTVIRG") }
                 | SI PAROUV expression PARFER corps  { (print_endline "SI PAROUV expression PARFER corps") }
                 | SI PAROUV expression PARFER corps SINON corps  { (print_endline "SI PAROUV expression PARFER corps SINON corps") }                
@@ -117,7 +117,6 @@ variables_bis : /* Lambda, mot vide */ { (print_endline "variables_bis : /* Lamb
 instruction_bis : /* Lambda, mot vide */ { (print_endline "instruction_bis : /* Lambda, mot vide */"); 0 }
                 | instruction instruction_bis { (print_endline "instruction_bis : instruction"); ($2 + 1) }
 
-/* A FAIRE : Completer pour ajouter les autres formes d'expressions */
 expression : ENTIER { (print_endline "expression : ENTIER") }
            | FLOTTANT { (print_endline "expression : FLOTTANT") }
            | CARACTERE { (print_endline "expression : CARACTERE") }

@@ -1,10 +1,10 @@
 # dune build mainJava.exe
 # OCAMLPARAM: unset
 # Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP2
-$ /usr/bin/nproc > /tmp/dune43dc1c.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dune501183.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunef361c7.output
+$ /home/hamza/.opam/default/bin/ocamlc.opt -config > /tmp/dunee6a0a1.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -14,12 +14,12 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunef361c7.output
 #  ; fdo_target_exe = None
 #  ; build_dir = "default"
 #  ; toplevel_path = Some External "/home/hamza/.opam/4.07.1/lib/toplevel"
-#  ; ocaml_bin = External "/home/hamza/.opam/4.07.1/bin"
-#  ; ocaml = Ok External "/home/hamza/.opam/4.07.1/bin/ocaml"
-#  ; ocamlc = External "/home/hamza/.opam/4.07.1/bin/ocamlc.opt"
-#  ; ocamlopt = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlopt.opt"
-#  ; ocamldep = Ok External "/home/hamza/.opam/4.07.1/bin/ocamldep.opt"
-#  ; ocamlmklib = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlmklib.opt"
+#  ; ocaml_bin = External "/home/hamza/.opam/default/bin"
+#  ; ocaml = Ok External "/home/hamza/.opam/default/bin/ocaml"
+#  ; ocamlc = External "/home/hamza/.opam/default/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/hamza/.opam/default/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/hamza/.opam/default/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/hamza/.opam/default/bin/ocamlmklib.opt"
 #  ; env =
 #      map
 #        { "INSIDE_DUNE" :
@@ -38,24 +38,22 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunef361c7.output
 #  ; natdynlink_supported = true
 #  ; supports_shared_libraries = true
 #  ; ocaml_config =
-#      { version = "4.07.1"
-#      ; standard_library_default = "/home/hamza/.opam/4.07.1/lib/ocaml"
-#      ; standard_library = "/home/hamza/.opam/4.07.1/lib/ocaml"
-#      ; standard_runtime = "/home/hamza/.opam/4.07.1/bin/ocamlrun"
+#      { version = "4.11.1"
+#      ; standard_library_default = "/home/hamza/.opam/default/lib/ocaml"
+#      ; standard_library = "/home/hamza/.opam/default/lib/ocaml"
+#      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
 #      ; c_compiler = "gcc"
-#      ; ocamlc_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon"; "-fPIC" ]
+#      ; ocamlc_cflags = [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
 #      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
 #      ; ocamlopt_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
 #      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
 #      ; bytecomp_c_compiler =
 #          [ "gcc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
-#          ; "-fcommon"
 #          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ; "-D_REENTRANT"
@@ -66,12 +64,12 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunef361c7.output
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
-#          ; "-fcommon"
+#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ; "-D_REENTRANT"
 #          ]
 #      ; native_c_libraries = [ "-lm"; "-ldl" ]
-#      ; cc_profile = [ "-pg" ]
+#      ; cc_profile = []
 #      ; architecture = "amd64"
 #      ; model = "default"
 #      ; int_size = 63
@@ -88,75 +86,24 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunef361c7.output
 #      ; os_type = "Unix"
 #      ; default_executable_name = "a.out"
 #      ; systhread_supported = true
-#      ; host = "x86_64-unknown-linux-gnu"
-#      ; target = "x86_64-unknown-linux-gnu"
-#      ; profiling = true
+#      ; host = "x86_64-pc-linux-gnu"
+#      ; target = "x86_64-pc-linux-gnu"
+#      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
-#      ; safe_string = false
-#      ; exec_magic_number = "Caml1999X023"
-#      ; cmi_magic_number = "Caml1999I024"
-#      ; cmo_magic_number = "Caml1999O023"
-#      ; cma_magic_number = "Caml1999A023"
-#      ; cmx_magic_number = "Caml1999Y023"
-#      ; cmxa_magic_number = "Caml1999Z023"
-#      ; ast_impl_magic_number = "Caml1999M023"
-#      ; ast_intf_magic_number = "Caml1999N023"
-#      ; cmxs_magic_number = "Caml1999D023"
-#      ; cmt_magic_number = "Caml1999T024"
+#      ; safe_string = true
+#      ; exec_magic_number = "Caml1999X028"
+#      ; cmi_magic_number = "Caml1999I028"
+#      ; cmo_magic_number = "Caml1999O028"
+#      ; cma_magic_number = "Caml1999A028"
+#      ; cmx_magic_number = "Caml1999Y028"
+#      ; cmxa_magic_number = "Caml1999Z028"
+#      ; ast_impl_magic_number = "Caml1999M028"
+#      ; ast_intf_magic_number = "Caml1999N028"
+#      ; cmxs_magic_number = "Caml1999D028"
+#      ; cmt_magic_number = "Caml1999T028"
 #      ; natdynlink_supported = true
 #      ; supports_shared_libraries = true
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/menhir parserJava.mly --base parserJava --infer-write-query parserJava__mock.ml.mock)
-> File "parserJava.mly", line 24, characters 16-22:
-> Warning: the token CHAINE is unused.
-> File "parserJava.mly", line 13, characters 7-13:
-> Warning: the token IMPORT is unused.
-> File "parserJava.mly", line 145, characters 0-6:
-> Warning: symbol unaire is unreachable from any of the start symbol(s).
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl parserJava__mock.ml.mock) > _build/default/.mainJava.eobjs/parserJava__mock.ml.mock.d
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I .mainJava.eobjs/byte -short-paths -i -impl parserJava__mock.ml.mock) > _build/default/parserJava__mock.mli.inferred
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/menhir parserJava.mly --base parserJava --infer-read-reply parserJava__mock.mli.inferred)
-> File "parserJava.mly", line 39, characters 0-6:
-> Warning: the precedence level assigned to ASSIGN is never useful.
-> File "parserJava.mly", line 46, characters 0-5:
-> Warning: the precedence level assigned to CROOUV is never useful.
-> File "parserJava.mly", line 44, characters 0-5:
-> Warning: the precedence level assigned to OPDIV is never useful.
-> File "parserJava.mly", line 41, characters 0-9:
-> Warning: the precedence level assigned to OPEG is never useful.
-> File "parserJava.mly", line 44, characters 0-5:
-> Warning: the precedence level assigned to OPET is never useful.
-> File "parserJava.mly", line 41, characters 0-9:
-> Warning: the precedence level assigned to OPINF is never useful.
-> File "parserJava.mly", line 41, characters 0-9:
-> Warning: the precedence level assigned to OPINFEG is never useful.
-> File "parserJava.mly", line 44, characters 0-5:
-> Warning: the precedence level assigned to OPMOD is never useful.
-> File "parserJava.mly", line 43, characters 0-5:
-> Warning: the precedence level assigned to OPMOINS is never useful.
-> File "parserJava.mly", line 44, characters 0-5:
-> Warning: the precedence level assigned to OPMULT is never useful.
-> File "parserJava.mly", line 41, characters 0-9:
-> Warning: the precedence level assigned to OPNONEG is never useful.
-> File "parserJava.mly", line 43, characters 0-5:
-> Warning: the precedence level assigned to OPOU is never useful.
-> File "parserJava.mly", line 46, characters 0-5:
-> Warning: the precedence level assigned to OPPT is never useful.
-> File "parserJava.mly", line 41, characters 0-9:
-> Warning: the precedence level assigned to OPSUP is never useful.
-> File "parserJava.mly", line 41, characters 0-9:
-> Warning: the precedence level assigned to OPSUPEG is never useful.
-> File "parserJava.mly", line 46, characters 0-5:
-> Warning: the precedence level assigned to PAROUV is never useful.
-> Warning: 4 states have shift/reduce conflicts.
-> Warning: 2 states have reduce/reduce conflicts.
-> Warning: 19 shift/reduce conflicts were arbitrarily resolved.
-> Warning: 56 reduce/reduce conflicts were arbitrarily resolved.
-> File "parserJava.mly", line 114, characters 15-15:
-> Warning: production variables_bis -> is never reduced.
-> Warning: in total, 1 production is never reduced.
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl parserJava.ml) > _build/default/.mainJava.eobjs/parserJava.ml.d
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I .mainJava.eobjs/byte -I .mainJava.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o .mainJava.eobjs/native/parserJava.cmx -c -impl parserJava.ml)

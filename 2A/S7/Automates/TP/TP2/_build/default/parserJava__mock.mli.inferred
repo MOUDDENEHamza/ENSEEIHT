@@ -28,7 +28,7 @@ type token =
   | OPDIV
   | NOUVEAU
   | INT
-  | IMPORT
+  | IMPORT of string
   | IDENT of string
   | FLOTTANT of float
   | FLOAT
@@ -58,6 +58,7 @@ val xv_intermediate_suffix : unit
 val xv_instructions : unit
 val xv_instruction_bis : int
 val xv_instruction : unit
+val xv_imports : unit
 val xv_fonction : unit
 val xv_fichier : unit
 val xv_expression : unit
