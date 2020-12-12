@@ -17,6 +17,8 @@ let underscores = underscore underscore*
 let digit = chiffre ((underscore chiffre) | chiffre)*
 let alphabet = minuscule | majuscule
 let alphanum = alphabet | chiffre | '_'
+let commentaireBloc =  "/*" _* "*/" 
+let commentaireLigne = "//" [^'\n']* '\n'
 
 let integerTypeSuffix = 'l' | 'L'
 (* DecimalNumeral *)
@@ -66,9 +68,6 @@ let hexadecimalFloating = hexSignificand binaryExponent (floatTypeSuffix)?
 (* CharacterLiteral *)
 let specialCharacter = "'" ("\\b" | "\\t" | "\\n" | "\\f" | "\\r" | "\\\"" | "\\\'" | "\\\\" | "\\" octalDigit) "'"
 
-(* Comments *)
-let commentaireBloc =  "/*" _* "*/" 
-let commentaireLigne = "//" [^'\n']* '\n'
 
 (* Analyseur lexical : expression reguliere { action CaML } *)
 rule lexer = parse
