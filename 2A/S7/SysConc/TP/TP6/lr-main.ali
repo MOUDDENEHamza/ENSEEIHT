@@ -1,0 +1,249 @@
+V "GNAT Lib v7"
+M P W=b
+A -gnatA
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_LOCAL_ALLOCATORS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_ALLOCATORS_AFTER_ELABORATION
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_TASK_ALLOCATORS
+RV NO_TASKING
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+RV MAX_TASKS=1+
+
+U lr.main%b		lr-main.adb		b3f00408 NE OO SU IU
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+W ada.exceptions%s	a-except.adb		a-except.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W gdk%s			gdk.ads			gdk.ali
+W gdk.threads%s		gdk-threads.ads		gdk-threads.ali
+W gtk%s			gtk.ads			gtk.ali
+W gtk.main%s		gtk-main.adb		gtk-main.ali
+W lr%s			lr.ads			lr.ali
+W lr.affic%s		lr-affic.adb		lr-affic.ali
+W lr.simu%s		lr-simu.adb		lr-simu.ali
+W lr.synchro%s		lr-synchro.adb		lr-synchro.ali
+W lr.tasks%s		lr-tasks.adb		lr-tasks.ali
+W system%s		system.ads		system.ali
+W system.concat_2%s	s-conca2.adb		s-conca2.ali
+W system.img_int%s	s-imgint.adb		s-imgint.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.tasking%s	s-taskin.adb		s-taskin.ali
+W system.tasking.rendezvous%s  s-tasren.adb	s-tasren.ali
+W system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+W system.val_int%s	s-valint.adb		s-valint.ali
+
+D ada.ads		20170106103348 76789da1 ada%s
+D a-comlin.ads		20140225151544 ea62afbc ada.command_line%s
+D a-except.ads		20151016123252 291912d5 ada.exceptions%s
+D a-finali.ads		20151020095656 bf4f806b ada.finalization%s
+D a-ioexce.ads		20140225151544 e4a01f64 ada.io_exceptions%s
+D a-reatim.ads		20160420090448 a87e2da7 ada.real_time%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20151016130316 01f5e3ef ada.tags%s
+D a-textio.ads		20140717063745 386df5d4 ada.text_io%s
+D a-unccon.ads		20170106103348 31484697 ada.unchecked_conversion%s
+D a-uncdea.ads		20070406091342 f15a5ed1 ada.unchecked_deallocation%s
+D cairo.ads		20170810082357 b5e79d08 cairo%s
+D cairo-region.ads	20170810082357 b7133728 cairo.region%s
+D gdk.ads		20170810082357 96d821f3 gdk%s
+D gdk-color.ads		20170810082357 ef57bc34 gdk.color%s
+D gdk-device.ads	20170810082357 a8321823 gdk.device%s
+D gdk-display.ads	20170810082357 7ba93c5d gdk.display%s
+D gdk-drag_contexts.ads	20170810082357 1c7e47ec gdk.drag_contexts%s
+D gdk-event.ads		20170810082357 80c8b842 gdk.event%s
+D gdk-frame_clock.ads	20170810082357 a6212c1b gdk.frame_clock%s
+D gdk-frame_timings.ads	20170810082357 154797bb gdk.frame_timings%s
+D gdk-pixbuf.ads	20170810082357 442c0b2a gdk.pixbuf%s
+D gdk-rectangle.ads	20170810082357 7b900608 gdk.rectangle%s
+D gdk-rgba.ads		20170810082357 fd9b7e86 gdk.rgba%s
+D gdk-screen.ads	20170810082357 a1c23acf gdk.screen%s
+D gdk-threads.ads	20170810082357 9ad6784e gdk.threads%s
+D gdk-types.ads		20170810082357 921dc8b2 gdk.types%s
+D gdk-visual.ads	20170810082357 615e934c gdk.visual%s
+D glib.ads		20170810082357 cd2cb2d0 glib%s
+D glib-error.ads	20170810082357 e055fabe glib.error%s
+D glib-generic_properties.ads  20170810082357 f3dc70df glib.generic_properties%s
+D glib-glist.ads	20170810082357 65a6e1be glib.glist%s
+D glib-gslist.ads	20170810082357 953541be glib.gslist%s
+D glib-object.ads	20170810082357 b3bafbeb glib.object%s
+D glib-properties.ads	20170810082357 4118b916 glib.properties%s
+D glib-types.ads	20170810082357 86ac71ae glib.types%s
+D glib-values.ads	20170810082357 96cf858b glib.values%s
+D gnat.ads		20140801083227 fd2ad2f1 gnat%s
+D g-string.ads		20090409150019 c6abc540 gnat.strings%s
+D gtk.ads		20170810082357 cfdeaf1c gtk%s
+D gtk-accel_group.ads	20170810082357 a1d03c32 gtk.accel_group%s
+D gtk-builder.ads	20170810082357 111a80d7 gtk.builder%s
+D gtk-enums.ads		20170810082357 6e531797 gtk.enums%s
+D gtk-main.ads		20170810082357 77d51aae gtk.main%s
+D gtk-selection_data.ads  20170810082357 f16628bd gtk.selection_data%s
+D gtk-style.ads		20170810082357 e4d1166a gtk.style%s
+D gtk-target_entry.ads	20170810082357 eb3ff3ba gtk.target_entry%s
+D gtk-target_list.ads	20170810082357 04be81da gtk.target_list%s
+D gtk-widget.ads	20170810082357 5c63560f gtk.widget%s
+D gtkada.ads		20170810082357 57aea1c7 gtkada%s
+D gtkada-types.ads	20170810082357 b7bc0c77 gtkada.types%s
+D interfac.ads		20160502101001 5ab55268 interfaces%s
+D i-c.ads		20110801143639 5421119b interfaces.c%s
+D i-cstrin.ads		20140611122922 341d0ddf interfaces.c.strings%s
+D i-cstrea.ads		20140801100435 e53d8b8e interfaces.c_streams%s
+D lr.ads		20141028181748 400998c9 lr%s
+D lr-affic.ads		20191107081045 b5dbcf32 lr.affic%s
+D lr-main.adb		20191107081045 d7f1fdf3 lr.main%s
+D lr-main.adb		20191107081045 d7f1fdf3 lr.main%b
+D lr-simu.ads		20191107081045 af6ee446 lr.simu%s
+D lr-synchro.ads	20141028181624 2f8e537d lr.synchro%s
+D lr-tasks.ads		20191107081045 472fabaf lr.tasks%s
+D pango.ads		20170810082357 707fab73 pango%s
+D pango-attributes.ads	20170810082357 212d0aff pango.attributes%s
+D pango-context.ads	20170810082357 14815998 pango.context%s
+D pango-enums.ads	20170810082357 ed35503b pango.enums%s
+D pango-font.ads	20170810082357 c18b716b pango.font%s
+D pango-font_face.ads	20170810082357 28a4b9ba pango.font_face%s
+D pango-font_family.ads	20170810082357 da06347e pango.font_family%s
+D pango-font_metrics.ads  20170810082357 4b56ab73 pango.font_metrics%s
+D pango-fontset.ads	20170810082357 73840098 pango.fontset%s
+D pango-language.ads	20170810082357 cd0b875e pango.language%s
+D pango-layout.ads	20170810082357 a68b7ace pango.layout%s
+D pango-matrix.ads	20170810082357 365564f3 pango.matrix%s
+D pango-tabs.ads	20170810082357 1e43de1b pango.tabs%s
+D system.ads		20170510173650 4635ec04 system%s
+D s-atacco.ads		20120515093410 4c36d12f system.address_to_access_conversions%s
+D s-conca2.ads		20140225151544 02a0d7d0 system.concat_2%s
+D s-crtl.ads		20141120112812 0ebbdb71 system.crtl%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-ficobl.ads		20140718105747 078245e4 system.file_control_block%s
+D s-finmas.ads		20151016130316 7811a767 system.finalization_masters%s
+D s-finroo.ads		20120426095924 4ff27390 system.finalization_root%s
+D s-imgint.ads		20090409150019 02dbe0c2 system.img_int%s
+D s-linux.ads		20150107101203 2fda6ad1 system.linux%s
+D s-multip.ads		20101011073009 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20191204142541 7b5577db system.os_constants%s
+D s-osinte.ads		20170314092617 ad16bc4a system.os_interface%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-pooglo.ads		20151118103153 ede33ef8 system.pool_global%s
+D s-secsta.ads		20170112134946 9751b57e system.secondary_stack%s
+D s-soflin.ads		20151020124036 14e1eb6c system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stausa.ads		20110804134155 017a0a05 system.stack_usage%s
+D s-stalib.ads		20151112104907 09bd3940 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-stopoo.ads		20131010103753 b16154c2 system.storage_pools%s
+D s-stposu.ads		20151020120548 97a6219c system.storage_pools.subpools%s
+D s-stratt.ads		20131014135145 aedef97e system.stream_attributes%s
+D s-string.ads		20140225151139 8fe54fb7 system.strings%s
+D s-tasinf.ads		20140613095942 2b3f8252 system.task_info%s
+D s-taspri.ads		20141120144719 e3ab4429 system.task_primitives%s
+D s-taprop.ads		20140521131406 1dd2e1b6 system.task_primitives.operations%s
+D s-taskin.ads		20170112134946 05d6152c system.tasking%s
+D s-taprob.ads		20170106114239 acd6094d system.tasking.protected_objects%s
+D s-tpoben.ads		20170106115015 60ad3dae system.tasking.protected_objects.entries%s
+D s-tasren.ads		20120208100446 a67a9949 system.tasking.rendezvous%s
+D s-tassta.ads		20170112134946 5a53a7c6 system.tasking.stages%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20160502101423 34867c83 system.unsigned_types%s
+D s-valint.ads		20090409150019 48a52a3f system.val_int%s
+D s-wchcon.ads		20140718092328 1b7d22d2 system.wch_con%s
+D unchconv.ads		20070406091342 ca2f9e18 unchecked_conversion%s
+X 1 ada.ads
+16K9*Ada 20e8 59|3r6 4r6 5r6 6r5 33r7 38r33 39r35 60r58
+X 2 a-comlin.ads
+38K13*Command_Line 139e21 59|4w10 33r11 38r37 39r39
+41V13*Argument_Count{natural} 59|33s24
+48V13*Argument{string} 59|38s50 39s52
+X 3 a-except.ads
+54K13*Exceptions 349e19 59|5w10 60r62
+104V13*Exception_Information{string} 59|60s73
+X 9 a-textio.ads
+49K13*Text_IO 471e16 59|3w10 34r7 42r7 60r7
+263U14*Put_Line 59|34s15 42s15 60s15
+X 14 gdk.ads
+38K9*Gdk 48e8 59|7r6 46r4 47r4 54r4 56r4
+46P9*Gdk_Visual<29|154P9>
+X 16 gdk-device.ads
+50P9*Gdk_Device(49R9)
+60V13*Convert{76|67M9} 32|58i21
+61V13*Convert{50P9} 32|59i21
+X 26 gdk-threads.ads
+37K13*Threads 67e16 59|7w10 46r8 47r8 54r8 56r8
+39U14*G_Init 59|46s16
+44U14*Init 59|47s16
+49U14*Enter 59|54s16
+54U14*Leave 59|56s16
+X 28 gdk-visual.ads
+78V13*Convert[113|20]{76|67M9} 32|58i21
+79V13*Convert[113|20]{14|46P9} 32|59i21
+X 29 glib.ads
+154P9*C_Proxy(151R9)
+X 34 glib-object.ads
+41P9*GObject(40R9)
+673V13*Convert{76|67M9} 32|58i21 33|49i21
+674V13*Convert{41P9} 32|59i21 33|50i21
+X 40 gtk.ads
+41K9*Gtk 79e8 59|8r6 48r4 55r4
+X 43 gtk-enums.ads
+866V13*Convert{76|67M9} 32|58i21 33|49i21
+867V13*Convert{string} 32|59i21 33|50i21
+X 44 gtk-main.ads
+33K13*Main 327e13 59|8w10 48r8 55r8
+62U14*Init 59|48s13
+197U14*Main 59|55s13
+X 49 gtk-widget.ads
+345P9*Gtk_Widget(344R9)
+432V13*Convert{76|67M9} 32|58i21 33|49i21
+433V13*Convert{345P9} 32|59i21 33|50i21
+X 56 lr.ads
+1K9*LR 2e7 59|9r6 10r6 11r6 12r6 14r11 19r12 20r12 23r20 27r20 41r38 42r83
+. 50r4 51r4 51r34 61r5
+X 57 lr-affic.ads
+5K12*Affic 14e13 59|9w9 51r7
+9U14*Init 59|51s13
+9a20 Nomstrategie{string} 59|51r18
+9i42 Nblect{natural} 59|51r60
+9i60 Nbred{natural} 59|51r83
+X 59 lr-main.adb
+14U14*Main 56|1k9 59|14b14 61l8 61t12
+15i4 Nb_Lecteurs{natural} 22r19 28r18 38m4 41r24 50r33 51r70
+16i4 Nb_Redacteurs{natural} 26r21 39m4 41r8 50r17 51r92
+18U14 Start_Client_Tasks 18b14 30l8 30t26 52s4
+19p7 Tl{62|18P9} 23m10 24r10
+20p7 Tr{62|19P9} 27m10 28r10
+22i11 I{integer} 24r18
+26i11 I{integer} 28r32
+59r9 Error{3|63R9} 60r95
+X 60 lr-simu.ads
+7K12*Simu 59|11w9 50r7 60|40e12
+10U14*Init 59|50s12
+X 61 lr-synchro.ads
+1K12*Synchro 59|12w9 51r37 61|10e15
+3V13*Nom_Strategie{string} 59|51s45
+X 62 lr-tasks.ads
+4K12*Tasks 59|10w9 19r15 20r15 23r23 27r23 41r41 42r86 62|21e13
+6i4*MAXPROCS{integer} 59|41r47 42r92
+10T14*Lecteur 59|23r29 62|12e15
+11Y13 Init 59|24s13
+14T14*Redacteur 59|27r29 62|16e17
+15Y13 Init 59|28s13
+18P9*Lecteur_Access(10T14) 59|19r21
+19P9*Redacteur_Access(14T14) 59|20r21
+X 76 system.ads
+67M9*Address
+X 94 s-stausa.ads
+203U14*Initialize 204i<c,__gnat_stack_usage_initialize>22
+268U14*Output_Results 272i<c,__gnat_stack_usage_output_results>22
+

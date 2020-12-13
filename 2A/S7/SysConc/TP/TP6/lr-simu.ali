@@ -1,0 +1,118 @@
+V "GNAT Lib v7"
+A -gnatA
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DELAY
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_FIXED_POINT
+RV NO_IO
+RV NO_RELATIVE_DELAY
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U lr.simu%b		lr-simu.adb		d19565b6 OO PK IU
+W ada%s			ada.ads			ada.ali
+W ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W interfaces%s		interfac.ads		interfac.ali
+W lr%s			lr.ads			lr.ali
+W lr.tasks%s		lr-tasks.adb		lr-tasks.ali
+W system.concat_2%s	s-conca2.adb		s-conca2.ali
+W system.img_int%s	s-imgint.adb		s-imgint.ali
+
+U lr.simu%s		lr-simu.ads		a848d720 EE NE OO PK IU
+W lr%s			lr.ads			lr.ali
+W lr.tasks%s		lr-tasks.adb		lr-tasks.ali
+
+D ada.ads		20170106103348 76789da1 ada%s
+D a-calend.ads		20160420090448 2d5f01d4 ada.calendar%s
+D a-caldel.ads		20140120152337 9f20b83d ada.calendar.delays%s
+D a-except.ads		20151016123252 291912d5 ada.exceptions%s
+D a-ioexce.ads		20140225151544 e4a01f64 ada.io_exceptions%s
+D a-reatim.ads		20160420090448 a87e2da7 ada.real_time%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20151016130316 01f5e3ef ada.tags%s
+D a-textio.ads		20140717063745 386df5d4 ada.text_io%s
+D a-unccon.ads		20170106103348 31484697 ada.unchecked_conversion%s
+D interfac.ads		20160502101001 5ab55268 interfaces%s
+D i-c.ads		20110801143639 5421119b interfaces.c%s
+D i-cstrea.ads		20140801100435 e53d8b8e interfaces.c_streams%s
+D lr.ads		20141028181748 400998c9 lr%s
+D lr-simu.ads		20191107081045 af6ee446 lr.simu%s
+D lr-simu.adb		20191108122158 01b9df8b lr.simu%b
+D lr-tasks.ads		20191107081045 472fabaf lr.tasks%s
+D system.ads		20170510173650 4635ec04 system%s
+D s-atacco.ads		20120515093410 4c36d12f system.address_to_access_conversions%s
+D s-conca2.ads		20140225151544 02a0d7d0 system.concat_2%s
+D s-crtl.ads		20141120112812 0ebbdb71 system.crtl%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-ficobl.ads		20140718105747 078245e4 system.file_control_block%s
+D s-imgint.ads		20090409150019 02dbe0c2 system.img_int%s
+D s-linux.ads		20150107101203 2fda6ad1 system.linux%s
+D s-multip.ads		20101011073009 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20191204142541 7b5577db system.os_constants%s
+D s-osinte.ads		20170314092617 ad16bc4a system.os_interface%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-soflin.ads		20151020124036 14e1eb6c system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stausa.ads		20110804134155 017a0a05 system.stack_usage%s
+D s-stalib.ads		20151112104907 09bd3940 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-tasinf.ads		20140613095942 2b3f8252 system.task_info%s
+D s-taspri.ads		20141120144719 e3ab4429 system.task_primitives%s
+D s-taprop.ads		20140521131406 1dd2e1b6 system.task_primitives.operations%s
+D s-taskin.ads		20170112134946 05d6152c system.tasking%s
+D s-tassta.ads		20170112134946 5a53a7c6 system.tasking.stages%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20160502101423 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20140718092328 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 20e8 16|3r6 3r23
+X 9 a-textio.ads
+49K13*Text_IO 471e16 16|3w10 3r27
+263U14*Put_Line 16|41s7
+X 14 lr.ads
+1K9*LR 2e7 15|3r6 7r9 13r24 16r25 40r5 16|4r6 4r20 6r14 83r5
+X 15 lr-simu.ads
+7K12*Simu 14|1k9 15|40l8 40e12 16|6b17 83l8 83t12
+10U14*Init 10>19 16|21b14 25l8 25t12
+10i19 Nbproc{positive} 16|21b19 23r19
+13U14*Sleep 13>20 13>42 16|27b14 37l8 37t13
+13i20 Id{17|8I12} 16|27b20 29r18 30r18 31r29 31r57 33r24 33r48
+13i42 Duree{positive} 16|27b33 29r31
+16U14*Wakeup 16>21 16|39b14 43l8 43t14
+16i21 Id{17|8I12} 16|39b21 41r31 42r18
+19V13*Get_Running{boolean} 16|45b13 48l8 48t19
+22U14*Set_Running 22>26 16|50b14 53l8 53t19
+22b26 B{boolean} 16|50b26 52r21
+25U14*Swap_Running 16|55b14 58l8 58t20
+28U14*Set_Timespeed 28>28 16|60b14 63l8 63t21
+28i28 Ts{integer} 16|60b28 62r20
+31V13*Get_Timespeed{integer} 16|65b13 68l8 68t21
+35U14*Suspend_Time 16|72b14 76l8 76t20
+38U14*Resume_Time 16|78b14 81l8 81t19
+X 16 lr-simu.adb
+8b4 Is_Running{boolean} 32r14 47r14 52m7 57m7 57r25 74r27 75m7 80m7
+9i4 Nb_Procs{positive} 23m7
+10i4 Timespeed{positive} 24m7 35r35 62m7 67r14
+11i4 Basefreq{positive} 29r39 35r23
+13R9 Proc_Sleep_Record 17e17 19r35
+15i10*Duree{natural} 29m22 31r61 33m28 33r52
+16b10*Wakeup{boolean} 30m22 31r33 42m22
+19a4 Infos_Proc(13R9) 29m7 30m7 31r18 31r46 33m13 33r37 42m7
+70b4 Previous_Running{boolean} 74m7 80r21
+X 17 lr-tasks.ads
+4K12*Tasks 15|3w9 13r27 16r28 16|4w9 4r23 17|21e13
+8I12*Proc_Id{positive} 15|13r33 16r34 16|19r23 27r24 39r25 41r17
+X 32 s-stausa.ads
+203U14*Initialize 204i<c,__gnat_stack_usage_initialize>22
+268U14*Output_Results 272i<c,__gnat_stack_usage_output_results>22
+

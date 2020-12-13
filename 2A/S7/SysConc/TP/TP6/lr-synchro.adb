@@ -1,8 +1,8 @@
-with LR.Synchro.Exclusion;  -- XXXX
+with LR.Synchro.Fifo;  -- XXXX
 
 package body LR.Synchro is
    
-   package Synchro renames LR.Synchro.Exclusion; -- XXXX
+   package Synchro renames LR.Synchro.Fifo; -- XXXX
     
    function Nom_Strategie return String renames Synchro.Nom_Strategie;
 

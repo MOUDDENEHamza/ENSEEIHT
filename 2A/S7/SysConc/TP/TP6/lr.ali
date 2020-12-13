@@ -1,0 +1,16 @@
+V "GNAT Lib v7"
+A -gnatA
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U lr%s			lr.ads			400998c9 NE OO PK IU
+
+D lr.ads		20141028181748 400998c9 lr%s
+D system.ads		20170510173650 4635ec04 system%s
+X 1 lr.ads
+1K9*LR 2l5 2e7
+

@@ -1,12 +1,12 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Exceptions;
 
--- Lecteurs concurrents, approche automate. Pas de politique d'accès.
-package body LR.Synchro.Basique is
+-- Priorité aux rédacteurs
+package body LR.Synchro.prioredacteur is
    
    function Nom_Strategie return String is
    begin
-      return "Automate, lecteurs concurrents, sans politique d'accès";
+      return "Priorité aux rédacteurs";
    end Nom_Strategie;
    
    task LectRedTask is
@@ -21,40 +21,39 @@ package body LR.Synchro.Basique is
        state : state_enum := FREE;
        reader : Integer := 0;
    begin
-
       loop
-         if state = READING then
-	     select
-                  accept Demander_Lecture;
-                  reader := reader + 1;
-               or
-                  accept Terminer_Lecture;
-                  reader := reader - 1;
- 
-              end select;
-	      if reader = 0 then
+
+		if state = FREE then
+			select
+				when Demander_Ecriture'count = 0 =>
+                        accept Demander_Lecture;
+                        state := READING;
+			reader := 1;
+                or
+                accept Demander_Ecriture;
+		state := WRITING;
+			 end select;
+
+		elsif state = READING then
+			  select 
+                    when Demander_Ecriture'count = 0 =>
+                        accept Demander_Lecture;
+                        reader := reader + 1;
+                 or
+                    accept Terminer_Lecture;
+                        reader :=  reader - 1;
+                    if reader = 0 then  
                         state := FREE;
-                   end if;
-         
-	 elsif state = FREE then 
-             select 
-                accept Demander_Lecture ;
-                    state := READING;
-                    reader := reader + 1;
-             or
-                accept Demander_Ecriture ;
-                    state := WRITING;
-             or
-                terminate;
-             end select;
-
-	 else
-             accept Terminer_Ecriture;
-             state := FREE;
-	 end if;
-
-   	end loop;
-
+                    else
+                        state := READING;
+                    end  if;
+			 end select;
+		
+	         else
+			  accept Terminer_Ecriture;
+			  state := FREE;
+        end if;
+      end loop;
    exception
       when Error: others =>
          Put_Line("**** LectRedTask: exception: " & Ada.Exceptions.Exception_Information(Error));
@@ -80,4 +79,4 @@ package body LR.Synchro.Basique is
       LectRedTask.Terminer_Ecriture;
    end Terminer_Ecriture;
 
-end LR.Synchro.Basique;
+end LR.Synchro.prioredacteur;

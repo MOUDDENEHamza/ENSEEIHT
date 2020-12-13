@@ -133,4 +133,5 @@ qui aurait ici permis de paramétrer `LR.Synchro` avec le nom des paquetages/str
 
 Pour compiler
 -------------
-`make` ou `gprbuild build.gpr` ou `./mkstrategie`
+ - assurez vous d'utiliser le compilateur Ada situé dans `usr/bin` (au besoin : `export PATH=/usr/bin:$PATH`)
+ - `make` ou `gprbuild build.gpr` ou `./mkstrategie`

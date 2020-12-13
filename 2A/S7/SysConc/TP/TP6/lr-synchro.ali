@@ -1,0 +1,43 @@
+V "GNAT Lib v7"
+A -gnatA
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U lr.synchro%b		lr-synchro.adb		a562f09d NE OO PK IU
+W lr%s			lr.ads			lr.ali
+W lr.synchro%s		lr-synchro.adb		lr-synchro.ali
+W lr.synchro.fifo%s	lr-synchro-fifo.adb	lr-synchro-fifo.ali
+
+U lr.synchro%s		lr-synchro.ads		6f87cbb4 EE NE OO PK IU
+W lr%s			lr.ads			lr.ali
+
+D lr.ads		20141028181748 400998c9 lr%s
+D lr-synchro.ads	20141028181624 2f8e537d lr.synchro%s
+D lr-synchro.adb	20201213222757 cf69b915 lr.synchro%b
+D lr-synchro-fifo.ads	20201213221236 45851af5 lr.synchro.fifo%s
+D system.ads		20170510173650 4635ec04 system%s
+X 1 lr.ads
+1K9*LR 2e7 2|1r9 10r5 3|1r6 3r14 5r28 17r5
+X 2 lr-synchro.ads
+1K12*Synchro 1|1k9 2|10l8 10e15 3|1r9 3b17 5r31 17l8 17t15
+3V13*Nom_Strategie{string} 3|7b13
+5U14*Demander_Lecture 3|9b14
+6U14*Demander_Ecriture 3|11b14
+7U14*Terminer_Lecture 3|13b14
+8U14*Terminer_Ecriture 3|15b14
+X 3 lr-synchro.adb
+5K12 Synchro=5:39 7r49 9r39 11r40 13r39 15r40
+X 4 lr-synchro-fifo.ads
+1K20*Fifo 3|1w17 5r39 4|10e20
+3V13*Nom_Strategie{string} 3|7r57
+5U14*Demander_Lecture 3|9r47
+6U14*Demander_Ecriture 3|11r48
+7U14*Terminer_Lecture 3|13r47
+8U14*Terminer_Ecriture 3|15r48
+
