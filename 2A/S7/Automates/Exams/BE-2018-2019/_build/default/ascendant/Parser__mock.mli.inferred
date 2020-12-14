@@ -1,0 +1,21 @@
+type token =
+    UL_VRAI
+  | UL_VIRG
+  | UL_VIDE
+  | UL_NOMBRE of int
+  | UL_FIN
+  | UL_FAUX
+  | UL_DBLPT
+  | UL_CROOUV
+  | UL_CROFER
+  | UL_CHAINE of string
+  | UL_ACCOUV
+  | UL_ACCFER
+val menhir_begin_marker : int
+val xv_valeur : unit
+val xv_tableau : unit
+val xv_liste_attributs : unit
+val xv_elements_tableau : unit
+val xv_document : unit
+val xv_attribut : unit
+val menhir_end_marker : int

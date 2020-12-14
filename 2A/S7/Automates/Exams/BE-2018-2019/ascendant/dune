@@ -1,0 +1,8 @@
+(ocamllex Lexer)
+
+(menhir
+ (modules Parser))
+
+(executable
+ (modes byte exe)
+ (name MainJSON))

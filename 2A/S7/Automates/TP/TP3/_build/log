@@ -1,10 +1,10 @@
 # dune build Main.exe
 # OCAMLPARAM: unset
 # Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/TP/TP3
-$ /usr/bin/nproc > /tmp/dune1fa985.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dune9bd4bc.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /home/hamza/.opam/default/bin/ocamlc.opt -config > /tmp/dune61c250.output
+$ /home/hamza/.opam/default/bin/ocamlc.opt -config > /tmp/dune321148.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -107,10 +107,13 @@ $ /home/hamza/.opam/default/bin/ocamlc.opt -config > /tmp/dune61c250.output
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /home/hamza/.opam/default/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I .Main.eobjs/byte -no-alias-deps -opaque -o .Main.eobjs/byte/syntax.cmo -c -impl Syntax.ml)
-> File "Syntax.ml", line 99, characters 12-22:
-> 99 |           | IdentToken _ -> (match (acceptIdent stream) with
->                  ^^^^^^^^^^
-> Error: This variant pattern is expected to have type parseResult
->        The constructor IdentToken does not belong to type parseResult
+$ (cd _build/default && /home/hamza/.opam/default/bin/ocamldep.opt -modules -impl Syntax.ml) > _build/default/.Main.eobjs/Syntax.ml.d
+> File "Syntax.ml", line 99, characters 54-55:
+> 99 |           | IdentToken _ -> (match (accept IdentToken _ stream) with
+>                                                            ^
+> Error: Syntax error: ')' expected
+> File "Syntax.ml", line 99, characters 35-36:
+> 99 |           | IdentToken _ -> (match (accept IdentToken _ stream) with
+>                                         ^
+>   This '(' might be unmatched
 [2]

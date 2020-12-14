@@ -93,6 +93,17 @@ let rec parseE stream =
           (* En cas de succes, analyse EX *)
           parseEX next
         | _ -> Failure)
+        
+        (* regle #1  - E -> function ident fleche E { function } 
+        | FunctionToken -> (match (accept FunctionToken stream) with
+          | IdentToken _ -> (match (accept IdentToken _ stream) with
+            | BodyToken -> (match (accept BodyToken) with
+                | Success next -> (parseE next)
+                | _ -> Failure)
+              | _ -> Failure)
+            | _ -> Failure)
+          | _ -> Failure)
+        | _ -> Failure) *)
 
         (* regle #2  - E -> if E then E else E  | { if } *)
         | IfToken -> (match (accept IfToken stream) with

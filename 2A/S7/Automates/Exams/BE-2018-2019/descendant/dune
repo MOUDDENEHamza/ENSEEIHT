@@ -1,0 +1,5 @@
+(ocamllex Scanner)
+
+(executables
+ (modes byte exe)
+ (names MainJSON))
