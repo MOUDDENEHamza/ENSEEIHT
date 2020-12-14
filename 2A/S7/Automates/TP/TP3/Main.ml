@@ -16,7 +16,7 @@ let main () =
     match (parseE (scanner lexbuf))
      with
        | Success [EOSToken] -> print_endline "Ok"
-       | _ -> print_endline "Ko"
+       | _ -> print_endline "KO"
 ;;
 
 main();;

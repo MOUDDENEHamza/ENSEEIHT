@@ -93,6 +93,16 @@ let rec parseE stream =
           (* En cas de succes, analyse EX *)
           parseEX next
         | _ -> Failure)
+
+        (* regle #1  - E -> function ident fleche E { function } *)
+        | FunctionToken -> (match (accept FunctionToken stream) with
+          | IdentToken _ -> (match (acceptIdent stream) with
+            | BodyToken -> (match (accept BodyToken stream) with
+              | Success next -> (parseE next)
+              | _ -> Failure)
+            | _ -> Failure)
+          | _ -> Failure)
+
         (* regle #2  - E -> if E then E else E  | { if } *)
         | IfToken -> (match (accept IfToken stream) with
           | Success next -> (match (parseE next) with
@@ -108,7 +118,8 @@ let rec parseE stream =
                     | _ -> Failure)
                 | _ -> Failure)
             | _ -> Failure)
-        | _ -> Failure)                       
+        | _ -> Failure)
+
       | _ -> Failure)
 
 (* parseEX : inputStream -> parseResult *)
@@ -156,7 +167,7 @@ and parseTX stream =
           | _ -> Failure)
        | _ -> Failure)
     (* regle #11 - TX ->          | { $, =, ) } *)
-    | EOSToken | EqualToken | RightParenthesisToken -> Success stream
+    | EOSToken | EqualToken | RightParenthesisToken | ThenToken | ElseToken -> Success stream
     | _ -> Failure)
 
 (* parseT : inputStream -> parseResult *)
@@ -189,7 +200,7 @@ and parseFX stream =
           | _ -> Failure)
        | _ -> Failure)
     (* regle #15 - FX ->          | { $, +, -, =, ) } *)
-    | EOSToken | PlusToken | MinusToken | EqualToken | RightParenthesisToken -> (Success stream)
+    | EOSToken | PlusToken | MinusToken | EqualToken | RightParenthesisToken | ThenToken | ElseToken -> (Success stream)
     | _ -> Failure)
 
 (* parseF : inputStream -> parseResult *)
