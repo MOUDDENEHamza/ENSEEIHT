@@ -1,0 +1,4 @@
+TMPC x y z
+t1 T : process 5 ; read y ; process 10 ; read x ; process 8 ; commit
+t2 T : process 2 ; write y; process 10 ; write z; process 5 ; read x ; process 10 ; commit
+t3 T : process 8 ; read z ; process 12 ; write x; process 10 ; commit

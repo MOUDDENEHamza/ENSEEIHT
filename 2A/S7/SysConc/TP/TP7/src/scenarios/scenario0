@@ -1,0 +1,17 @@
+init TMPP (x,0) (y,0) (z,0) (ft1,0) (ft2,0) (ft3,0)
+new T1
+new T2
+new T3
+T2 write y 1
+T1 read y
+T3 read z
+T2 write z 2
+T1 read x
+T2 read x
+T3 write x 3
+T1 write ft1 1
+T1 commit
+T2 write ft2 1
+T2 commit
+T3 write ft3 1
+T3 commit

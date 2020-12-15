@@ -1,0 +1,6 @@
+# dune ocaml-merlin --no-print-directory
+# OCAMLPARAM: unset
+# Workspace root: "/home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/source
+# (2)/source/ascendant"
+$ /usr/bin/nproc > /tmp/dune3edf5a.output 2> /dev/null
+# Auto-detected concurrency: 4

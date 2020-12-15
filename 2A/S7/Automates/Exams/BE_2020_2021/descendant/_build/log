@@ -1,0 +1,6 @@
+# dune ocaml-merlin --no-print-directory
+# OCAMLPARAM: unset
+# Workspace root:
+# /home/hamza/Desktop/ENSEEIHT/2A/S7/Automates/Exams/BE_2020_2021/descendant
+$ /usr/bin/nproc > /tmp/dune083f49.output 2> /dev/null
+# Auto-detected concurrency: 4

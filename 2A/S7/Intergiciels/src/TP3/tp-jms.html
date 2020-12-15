@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html;
+      charset=windows-1252">
+    <title></title>
+    <meta name="GENERATOR" content="OpenOffice.org 1.1.4 (Win32)">
+    <meta name="CREATED" content="20051026;11210625">
+    <meta name="CHANGEDBY" content="Daniel Hagimont">
+    <meta name="CHANGED" content="20051112;3545775">
+    <meta name="ProgId" content="Word.Document">
+    <meta name="Originator" content="Microsoft Word 10">
+    <meta name="Template" content="C:\PROGRAM FILES\MICROSOFT
+      OFFICE\OFFICE\html.dot">
+    <style>
+	<!--
+		P { color: #000000 }
+		P.msonormal { margin-bottom: 0cm; font-family: "Times New Roman" }
+		A:link { color: #0000ff }
+		A:visited { color: #800080 }
+	-->
+	</style>
+  </head>
+  <body dir="ltr" lang="fr-FR" link="#0000ff" text="#000000"
+    vlink="#800080">
+    <p align="center"><br>
+      <br>
+    </p>
+    <p style="margin-bottom: 0cm;" align="center"><font
+        style="font-size: 20pt;" size="5"><b>Cours Systèmes Communicants</b></font></p>
+    <p align="center"><font style="font-size: 20pt;" size="5"><b>ENSEEIHT
+
+
+
+          – Département Informatique – 2ième année</b></font></p>
+    <p align="center"><font style="font-size: 20pt;" size="5"><b>TP JMS</b></font></p>
+    <p style="margin-bottom: 0cm;" align="center"><font size="3">Daniel
+        Hagimont</font></p>
+    <p style="margin-bottom: 0cm;" align="center"><font size="3">Daniel.Hagimont@enseeiht.fr</font></p>
+    <p class="msonormal" style="margin-left: 5.08cm; margin-bottom:
+      0.5cm;"><br>
+    </p>
+    <p class="msonormal" style="margin-left: 1.27cm; margin-bottom:
+      0.5cm;"><a name="_Toc432321016"></a> <font face="Arial"><font
+          style="font-size: 13pt;" size="3"><b>1.&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+            Objectif</b></font></font></p>
+    <p style="margin-left: 1.27cm;">L'objectif de ce TP est de
+      programmer une application répartie en utilisant une implantation
+      de l'interface JMS vue en cours.</p>
+    <p class="msonormal" style="margin-left: 1.27cm; margin-bottom:
+      0.5cm;"> <font face="Arial"><font style="font-size: 13pt;"
+          size="3"><b>2.&nbsp;&nbsp;&nbsp;&nbsp; Spécification</b></font></font></p>
+    <p style="margin-left: 1.27cm;">L'objectif est la gestion d'un <i>Forum</i>
+      de discussion pouvant faire intervenir un nombre quelconque
+      d'intervenants utilisant une application <i>Irc</i>. Chaque <i>Irc</i>
+      peut émettre des messages qui sont diffusés à l'ensemble des <i>Irc</i>.
+      Les messages ne sont pas mémorisés par le <i>Forum</i>. Seuls les
+      <i>Irc</i> présents sur le <i>Forum</i> reçoivent les messages
+      émis. Pour émettre, un <i>Irc</i> doit être connecté au <i>Forum</i>.
+    </p>
+    <p style="margin-left: 1.27cm;">Nous considérons les opérations
+      suivantes :</p>
+    <ul>
+      <ul>
+        <li>
+          <p>Connect : permet à un <i>Irc</i> de se connecter au <i>Forum</i>.</p>
+        </li>
+        <li>
+          <p>Leave : permet à un <i>Irc</i> de se déconnecter du <i>Forum</i>.</p>
+        </li>
+        <li>
+          <p>Write : permet à un <i>Irc</i> d'émettre un message.</p>
+        </li>
+        <li>
+          <p>Who : permet à un <i>Irc</i> de connaître l'ensemble des
+            intervenants connectés au <i>Forum</i>.</p>
+        </li>
+      </ul>
+    </ul>
+    <p style="margin-left: 1.27cm;">Nous utilisons JMS en mode
+      Publish/Subscribe.</p>
+    <p style="margin-left: 1.27cm;"><br>
+      <img alt="archi" src="archi.jpg" height="231" width="576"><br>
+    </p>
+    <p class="msonormal" style="margin-left: 1.27cm; margin-bottom:
+      0.5cm;"><br clear="left">
+      <br>
+    </p>
+    <p style="margin-left: 1.27cm;">L’application est composée du
+      fichier <a href="Irc.java">Irc.java</a> qui inclut l'interface
+      graphique de l'application, que vous devez compléter pour faire
+      marcher l'application avec JMS.</p>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Un petit
+    exemple (<a href="HelloTopic.java">HelloTopic.java</a>) vous est
+    donné pour démarrer.
+    <p style="margin-left: 1.27cm;">Pour utiliser activeMQ
+      (l'implantation de JMS) :<br>
+    </p>
+    <ul style="margin-left: 40px;">
+      <li>décompresser l'archive (apache-activemq-5.14.0-bin.tar.gz)
+        dans un répertoire &lt;activemq_path&gt;</li>
+      <li>pour lancer un daemon activeMQ :
+        &lt;activemq_path&gt;/bin/activemq start (et stop pour
+        l'arrêter)<br>
+      </li>
+      <li>si vous utilisez eclipse, le jar à ajouter dans votre
+        BuildPath est : &lt;activemq_path&gt;/activemq-all-5.14.0.jar</li>
+      <li>si vous voulez compiler (ou exécuter) en dehors d'eclipse :
+        javac -cp .:&lt;activemq_path&gt;/lib/* &lt;fichier source
+        java&gt;</li>
+    </ul>
+    <p style="margin-left: 1.27cm;"> 1) commencez par coder les
+      opérations de connexion, emission et réception de messages<br>
+      2) implantez une solution gérant la liste des intervenants
+      connectés<br>
+      3) rajouter des connexions "durables" : si vous quitter Irc et que
+      vous vous reconnectez plus tard, vous recevez les messages émis
+      pendant votre absence.<br>
+    </p>
+  </body>
+</html>

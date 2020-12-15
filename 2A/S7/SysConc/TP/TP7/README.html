@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="transactions-et-mémoire-transactionnelle">Transactions et mémoire transactionnelle</h1>
+<p>Cette archive contient</p>
+<ul>
+<li>une classe <code>Simulator</code> qui correspond au point d'entrée du simulateur de mémoire transactionnelle. Elle contient la méthode main.</li>
+<li>2 paquetages <code>tm</code> et <code>simulation</code>, qui contiennent respectivement les classes des éléments de mémoire transactionnelle et les classes des différentes simulations.</li>
+<li>un Makefile pour compiler le code source. <strong>Cette approche est recommandée par rapport à l'utilisation d'un IDE comme Eclipse</strong>.</li>
+<li>un dossier <code>scenarios</code> qui contient des exemples de scénarios d'accès à une mémoire transactionnelle.
+<ul>
+<li><code>scenario0</code> est destiné (uniquement) au simulateur en mode interpréteur (pas à pas)</li>
+<li><code>scenario1</code>, <code>scenario2</code> et <code>scenario3</code> sont destinés (uniquement) au simulateur en mode &quot;simulation complète&quot;</li>
+</ul></li>
+</ul>
+<h2 id="utilisation-du-simulateur-en-mode-interpréteur-pas-à-pas">Utilisation du simulateur en mode &quot;Interpréteur (pas à pas)&quot;</h2>
+<ul>
+<li><em>Compilation</em> : <code>make</code></li>
+<li><em>Exécution</em> : <code>make shell</code></li>
+<li><em>Aide (dans le simulateur)</em> : <code>help</code></li>
+<li><em>Lancement d'un scénario (dans le simulateur)</em> : <code>run &lt;nom scénario&gt;</code></li>
+</ul>
+<p>Le fichier <code>scenario0</code> correspond au premier scénario de la section 3 du sujet, pour le protocole PP.<br />
+<em>Note</em> : <code>&lt;nom scénario&gt;</code> correspond au <em>chemin d'accès</em> au fichier.</p>
+<h2 id="utilisation-du-simulateur-en-mode-simulation-complète">Utilisation du simulateur en mode &quot;Simulation complète&quot;</h2>
+<ul>
+<li><em>Compilation</em> : <code>make</code></li>
+<li><em>Exécution</em> : <code>make simu SCEN=&lt;nom_scénario&gt;</code></li>
+</ul>
+<p>Les fichiers <code>scenario1</code>, <code>scenario2</code> et <code>scenario3</code> correspondent aux scénarios proposés dans la section 4 du sujet.<br />
+<em>Note</em> : <code>&lt;nom scénario&gt;</code> correspond au <em>chemin d'accès</em> au fichier.</p>
+</body>
+</html>
