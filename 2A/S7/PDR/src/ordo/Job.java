@@ -5,6 +5,7 @@ import map.MapReduce;
 import hdfs.*;
 
 import java.net.UnknownHostException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +22,7 @@ public class Job implements JobInterface {
      */
     private Format.Type inputFormat;    // The format of the file in input
     private String inputFileName;       // The name of HDFS file
+    private WorkerImpl[] workers;       // List of workers
 
     /**
      * Constructor of Job class
@@ -53,12 +55,12 @@ public class Job implements JobInterface {
     }
 
     @Override
-    public void setInputFileName (String FileName) {
+    public void setInputFileName(String FileName) {
         this.inputFileName = FileName;
     }
-    
+
     @Override
-    public void startJob (MapReduce mr) {
+    public void startJob(MapReduce mr) {
         try {
             HashMap<String, Pair<ArrayList<ServerRecord>, Pair<Integer, Integer>>> fileRecord;
             fileRecord = new NameProvider().files.get(this.getInputFileName()).getChunksHash();
@@ -68,10 +70,13 @@ public class Job implements JobInterface {
             CallBack callBack = new CallBack(nbChunks);
 
             for (int i = 0; i < nbChunks; i++) {
-                //worker[i % nbChunks].runMap(mr, reader, writer, callBack);
+                Format reader = new LineFormat(inputFileName);
+                Format writer = new KVFormat(inputFileName + "-res");
+                workers[i % nbChunks].runMap(mr, reader, writer, callBack);
             }
-        } catch (UnknownHostException e) {
+        } catch (UnknownHostException | RemoteException e) {
             e.printStackTrace();
         }
     }
+
 }

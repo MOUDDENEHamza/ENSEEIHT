@@ -2,6 +2,7 @@ package hdfs;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -28,7 +29,7 @@ public class HdfsServer {
     private ServerRecord record;
     private Yaml yaml;
 
-    public HdfsServer (Register nameProviderRegistry, String rootDataDirectory, String serverName) {
+    public HdfsServer(Register nameProviderRegistry, String rootDataDirectory, String serverName) {
         this.nameProviderRegistry = nameProviderRegistry;
         this.storedChunk = new HashMap<>();
         this.dataDirectory = rootDataDirectory + "/" + serverName + "/";
@@ -86,7 +87,7 @@ public class HdfsServer {
         }
     }
 
-    public void writeToServer (Socket client, ObjectInputStream ois) throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
+    public void writeToServer(Socket client, ObjectInputStream ois) throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
         System.out.println("Writing started.");
 
         MessageDigest sha256Digest = MessageDigest.getInstance("SHA-256");
@@ -105,7 +106,7 @@ public class HdfsServer {
 
         while (received + bufferSize <= chunkSize) {
             receivedLoop = bis.read(buffer);
-            fos.write(buffer,0, receivedLoop);
+            fos.write(buffer, 0, receivedLoop);
             sha256Digest.update(buffer, 0, receivedLoop);
             received += receivedLoop;
         }
@@ -233,7 +234,7 @@ public class HdfsServer {
 
     public void start() {
         try {
-            System.out.println("Address : " + InetAddress.getLocalHost() +" | Port : " + this.record.getPort());
+            System.out.println("Address : " + InetAddress.getLocalHost() + " | Port : " + this.record.getPort());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
@@ -258,7 +259,7 @@ public class HdfsServer {
                 ois = new ObjectInputStream(communicationSocket.getInputStream());
                 commandToExecute = (Command) ois.readObject();
 
-                switch(commandToExecute) {
+                switch (commandToExecute) {
                     case CMD_WRITE:
                         System.out.println("A request to write has been received.");
                         writeToServer(communicationSocket, ois);

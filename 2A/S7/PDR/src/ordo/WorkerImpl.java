@@ -29,13 +29,16 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker {
      * @throws RemoteException that may occur during the execution of a remote method call
      */
     public WorkerImpl() throws RemoteException {
+        System.out.println("******************************Worker******************************\n");
         // Get the url of the worker
         url = "//localhost:" + port + "/Worker";
+        System.out.println("port : " + port + "\nurl : " + url);
 
         // Create registry then rebind
         try {
             LocateRegistry.getRegistry(port);
             Naming.rebind(url, this);
+            System.out.println("rebind success\n");
         } catch (Exception e) {
             try { // Registry not found
                 LocateRegistry.createRegistry(port);
