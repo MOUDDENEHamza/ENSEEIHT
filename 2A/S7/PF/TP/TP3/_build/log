@@ -1,10 +1,10 @@
 # dune runtest
 # OCAMLPARAM: unset
-# Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP3
-$ /usr/bin/nproc > /tmp/dune5a6d8a.output 2> /dev/null
+# Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP3
+$ /usr/bin/nproc > /tmp/duneab1600.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune6021a3.output
+$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune4c4921.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -23,13 +23,13 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune6021a3.output
 #  ; env =
 #      map
 #        { "INSIDE_DUNE" :
-#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP3/_build/default"
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP3/_build/default"
 #        ; "OCAMLFIND_IGNORE_DUPS_IN" :
-#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP3/_build/install/default/lib"
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP3/_build/install/default/lib"
 #        ; "OCAMLPATH" :
-#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP3/_build/install/default/lib"
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP3/_build/install/default/lib"
 #        ; "OCAMLTOP_INCLUDE_PATH" :
-#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PFL/TP/TP3/_build/install/default/lib/toplevel"
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP3/_build/install/default/lib/toplevel"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
@@ -109,108 +109,10 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune6021a3.output
 #      ; windows_unicode = false
 #      }
 #  }
+$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'library-name="tp3"' -o tp3.pp.ml --impl tp3.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl tp3.pp.ml) > _build/default/.tp3.objs/tp3.pp.ml.d
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -bin-annot -I .tp3.objs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -no-alias-deps -o .tp3.objs/byte/tp3.cmo -c -impl tp3.pp.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -I .tp3.objs/byte -I .tp3.objs/native -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -intf-suffix .ml -no-alias-deps -o .tp3.objs/native/tp3.cmx -c -impl tp3.pp.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -a -o tp3.cmxa .tp3.objs/native/tp3.cmx)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -24 -g -o .tp3.inline-tests/inline_test_runner_tp3.exe /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types/base_internalhash_types.cmxa -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types /home/hamza/.opam/4.07.1/lib/base/caml/caml.cmxa /home/hamza/.opam/4.07.1/lib/sexplib0/sexplib0.cmxa /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib/shadow_stdlib.cmxa /home/hamza/.opam/4.07.1/lib/base/base.cmxa -I /home/hamza/.opam/4.07.1/lib/base /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config/inline_test_config.cmxa /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cmxa tp3.cmxa /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib/ppx_inline_test_runner_lib.cmxa -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib .tp3.inline-tests/.tp3.inline-tests.eobjs/native/dune__exe__Inline_test_runner_tp3.cmx -linkall)
 $ (cd _build/default && .tp3.inline-tests/inline_test_runner_tp3.exe inline-test-runner tp3 -source-tree-root . -diff-cmd -)
-> File "tp3.ml", line 15, characters 0-31: <<(gray_code 0) = [[]]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 12, characters 18-34
->   Called from file "tp3.ml", line 15, characters 13-24
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 16, characters 0-37: <<(gray_code 1) = [[0]; [1]]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 12, characters 18-34
->   Called from file "tp3.ml", line 16, characters 13-24
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 17, characters 0-59: <<(gray_code 2) = [[0; 0]; [0; 1]; [1; 1]; [1; 0]]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 12, characters 18-34
->   Called from file "tp3.ml", line 17, characters 13-24
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 18, characters 0-116: <<(gray_code 3) =   [[0; 0; 0];   [0; 0; 1];   [...]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 12, characters 18-34
->   Called from file "tp3.ml", line 18, characters 13-24
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 20, characters 1-258: <<(gray_code 4) =   [[0; 0; 0; 0];   [0; 0; 0; [...]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 12, characters 18-34
->   Called from file "tp3.ml", line 20, characters 14-25
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 50, characters 0-58: <<(insertion 0 [1; 2]) = [[0; 1; 2]; [1; 0; 2];[...]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 47, characters 24-40
->   Called from file "tp3.ml", line 50, characters 13-30
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 51, characters 0-35: <<(insertion 0 []) = [[0]]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 47, characters 24-40
->   Called from file "tp3.ml", line 51, characters 13-27
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 52, characters 0-58: <<(insertion 3 [1; 2]) = [[3; 1; 2]; [1; 3; 2];[...]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 47, characters 24-40
->   Called from file "tp3.ml", line 52, characters 13-30
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 53, characters 0-35: <<(insertion 3 []) = [[3]]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 47, characters 24-40
->   Called from file "tp3.ml", line 53, characters 13-27
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 54, characters 0-181: <<(insertion 5 [12; 54; 0; 3; 78]) =   [[5; 12;[...]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 47, characters 24-40
->   Called from file "tp3.ml", line 54, characters 13-39
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> File "tp3.ml", line 57, characters 1-134: <<(insertion 'x' ['a'; 'b'; 'c']) =   [['x'; 'a[...]>> threw (Failure "TO DO").
->   Raised at file "stdlib.ml", line 33, characters 17-33
->   Called from file "tp3.ml" (inlined), line 47, characters 24-40
->   Called from file "tp3.ml", line 57, characters 14-41
->   Called from file "runtime-lib/runtime.ml", line 343, characters 8-12
->   Re-raised at file "runtime-lib/runtime.ml", line 346, characters 6-13
->   Called from file "runtime-lib/runtime.ml", line 359, characters 15-52
->   Called from file "runtime-lib/runtime.ml", line 446, characters 52-83
->
-> Fatal error: exception (Failure "TO DO")
-> Raised at file "stdlib.ml", line 33, characters 17-33
-> Called from file "tp3.ml" (inlined), line 67, characters 25-41
-> Called from file "tp3.ml", line 71, characters 9-29
-[2]
