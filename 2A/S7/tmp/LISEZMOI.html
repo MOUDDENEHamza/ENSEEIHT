@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<p>Ce répertoire correspond à l'arborescence de fichiers que doivent <strong>impérativement</strong> respecter vos rendus</p>
+<ul>
+<li>le répertoire config contient les fichiers d'initialisation pouvant être utiles lors du lancement de la plateforme</li>
+<li>le répertoire data accueille les fichiers de données de l'application</li>
+<li>le répertoire doc accueille les rapports attendus</li>
+<li>le répertoire src contient les codes sources. Ce répertoire contient lui-même les sous-répertoires suivants</li>
+<li>application, pour le code des applications</li>
+<li>config, pour les utilitaires de configuration</li>
+<li>formats, pour la spécification et la réalisation des formats</li>
+<li>hdfs, pour la mise en œuvre de hdfs</li>
+<li>ordo pour l'ordonnancement et le contrôle des tâches Map/Reduce</li>
+</ul>
+<p>En outre,</p>
+<ul>
+<li><p>le répertoire data contient un fichier d’entrée pour l’application de comptage de mots, ainsi que le fichier résultat correspondant. <strong>Votre implémentation devra permettre d’exécuter cette application, qui devra obligatoirement donner exactement le même résultat à partir de ce fichier d’entrée.</strong></p></li>
+<li><p>le répertoire src contient des interfaces et des propositions d'ébauche pour certaines classes de la plateforme hidoop :</p></li>
+<li><p>src/application contient les versions itératives et map-reduce du comptage de mots. <strong>La version map-reduce doit pouvoir tourner sur votre plateforme sans avoir à y apporter aucune modification.</strong> Pour pouvoir fonctionner sans modifications, la version itérative de l'application de comptage de mots (Count.java) suppose simplement l'existence d'un attribut statique PATH d'une classe Projet située dans le répertoire hidoop/src/config. Cet attribut est supposé contenir le chemin d'accès au répertoire hidoop (celui qui contient le fichier LISEZMOI.md/html que vous êtes en train de lire).</p></li>
+<li>src/formats contient
+<ul>
+<li>les interfaces pour la gestion des formats, ainsi que l'implémentation de la classe KV. Ces interfaces doivent être respectées sans aucune modification. Il est toutefois possible d'étendre le type énuméré Format.Type, pour prendre en compte de nouveaux formats.</li>
+<li>la classe KVFormat, qui implémente le format KV, avec une variante (KVFormatS, moins efficace, mais plus adaptée à la sérialisation)</li>
+<li>la classe LineFormat, qui implémente le format ligne de texte, avec une variante (LineFormatS, moins efficace, mais plus adaptée à la sérialisation)</li>
+</ul></li>
+<li>src/hdfs contient une proposition (non obligatoire) de squelette pour HdfsClient</li>
+<li>src/map contient les interfaces pour les tâches Map-Reduce. Ces interfaces doivent être respectées sans aucune modification.</li>
+<li><p>src/ordo contient les interfaces Worker et JobInterface, qui doivent être respectées sans aucune modification, ainsi que des propositions pour des interfaces JobInterfaceX et SortComparator, qui visent à étendre les possibilités de JobInterface, pour permettre de paramétrer la gestion des tâches map et reduce.</p></li>
+</ul>
+</body>
+</html>

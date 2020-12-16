@@ -15,3 +15,7 @@
 
 # Ignore graph project
 2A/S7/graphes/Projet/graph20-21.ipynb
+
+# Ignore PDR src
+2A/S7/PDF/src/hdfs
+2A/S7/PDF/src/ordo
