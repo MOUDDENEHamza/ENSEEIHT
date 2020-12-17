@@ -188,6 +188,7 @@ public class HdfsClient {
         // java HdfsClient <read|write> <line|kv> <file>
         try {
             if (args.length < 1) {
+                System.out.println("args = " + args.length);
                 usage();
                 return;
             }

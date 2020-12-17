@@ -14,7 +14,17 @@ all :
 compile :
 	$(JAVAC) $(JAR) $(FLAG) $(SRC)
 
-run :
+run_worker :
 	@$(READ) "Enter the port : " Port; \
 	$(JAVA) $(CLASSPATH) ordo.WorkerImpl $$Port
 
+run_NameProvider :
+	$(JAVA) $(CLASSPATH) hdfs.NameProvider
+
+run_HdfsServer :
+	@$(READ) "Enter the server name : " ServerName; \
+	$(JAVA) $(CLASSPATH):$(JAR) hdfs.HdfsServer $$ServerName
+
+run_HdfsClient :
+	@$(READ) "args : " args; \
+        $(JAVA) $(CLASSPATH):lib/snakeyaml-1.5.jar hdfs.HdfsClient $$args
