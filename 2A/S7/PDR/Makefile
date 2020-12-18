@@ -23,7 +23,7 @@ run_NameProvider :
 
 run_HdfsServer :
 	@$(READ) "Enter the server name : " ServerName; \
-	$(JAVA) $(CLASSPATH):$(JAR) hdfs.HdfsServer $$ServerName
+	$(JAVA) $(CLASSPATH):lib/snakeyaml-1.5.jar hdfs.HdfsServer $$ServerName
 
 run_HdfsClient :
 	@$(READ) "args : " args; \

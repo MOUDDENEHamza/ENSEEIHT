@@ -14,6 +14,6 @@ public class Main {
         System.out.println("\n\n");
         NameProvider np = new NameProvider();
         String[] args1 = {"server"};
-
     }
+
 }

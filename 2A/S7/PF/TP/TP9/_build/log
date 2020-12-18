@@ -1,0 +1,119 @@
+# dune utop
+# OCAMLPARAM: unset
+# Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP9
+$ /usr/bin/nproc > /tmp/dune8a1db5.output 2> /dev/null
+# Auto-detected concurrency: 4
+# disable binary cache
+$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune4343d5.output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Release
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = "default"
+#  ; toplevel_path = Some External "/home/hamza/.opam/4.07.1/lib/toplevel"
+#  ; ocaml_bin = External "/home/hamza/.opam/4.07.1/bin"
+#  ; ocaml = Ok External "/home/hamza/.opam/4.07.1/bin/ocaml"
+#  ; ocamlc = External "/home/hamza/.opam/4.07.1/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/hamza/.opam/4.07.1/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlmklib.opt"
+#  ; env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP9/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP9/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP9/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/TP/TP9/_build/install/default/lib/toplevel"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_path = [ External "/home/hamza/.opam/4.07.1/lib" ]
+#  ; arch_sixtyfour = true
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
+#  ; ocaml_config =
+#      { version = "4.07.1"
+#      ; standard_library_default = "/home/hamza/.opam/4.07.1/lib/ocaml"
+#      ; standard_library = "/home/hamza/.opam/4.07.1/lib/ocaml"
+#      ; standard_runtime = "/home/hamza/.opam/4.07.1/bin/ocamlrun"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "gcc"
+#      ; ocamlc_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon"; "-fPIC" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; bytecomp_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fcommon"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-ldl"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fcommon"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; native_c_libraries = [ "-lm"; "-ldl" ]
+#      ; cc_profile = [ "-pg" ]
+#      ; architecture = "amd64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "linux"
+#      ; asm = [ "as" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "x86_64-unknown-linux-gnu"
+#      ; target = "x86_64-unknown-linux-gnu"
+#      ; profiling = true
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = false
+#      ; exec_magic_number = "Caml1999X023"
+#      ; cmi_magic_number = "Caml1999I024"
+#      ; cmo_magic_number = "Caml1999O023"
+#      ; cma_magic_number = "Caml1999A023"
+#      ; cmx_magic_number = "Caml1999Y023"
+#      ; cmxa_magic_number = "Caml1999Z023"
+#      ; ast_impl_magic_number = "Caml1999M023"
+#      ; ast_intf_magic_number = "Caml1999N023"
+#      ; cmxs_magic_number = "Caml1999D023"
+#      ; cmt_magic_number = "Caml1999T024"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  }
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl .utop/utop.ml-gen) > _build/default/.utop/.utop.eobjs/utop.ml-gen.d
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -g -o .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe -w -24 -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ocaml-compiler-libs/common -I /home/hamza/.opam/4.07.1/lib/ocaml-compiler-libs/shadow -I /home/hamza/.opam/4.07.1/lib/ocaml-migrate-parsetree -I /home/hamza/.opam/4.07.1/lib/ocaml/compiler-libs -I /home/hamza/.opam/4.07.1/lib/ppx_derivers -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/libname -I /home/hamza/.opam/4.07.1/lib/ppxlib -I /home/hamza/.opam/4.07.1/lib/ppxlib/ast -I /home/hamza/.opam/4.07.1/lib/ppxlib/print_diff -I /home/hamza/.opam/4.07.1/lib/ppxlib/traverse_builtins -I /home/hamza/.opam/4.07.1/lib/result -I /home/hamza/.opam/4.07.1/lib/sexplib0 -I /home/hamza/.opam/4.07.1/lib/stdio /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types/base_internalhash_types.cmxa /home/hamza/.opam/4.07.1/lib/base/caml/caml.cmxa /home/hamza/.opam/4.07.1/lib/sexplib0/sexplib0.cmxa /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib/shadow_stdlib.cmxa /home/hamza/.opam/4.07.1/lib/base/base.cmxa /home/hamza/.opam/4.07.1/lib/ocaml/compiler-libs/ocamlcommon.cmxa /home/hamza/.opam/4.07.1/lib/ocaml-compiler-libs/common/ocaml_common.cmxa /home/hamza/.opam/4.07.1/lib/ocaml-compiler-libs/shadow/ocaml_shadow.cmxa /home/hamza/.opam/4.07.1/lib/result/result.cmxa /home/hamza/.opam/4.07.1/lib/ppx_derivers/ppx_derivers.cmxa /home/hamza/.opam/4.07.1/lib/ocaml-migrate-parsetree/migrate_parsetree.cmxa /home/hamza/.opam/4.07.1/lib/ppxlib/ast/ppxlib_ast.cmxa /home/hamza/.opam/4.07.1/lib/stdio/stdio.cmxa /home/hamza/.opam/4.07.1/lib/ppxlib/print_diff/ppxlib_print_diff.cmxa /home/hamza/.opam/4.07.1/lib/ppxlib/traverse_builtins/ppxlib_traverse_builtins.cmxa /home/hamza/.opam/4.07.1/lib/ppxlib/ppxlib.cmxa /home/hamza/.opam/4.07.1/lib/ppx_inline_test/libname/ppx_inline_test_libname.cmxa /home/hamza/.opam/4.07.1/lib/ppx_inline_test/ppx_inline_test.cmxa .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/_ppx.ml)
+$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'library-name="tp9_etu"' -o tp9_etu.pp.ml --impl tp9_etu.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl tp9_etu.pp.ml) > _build/default/.tp9_etu.objs/tp9_etu.pp.ml.d
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -bin-annot -I .tp9_etu.objs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/delimcc -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -no-alias-deps -o .tp9_etu.objs/byte/tp9_etu.cmo -c -impl tp9_etu.pp.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -a -o tp9_etu.cma .tp9_etu.objs/byte/tp9_etu.cmo)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -w -24 -g -bin-annot -I .utop/.utop.eobjs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/bytes -I /home/hamza/.opam/4.07.1/lib/camomile -I /home/hamza/.opam/4.07.1/lib/camomile/default_config -I /home/hamza/.opam/4.07.1/lib/camomile/dyn -I /home/hamza/.opam/4.07.1/lib/camomile/lib_default -I /home/hamza/.opam/4.07.1/lib/camomile/library -I /home/hamza/.opam/4.07.1/lib/charInfo_width -I /home/hamza/.opam/4.07.1/lib/delimcc -I /home/hamza/.opam/4.07.1/lib/findlib -I /home/hamza/.opam/4.07.1/lib/lambda-term -I /home/hamza/.opam/4.07.1/lib/lwt -I /home/hamza/.opam/4.07.1/lib/lwt/unix -I /home/hamza/.opam/4.07.1/lib/lwt_log -I /home/hamza/.opam/4.07.1/lib/lwt_log/core -I /home/hamza/.opam/4.07.1/lib/lwt_react -I /home/hamza/.opam/4.07.1/lib/mew -I /home/hamza/.opam/4.07.1/lib/mew_vi -I /home/hamza/.opam/4.07.1/lib/mmap -I /home/hamza/.opam/4.07.1/lib/ocaml/compiler-libs -I /home/hamza/.opam/4.07.1/lib/ocaml/threads -I /home/hamza/.opam/4.07.1/lib/ocplib-endian -I /home/hamza/.opam/4.07.1/lib/ocplib-endian/bigstring -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/react -I /home/hamza/.opam/4.07.1/lib/result -I /home/hamza/.opam/4.07.1/lib/seq -I /home/hamza/.opam/4.07.1/lib/sexplib0 -I /home/hamza/.opam/4.07.1/lib/trie -I /home/hamza/.opam/4.07.1/lib/utop -I /home/hamza/.opam/4.07.1/lib/zed -I .tp9_etu.objs/byte -I .tp9_etu.objs/native -no-alias-deps -o .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -c -impl .utop/utop.ml-gen)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -w -24 -g -o .utop/utop.exe -custom /home/hamza/.opam/4.07.1/lib/ocaml/compiler-libs/ocamlcommon.cma /home/hamza/.opam/4.07.1/lib/ocaml/compiler-libs/ocamlbytecomp.cma /home/hamza/.opam/4.07.1/lib/ocaml/compiler-libs/ocamltoplevel.cma /home/hamza/.opam/4.07.1/lib/findlib/findlib.cma /home/hamza/.opam/4.07.1/lib/findlib/findlib_top.cma /home/hamza/.opam/4.07.1/lib/result/result.cma /home/hamza/.opam/4.07.1/lib/lwt/lwt.cma /home/hamza/.opam/4.07.1/lib/ocaml/unix.cma -I /home/hamza/.opam/4.07.1/lib/ocaml /home/hamza/.opam/4.07.1/lib/ocaml/bigarray.cma -I /home/hamza/.opam/4.07.1/lib/ocaml /home/hamza/.opam/4.07.1/lib/mmap/mmap.cma /home/hamza/.opam/4.07.1/lib/ocplib-endian/ocplib_endian.cma /home/hamza/.opam/4.07.1/lib/ocplib-endian/bigstring/ocplib_endian_bigstring.cma /home/hamza/.opam/4.07.1/lib/ocaml/threads/threads.cma -I /home/hamza/.opam/4.07.1/lib/ocaml /home/hamza/.opam/4.07.1/lib/lwt/unix/lwt_unix.cma -I /home/hamza/.opam/4.07.1/lib/lwt/unix /home/hamza/.opam/4.07.1/lib/react/react.cma /home/hamza/.opam/4.07.1/lib/lwt_react/lwt_react.cma /home/hamza/.opam/4.07.1/lib/camomile/default_config/camomileDefaultConfig.cma /home/hamza/.opam/4.07.1/lib/camomile/library/camomileLibrary.cma /home/hamza/.opam/4.07.1/lib/camomile/lib_default/camomileLibraryDefault.cma /home/hamza/.opam/4.07.1/lib/camomile/dyn/camomileLibraryDyn.cma /home/hamza/.opam/4.07.1/lib/camomile/camomile_yuge.cma /home/hamza/.opam/4.07.1/lib/charInfo_width/charInfo_width.cma /home/hamza/.opam/4.07.1/lib/zed/zed.cma /home/hamza/.opam/4.07.1/lib/lwt_log/core/lwt_log_core.cma /home/hamza/.opam/4.07.1/lib/lwt_log/lwt_log.cma /home/hamza/.opam/4.07.1/lib/trie/trie.cma /home/hamza/.opam/4.07.1/lib/mew/mew.cma /home/hamza/.opam/4.07.1/lib/mew_vi/mew_vi.cma /home/hamza/.opam/4.07.1/lib/lambda-term/lambda_term.cma -I /home/hamza/.opam/4.07.1/lib/lambda-term /home/hamza/.opam/4.07.1/lib/utop/uTop.cma /home/hamza/.opam/4.07.1/lib/delimcc/delimcc.cma -I /home/hamza/.opam/4.07.1/lib/delimcc /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types/base_internalhash_types.cma -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types /home/hamza/.opam/4.07.1/lib/base/caml/caml.cma /home/hamza/.opam/4.07.1/lib/sexplib0/sexplib0.cma /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib/shadow_stdlib.cma /home/hamza/.opam/4.07.1/lib/base/base.cma -I /home/hamza/.opam/4.07.1/lib/base /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config/inline_test_config.cma /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cma tp9_etu.cma .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -linkall -warn-error -31)

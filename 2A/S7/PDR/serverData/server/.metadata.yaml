@@ -1,0 +1,7 @@
+B576F0A62183215A08AB2F58650489E3CEA78588D3204F3ED793CE347D58121C: !!hdfs.ChunkMetadata
+  baseByte: 0
+  chunkNumber: 0
+  fileName: data/filesample.txt
+  sizeBytes: 1305
+  totalChunkNumber: 1
+  type: LINE
