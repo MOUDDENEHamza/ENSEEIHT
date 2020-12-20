@@ -71,7 +71,7 @@ function Gradient_Conjugue_Tronque(gradfk,hessfk,options)
        alphaj = (gj' * gj)/kj
 
        "Cas où : ||sj+alpha*pj||>deltak"
-       if norm(sj+alphaj*pj)>deltak
+       if norm(sj + alphaj * pj) > deltak
            "on écrit ||sj+alpha*pj||=deltak sous forme de ax^2 +bx+c=0"
            a = norm(pj)^2
            b = 2*sj'*pj
@@ -89,7 +89,7 @@ function Gradient_Conjugue_Tronque(gradfk,hessfk,options)
            end # if
        end # if
 
-       sj = sj+alphaj*pj
+       sj = sj + alphaj * pj
        gj_1 = gj+alphaj*hessfk*pj
        betaj = (gj_1'*gj_1)/(gj'*gj)
        pj = -gj_1 + betaj*pj
