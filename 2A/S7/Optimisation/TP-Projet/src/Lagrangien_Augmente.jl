@@ -50,8 +50,8 @@ hess_contrainte(x) = [2 0;0 2]
 output = Lagrangien_Augmente(algo,f,contrainte,gradf,hessf,grad_contrainte,hess_contrainte,x0,options)
 ```
 """
-function Lagrangien_Augmente(algo,fonc::Function,contrainte::Function,gradfonc::Function,
-    hessfonc::Function,grad_contrainte::Function,hess_contrainte::Function,x0,options)
+function Lagrangien_Augmente(algo, fonc::Function, contrainte::Function, gradfonc::Function,
+    hessfonc::Function, grad_contrainte::Function, hess_contrainte::Function, x0, options)
 
     if options == []
         epsilon = 1e-8
@@ -68,9 +68,7 @@ function Lagrangien_Augmente(algo,fonc::Function,contrainte::Function,gradfonc::
         mu0 = options[5]
         tho = options[6]
     end
-
-    "Initialisation des parametres"
-    iter = 0
+    
     xk = x0
     xk_1 = x0
     mu = mu0
@@ -79,54 +77,53 @@ function Lagrangien_Augmente(algo,fonc::Function,contrainte::Function,gradfonc::
     alpha = 0.1
     etha_c = 0.1258925
     epsilon0 = 1
-    etha = etha_c/(mu^alpha)
+    etha = etha_c / (mu ^ alpha)
     flag = 0
+    i = 0
 
-    for iter = 1 : itermax
-
-        "Definition de la fonction Lagrangien"
-        Lx(x) = fonc(x) + lambda'*contrainte(x) + (mu/2)*(norm(contrainte(x)))^2
-        grad_x_Lx(x) = gradfonc(x) + lambda'*grad_contrainte(x) + mu*grad_contrainte(x)*contrainte(x)
-        Hess_x_Lx(x) = hessfonc(x) + lambda'*hess_contrainte(x) + mu*hess_contrainte(x)*contrainte(x) + mu*grad_contrainte(x)*grad_contrainte(x)'
+    for i in 1 : itermax
+        Lx(x) = fonc(x) + lambda' * contrainte(x) + (mu / 2) * (norm(contrainte(x))) ^ 2
+        grad_x_Lx(x) = gradfonc(x) + lambda' * grad_contrainte(x) + mu * grad_contrainte(x) * contrainte(x)
+        Hess_x_Lx(x) = hessfonc(x) + lambda' * hess_contrainte(x) + mu * hess_contrainte(x) * contrainte(x) + mu * grad_contrainte(x) * grad_contrainte(x)'
         
         while (norm(grad_x_Lx(xk)) > epsilon)
             a = norm(grad_x_Lx(xk))
             if algo == "newton"
-                xk, ~ = Algorithme_De_Newton(Lx,grad_x_Lx,Hess_x_Lx,xk,[])
+                xk, ~ = Algorithme_De_Newton(Lx, grad_x_Lx, Hess_x_Lx, xk, [])
             elseif algo == "cauchy" || algo == "gct"
-                xk, ~ = Regions_De_Confiance(algo,Lx,grad_x_Lx,Hess_x_Lx,xk,[])
+                xk, ~ = Regions_De_Confiance(algo, Lx, grad_x_Lx, Hess_x_Lx, xk, [])
             end
             if a == norm(grad_x_Lx(xk))
                 break
             end
         end
 
-        "convergence "
-            gradL(x,l) = gradfonc(x) + l'*grad_contrainte(xk)
-            if norm(gradL(xk,lambda))<=max(tol, tol*norm(gradL(x0,lambda0)))
-                flag = 0
-                break
-            elseif norm(contrainte(xk))<=max(tol, tol*norm(contrainte(x0)))
-                flag = 1
-                break
-            elseif iter == itermax
-                flag = 3
-                break
+        gradL(x,l) = gradfonc(x) + l' * grad_contrainte(xk)
+        if norm(gradL(xk, lambda)) <= max(tol, tol * norm(gradL(x0, lambda0)))
+            flag = 0
+            break
+        elseif norm(contrainte(xk)) <= max(tol, tol * norm(contrainte(x0)))
+            flag = 1
+            break
+        elseif i == itermax
+            flag = 3
+            break
+        else
+            if norm(contrainte(xk)) <= etha
+                lambda = lambda + mu * contrainte(xk)
+                epsilon = epsilon / mu
+                etha = etha / (mu ^ betha)
             else
-                if norm(contrainte(xk))<=etha
-                    lambda = lambda + mu*contrainte(xk)
-                    epsilon = epsilon/mu
-                    etha = etha/(mu^betha)
-                else
-                    mu = tho*mu
-                    epsilon = epsilon0/mu
-                    etha = etha_c/(mu^alpha)
-                end # if
+                mu = tho * mu
+                epsilon = epsilon0 / mu
+                etha = etha_c / (mu ^ alpha)
             end # if
+        end # if
 
-    end	# while
+    end
+    
     xmin = xk
     fxmin = fonc(xmin)
 
-    return xmin,fxmin,flag,iter
+    return xmin, fxmin, flag, i
 end

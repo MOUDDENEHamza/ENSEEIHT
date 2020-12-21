@@ -43,63 +43,61 @@ function Gradient_Conjugue_Tronque(gradfk,hessfk,options)
 
    n = length(gradfk)
    s = zeros(n)
-   q(s) = gradfk' * s + (1/2)*transpose(s)*hessfk*s
+   q(s) = gradfk' * s + (1 / 2) * transpose(s) * hessfk * s
 
    sj = zeros(n)
    gj = gradfk
    pj = -gradfk
 
-   for j = 1:max_iter
+   for i in 1 : max_iter
        kj = pj' * hessfk * pj
-       if kj<0
-           "on écrit ||sj+rho*pj||=deltak sous forme de ax^2 +bx+c=0"
-           a = norm(pj)^2
-           b = 2*sj'*pj
-           c = norm(sj)^2 - deltak^2
-           d = sqrt(b^2 - 4a*c)
-           rho1, rho2 = (-b-d)/(2a), (-b+d)/(2a)
+       
+       if kj < 0
+           a = norm(pj) ^ 2
+           b = 2 * sj' * pj
+           c = norm(sj) ^ 2 - deltak ^ 2
+           d = sqrt(b ^ 2 - 4 * a * c)
+           rho1, rho2 = (-b - d) / (2 * a), (-b + d) / (2 * a)
 
-           if q(sj+rho1*pj)>q(sj+rho2*pj)
+           if q(sj + rho1 * pj) > q(sj + rho2 * pj)
                rho = rho2
            else
                rho = rho1
-           end # if
-           s = sj+rho*pj
+           end
+           s = sj + rho * pj
            break
-       end # if
+       end
 
-       alphaj = (gj' * gj)/kj
+       alphaj = (gj' * gj) / kj
 
-       "Cas où : ||sj+alpha*pj||>deltak"
        if norm(sj + alphaj * pj) > deltak
-           "on écrit ||sj+alpha*pj||=deltak sous forme de ax^2 +bx+c=0"
-           a = norm(pj)^2
-           b = 2*sj'*pj
-           c = norm(sj)^2 - deltak^2
+           a = norm(pj) ^ 2
+           b = 2 * sj' * pj
+           c = norm(sj) ^ 2 - deltak ^ 2
 
-           d = sqrt(b^2 - 4a*c)
-           alpha1, alpha2 = (-b-d)/(2a), (-b+d)/(2a)
+           d = sqrt(b ^ 2 - 4 * a * c)
+           alpha1, alpha2 = (-b - d) / (2 * a), (-b + d) / (2 * a)
 
-           if alpha1>0
+           if alpha1 > 0
                alpha = alpha1
-           elseif alpha2>0
+           elseif alpha2 > 0
                alpha = alpha2
-               s = sj+alpha*pj
+               s = sj + alpha * pj
                break
-           end # if
-       end # if
+           end
+       end
 
        sj = sj + alphaj * pj
-       gj_1 = gj+alphaj*hessfk*pj
-       betaj = (gj_1'*gj_1)/(gj'*gj)
-       pj = -gj_1 + betaj*pj
+       gj_1 = gj + alphaj * hessfk * pj
+       betaj = (gj_1' * gj_1) / (gj' * gj)
+       pj = -gj_1 + betaj * pj
 
-       if norm(gj_1)<=tol*norm(gradfk)
+       if norm(gj_1) <= tol * norm(gradfk)
            s = sj
            break
-       end # if
+       end
        gj = gj_1
-   end # for
+   end
 
    return s
 end

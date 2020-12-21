@@ -50,7 +50,7 @@ options = []
 xmin, fxmin, flag,nb_iters = Regions_De_Confiance(algo,f,gradf,hessf,x0,options)
 ```
 """
-function Regions_De_Confiance(algo, f::Function, gradf::Function, hessf::Function, x0,options)
+function Regions_De_Confiance(algo, f::Function, gradf::Function, hessf::Function, x0, options)
 
     if options == []
         deltaMax = 10
@@ -79,9 +79,8 @@ function Regions_De_Confiance(algo, f::Function, gradf::Function, hessf::Functio
     xk = x0
     xk_1 = x0
     delta = delta0
-    CondConvergence = max(Tol_abs, Tol_rel*norm(gradf(x0)))
 
-    for i = 1 : max_iter
+    for i in 1 : max_iter
         nb_iters = i
         xk = xk_1
         
