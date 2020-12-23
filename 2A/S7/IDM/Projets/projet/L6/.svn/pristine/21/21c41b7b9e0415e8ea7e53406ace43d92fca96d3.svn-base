@@ -1,0 +1,46 @@
+grammar fr.n7.PDL with org.eclipse.xtext.common.Terminals
+
+generate pDL "http://www.n7.fr/PDL"
+
+/* Xtext syntax for the game*/
+Game:
+	'Game' name = ID
+	'in' map = [Map]
+	'with' player = [Player]
+;
+
+/* Production rules for Map entity */
+Map:
+	'map' mapeName = MapName
+	'contains' person = Person
+;
+
+enum MapName:
+	begin = 'Enigma ' 
+	| success = 'Success'
+	| fail = 'Fail'	
+;
+
+Person:
+	sphinx = [Sphinx]
+;
+
+Sphinx:
+	name = 'Sphinx'
+	'Question' question = [Question]
+;
+
+Question:
+	text = STRING
+;
+
+/* Production rules for the player entity */
+Player:
+	'player' name = ID
+	'has' attempts = [Attempts]
+;
+
+Attempts:
+	n = INT 'attempts'	
+;
+
