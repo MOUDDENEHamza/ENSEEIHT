@@ -4,6 +4,9 @@
 # .class Java files
 *.class
 
+# Ignore .o files
+*.o
+
 # jupyter notebook files
 *.ipynb
 
