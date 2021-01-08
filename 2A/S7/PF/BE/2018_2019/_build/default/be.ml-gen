@@ -1,0 +1,5 @@
+(** @canonical Be.Boa *)
+module Boa = Be__Boa
+
+(** @canonical Be.Tests *)
+module Tests = Be__Tests

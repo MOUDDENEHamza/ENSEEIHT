@@ -1,0 +1,2 @@
+(** @canonical Src.Td1 *)
+module Td1 = Src__Td1

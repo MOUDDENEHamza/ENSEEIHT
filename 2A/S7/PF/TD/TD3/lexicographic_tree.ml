@@ -2,11 +2,9 @@
    the type 'a tree representing the tree structure: multiway tree with
    booleans in nodes and ’a in branches. 
 *)
-type 'a branch = 'a * 'a tree;;
-type 'a tree = Node of bool * (('a branch) list);;
+type tree = Node of bool * ((char * tree) list);;
 
-
-let tree = Noeud(false, [])
+let tree = (Node(false, []))
 
 (* exist : 'a list -> 'a tree -> bool
 Function that tests if a given item is in the tree.
@@ -14,10 +12,10 @@ Parameter tree : the lexicographic tree we will test.
 Parameter item : the item we search in the tree.
 Result : true if it exists, otherwise false.
 *)
-let rec exist item (Node (value, subtree)) = 
+let rec exist item (Node(value, subtree)) = 
     match item with
-    | [] −> value
-    | h::t ->
+    | [] -> value
+    | h :: t ->
         match () with 
         | None -> false
         | Some a -> exist t a
@@ -43,7 +41,7 @@ let rec add item (Node (value, subtree)) =
 
 (**
     this type is triplet of tree and two functions.
- *))
+ *)
 type ('a, 'b) sort = Sort of ('a tree) * ('b -> 'a list) * ('a list -> 'b)
 
 let rec appartient mot trie = 

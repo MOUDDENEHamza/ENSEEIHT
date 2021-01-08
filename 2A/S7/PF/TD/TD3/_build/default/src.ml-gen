@@ -1,0 +1,2 @@
+(** @canonical Src.Lexicographic_tree *)
+module Lexicographic_tree = Src__Lexicographic_tree

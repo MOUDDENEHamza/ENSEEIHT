@@ -1,0 +1,120 @@
+# dune runtest
+# OCAMLPARAM: unset
+# Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S7/PF/BE
+$ /usr/bin/nproc > /tmp/dune41e336.output 2> /dev/null
+# Auto-detected concurrency: 4
+# disable binary cache
+$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunebf99c9.output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Release
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = "default"
+#  ; toplevel_path = Some External "/home/hamza/.opam/4.07.1/lib/toplevel"
+#  ; ocaml_bin = External "/home/hamza/.opam/4.07.1/bin"
+#  ; ocaml = Ok External "/home/hamza/.opam/4.07.1/bin/ocaml"
+#  ; ocamlc = External "/home/hamza/.opam/4.07.1/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/hamza/.opam/4.07.1/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/hamza/.opam/4.07.1/bin/ocamlmklib.opt"
+#  ; env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/BE/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/BE/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/BE/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/BE/_build/install/default/lib/toplevel"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_path = [ External "/home/hamza/.opam/4.07.1/lib" ]
+#  ; arch_sixtyfour = true
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
+#  ; ocaml_config =
+#      { version = "4.07.1"
+#      ; standard_library_default = "/home/hamza/.opam/4.07.1/lib/ocaml"
+#      ; standard_library = "/home/hamza/.opam/4.07.1/lib/ocaml"
+#      ; standard_runtime = "/home/hamza/.opam/4.07.1/bin/ocamlrun"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "gcc"
+#      ; ocamlc_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon"; "-fPIC" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fcommon" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; bytecomp_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fcommon"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-ldl"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fcommon"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; native_c_libraries = [ "-lm"; "-ldl" ]
+#      ; cc_profile = [ "-pg" ]
+#      ; architecture = "amd64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "linux"
+#      ; asm = [ "as" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "x86_64-unknown-linux-gnu"
+#      ; target = "x86_64-unknown-linux-gnu"
+#      ; profiling = true
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = false
+#      ; exec_magic_number = "Caml1999X023"
+#      ; cmi_magic_number = "Caml1999I024"
+#      ; cmo_magic_number = "Caml1999O023"
+#      ; cma_magic_number = "Caml1999A023"
+#      ; cmx_magic_number = "Caml1999Y023"
+#      ; cmxa_magic_number = "Caml1999Z023"
+#      ; ast_impl_magic_number = "Caml1999M023"
+#      ; ast_intf_magic_number = "Caml1999N023"
+#      ; cmxs_magic_number = "Caml1999D023"
+#      ; cmt_magic_number = "Caml1999T024"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  }
+$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'library-name="be"' -o boa.pp.ml --impl boa.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl boa.pp.ml) > _build/default/.be.objs/boa.pp.ml.d
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -bin-annot -I .be.objs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -no-alias-deps -open Be -o .be.objs/byte/be__Boa.cmo -c -impl boa.pp.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -I .be.objs/byte -I .be.objs/native -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -intf-suffix .ml -no-alias-deps -open Be -o .be.objs/native/be__Boa.cmx -c -impl boa.pp.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -a -o be.cmxa .be.objs/native/be.cmx .be.objs/native/be__Tests.cmx .be.objs/native/be__Boa.cmx)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -24 -g -bin-annot -I .be.inline-tests/.be.inline-tests.eobjs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -I .be.objs/byte -I .be.objs/native -no-alias-deps -o .be.inline-tests/.be.inline-tests.eobjs/byte/dune__exe__Inline_test_runner_be.cmo -c -impl .be.inline-tests/inline_test_runner_be.ml-gen)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -24 -g -I .be.inline-tests/.be.inline-tests.eobjs/byte -I .be.inline-tests/.be.inline-tests.eobjs/native -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -I .be.objs/byte -I .be.objs/native -intf-suffix .ml-gen -nodynlink -no-alias-deps -o .be.inline-tests/.be.inline-tests.eobjs/native/dune__exe__Inline_test_runner_be.cmx -c -impl .be.inline-tests/inline_test_runner_be.ml-gen)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -24 -g -o .be.inline-tests/inline_test_runner_be.exe /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types/base_internalhash_types.cmxa -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types /home/hamza/.opam/4.07.1/lib/base/caml/caml.cmxa /home/hamza/.opam/4.07.1/lib/sexplib0/sexplib0.cmxa /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib/shadow_stdlib.cmxa /home/hamza/.opam/4.07.1/lib/base/base.cmxa -I /home/hamza/.opam/4.07.1/lib/base /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config/inline_test_config.cmxa /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cmxa be.cmxa /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib/ppx_inline_test_runner_lib.cmxa -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib .be.inline-tests/.be.inline-tests.eobjs/native/dune__exe__Inline_test_runner_be.cmx -linkall)
+$ (cd _build/default && .be.inline-tests/inline_test_runner_be.exe inline-test-runner be -source-tree-root . -diff-cmd -)

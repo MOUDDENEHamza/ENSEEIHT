@@ -1,0 +1,6 @@
+(library
+ (name be)
+ (inline_tests)
+ (modules test dr chiffrement)
+ (preprocess
+  (pps ppx_inline_test)))

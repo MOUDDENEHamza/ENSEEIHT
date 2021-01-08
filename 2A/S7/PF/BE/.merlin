@@ -1,0 +1,19 @@
+EXCLUDE_QUERY_DIR
+B /home/hamza/.opam/4.07.1/lib/base
+B /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types
+B /home/hamza/.opam/4.07.1/lib/base/caml
+B /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib
+B /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config
+B /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib
+B /home/hamza/.opam/4.07.1/lib/sexplib0
+B _build/default/.be.objs/byte
+S /home/hamza/.opam/4.07.1/lib/base
+S /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types
+S /home/hamza/.opam/4.07.1/lib/base/caml
+S /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib
+S /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config
+S /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib
+S /home/hamza/.opam/4.07.1/lib/sexplib0
+S .
+FLG -ppx '/home/hamza/Desktop/ENSEEIHT/2A/S7/PF/BE/_build/default/.ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --as-ppx --cookie '\''library-name="be"'\'''
+FLG -open Be -w -40
