@@ -1,3 +1,4 @@
+MAKE = make
 READ = read -p
 GIT = git
 ADD = add .
@@ -6,9 +7,10 @@ PUSH = push
 PULL = pull
 
 push :
-	$(GIT) $(ADD); \
 	@$(READ) "The message to commit : " message; \
-	$(GIT) $(COMMIT) "#$$message"; \
-	$(GIT) $(PUSH)
+	$(GIT) $(ADD) && $(GIT) $(COMMIT) "#$$message" && $(GIT) $(PUSH)
 
-.PHONY : push
+pull :
+	$(GIT) $(PULL)
+
+.PHONY : push pull
