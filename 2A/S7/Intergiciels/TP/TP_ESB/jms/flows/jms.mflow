@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="jms">
+    <global-element name="Active MQ" type="http://www.mulesoft.org/schema/mule/jms/activemq-xa-connector" entity-id="3ec62879-c72b-4107-a847-75bec94339fc">
+        <properties>
+            <property name="customReconnection" value="false"/>
+            <property name="standardReconnection" value="false"/>
+            <property name="jndiProviderUrl" value=""/>
+            <property name="embeddedMode" value="false"/>
+            <property name="redeliveryHandlerFactory-ref" value=""/>
+            <property name="maxRedelivery" value="-1"/>
+            <property name="connectionFactory-ref" value=""/>
+            <property name="durable" value="false"/>
+            <property name="password" value="admin"/>
+            <property name="noReconnection" value="true"/>
+            <property name="username" value="admin"/>
+            <property name="name" value="Active_MQ"/>
+            <property name="dynamicNotification" value="false"/>
+            <property name="noLocal" value="false"/>
+            <property name="eagerConsumer" value="false"/>
+            <property name="d" value=""/>
+            <property name="numberOfConsumers" value="1"/>
+            <property name="acknowledgementMode" value="AUTO_ACKNOWLEDGE"/>
+            <property name="jndiInitialFactory" value=""/>
+            <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/jms/activemq-connector"/>
+            <property name="validateConnections" value="true"/>
+            <property name="disableTemporaryReplyToDestinations" value="false"/>
+            <property name="clientId" value=""/>
+            <property name="dispatcherPoolFactory-ref" value=""/>
+            <property name="blocking" value="true"/>
+            <property name="persistentDelivery" value="false"/>
+            <property name="forceJndiDestinations" value="false"/>
+            <property name="connectionFactoryJndiName" value=""/>
+            <property name="specification" value="1.1"/>
+            <property name="brokerURL" value="tcp://localhost:61616"/>
+            <property name="jndiDestinations" value="false"/>
+            <property name="honorQosHeaders" value="false"/>
+            <property name="cacheJmsSessions" value="false"/>
+            <property name="jndiProviderProperties-ref" value=""/>
+            <property-collection name="">
+                <property name="d" value=""/>
+                <property name="blocking" value="true"/>
+                <property name="customReconnection" value="false"/>
+                <property name="standardReconnection" value="false"/>
+                <property name="noReconnection" value="true"/>
+            </property-collection>
+        </properties>
+        <description></description>
+    </global-element>
+    <flow SubFlow="false" name="jmsFlow1" entity-id="3b19b434-0594-4266-a72b-ba6ce24ac228">
+        <lane hadOnlyOneElement="false" entity-id="a5c174d1-3e0b-48d8-9b33-42440d34e4a2">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="8bf9cd0c-8b55-4e7d-9b5a-d8b448ccb37b">
+                <properties>
+                    <property name="reverseOrder" value="false"/>
+                    <property name="moveToPattern" value=""/>
+                    <property name="pollingFrequency" value="1000"/>
+                    <property name="comparator" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="moveToDirectory" value=""/>
+                    <property name="address" value=""/>
+                    <property name="fileAge" value="500"/>
+                    <property name="path" value="/tmp/in"/>
+                    <property name="encoding" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="JMS" type="http://www.mulesoft.org/schema/mule/jms/endpoint" entity-id="dd58b646-811f-4ae6-85b6-facd2f84cd9c">
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="queue" value="MyQueue"/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="disableTemporaryReplyToDestinations" value="false"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType" value=""/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="connector-ref" value="Active_MQ"/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="jmsFlow2" entity-id="7824036a-87ec-4c33-9345-304f20c75f41">
+        <lane hadOnlyOneElement="false" entity-id="173c516f-f064-47b2-a92a-4b751d5adb77">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="JMS" type="http://www.mulesoft.org/schema/mule/jms/endpoint" entity-id="7a8c44b4-71fa-4be9-8920-2c49ffbbb4fd">
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="queue" value="MyQueue"/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="durableName" value=""/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="disableTemporaryReplyToDestinations" value="false"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType" value=""/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="connector-ref" value="Active_MQ"/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="62fd10f1-c602-4397-bb97-206892cf4d87">
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="path" value="/tmp/out"/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="outputPattern" value=""/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

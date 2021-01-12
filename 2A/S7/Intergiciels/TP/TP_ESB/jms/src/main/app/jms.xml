@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+    <jms:activemq-connector name="Active_MQ" specification="1.1" username="admin" password="admin" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+    <flow name="jmsFlow1" doc:name="jmsFlow1">
+        <file:inbound-endpoint path="/tmp/in" responseTimeout="10000" doc:name="File"/>
+        <jms:outbound-endpoint queue="MyQueue" connector-ref="Active_MQ" doc:name="JMS"/>
+    </flow>
+    <flow name="jmsFlow2" doc:name="jmsFlow2">
+        <jms:inbound-endpoint queue="MyQueue" connector-ref="Active_MQ" doc:name="JMS"/>
+        <file:outbound-endpoint path="/tmp/out" responseTimeout="10000" doc:name="File"/>
+    </flow>
+</mule>

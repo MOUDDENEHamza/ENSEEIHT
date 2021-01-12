@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="imap">
+    <global-element name="IMAP" type="http://www.mulesoft.org/schema/mule/imaps/connector" entity-id="2fb5c575-aefe-4c1e-8e5b-7e9a2874fec1">
+        <properties>
+            <property name="name" value="IMAP"/>
+            <property name="backupFolder"/>
+            <property name="mailboxFolder"/>
+            <property name="moveToFolder"/>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="dynamicNotification"/>
+            <property name="validateConnections" value="true"/>
+            <property name="backupEnabled"/>
+            <property name="deleteReadMessages"/>
+            <property name="checkFrequency" value="1000"/>
+            <property name="defaultProcessMessageAction"/>
+            <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/imaps/connector"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/imaps/tls-client;0">
+                <property name="storePassword" value="*"/>
+                <property name="path" value="*"/>
+            </property-collection>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/imaps/tls-trust-store;0">
+                <property name="storePassword" value="*"/>
+                <property name="path" value="*"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="imapFlow1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" entity-id="8aef9b7a-06be-4eca-a87c-96ad5405a590">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="IMAP" type="http://www.mulesoft.org/schema/mule/imaps/endpoint" entity-id="bdc5f630-678f-48ee-be7f-c2d1b4b121d5">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="host" value="imap.gmail.com"/>
+                    <property name="port" value="993"/>
+                    <property name="user" value="tpdhlogin"/>
+                    <property name="password" value="tpdhpasswd"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref" value="IMAP"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/imaps/endpoint"/>
+                </properties>
+            </endpoint>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="817e0f6d-4987-4de1-941b-8f27f8826dcf">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="path" value="/tmp/out"/>
+                    <property name="outputPattern"/>
+                    <property name="moveToPattern"/>
+                    <property name="moveToDirectory"/>
+                    <property name="pollingFrequency"/>
+                    <property name="fileAge"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="comparator"/>
+                    <property name="reverseOrder"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

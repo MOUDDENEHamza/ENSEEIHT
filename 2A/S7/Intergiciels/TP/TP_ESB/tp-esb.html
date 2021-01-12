@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html;
+      charset=windows-1252">
+    <title></title>
+    <meta name="GENERATOR" content="OpenOffice.org 1.1.4 (Win32)">
+    <meta name="CREATED" content="20051025;2415301">
+    <meta name="CHANGEDBY" content="Daniel Hagimont">
+    <meta name="CHANGED" content="20051025;3523617">
+  </head>
+  <body dir="LTR" lang="fr-FR">
+    <p align="CENTER"><font style="font-size: 28pt" size="6"><b>TP ESB<br>
+          <i><small><small><small><small><br>
+                  </small></small></small></small></i></b><i><small><small><small><small>Daniel
+
+
+
+
+
+
+
+
+                  Hagimont</small></small></small></small></i><b><br>
+        </b></font></p>
+    <p><br>
+    </p>
+    <p><big><b>Sujet</b></big><br>
+    </p>
+    <p>Le but de ce TP est de travailler avec le framework Mule étudié
+      en cours, autour d'un scénario d'intégration d'applications.<br>
+      Dans ce scénario, nous voulons intégrer 4 applications :<br>
+    </p>
+    <p>- Saisie : une application permettant de saisir les données
+      personnelles d'une personne qui s'inscrit quelque part (par
+      exemple un étudiant à l'enseeiht)<br>
+      - Email : une application de gestion d'emails utilisée par un
+      administratif qui valide les inscriptions<br>
+      - BD : un serveur de base de données enregistrant les étudiants<br>
+      - Login : un système d'exploitation sur lequel on gère des comptes
+      utilisateurs (cette fonction est accessible par un Web Service) </p>
+    <p>Le but de d'implanter le scénario suivant d'intégration :<br>
+      - Saisie : les données d'une personne sont saisies et
+      l'application permet d'exporter les données en XML Ces données
+      doivent être ensuite transmises à l'administratif par email<br>
+      - Email : l'admistratif verifie la cohérence des données, puis
+      valide l'inscription en répondant à ce mail (à l'adresse spécifiée
+      dans ReplyTo).<br>
+      - Web : ces données doivent alors être intégrées dans la base de
+      données. Elles sont donc reçues par email (la réponse) et intégrée
+      dans la base de données.<br>
+      - Login : les mêmes données sont exploitées pour demander la
+      création d'un compte utilisateur sur une machine avec un web
+      service<br>
+    </p>
+    <p><br>
+      <b><big>Les applications à utiliser : legacy</big></b></p>
+    <p>- saisie : ce répertoire contient une petite application de
+      saisie (voir le readme)<br>
+      - bd : ce répertoire contient la base de données à lancer (hsqldb)<br>
+      - ws : ce répertoire contient le Web Service permettant de
+      demander la création d'un login, à déployer dans un Tomcat (voir
+      readme)<br>
+      - il faudra avoir une adresse email correspondant à celle utilisée
+      par l'administratif et une utilisée pour recevoir la réponse de
+      l'administratif<br>
+      <br>
+    </p>
+    <p><big><b>Environnement Logiciel</b></big></p>
+    JDK 1.7 : il vous faut utiliser cette version de Java pour utiliser
+    la version de Mule ci-dessous.<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - source use-jdk7.bash permet
+    d'utiliser ce JDK1.7<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - utiliser JDK1.8 pour
+    les autres logiciels (activeMQ, HSQLDB)<br>
+    <p>Mule Studio 1.3.0 : cette version est open source<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - copiez l'installation dans
+      votre répertoire nosave<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - décompressez la<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - lancer MuleStudio avec le
+      JDK1.7<br>
+    </p>
+    <p>legacy.tgz : contient les applications à intégrer<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - à copier chez vous<br>
+    </p>
+    <p>apache-activemq-5.12.1-bin.tar.gz : activeMQ<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - à copier chez vous </p>
+    <p>sujet-esb.tgz : les exemples de base utiles pour réaliser cette
+      intégration<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - à copier chez vous<br>
+    </p>
+    <p>Tout cela se trouve dans <big><b>/mnt/n7fs/ens/tp_dh/tp-esb</b></big><br>
+    </p>
+    <p><big><b><br>
+          Exemples</b></big><br>
+    </p>
+    Les exemples qui vous sont fournis sont situés dans le répertoire tp
+    :<br>
+    <p> - xml : un exemple de fichiers et de parsing xml<br>
+      &nbsp;&nbsp;&nbsp; - pour tester<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - importez ou recréez le
+      projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - créez des répertoires
+      /tmp/in et /tmp/out<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - exécutez le flow<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - copiez
+      legacy/saisie/example.xml dans /tmp/in<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - regarder dans /tmp/out<br>
+    </p>
+    <p> - jdbc : un exemple d'utilisation d'une BD<br>
+      &nbsp;&nbsp;&nbsp; - pour tester<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - importez ou recréez le
+      projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - ajoutez le driver jdbc
+      (legacy/bd/hsqldb/lib/hsqldb.jar) dans votre projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - lancez la BD<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - ant
+      start (dans legacy/bd)<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - créer la table dans la BD<br>
+      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; - ant db<br>
+      &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; - regardez dans la BD<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - ant
+      console<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - exécutez le flow<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - copiez
+      legacy/saisie/example.xml dans /tmp/in<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - regardez à nouveau dans la
+      BD<br>
+    </p>
+    <p>- smtp : un exemple d'envoi d'email avec SMTP<br>
+      &nbsp;&nbsp;&nbsp; - pour tester<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - importez ou recréez le
+      projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - modifiez l'adresse email
+      pour ne pas m'envoyer un email !<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - exécutez le flow<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - copiez
+      legacy/saisie/example.xml dans /tmp/in<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - regardez votre mailbox<br>
+    </p>
+    <p>- imap : un exemple de lecture d'email avec IMAP<br>
+      &nbsp;&nbsp;&nbsp; - pour tester<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - importez ou recréez le
+      projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - utilisez une adresse gmail
+      (j'en ai une qui est tpdhlogin/tpdhpasswd, mais c'est mieux
+      d'avoir la votre)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - exécutez le flow<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - envoyez un email à cette
+      adresse<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - regardez dans /tmp/out<br>
+    </p>
+    <p>- ws : un exemple d'appel à un web service<br>
+      &nbsp;&nbsp;&nbsp; - pour tester<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - lancez tomcat et copiez de
+      WS dedans (legacy/ws/WS.war)<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - importez ou recréez le
+      projet<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - exécutez le flow<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - copiez
+      legacy/saisie.example.xml dans /tmp/in<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - regardez dans
+      /tmp/accounts (simule l'ajout d'un compte utilisateur)<br>
+    </p>
+    <p> - jms : un exemple d'envoi de message JMS<br>
+      &nbsp;&nbsp;&nbsp; - pour tester<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - importez ou recréez le
+      projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - ajoutez le driver de
+      activemq (apache-activemq-5.12.1/activemq-all-5.12.1.jar) dans
+      votre projet<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - lancez activemq<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; -
+      ./activemp start dans&nbsp;apache-activemq-5.12.1/bin<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - exécutez le
+      flow<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - copiez
+      legacy/saisie.example.xml dans /tmp/in<br>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; - regardez dans /tmp/out</p>
+    <p> <b><big>Etapes</big></b><br>
+    </p>
+    <p>- dessinez un schéma global de l'intégration<br>
+      - travaillez de façon incrémentale :<br>
+      &nbsp;&nbsp;&nbsp; - connectez Saisie et Email<br>
+      &nbsp;&nbsp;&nbsp; - connectez Email et la BD<br>
+      &nbsp;&nbsp;&nbsp; - intégrez Login<br>
+      <br>
+    </p>
+    <p><big><b>Attention: Bug dans MuleStudio !</b></big><br>
+    </p>
+    <p>Si vous utilisez un endpoint IMAP, lorsque vous sauvegardez votre
+      projet, il arrive que MuleStudio génère un XML buggé.<br>
+      A l'exécution, vous observez une exception :
+      org.xml.sax.SAXParseException<br>
+      Si vous allez voir le XML généré, vous verrez une ligne incomplète
+      : <br>
+      http://www.mulesoft.org/schema/mule/imap s "&gt;<br>
+      Enlevez là en vérifiant que le XML reste bien parenthèsé.<br>
+      <br>
+    </p>
+    <p><br>
+    </p>
+  </body>
+</html>

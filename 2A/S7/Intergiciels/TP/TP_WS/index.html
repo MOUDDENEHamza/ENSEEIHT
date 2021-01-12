@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+
+
+$(document).ready(function() {
+	
+	$("#BTVal").click(function() {
+		jQuery.ajax({
+		    url: "http://localhost:8080/students-rest/rest/getmark",
+		    type: "GET",
+		    data: "firstname="+$("#FirstName").val()+"&lastname="+$("#LastName").val()+"&lecture="+$("#Lecture").val(),
+		    success: function (response) {
+		    	$("#Result").empty();
+			    $("#Result").append(response);},
+		    error: function (res, status, error) {
+		    	$("#Result").empty();
+		    	$("#Result").append(error);}
+		});
+	});
+});
+
+</script>
+</head>
+
+<body>
+
+<form id="FormAddPerson">
+    First Name: <input type="text" id="FirstName"><br>
+    Last Name:  <input type="text" id="LastName"><br>
+    Lecture:    <input type="text" id="Lecture"><br> 
+    <br>
+    <input type="button" id="BTVal" value="OK">
+</form>
+
+<br>
+
+<div id="Result">
+</div>
+
+</body>
+</html>

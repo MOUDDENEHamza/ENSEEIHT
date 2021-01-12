@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+    <spring:beans>
+        <spring:bean id="dataSource" name="dataSource" class="org.enhydra.jdbc.standard.StandardDataSource" destroy-method="shutdown">
+            <spring:property name="driverName" value="org.hsqldb.jdbcDriver"/>
+            <spring:property name="url" value="jdbc:hsqldb:hsql://localhost/xdb"/>
+            <spring:property name="user" value="sa"/>
+        </spring:bean>
+    </spring:beans>
+    <jdbc:connector name="Database__JDBC_" dataSource-ref="dataSource" validateConnections="true" queryTimeout="-1" pollingFrequency="0" doc:name="Database (JDBC)"/>
+    <flow name="jdbcFlow1" doc:name="jdbcFlow1">
+        <file:inbound-endpoint path="/tmp/in" responseTimeout="10000" doc:name="File"/>
+        <mulexml:xml-to-object-transformer doc:name="XML to Object"/>
+        <jdbc:outbound-endpoint exchange-pattern="one-way" queryKey="insertion" queryTimeout="-1" connector-ref="Database__JDBC_" doc:name="Database (JDBC)">
+            <jdbc:query key="insertion" value="insert into accounts values (#[payload.nom], #[payload.prenom], #[payload.email]);"/>
+        </jdbc:outbound-endpoint>
+    </flow>
+</mule>

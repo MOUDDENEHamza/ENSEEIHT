@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:imaps="http://www.mulesoft.org/schema/mule/imaps" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/imaps http://www.mulesoft.org/schema/mule/imaps/current/mule-imaps.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+    <imaps:connector name="IMAP" validateConnections="true" checkFrequency="1000" doc:name="IMAP">
+        <imaps:tls-client path="*" storePassword="*"/>
+        <imaps:tls-trust-store path="*" storePassword="*"/>
+    </imaps:connector>
+    <flow name="imapFlow1" doc:name="imapFlow1">
+        <imaps:inbound-endpoint host="imap.gmail.com" port="993" user="tpdhlogin" password="tpdhpasswd" responseTimeout="10000" connector-ref="IMAP" doc:name="IMAP"/>
+        <file:outbound-endpoint path="/tmp/out" responseTimeout="10000" doc:name="File"/>
+    </flow>
+</mule>
