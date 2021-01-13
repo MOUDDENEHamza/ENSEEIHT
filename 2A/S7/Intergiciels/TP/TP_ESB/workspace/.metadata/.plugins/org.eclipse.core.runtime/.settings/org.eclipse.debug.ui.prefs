@@ -1,0 +1,4 @@
+#Wed Jan 13 11:59:08 CET 2021
+eclipse.preferences.version=1
+org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<launchPerspectives/>\n
+org.eclipse.debug.ui.user_view_bindings=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<viewBindings>\n<view id\="org.eclipse.ui.console.ConsoleView">\n<perspective id\="org.mule.tooling.ui.toolingPerspective" userAction\="opened"/>\n</view>\n</viewBindings>\n

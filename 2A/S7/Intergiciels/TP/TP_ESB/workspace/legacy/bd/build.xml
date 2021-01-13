@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<project name="BD" basedir="." >
+  
+<property name="hsqldb.home" value="./hsqldb"/>
+<property name="rc-file" value="auth.rc"/>
+<property name="urlID" value="Hagi"/>
+<property name="sql-file" value="db.sql"/>
+
+<target name="start" description="start the database">
+	<java fork="true" classname="org.hsqldb.server.Server">
+		<arg line="--database.0 file:mydb --dbname.0 xdb"/>
+		<classpath>
+			<fileset dir="${hsqldb.home}">
+				<include name="lib/*.jar"/>
+			</fileset>
+		</classpath>
+	</java>
+</target>
+	
+<target name="db">
+	<java fork="true" classname="org.hsqldb.cmdline.SqlTool">
+		 <arg line="--rcFile ${rc-file} ${urlID} ${sql-file}"/> 
+		<classpath>
+			<fileset dir="${hsqldb.home}">
+				<include name="lib/*.jar"/>
+			</fileset>
+		</classpath>
+	</java>
+</target>
+
+<target name="console">
+	<java fork="true" classname="org.hsqldb.util.DatabaseManagerSwing">
+		 <arg line="--rcFile ${rc-file} --urlid ${urlID}"/> 
+		<classpath>
+			<fileset dir="${hsqldb.home}">
+				<include name="lib/*.jar"/>
+			</fileset>
+		</classpath>
+	</java>
+</target>
+
+<target name="clean" description="Delete old build directory">
+	<delete>
+		<fileset dir="." includes="mydb*"/>
+	</delete>
+</target>
+
+</project>
+

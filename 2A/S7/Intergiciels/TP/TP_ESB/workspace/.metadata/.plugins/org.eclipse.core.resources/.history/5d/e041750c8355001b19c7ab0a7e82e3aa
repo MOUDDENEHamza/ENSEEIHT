@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="xml">
+    <flow SubFlow="false" name="xmlFlow1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" entity-id="90dfe4b7-916a-4ab5-b51a-33902d4b685c">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="c0618edf-f2e3-4f09-a2d9-054157c0b501">
+                <properties>
+                    <property name="reverseOrder" value="false"/>
+                    <property name="moveToPattern" value=""/>
+                    <property name="pollingFrequency" value="1000"/>
+                    <property name="comparator" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="moveToDirectory" value=""/>
+                    <property name="address" value=""/>
+                    <property name="fileAge" value="500"/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/in"/>
+                    <property name="encoding" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <pattern name="XML to Object" type="http://www.mulesoft.org/schema/mule/xml/xml-to-object-transformer" entity-id="2f63af61-f0ce-440d-90fc-e03dee34fdb6">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                    <property name="driverClass"/>
+                </properties>
+            </pattern>
+            <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/component" entity-id="6b173a85-8024-45ad-8f7b-0e1bab0a4cd9">
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="class" value="Filter"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/refInterceptorStackType;971419402">
+                        <property name="ref" value=""/>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern name="Object to XML" type="org.mule.tooling.ui.modules.core.pattern.objectToXmlTransformer" entity-id="660a3b20-225f-4e5a-87ef-31abbc782b34">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                    <property name="driverClass"/>
+                    <property name="acceptMuleMessage"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="e74d905b-774e-477d-9af4-98dd71dffdda">
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/out"/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="outputPattern" value=""/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

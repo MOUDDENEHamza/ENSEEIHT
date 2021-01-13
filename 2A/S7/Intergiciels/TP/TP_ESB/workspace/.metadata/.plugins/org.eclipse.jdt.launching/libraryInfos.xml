@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre" version="1.7.0_79">
+<bootpath>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/resources.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/rt.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/sunrsasign.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/jsse.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/jce.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/charsets.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/jfr.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79" version="1.7.0_79">
+<bootpath>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/resources.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/rt.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/sunrsasign.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/jsse.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/jce.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/charsets.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/jfr.jar"/>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/mnt/n7fs/ens/tp_dh/jdk1.7.0_79/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

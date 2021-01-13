@@ -1,0 +1,12 @@
+/*C5*/SET SCHEMA PUBLIC
+drop table PUBLIC.accounts if exists
+create table accounts (\u000a    firstname       varchar(30)      not null,\u000a    lastname        varchar(30)      not null,\u000a    email           varchar(30)      not null\u000a  )
+INSERT INTO ACCOUNTS VALUES('Dan','Hagi','hagi@n7.fr')
+COMMIT
+DISCONNECT
+/*C7*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C8*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C9*/SET SCHEMA PUBLIC
+DISCONNECT

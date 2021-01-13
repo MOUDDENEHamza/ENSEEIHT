@@ -1,0 +1,82 @@
+2021-01-12 18:35:32,378 | INFO  | Refreshing org.apache.activemq.xbean.XBeanBrokerFactory$1@580cfca3: startup date [Tue Jan 12 18:35:32 CET 2021]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2021-01-12 18:35:33,201 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[/home/hmoudden/MuleStudio/workspace/apache-activemq-5.14.0/data/kahadb] | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:35:33,551 | INFO  | PListStore:[/home/hmoudden/MuleStudio/workspace/apache-activemq-5.14.0/data/localhost/tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
+2021-01-12 18:35:33,704 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-43199-1610472933563-0:1) is starting | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:35:33,720 | INFO  | Listening for connections at: tcp://ader.enseeiht.fr:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:35:33,724 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:35:33,728 | INFO  | Listening for connections at: amqp://ader.enseeiht.fr:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:35:33,731 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:35:33,763 | INFO  | Listening for connections at: stomp://ader.enseeiht.fr:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:35:33,766 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:35:33,772 | INFO  | Listening for connections at: mqtt://ader.enseeiht.fr:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:35:33,775 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:35:33,861 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@77372706{/,null,STARTING} has uncovered http methods for path: / | org.eclipse.jetty.security.SecurityHandler | main
+2021-01-12 18:35:33,890 | INFO  | Listening for connections at ws://ader.enseeiht.fr:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
+2021-01-12 18:35:33,890 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:35:33,891 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-43199-1610472933563-0:1) started | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:35:33,892 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:35:34,202 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /admin | main
+2021-01-12 18:35:34,403 | INFO  | ActiveMQ WebConsole available at http://0.0.0.0:8161/ | org.apache.activemq.web.WebConsoleStarter | main
+2021-01-12 18:35:34,403 | INFO  | ActiveMQ Jolokia REST API available at http://0.0.0.0:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
+2021-01-12 18:35:34,447 | INFO  | Initializing Spring FrameworkServlet 'dispatcher' | /admin | main
+2021-01-12 18:35:34,636 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /api | main
+2021-01-12 18:35:34,712 | INFO  | jolokia-agent: Using policy access restrictor classpath:/jolokia-access.xml | /api | main
+2021-01-12 18:37:11,688 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-43199-1610472933563-0:1) is shutting down | org.apache.activemq.broker.BrokerService | Thread-23
+2021-01-12 18:37:11,716 | INFO  | Connector openwire stopped | org.apache.activemq.broker.TransportConnector | Thread-23
+2021-01-12 18:37:11,718 | INFO  | Connector amqp stopped | org.apache.activemq.broker.TransportConnector | Thread-23
+2021-01-12 18:37:11,719 | INFO  | Connector stomp stopped | org.apache.activemq.broker.TransportConnector | Thread-23
+2021-01-12 18:37:11,721 | INFO  | Connector mqtt stopped | org.apache.activemq.broker.TransportConnector | Thread-23
+2021-01-12 18:37:11,721 | INFO  | socketQueue interrupted - stopping | org.apache.activemq.transport.tcp.TcpTransportServer | ActiveMQ Transport Server Thread Handler: mqtt://0.0.0.0:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2021-01-12 18:37:11,724 | INFO  | Could not accept connection during shutdown  : java.lang.InterruptedException | org.apache.activemq.broker.TransportConnector | ActiveMQ Transport Server Thread Handler: mqtt://0.0.0.0:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2021-01-12 18:37:11,729 | INFO  | Connector ws stopped | org.apache.activemq.broker.TransportConnector | Thread-23
+2021-01-12 18:37:11,734 | INFO  | PListStore:[/home/hmoudden/MuleStudio/workspace/apache-activemq-5.14.0/data/localhost/tmp_storage] stopped | org.apache.activemq.store.kahadb.plist.PListStoreImpl | Thread-23
+2021-01-12 18:37:11,735 | INFO  | Stopping async queue tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-23
+2021-01-12 18:37:11,735 | INFO  | Stopping async topic tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-23
+2021-01-12 18:37:11,736 | INFO  | Stopped KahaDB | org.apache.activemq.store.kahadb.KahaDBStore | Thread-23
+2021-01-12 18:37:11,746 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-43199-1610472933563-0:1) uptime 1 minute | org.apache.activemq.broker.BrokerService | Thread-23
+2021-01-12 18:37:11,747 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-43199-1610472933563-0:1) is shutdown | org.apache.activemq.broker.BrokerService | Thread-23
+2021-01-12 18:37:11,748 | INFO  | Closing org.apache.activemq.xbean.XBeanBrokerFactory$1@580cfca3: startup date [Tue Jan 12 18:35:32 CET 2021]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | Thread-23
+2021-01-12 18:37:11,754 | INFO  | Destroying Spring FrameworkServlet 'dispatcher' | /admin | Thread-23
+2021-01-12 18:38:35,427 | INFO  | Refreshing org.apache.activemq.xbean.XBeanBrokerFactory$1@15f445b7: startup date [Tue Jan 12 18:38:35 CET 2021]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2021-01-12 18:38:36,291 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[/home/hmoudden/MuleStudio/workspace/apache-activemq-5.14.0/data/kahadb] | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:38:36,322 | INFO  | KahaDB is version 6 | org.apache.activemq.store.kahadb.MessageDatabase | main
+2021-01-12 18:38:36,334 | INFO  | Recovering from the journal @1:503 | org.apache.activemq.store.kahadb.MessageDatabase | main
+2021-01-12 18:38:36,337 | INFO  | Recovery replayed 20 operations from the journal in 0.01 seconds. | org.apache.activemq.store.kahadb.MessageDatabase | main
+2021-01-12 18:38:36,351 | INFO  | PListStore:[/home/hmoudden/MuleStudio/workspace/apache-activemq-5.14.0/data/localhost/tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
+2021-01-12 18:38:36,503 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-41809-1610473116362-0:1) is starting | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:38:36,557 | INFO  | Listening for connections at: tcp://ader.enseeiht.fr:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:38:36,560 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:38:36,565 | INFO  | Listening for connections at: amqp://ader.enseeiht.fr:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:38:36,590 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:38:36,595 | INFO  | Listening for connections at: stomp://ader.enseeiht.fr:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:38:36,599 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:38:36,604 | INFO  | Listening for connections at: mqtt://ader.enseeiht.fr:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2021-01-12 18:38:36,610 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:38:36,710 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@60538160{/,null,STARTING} has uncovered http methods for path: / | org.eclipse.jetty.security.SecurityHandler | main
+2021-01-12 18:38:36,758 | INFO  | Listening for connections at ws://ader.enseeiht.fr:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
+2021-01-12 18:38:36,759 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
+2021-01-12 18:38:36,760 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-41809-1610473116362-0:1) started | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:38:36,761 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
+2021-01-12 18:38:37,190 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /admin | main
+2021-01-12 18:38:37,538 | INFO  | ActiveMQ WebConsole available at http://0.0.0.0:8161/ | org.apache.activemq.web.WebConsoleStarter | main
+2021-01-12 18:38:37,539 | INFO  | ActiveMQ Jolokia REST API available at http://0.0.0.0:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
+2021-01-12 18:38:37,606 | INFO  | Initializing Spring FrameworkServlet 'dispatcher' | /admin | main
+2021-01-12 18:38:37,778 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /api | main
+2021-01-12 18:38:37,862 | INFO  | jolokia-agent: Using policy access restrictor classpath:/jolokia-access.xml | /api | main
+2021-01-12 19:10:17,885 | WARN  | Transport Connection to: tcp://127.0.0.1:40998 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///127.0.0.1:40998@61616
+2021-01-13 03:08:22,261 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-41809-1610473116362-0:1) is shutting down | org.apache.activemq.broker.BrokerService | Thread-24
+2021-01-13 03:08:22,268 | INFO  | Connector openwire stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2021-01-13 03:08:22,306 | INFO  | Connector amqp stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2021-01-13 03:08:22,307 | INFO  | Connector stomp stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2021-01-13 03:08:22,308 | INFO  | socketQueue interrupted - stopping | org.apache.activemq.transport.tcp.TcpTransportServer | ActiveMQ Transport Server Thread Handler: stomp://0.0.0.0:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2021-01-13 03:08:22,342 | INFO  | Could not accept connection during shutdown  : java.lang.InterruptedException | org.apache.activemq.broker.TransportConnector | ActiveMQ Transport Server Thread Handler: stomp://0.0.0.0:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2021-01-13 03:08:22,367 | INFO  | Connector mqtt stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2021-01-13 03:08:22,488 | INFO  | Connector ws stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2021-01-13 03:08:22,506 | INFO  | PListStore:[/home/hmoudden/MuleStudio/workspace/apache-activemq-5.14.0/data/localhost/tmp_storage] stopped | org.apache.activemq.store.kahadb.plist.PListStoreImpl | Thread-24
+2021-01-13 03:08:22,516 | INFO  | Stopping async queue tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-24
+2021-01-13 03:08:22,520 | INFO  | Stopping async topic tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-24
+2021-01-13 03:08:22,520 | INFO  | Stopped KahaDB | org.apache.activemq.store.kahadb.KahaDBStore | Thread-24
+2021-01-13 03:08:22,542 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-41809-1610473116362-0:1) uptime 8 hours 29 minutes | org.apache.activemq.broker.BrokerService | Thread-24
+2021-01-13 03:08:22,542 | INFO  | Apache ActiveMQ 5.14.0 (localhost, ID:ader.enseeiht.fr-41809-1610473116362-0:1) is shutdown | org.apache.activemq.broker.BrokerService | Thread-24
+2021-01-13 03:08:22,543 | INFO  | Closing org.apache.activemq.xbean.XBeanBrokerFactory$1@15f445b7: startup date [Tue Jan 12 18:38:35 CET 2021]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | Thread-24
+2021-01-13 03:08:22,622 | INFO  | Destroying Spring FrameworkServlet 'dispatcher' | /admin | Thread-24

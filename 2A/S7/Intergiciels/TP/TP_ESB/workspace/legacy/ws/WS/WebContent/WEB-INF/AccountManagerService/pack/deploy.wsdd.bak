@@ -1,0 +1,30 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from AccountManagerService WSDL service -->
+
+  <service name="AccountManager" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://pack"/>
+      <parameter name="wsdlServiceElement" value="AccountManagerService"/>
+      <parameter name="schemaQualified" value="http://pack"/>
+      <parameter name="wsdlServicePort" value="AccountManager"/>
+      <parameter name="className" value="pack.AccountManagerSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="AccountManager"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="createAccount" qname="operNS:createAccount" xmlns:operNS="http://pack" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://pack" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:passwd" xmlns:pns="http://pack" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="createAccount"/>
+
+  </service>
+</deployment>

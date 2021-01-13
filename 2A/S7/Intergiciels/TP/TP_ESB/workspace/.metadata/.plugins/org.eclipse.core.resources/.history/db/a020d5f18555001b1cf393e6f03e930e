@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="full">
+    <flow SubFlow="false" name="fullFlow1" entity-id="4448b3bd-a38f-42a3-bec4-9a7568c84ecc">
+        <lane hadOnlyOneElement="false" entity-id="319322e1-0520-402e-ae1a-6c5327bb0c06">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="07dc549f-3cad-423c-80ba-67cc389e0d23">
+                <properties>
+                    <property name="reverseOrder" value="false"/>
+                    <property name="moveToPattern" value=""/>
+                    <property name="pollingFrequency" value="1000"/>
+                    <property name="comparator" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="moveToDirectory" value=""/>
+                    <property name="address" value=""/>
+                    <property name="fileAge" value="500"/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/in"/>
+                    <property name="encoding" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <pattern name="File to String" type="http://www.mulesoft.org/schema/mule/file/file-to-string-transformer" entity-id="e3b5f5ac-e350-4dfe-8f5a-f7f30c25223f"/>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="GMAIL" type="http://www.mulesoft.org/schema/mule/smtps/endpoint" entity-id="0dc1c3f1-fb30-451a-a91e-75c7c5f5c364">
+                <properties>
+                    <property name="port" value="587"/>
+                    <property name="to" value="hamza.mouddene@etu.enseeiht.fr"/>
+                    <property name="host" value="smtp.gmail.com"/>
+                    <property name="subject" value="Hello from Mule"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/smtp/endpoint"/>
+                    <property name="bcc" value=""/>
+                    <property name="from" value="tpdhlogin@gmail.com"/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="password" value="tpdhpasswd"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="replyTo" value="tpdhlogin@gmail.com"/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="user" value="tpdhlogin"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="cc" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="fullFlow2" entity-id="bf78df19-13da-48ba-bd0d-af5ead7c24ce">
+        <lane hadOnlyOneElement="false" entity-id="60447de3-969e-4d9a-8fd2-e6550bedf813">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="IMAP" type="http://www.mulesoft.org/schema/mule/imaps/endpoint" entity-id="9413052c-1768-4fe5-84f6-28585ff50e11">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                </properties>
+            </endpoint>
+            <pattern name="XML to Object" type="http://www.mulesoft.org/schema/mule/xml/xml-to-object-transformer" entity-id="20286ad3-8b08-4102-9a25-437f9af7da80"/>
+            <splitter name="All" type="org.mule.tooling.ui.modules.core.pattern.all" entity-id="5c6976b8-0cfe-4f60-88ff-ae57be455744">
+                <pattern name="All" type="org.mule.tooling.ui.modules.core.pattern.all" entity-id="aa8ef1e0-44ba-4466-a4af-fdb7aad7f4b0"/>
+                <compartment entity-id="2e062233-6c22-4ae4-8897-d7f1a8cecbbc">
+                    <lane hadOnlyOneElement="false" entity-id="e31f6614-4e36-4e0a-bce1-0889457feee3">
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Database (JDBC)" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="47cbf952-e8da-4ce3-bc65-0297773454fe">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                    <lane hadOnlyOneElement="false" entity-id="bcd16cc5-80c5-49de-a7bb-a633a916589f">
+                        <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/component" entity-id="4c593a51-71f2-45b1-96a3-844b7f714697"/>
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Generic" type="http://www.mulesoft.org/schema/mule/core/endpoint" entity-id="b7189812-57d1-48da-b9a6-71581cac561e">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </splitter>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

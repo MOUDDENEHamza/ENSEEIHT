@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;ws&apos;&#x0A;- Original project: &apos;ws&apos;&#x0A;- Original element: &apos;ws.mflow&apos;" description="Delete element" element1="flows/ws.mflow" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1610473594183" subPackages="false" version="1.0"/>
+</session>

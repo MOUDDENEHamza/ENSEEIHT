@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="full">
+    <global-element name="Database (JDBC)" type="org.mule.tooling.ui.modules.core.global.jdbcConnector" entity-id="c6e84d23-a28a-4a0e-9bd1-5e0dc9f71da3">
+        <properties>
+            <property name="name" value="Database__JDBC_"/>
+            <property name="dataSource-ref to JDBC DataSource" value="dataSource"/>
+            <property name="dataSource-ref to Bean" value="dataSource"/>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="queryRunner-ref"/>
+            <property name="resultSetHandler-ref"/>
+            <property name="dynamicNotification"/>
+            <property name="validateConnections" value="true"/>
+            <property name="transactionPerMessage"/>
+            <property name="queryTimeout" value="-1"/>
+            <property name="pollingFrequency" value="0"/>
+        </properties>
+    </global-element>
+    <global-element name="Bean" type="http://www.springframework.org/schema/beans/bean" entity-id="f4fb153d-37df-4144-9b9b-bc1edcc20a3d">
+        <properties>
+            <property name="id" value="dataSource"/>
+            <property name="name" value="dataSource"/>
+            <property name="class" value="org.enhydra.jdbc.standard.StandardDataSource"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property name="name" value="driverName"/>
+                <property name="value" value="org.hsqldb.jdbcDriver"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property name="name" value="user"/>
+                <property name="value" value="sa"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;2">
+                <property name="name" value="url"/>
+                <property name="value" value="jdbc:hsqldb:hsql://localhost/xdb"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element name="IMAP" type="http://www.mulesoft.org/schema/mule/imaps/connector" entity-id="bb9314fe-33c3-4df8-9089-cbcd35e37756">
+        <properties>
+            <property name="name" value="IMAP1"/>
+            <property name="backupFolder"/>
+            <property name="mailboxFolder"/>
+            <property name="moveToFolder"/>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="dynamicNotification"/>
+            <property name="validateConnections" value="true"/>
+            <property name="backupEnabled"/>
+            <property name="deleteReadMessages"/>
+            <property name="checkFrequency"/>
+            <property name="defaultProcessMessageAction"/>
+            <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/imaps/connector"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/imaps/tls-client;0">
+                <property name="storePassword" value="."/>
+                <property name="path" value="*"/>
+            </property-collection>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/imaps/tls-trust-store;0">
+                <property name="storePassword" value="."/>
+                <property name="path" value="*"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="fullFlow1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" entity-id="f280cbc3-260b-4032-b091-8879e2168a05">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="1cc82246-0a72-4407-9e48-2997c5ff45a2">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/in"/>
+                    <property name="outputPattern"/>
+                    <property name="moveToPattern"/>
+                    <property name="moveToDirectory"/>
+                    <property name="pollingFrequency"/>
+                    <property name="fileAge"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="comparator"/>
+                    <property name="reverseOrder"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                </properties>
+            </endpoint>
+            <pattern name="File to String" type="http://www.mulesoft.org/schema/mule/file/file-to-string-transformer" entity-id="0fb64a84-5135-43f6-86b7-de4fb07e7572">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="GMAIL" type="http://www.mulesoft.org/schema/mule/smtps/endpoint" entity-id="e09d3cfb-52b8-407a-a5aa-1cd6396ed080">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="host" value="smtp.gmail.com"/>
+                    <property name="port" value="587"/>
+                    <property name="user" value="tpdhlogin"/>
+                    <property name="password" value="tpdhpasswd"/>
+                    <property name="to" value="hamza.mouddene@etu.enseeiht.fr"/>
+                    <property name="from" value="tpdhlogin@gmail.com"/>
+                    <property name="subject" value="Hello from Mule"/>
+                    <property name="cc"/>
+                    <property name="bcc"/>
+                    <property name="replyTo" value="tpdhlogin@gmail.com"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/smtp/endpoint"/>
+                    <property name="host" value="smtp.gmail.com"/>
+                    <property name="port" value="587"/>
+                    <property name="user" value="tpdhlogin"/>
+                    <property name="password" value="tpdhpasswd"/>
+                    <property name="to" value="hamza.mouddene@etu.enseeiht.fr"/>
+                    <property name="from" value="tpdhlogin@gmail.com"/>
+                    <property name="subject" value="Hello from Mule"/>
+                    <property name="cc"/>
+                    <property name="bcc"/>
+                    <property name="replyTo" value="tpdhlogin@gmail.com"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="fullFlow2">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" entity-id="685c481a-e54a-41a4-9333-a7d4b1d4d666">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="IMAP" type="http://www.mulesoft.org/schema/mule/imaps/endpoint" entity-id="5219da36-27f7-4ede-93b1-8f77d0b6db8e">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="host" value="imap.gmail.com"/>
+                    <property name="port" value="993"/>
+                    <property name="user" value="tpdhlogin"/>
+                    <property name="password" value="tpdhpasswd"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref" value="IMAP1"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/imaps/endpoint"/>
+                </properties>
+            </endpoint>
+            <pattern name="XML to Object" type="http://www.mulesoft.org/schema/mule/xml/xml-to-object-transformer" entity-id="39b5afd4-38a9-4456-aabf-34feb9804748">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                    <property name="driverClass"/>
+                </properties>
+            </pattern>
+            <splitter name="All" type="org.mule.tooling.ui.modules.core.pattern.all" entity-id="c28badfb-0a50-48ef-9ec0-310894840126">
+                <pattern name="All" type="org.mule.tooling.ui.modules.core.pattern.all" entity-id="732d7ad1-8e04-41af-baa7-61751b6168be"/>
+                <compartment entity-id="0ac4f675-7615-4bc5-b872-0c6d70fbfdcc">
+                    <lane hadOnlyOneElement="false" entity-id="30906bb8-741d-4bdb-9e2d-6bc7ae003224">
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Database (JDBC)" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="0d4645d9-7947-4d9b-85be-61fc44bf63b9">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="one-way"/>
+<property name="queryKey" value="insertion"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="address"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="queryTimeout" value="-1"/>
+<property name="pollingFrequency"/>
+<property name="connector-ref" value="Database__JDBC_"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+    <property name="value" value="insert into accounts values (#[payload.nom], #[payload.prenom], #[payload.email]);"/>
+    <property name="key" value="insertion"/>
+</property-collection>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                    <lane hadOnlyOneElement="false" entity-id="722a79ba-f628-442d-8075-ca25c72db111">
+                        <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/component" entity-id="306e2743-079a-4d0a-9c36-2f6b40482413">
+                            <properties>
+<property name="class" value="Filter"/>
+                            </properties>
+                        </pattern>
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Generic" type="http://www.mulesoft.org/schema/mule/core/endpoint" entity-id="30f35499-9aaa-47d9-a51f-fb8680231b9f">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern"/>
+<property name="address" value="wsdl-cxf:http://localhost:8080/WS/services/AccountManager?wsdl&amp;method=createAccount"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </splitter>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

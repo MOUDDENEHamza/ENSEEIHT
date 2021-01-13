@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="smtp">
+    <global-element name="Gmail" type="http://www.mulesoft.org/schema/mule/smtp/gmail-connector" entity-id="a7736d58-e266-4c13-816f-ec842219bed7">
+        <properties>
+            <property name="name" value="Gmail"/>
+            <property name="bccAddresses"/>
+            <property name="ccAddresses"/>
+            <property name="contentType"/>
+            <property name="fromAddress"/>
+            <property name="replyToAddresses"/>
+            <property name="subject"/>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="dynamicNotification"/>
+            <property name="validateConnections" value="true"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="smtpFlow1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" entity-id="99b350d3-5b49-4f28-8363-aa84b6cb5de4">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="2d983b5f-096e-44c0-b093-efa54e018c12">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/in"/>
+                    <property name="outputPattern"/>
+                    <property name="moveToPattern"/>
+                    <property name="moveToDirectory"/>
+                    <property name="pollingFrequency"/>
+                    <property name="fileAge"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="comparator"/>
+                    <property name="reverseOrder"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                </properties>
+            </endpoint>
+            <pattern name="File to String" type="http://www.mulesoft.org/schema/mule/file/file-to-string-transformer" entity-id="dcd9ba05-baae-40e8-8718-e38363cc7bf8">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Gmail" type="http://www.mulesoft.org/schema/mule/smtps/endpoint" entity-id="cc3217d7-356f-44a8-931d-a612805c1f1a">
+                <properties>
+                    <property name="port" value="587"/>
+                    <property name="to" value="hz.mouddene@gmail.com"/>
+                    <property name="host" value="smtp.gmail.com"/>
+                    <property name="subject" value="Hello from Mule"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/smtp/endpoint"/>
+                    <property name="bcc" value=""/>
+                    <property name="from" value="tpdhlogin@gmail.com"/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="password" value="tpdhpasswd"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="replyTo" value="tpdhlogin@gmail.com"/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="user" value="tpdhlogin"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="cc" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

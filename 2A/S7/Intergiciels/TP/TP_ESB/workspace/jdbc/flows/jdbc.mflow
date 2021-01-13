@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="jdbc">
+    <global-element name="Bean" type="http://www.springframework.org/schema/beans/bean" entity-id="1c44665d-36e4-4537-8e67-ec8e58f624a3">
+        <properties>
+            <property name="factory-bean" value=""/>
+            <property name="abstract" value="false"/>
+            <property name="scope" value=""/>
+            <property name="init-method" value=""/>
+            <property name="autowire-candidate" value=""/>
+            <property name="factory-method" value=""/>
+            <property name="class" value="org.enhydra.jdbc.standard.StandardDataSource"/>
+            <property name="parent" value=""/>
+            <property name="lazy-init" value=""/>
+            <property name="id" value="dataSource"/>
+            <property name="name" value="dataSource"/>
+            <property name="primary" value="false"/>
+            <property name="autowire" value=""/>
+            <property name="destroy-method" value="shutdown"/>
+            <property name="depends-on" value=""/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1149740509">
+                <property name="ref" value=""/>
+                <property name="name" value="driverName"/>
+                <property name="value" value="org.hsqldb.jdbcDriver"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1423059705">
+                <property name="ref" value=""/>
+                <property name="name" value="url"/>
+                <property name="value" value="jdbc:hsqldb:hsql://localhost/xdb"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1564668945">
+                <property name="ref" value=""/>
+                <property name="name" value="user"/>
+                <property name="value" value="sa"/>
+            </property-collection>
+        </properties>
+        <description></description>
+    </global-element>
+    <global-element name="Database (JDBC)" type="org.mule.tooling.ui.modules.core.global.jdbcConnector" entity-id="ef91573c-d789-48bf-9e65-03747e8596ba">
+        <properties>
+            <property name="d" value=""/>
+            <property name="resultSetHandler-ref" value=""/>
+            <property name="customReconnection" value="false"/>
+            <property name="dataSource-ref to Bean" value="dataSource"/>
+            <property name="standardReconnection" value="false"/>
+            <property name="pollingFrequency" value="0"/>
+            <property name="queryTimeout" value="-1"/>
+            <property name="validateConnections" value="true"/>
+            <property name="noReconnection" value="true"/>
+            <property name="dispatcherPoolFactory-ref" value=""/>
+            <property name="transactionPerMessage" value="false"/>
+            <property name="blocking" value="true"/>
+            <property name="name" value="Database__JDBC_"/>
+            <property name="dynamicNotification" value="false"/>
+            <property name="queryRunner-ref" value=""/>
+            <property-collection name="">
+                <property name="d" value=""/>
+                <property name="blocking" value="true"/>
+                <property name="customReconnection" value="false"/>
+                <property name="standardReconnection" value="false"/>
+                <property name="noReconnection" value="true"/>
+            </property-collection>
+        </properties>
+        <description></description>
+    </global-element>
+    <flow SubFlow="false" name="jdbcFlow1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" entity-id="b13ac6df-6b76-44d2-95c9-84f281c81753">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="d89e44dd-6d6d-488e-b7f7-323740512795">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/in"/>
+                    <property name="outputPattern"/>
+                    <property name="moveToPattern"/>
+                    <property name="moveToDirectory"/>
+                    <property name="pollingFrequency"/>
+                    <property name="fileAge"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="comparator"/>
+                    <property name="reverseOrder"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                </properties>
+            </endpoint>
+            <pattern name="XML to Object" type="http://www.mulesoft.org/schema/mule/xml/xml-to-object-transformer" entity-id="d661e5cf-8428-4e0a-af60-8ea06e782aa8">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                    <property name="driverClass"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Database (JDBC)" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="4c84a0d4-5ef7-4cc3-97da-f7c4951ff0ec">
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="queryTimeout" value="-1"/>
+                    <property name="encoding" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value=""/>
+                    <property name="queryKey" value="insertion"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="connector-ref" value="Database__JDBC_"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+                        <property name="value" value="insert into accounts values (#[payload.nom], #[payload.prenom], #[payload.email]);"/>
+                        <property name="key" value="insertion"/>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://pack" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://pack" xmlns:intf="http://pack" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://pack" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="createAccount">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="passwd" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createAccountResponse">
+    <complexType/>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="createAccountRequest">
+
+      <wsdl:part element="impl:createAccount" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createAccountResponse">
+
+      <wsdl:part element="impl:createAccountResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="AccountManager">
+
+      <wsdl:operation name="createAccount">
+
+         <wsdl:input message="impl:createAccountRequest" name="createAccountRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createAccountResponse" name="createAccountResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="AccountManagerSoapBinding" type="impl:AccountManager">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="createAccount">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createAccountRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createAccountResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="AccountManagerService">
+
+      <wsdl:port binding="impl:AccountManagerSoapBinding" name="AccountManager">
+
+         <wsdlsoap:address location="http://localhost:8080/WS/services/AccountManager"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

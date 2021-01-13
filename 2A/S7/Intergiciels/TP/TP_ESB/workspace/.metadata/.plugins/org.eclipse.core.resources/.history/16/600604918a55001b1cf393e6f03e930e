@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:imaps="http://www.mulesoft.org/schema/mule/imaps" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:imap="http://www.mulesoft.org/schema/mule/imap" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="CE-3.3.0" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/imaps http://www.mulesoft.org/schema/mule/imaps/current/mule-imaps.xsd 
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/current/mule-imap.xsd 
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd 
+http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+    <jdbc:connector name="Database__JDBC_" dataSource-ref="dataSource" validateConnections="true" queryTimeout="-1" pollingFrequency="0" doc:name="Database (JDBC)"/>
+    <spring:beans>
+        <spring:bean id="dataSource" name="dataSource" class="org.enhydra.jdbc.standard.StandardDataSource">
+            <spring:property name="driverName" value="org.hsqldb.jdbcDriver"/>
+            <spring:property name="user" value="sa"/>
+            <spring:property name="url" value="jdbc:hsqldb:hsql://localhost/xdb"/>
+        </spring:bean>
+    </spring:beans>
+    <imap:connector name="IMAP" validateConnections="true" doc:name="IMAP"/>
+    <imap:connector name="IMAP1" validateConnections="true" doc:name="IMAP"/>
+    <imap:endpoint host="localhost" port="143" name="IMAP2" responseTimeout="10000" doc:name="IMAP"/>
+    <flow name="fullFlow1" doc:name="fullFlow1">
+        <file:inbound-endpoint path="/home/hmoudden/MuleStudio/tmp/in" responseTimeout="10000" doc:name="File"/>
+        <file:file-to-string-transformer doc:name="File to String"/>
+        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="tpdhlogin" password="tpdhpasswd" to="hamza.mouddene@etu.enseeiht.fr" from="tpdhlogin@gmail.com" subject="Hello from Mule" replyTo="tpdhlogin@gmail.com" responseTimeout="10000" doc:name="GMAIL"/>
+    </flow>
+    <flow name="fullFlow2" doc:name="fullFlow2">
+        <imaps:inbound-endpoint host="imap.gmail.com" port="993" user="tpdhlogin" password="tpdhpasswd" responseTimeout="10000" doc:name="IMAP"/>
+        <mulexml:xml-to-object-transformer doc:name="XML to Object"/>
+        <all doc:name="All">
+            <processor-chain>
+                <jdbc:outbound-endpoint exchange-pattern="one-way" queryKey="insertion" queryTimeout="-1" connector-ref="Database__JDBC_" doc:name="Database (JDBC)">
+                    <jdbc:query key="insertion" value="insert into accounts values (#[payload.nom], #[payload.prenom], #[payload.email]);"/>
+                </jdbc:outbound-endpoint>
+            </processor-chain>
+            <processor-chain>
+                <component class="Filter" doc:name="Java"/>
+                <outbound-endpoint address="wsdl-cxf:http://localhost:8080/WS/services/AccountManager?wsdl&amp;method=createAccount" doc:name="Generic"/>
+            </processor-chain>
+        </all>
+    </flow>
+</mule>

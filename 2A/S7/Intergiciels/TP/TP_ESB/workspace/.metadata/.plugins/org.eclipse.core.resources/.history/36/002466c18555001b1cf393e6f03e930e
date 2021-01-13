@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="full">
+    <flow SubFlow="false" name="fullFlow1" entity-id="4448b3bd-a38f-42a3-bec4-9a7568c84ecc">
+        <lane hadOnlyOneElement="false" entity-id="319322e1-0520-402e-ae1a-6c5327bb0c06">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="07dc549f-3cad-423c-80ba-67cc389e0d23">
+                <properties>
+                    <property name="reverseOrder" value="false"/>
+                    <property name="moveToPattern" value=""/>
+                    <property name="pollingFrequency" value="1000"/>
+                    <property name="comparator" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="moveToDirectory" value=""/>
+                    <property name="address" value=""/>
+                    <property name="fileAge" value="500"/>
+                    <property name="path" value="/home/hmoudden/MuleStudio/tmp/in"/>
+                    <property name="encoding" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <pattern name="File to String" type="http://www.mulesoft.org/schema/mule/file/file-to-string-transformer" entity-id="e3b5f5ac-e350-4dfe-8f5a-f7f30c25223f"/>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="GMAIL" type="http://www.mulesoft.org/schema/mule/smtps/endpoint" entity-id="0dc1c3f1-fb30-451a-a91e-75c7c5f5c364">
+                <properties>
+                    <property name="port" value="25"/>
+                    <property name="to" value=""/>
+                    <property name="host" value="localhost"/>
+                    <property name="subject" value=""/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/smtp/endpoint"/>
+                    <property name="bcc" value=""/>
+                    <property name="from" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="password" value=""/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="replyTo" value=""/>
+                    <property name="address" value=""/>
+                    <property name="encoding" value=""/>
+                    <property name="user" value=""/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="cc" value=""/>
+                    <property name="connector-ref" value=""/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>
