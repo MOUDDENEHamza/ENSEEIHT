@@ -10,14 +10,8 @@
 # jupyter notebook files
 *.ipynb
 
-# Ignore Julia files
-*.jl
-
 # Ignore SHS's S7 folder
 2A/S7/spanish
-
-# Ignore graph project
-2A/S7/graphes/Projet/graph20-21.ipynb
 
 # Ignore PDR src
 2A/S7/PDF/src/hdfs
