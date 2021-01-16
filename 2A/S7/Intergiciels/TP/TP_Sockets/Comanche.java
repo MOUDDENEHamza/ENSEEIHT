@@ -4,11 +4,16 @@ import java.io.*;
 
 public class Comanche implements Runnable {
 	private Socket s;
-	public Comanche (Socket s) { this.s = s; }
+	public Comanche (Socket s) { 
+		this.s = s; 
+	}
 	
 	public static void main (String[] args) throws IOException {
 		ServerSocket s = new ServerSocket(Integer.parseInt(args[0]));
-		while (true) { new Thread(new Comanche(s.accept())).start(); }
+		System.out.println("***************Server : Port " + Integer.parseInt(args[0]) + "***************");
+		while (true) { 
+			new Thread(new Comanche(s.accept())).start(); 
+		}
 	}
 
 	public void run () {
