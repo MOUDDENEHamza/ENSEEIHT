@@ -1,0 +1,35 @@
+Jeu DoraJeu {
+	Joueur Dora
+	{
+		connaissance { Marcher , Courir, Grimper, SeCacher }
+		inventaire 10000
+		objet { SacADos, Ficelle, Viseur, Carte}
+		lieu Maison
+	}
+	
+	Objet SacADos { taille 10 quantite 1 visibilite visible activite actif},
+	Objet Ficelle { taille 2 quantite 0 visibilite visible activite actif},
+	Objet Viseur { taille 5 quantite 1 visibilite visible activite actif},
+	Objet Carte { taille 5 quantite 0 visibilite visible activite actif},
+	
+	Connaissance Marcher {visibilite visible activite actif possede},
+	Connaissance Courir {visibilite visible activite actif},
+	Connaissance Grimper {visibilite visible activite actif},
+	Connaissance SeCacher {visibilite visible activite actif},
+	
+	Lieu Maison {
+		type debut
+		objet { Objet Carte { taille 5 quantite 1 visibilite visible activite actif danslelieu Maison}}
+	},
+	
+	Lieu Jungle {
+		type fin
+	},
+	
+	Chemin M2J {
+		de Maison a Jungle
+		ouvertOuferme ouvert
+		visibilite visible
+	}
+	
+}

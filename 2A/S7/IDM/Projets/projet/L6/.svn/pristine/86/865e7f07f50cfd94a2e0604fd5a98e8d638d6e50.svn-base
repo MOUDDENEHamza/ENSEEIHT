@@ -1,0 +1,10 @@
+op finished = Echec\/Succes; 		#Etat de fin si le joueur se trouve sur Echec ou Succes
+
+[] (finished => dead);				#Presence du joueur sur Echec ou Succes mène à une fin
+[] <> dead;							#Toujours, il y aura un fin
+[] (dead => finished);				#Toujours, si fin alors il y a présence du joueur soit sur Echec soit sur Succes
+- <> finished;
+
+[] Enigme => -(Echec\/Succes);		#Un lieu a la fois
+[] Succes => -(Enigme\/Echec);
+[] Echec => -(Succes\/Enigme);

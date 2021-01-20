@@ -1,0 +1,14 @@
+pl Debut (1)
+pl Echec (0)
+pl Succes (0) 
+pl Tentative (3)
+pl Reussite (0) 
+pl Visibilite_Sphynx (0)
+pl Tentative_Consomme(0)
+pl Non_Reussite (1)
+
+tr Chemin_Enigme_Echec Debut Tentative_Consomme*3 ->  Echec
+tr Chemin_Enigme_Succes Debut Reussite  ->  Succes 
+tr Sphynx_Interaction Debut Tentative Non_Reussite -> Visibilite_Sphynx Tentative Non_Reussite
+tr Sphynx_Mauvaise_Reponse Visibilite_Sphynx Tentative -> Debut Tentative_Consomme
+tr Sphynx_Bonne_Reponse Visibilite_Sphynx Non_Reussite -> Reussite Debut

@@ -1,0 +1,152 @@
+grammar fr.n7.JEU with org.eclipse.xtext.common.Terminals
+
+generate jEU "http://www.n7.fr/JEU"
+
+Jeu: 'Jeu' name=ID '{'
+		joueur = Joueur
+		( jeuelement+=JeuElement ( "," jeuelement+=JeuElement)* )? 
+		
+	'}';
+
+JeuElement:
+	Lieu | Chemin | Objet | Connaissance;
+
+
+Joueur: 'Joueur' name=ID
+	'{'
+		('connaissance' '{' connaissance+=[Connaissance] ( "," connaissance+=[Connaissance])* '}' )?
+		'inventaire' tailleinventaire = INT
+		('objet' '{' objets+=[Objet] ( "," objets+=[Objet] )* '}' )?
+		'lieu' lieu=[Lieu]
+	'}';
+	
+Chemin : 'Chemin' name=ID
+	'{'
+	     'de' source = [Lieu] 'a' destination = [Lieu]
+		 'ouvertOuferme' ouvertOUferme=ouvertOuferme
+		 'visibilite' visibilite = typevisibilite
+		('accescondition' acces = condition)?
+		('visiblecondition' visible = condition)?  
+		('description' description=STRING)?	
+		('connaissance' '{' allocateursConnaissance += AllocateurConnaissance ( "," allocateursConnaissance+=AllocateurConnaissance)* '}' )?
+		('objet' '{' allocateursObjetLieu+=AllocateurObjet ( "," allocateursObjetLieu+=AllocateurObjet)* '}' )?
+		
+	'}';
+	
+AllocateurConnaissance : 
+	'{' 
+		connaissanceAlloue = [Connaissance] 
+		(estConditionne ?= 'condition' conditionAllocution = condition)? 
+	'}';
+
+AllocateurObjet: 
+	'{'
+		objetAlloue = [Objet]
+		(consomme ?= 'consomme')?
+		quantite = INT 
+		(estConditionne ?= 'condition' conditionAllocution = condition)? 
+	'}';
+
+
+Lieu: 'Lieu' name=ID
+	'{'
+		'type' type=typeLieu
+		('description' description=STRING)?	
+		('connaissance' '{' connaissance+=Connaissance ( "," connaissance+=Connaissance)* '}' )?
+		('objet' '{' objetslieu += Objet ( "," objetslieu += Objet )* '}' )?		
+		('personne' '{' personnes+=Personne ( "," personnes+=Personne)* '}' )?
+	'}';
+
+Connaissance: 'Connaissance' name=ID
+	'{'
+		'visibilite' visibilite=typevisibilite
+		'activite' activite=typeactivite
+		(estPossede ?= "possede")?
+		('actifcondition' acces = condition)?
+		('visiblecondition' visible = condition)?
+		('description' description=STRING)?	
+		
+	'}'
+	;
+
+
+Objet:'Objet' name=ID
+	'{'
+		'taille' taille=INT
+		'quantite' quantite = INT 
+		'visibilite' visibilite=typevisibilite
+		'activite' activite=typeactivite
+		(dansLieu ?='danslelieu' lieu = [Lieu] ('deposersi'conditionDeposer = condition)? )?
+		('description' description=STRING)?	
+	'}'
+		;
+
+
+Interaction: 'Interaction' 
+	'{'
+		'personne' personne=[Personne]
+		'question' question=STRING
+		'choix' '{' choix+=choix ( "," choix+=choix)* '}'
+		'ChoixJoueur' choixJoueur+=choix
+	'}';
+
+
+condition: 'nom' name = ID
+	'{'
+	('objet' Objet = [Objet]
+	 'comparateur' comparaison = Comparateur 
+	 'reference' reference = INT 
+	 | 'connaissance' Connaissance = [Connaissance]
+	    (presente ?= 'presente')?
+	)
+	'}'
+	;
+	 
+enum Comparateur:
+		le = '<=' | e = '=' | fin = '>='; 
+		
+
+
+Personne:'nom' name=ID
+	'{'
+	'visibilite' visibilite=typevisibilite
+	'activite' activite=typeactivite
+	'interaction' interaction = Interaction
+	'}'
+	;
+
+choix:'nom' name=ID
+	'{'
+	('description' description=STRING)?	
+	('actions' '(' actions+=action ( "," actions+=action)* ')' )?
+	(estFin?='fin' ('condition' conditionFin = condition)?)?
+	'}'
+;
+
+action: 'action' name = ID 
+	'{'
+	('description' description=STRING)?	
+	('connaissance' '{' allocateursConnaissance += AllocateurConnaissance ( "," allocateursConnaissance+=AllocateurConnaissance)* '}' )?
+	('objet' '{' allocateursObjetLieu+=AllocateurObjet ( "," allocateursObjetLieu+=AllocateurObjet)* '}' )?
+	('condition' conditionAction = condition)? 
+	('choixsuivants' choixSuivants += choix )?
+	(estFinale ?= 'finale' )?
+	'}'
+	;
+
+
+EBoolean:
+	'true' | 'false';
+	
+enum typevisibilite:
+		visible = 'visible' | invisible = 'invisible';
+		
+enum typeLieu:
+				debut = 'debut' | normal = 'normal' | fin = 'fin';
+				
+enum ouvertOuferme:
+				ouvert = 'ouvert' | ferme = 'ferme';				
+				
+enum typeactivite:
+				actif = 'actif'  | inactif = 'inactif'
+;

@@ -1,0 +1,456 @@
+module atljeu2petri;
+
+create OUT : PetriNet from IN : JEU;
+
+--Helper getJeu() permettant d'obtenir le jeu auquel appartient le joueur  				
+helper context JEU!Joueur
+def: getJeu(): JEU!Jeu =
+	JEU!Jeu.allInstances()
+		->select(j | j.joueur = self)
+		->asSequence()->first();
+
+
+--Helper getJeu() permettant d'obtenir le jeu auquel appartient le jeuElement
+helper context JEU!JeuElement
+def: getJeu(): JEU!Jeu =
+	JEU!Jeu.allInstances()
+		->select(j | j.jeuelement -> includes(self))
+		->asSequence()->first();
+
+rule jeu2petri {
+	from j : JEU!Jeu 
+	to pn : PetriNet!PetriNet 
+	(
+	name <- j.name
+	)	
+}
+
+helper context JEU!Lieu 
+def : nbTokLieu() : Integer = 
+	if (self <> (self.getJeu().joueur.lieu)) then  0 else 1 endif;
+
+
+
+--Generation des lieux 
+rule lieux2petri {
+	from lieu: JEU!Lieu
+	to place: PetriNet!Place 
+	(
+	name <- lieu.name,
+	tokens <- lieu.nbTokLieu()
+	)
+	do {
+		thisModule.resolveTemp(lieu.getJeu(),'pn').petrinetelement <- place;
+		}
+}
+
+
+--Helper getProprietaire() qui donne le joueur associÃ© Ã  un objet 
+helper context JEU!Objet 
+def : getProprietaire(): JEU!Joueur = 
+	JEU!Joueur.allInstances()
+	->select(j|j.objets -> includes(self)) 
+	->asSequence()->first();
+
+
+
+--Chaque objet est representé par une place qui contient autant de jetons que la quantité initiale de cet objet chez le joueur 
+rule objetJoueur2petri {
+	from oj : JEU!Objet(not oj.dansLieu)	
+	to place_obj_joueur : PetriNet!Place 
+	(
+		name <- (oj.name + '_' + oj.getProprietaire().name) ,
+		tokens <- oj.quantite
+	)
+	do {
+		thisModule.resolveTemp(oj.getProprietaire().getJeu(),'pn').petrinetelement <- place_obj_joueur;
+		}
+}
+
+-- Helper qui définit s'il faut assigner 1 ou 0 tokens à une place selon si elle est initialement possédé ou pas 
+helper context JEU!Connaissance 
+def : getTokensCon(): Integer = if (self.estPossede) then 1 else 0 endif;
+
+--Regle qui genere une place à partir d'une connaisance possédé par le joueur 
+rule conaisanceJ2petrinet{
+	from c : JEU!Connaissance(c.getJeu().joueur.connaissance -> includes(c))
+	to place : PetriNet!Place 
+	(
+	name  <- (c.name +'_' + c.getJeu().joueur.name)	,
+	tokens <- c.getTokensCon()
+	)	
+	do {
+		thisModule.resolveTemp(c.getJeu(),'pn').petrinetelement <- place;
+		}
+}
+
+--Helper getObjetJoueur() qui donne l'objet de mÃªme nom de l'objet passÃ© en paramÃ¨tre mais associÃ© au joueur
+helper context JEU!Objet 
+def :getObjetJoueur(): JEU!Objet = let joueur : JEU!Joueur = JEU!Joueur.allInstances() -> asSequence()->first() in 
+	joueur.objets -> select(o| o.name = self.name)->asSequence()->first() ;
+
+
+--Chaque objet dans un lieu sans condition de visibilitÃ© ou condition d'activitÃ© 
+rule objetLieuVisible2petrinet {
+	from ojv : JEU!Objet((ojv.visibilite = #visible) and ojv.dansLieu) 
+	to place_obj_lieuv : PetriNet!Place 
+	(
+	name <- (ojv.name + '_' +ojv.lieu.name),  
+	tokens <- ojv.quantite 
+	),
+	transition_prendre : PetriNet!Transition
+	(
+	name <- ('prendre' +'_' + ojv.name+ '_'+ojv.lieu.name)
+	),
+	transition_deposer : PetriNet!Transition 
+	(
+	name <- ('deposer' +'_' + ojv.name+ '_'+ojv.lieu.name)
+	),
+	arc_lieu_prendre:PetriNet!Edge(
+		cible <- transition_prendre ,
+		source <- thisModule.resolveTemp(ojv.lieu,'place'),
+		tokens <- 1 ,
+		type <- #normal 
+	),
+	arc_prendre_lieu:PetriNet!Edge(
+		cible <- thisModule.resolveTemp(ojv.lieu,'place'),
+		source <- transition_prendre ,
+		tokens <- 1 ,
+		type <- #normal 
+		),
+	arc_objv_prendre:PetriNet!Edge(
+		cible <- transition_prendre ,
+		source <- place_obj_lieuv,
+		tokens <- 1 ,
+		type <- #normal 
+	),
+	arc_prendre_obj:PetriNet!Edge(
+		cible <- thisModule.resolveTemp(ojv.getObjetJoueur(),'place_obj_joueur') ,
+		source <-transition_prendre ,
+		tokens <- 1 ,
+		type <- #normal 
+	),
+	arc_deposer_lieu:PetriNet!Edge(
+		cible <- thisModule.resolveTemp(ojv.lieu,'place'), 
+		source <-transition_deposer ,
+		tokens <- 1 ,
+		type <- #normal 
+	),
+	arc_lieu_deposer:PetriNet!Edge(
+		cible <- transition_deposer ,
+		source <- thisModule.resolveTemp(ojv.lieu,'place'),
+		tokens <- 1 ,
+		type <- #normal 
+	),
+	arc_deposer_objv:PetriNet!Edge(
+		cible <- place_obj_lieuv,
+		source <-transition_deposer ,
+		tokens <- 1 ,
+		type <- #normal 
+	),
+	arc_obj_deposer:PetriNet!Edge(
+		cible <- transition_deposer ,
+		source <- thisModule.resolveTemp(ojv.getObjetJoueur(),'place_obj_joueur'),
+		tokens <- 1 ,
+		type <- #normal 
+    ) 
+	do {
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- place_obj_lieuv;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- transition_prendre;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- transition_deposer;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_lieu_prendre;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_prendre_lieu;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_objv_prendre;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_prendre_obj;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_deposer_lieu;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_lieu_deposer;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_deposer_objv;
+		thisModule.resolveTemp(ojv.lieu.getJeu(),'pn').petrinetelement <- arc_obj_deposer;
+		
+		}
+}
+
+--Generation d'un chemin entre deux lieux 
+rule chemin2petrinet{
+	from chem : JEU!Chemin
+	--Transition définie pour accéder au chemin seulement si les conditions d'ouverture et visibilié sont verifiés 
+	to tr_acces_chemin: PetriNet!Transition
+	(
+	name <- ('entree_' + chem.name )
+	),
+	--Transition définie pour pouvoir donner au joueur les connaisances du nouveau chemin lorsqu'on rentre 
+	tr_acces_lieuc:PetriNet!Transition 
+	(
+	name <- ('sortie_' +chem.name )
+	),
+	--Place qui represente le debut du chemin 
+	place_debut: PetriNet!Place 
+	(
+	name <- (chem.name + '_debut')
+	),
+	--Place qui represente la fin du chemin 
+	place_fin: PetriNet!Place 
+	(
+	name <- (chem.name + '_fin')
+	),
+	arc_lieus_entree:PetriNet!Edge
+	(
+	source <- thisModule.resolveTemp(chem.source,'place'),
+	cible <- tr_acces_chemin,
+	tokens <- 1 ,
+	type <- #normal
+	),
+	arc_entree_pldebut:PetriNet!Edge
+	(
+	source <- tr_acces_chemin,
+	cible <- place_debut,
+	tokens <- 1 ,
+	type <- #normal
+	),
+	arc_fin_trsortie:PetriNet!Edge
+	(
+	source <- place_fin,
+	cible <- tr_acces_lieuc,
+	tokens <- 1 ,
+	type <- #normal
+	),
+	arc_trsortie_lieuc:PetriNet!Edge
+	(
+	source <- tr_acces_lieuc,
+	cible <- thisModule.resolveTemp(chem.destination,'place'),
+	tokens <- 1 ,
+	type <- #normal
+	),
+	tr_milieu: PetriNet!Transition
+	(
+	name <- ('milieu_' + chem.name)	
+	),
+	arc_debut_trmilieu: PetriNet!Edge
+	(
+	source <- place_debut,
+	cible <- tr_milieu,
+	tokens <- 1 ,
+	type <- #normal	
+	),
+	arc_trmilieu_fin: PetriNet!Edge 
+	(
+	source <- tr_milieu,
+	cible <- place_fin,
+	tokens <- 1 ,
+	type <- #normal	
+	)
+	--Par manque de temps on va faire une version simplifié du modèle où toutes les allocations 
+	--réalisés au modèle ne sont pas conditionnés 
+	do {
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- tr_acces_chemin ;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- tr_acces_lieuc;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- tr_milieu;	
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- place_debut;	
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- place_fin;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- arc_lieus_entree;	
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- arc_entree_pldebut;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- arc_debut_trmilieu;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- arc_trmilieu_fin;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- arc_fin_trsortie;
+		thisModule.resolveTemp(chem.getJeu(),'pn').petrinetelement <- arc_trsortie_lieuc;
+		
+		--Définition des arcs reliés aux allocateurs (suposant qu'ils ne sont pas conditionnés) 
+		for (alo in chem.allocateursConnaissance) {
+			thisModule.allocateurCon2petrinet(tr_milieu,alo);	
+		}
+		for (alo in chem.allocateursObjetLieu){
+			thisModule.allocateurObj2petrinet(tr_milieu,alo);	
+		}
+	}
+}
+--Helper getChemin qui permet d'obtenir le chemin auquel est relié un allocateur 
+helper context JEU!AllocateurConnaissance 
+def :getChemin(): JEU!Chemin = 
+	JEU!Chemin.allInstances() -> select(c| c.allocateursConnaissance -> includes(self))->asSequence()->first() ;
+
+
+rule allocateurCon2petrinet(tr_milieu: PetriNet!Transformation,alo:JEU!AllocateurConnaissance){
+	to arc: PetriNet!Edge 
+	(
+	source <- tr_milieu,
+	cible <- thisModule.resolveTemp(alo.connaissanceAlloue,'place'),
+	tokens <- 1 ,
+	type <- #normal	
+	)
+	do{
+		thisModule.resolveTemp(alo.getChemin().getJeu(),'pn').petrinetelement <- arc ;
+	}
+}
+
+--Helper getChemin qui permet d'obtenir le chemin auquel est relié un allocateur 
+helper context JEU!AllocateurObjet 
+def :getChemin(): JEU!Chemin = 
+	JEU!Chemin.allInstances() -> select(c| c.allocateursObjetLieu -> includes(self))->asSequence()->first() ;
+
+rule allocateurObj2petrinet(tr_milieu: PetriNet!Transformation,alo:JEU!AllocateurObjet){
+	to arc: PetriNet!Edge 
+	(
+	source <-if alo.consomme then thisModule.resolveTemp(alo.objetAlloue,'place_obj_joueur') else tr_milieu endif,
+	cible <- if alo.consomme then tr_milieu else thisModule.resolveTemp(alo.objetAlloue,'place_obj_joueur') endif,
+	tokens <- 1 ,
+	type <- #normal	
+	)
+	do{
+		thisModule.resolveTemp(alo.getChemin().getJeu(),'pn').petrinetelement <- arc ;
+	}
+}
+--Regle qui définit les places des choix non-initiaux 
+rule choix2petrinet{
+	from choix : JEU!choix(JEU!Interaction.allInstances()->collect(i|i.choix)->flatten()->excludes(choix))
+	to place : PetriNet!Place 
+	(
+	name <- (choix.name + '_' + choix.getPersonne().name + '_' + choix.getPersonne().getLieu().name)	
+	)
+	do{
+		thisModule.resolveTemp(choix.getPersonne().getLieu().getJeu(),'pn').petrinetelement <- place ;
+	}
+
+}
+--Regle qui genere une personne 
+--Helper getLieu() qui donne le lieu auquel est associé une certaine personne dans le jeu 
+helper context JEU!Personne 
+def :getLieu(): JEU!Lieu = let lieux : JEU!Joueur = JEU!Joueur.allInstances() -> asSequence()->first() in 
+	JEU!Lieu.allInstances() -> select(l| l.personnes -> includes(self))->asSequence()->first() 
+	;
+
+--Géneration des elements petrinet correspondant à une persronne 
+rule personne2petrinet {
+	from p : JEU!Personne
+	to tr_vis_p: PetriNet!Transition 
+	(
+	name <- ('vis_' +p.name + '_' + p.getLieu().name )
+	),
+	tr_sortie_p : PetriNet!Transition 
+	(
+	name <- ('sortie_' +p.name + '_' + p.getLieu().name )
+	),
+	pl_visible_p : PetriNet!Place 
+	(
+	name <- ('visible_' +p.name + '_' + p.getLieu().name )
+	),
+	arc_lieu_trvis : PetriNet!Edge 
+	(
+	source <- thisModule.resolveTemp(p.getLieu(),'place'),
+	cible <- tr_vis_p,
+	tokens <- 1 ,
+	type <- #normal	
+	),
+	arc_trvis_pl : PetriNet!Edge
+	(
+	source <- tr_vis_p,
+	cible <- pl_visible_p,
+	tokens <- 1 ,
+	type <- #normal	
+	),
+	arc_pl_trsortie : PetriNet!Edge
+	(
+	source <- pl_visible_p,
+	cible <- tr_sortie_p,
+	tokens <- 1 ,
+	type <- #normal	
+	),
+	arc_trsortie_lieu : PetriNet!Edge
+	(
+	source <- tr_sortie_p,
+	cible <- thisModule.resolveTemp(p.getLieu(),'place'),
+	tokens <- 1 ,
+	type <- #normal	
+	)
+	do {
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- tr_vis_p ;
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- pl_visible_p ;
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- tr_sortie_p ;
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- arc_lieu_trvis ;
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- arc_trvis_pl ;
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- arc_pl_trsortie ;
+		thisModule.resolveTemp(p.getLieu().getJeu(),'pn').petrinetelement <- arc_trsortie_lieu ;
+		--Définition des choix initiaux reliés à l'interaction avec la personne 
+		for (c in p.interaction.choix){
+			thisModule.choixInitiaux2petrinet(pl_visible_p,c );	
+		}
+	}
+}
+
+--Helper getPerson() qui rend la personne associé au choix 
+helper context JEU!choix 
+def :getPersone(): JEU!Personne = let inter : JEU!Interaction = 
+									JEU!Interaction.allInstances() -> select(i|i.choix->includes(self))->asSequence()->first() 
+								  in 
+	inter.personne 
+	;
+
+--called rule qui genere les choix initiaux pour une certaine personne 
+rule choixInitiaux2petrinet(pl_vis : PetriNet!Place,choixI : JEU!choix){
+	to place : PetriNet!Place
+	(
+	name <- (choixI.name + '_' + choixI.getPersone().name + '_' + choixI.getPersone().getLieu().name )
+	),
+	tr_vis_choix : PetriNet!Transition
+	(
+	name <- ('choisir_'+ choixI.name + '_' + choixI.getPersone().name + '_' + choixI.getPersone().getLieu().name )
+	),
+	arc_vis_tr : PetriNet!Edge 
+	(
+	source <- pl_vis,
+	cible <- tr_vis_choix,
+	tokens <- 1 ,
+	type <- #normal		
+	),
+	arc_tr_pl : PetriNet!Edge 
+	(
+	source <- tr_vis_choix,
+	cible <- place,
+	tokens <- 1 ,
+	type <- #normal		
+	)
+
+	do {
+		thisModule.resolveTemp(choixI.getPersone().getLieu().getJeu(),'pn').petrinetelement <- place ;
+		thisModule.resolveTemp(choixI.getPersone().getLieu().getJeu(),'pn').petrinetelement <- tr_vis_choix ;
+		thisModule.resolveTemp(choixI.getPersone().getLieu().getJeu(),'pn').petrinetelement <- arc_vis_tr ;
+		thisModule.resolveTemp(choixI.getPersone().getLieu().getJeu(),'pn').petrinetelement <- arc_tr_pl ;
+		--Generation des actions associés aux choix initiaux 
+		--for (a in choixI.actions){
+		--	thisModule.action2petrinet(place_choix,a);
+		--}
+	}
+}
+--helper getChoix qui donne le choix associé à une action 
+helper context JEU!action 
+def : getChoix : JEU!choix = 
+	JEU!choix.allInstances() -> select(c|c.actions -> includes(self))->asSequence()->first();
+--Called rule qui genere une action associé à un choix 
+rule action2petrinet(place_choix: PetriNet!Place,a:JEU!action){
+	to tr: PetriNet!Transition 
+	(
+	name <- (a.name + '_' + a.getChoix().name + '_' + a.getChoix().getPersonne().name + '_' + a.getChoix().getPersonne().getLieu().name)	
+	),
+	arc_choix_tr : PetriNet!Edge
+	(
+	source <- place_choix,
+	cible <- tr,
+	tokens <- 1 ,
+	type <- #normal		
+	),
+	arc_tr_suivant : PetriNet!Edge
+	(
+	source <- tr,
+	cible <- if a.estFinale then thisModule.resolveTemp(a.getChoix().getPersonne().getLieu(),'place') 
+			else a.choixSuivants 
+			endif,
+	tokens <- 1 ,
+	type <- #normal		
+	)
+	do {
+		thisModule.resolveTemp(a.getPersone().getLieu().getJeu(),'pn').petrinetelement <- tr ;
+		thisModule.resolveTemp(a.getPersone().getLieu().getJeu(),'pn').petrinetelement <- arc_choix_tr ;
+		thisModule.resolveTemp(a.getPersone().getLieu().getJeu(),'pn').petrinetelement <- arc_tr_suivant;
+		--thisModule.choix2petrinet(tr:PetriNet!Transition,c : JEU!choix)
+	}
+
+}

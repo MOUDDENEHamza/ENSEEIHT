@@ -1,0 +1,163 @@
+Jeu FormationGuerrierNonValide {
+	Joueur Guerrier {
+		connaissance { MaitriseEpee , MaitriseArc , Soins , Ouvrirbarriere}// , Fermerbarriere } => Joueur::connaissancejoueurExistant violated
+		inventaire 100  //inventaire 10 => Joueur::chargeLimite violated
+		objet { EpeeAlpha, EpeeBeta, ArcGamma , ArcZeta , Potionsdevie , Potionsenergie , Clefbarriere } //, Clefbarriere => Joueur::objetsDifferent violated }
+		lieu EntrainementArme
+	    //lieu MaitriseArme => Joueur::lieuDebut violated : le lieu de départ d'un joueur doit etre de type debut
+	}
+	
+	Objet EpeeAlpha { taille 10 quantite 5 visibilite visible activite actif},
+	Objet EpeeBeta { taille 20 quantite 1 visibilite visible activite actif},
+	Objet ArcGamma { taille 5 quantite 5 visibilite visible activite actif},
+	Objet ArcZeta { taille 15 quantite 1 visibilite visible activite actif},
+	Objet Potionsdevie { taille 2 quantite 20 visibilite visible activite actif},
+	Objet Potionsenergie { taille 2 quantite 20 visibilite visible activite actif},
+	Objet Clefbarriere { taille 1 quantite 1 visibilite visible activite actif},
+	
+	Connaissance MaitriseEpee {visibilite visible activite actif},
+	Connaissance MaitriseArc {visibilite visible activite actif},
+	Connaissance Soins {visibilite visible activite actif},
+	Connaissance Ouvrirbarriere {visibilite visible activite actif},
+	Connaissance Fermerbarriere {visibilite visible activite actif},
+	
+	Lieu EntrainementArme {
+		//type normal //=> Joueur::lieuDebut violated : le lieu de départ d'un joueur doit etre de type debut
+		type debut
+		description "Debuter l'entrainemenet à l'arc et à l'epee "
+		objet { Objet EpeeAlpha { taille 10 quantite 1 visibilite visible activite actif}, Objet ArcGamma { taille 5 quantite 1 visibilite visible activite actif}}
+		personne { nom MaitreEpee {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne MaitreEpee
+				question "Veux-tu débuter l'entrainement à l'epee ?"
+				choix {nom choixOui {actions ( action commencer { description "Oui, commençons"})}, nom choixNon {actions ( action commencer { description "Pas tout de suite"})}} 
+				ChoixJoueur nom choixOui {actions ( action commencer { description "Oui, commençons"})}
+				}	
+			},
+			nom MaitreArc {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne MaitreArc
+				question "Veux-tu débuter l'entrainement à l'arc ?"
+				choix {nom choixOui {actions ( action commencer { description "Oui, commençons"})}, nom choixNon {actions ( action commencer { description "Pas tout de suite"})}} 
+				ChoixJoueur nom choixOui {actions ( action commencer { description "Oui, commençons"})}
+				}
+		}
+	}
+},
+
+	Lieu MaitriseArme {
+		//type debut  //=> JeuElement::debutUnique violated : Le jeu doit disposer d'un seul lieu de type debut
+		type normal
+		description "Maitriser à l'arc et à l'epee "
+		connaissance { Connaissance MaitriseEpee {visibilite visible activite actif} , Connaissance MaitriseArc {visibilite visible activite actif}}
+		objet { Objet EpeeBeta { taille 10 quantite 1 visibilite visible activite actif}, Objet ArcZeta { taille 5 quantite 1 visibilite visible activite actif}}
+		personne { nom MaitreEpeePro {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne MaitreEpeePro
+				question "T'as envie de maitriser l'art de l'epee ?"
+				choix {nom choixOui {actions ( action commencer { description "Oui, commençons"})}, nom choixNon {actions ( action commencer { description "Pas tout de suite"})}} 
+				ChoixJoueur nom choixOui {actions ( action commencer { description "Oui, commençons"})}
+				}	
+			},
+			nom MaitreArcPro {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne MaitreArcPro
+				question "T'as envie de maitriser l'art de  l'arc ?"
+				choix {nom choixOui {actions ( action commencer { description "Oui, commençons"})}, nom choixNon {actions ( action commencer { description "Pas tout de suite"})}} 
+				ChoixJoueur nom choixOui {actions ( action commencer { description "Oui, commençons"})}
+				}
+		}
+	}
+},
+		
+	Lieu Entrainementbarriere {
+		type normal
+		description "Apprendre a ouvrir et a fermer une barriere durant une bataille"
+		connaissance { Connaissance Ouvrirbarriere {visibilite visible activite actif}, Connaissance Fermerbarriere {visibilite visible activite actif} }
+		objet { Objet Clefbarriere { taille 1 quantite 1 visibilite visible activite actif} } 
+		personne {
+			nom MaitreBarriere {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne MaitreBarriere
+				question "Apprendre à ouvrir et à fermer la barrière est inévitable pour un guerrier"
+				choix {nom choixOui {actions ( action commencer { description "J'aimerais bien commencer"})}, nom choixNon {actions ( action commencer { description "Il y en a d'autres qui le feront à ma place"})}} 
+				ChoixJoueur nom choixOui {actions ( action commencer { description "J'aimerais bien commencer"})}
+				}
+		}
+	}
+},
+	Lieu ApprendreSoins {
+		type normal
+		description "Apprendre a soigner"
+		connaissance { Connaissance Soins {visibilite visible activite actif} }
+		objet { Objet Potionsdevie { taille 10 quantite 5 visibilite visible activite actif}, Objet Potionsenergie { taille 5 quantite 5 visibilite visible activite actif}}
+		personne {
+			nom MaitrePotions {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne MaitrePotions
+				question "Avant d'aller en bataille, tu dois apprendre à soigner. Qu'est ce qu'on attend ?"
+				choix {nom choixOui {actions ( action commencer { description "Apprends-moi à soigner"})}, nom choixNon {actions ( action commencer { description "Ne crains pas pour moi"})}} 
+				ChoixJoueur nom choixOui {actions ( action commencer { description "Apprends-moi à soigner"})}
+				}
+			}
+		}
+},
+	
+	Lieu GuerrierForme {
+		//type normal  //=> JeuElement::finLieu violated : Le jeu doit disposer d'au moins un lieu de type fin
+		type fin
+	},
+	
+	Chemin Entrainement2Maitrise {
+		de EntrainementArme a MaitriseArme
+		ouvertOuferme ouvert 
+		visibilite visible
+	},
+	
+	Chemin Maitrise2Barriere {
+		de MaitriseArme a Entrainementbarriere
+		ouvertOuferme ouvert 
+		visibilite visible
+		description "Le guerrier a maitrisé l'epee et l'arc et obtient une epee beta et un arc zeta"
+		connaissance { {MaitriseEpee}, {MaitriseArc}}
+		objet {{EpeeBeta 1},{ArcZeta 1}}
+	},
+	
+	Chemin Barriere2Soins {
+		de Entrainementbarriere a ApprendreSoins
+		ouvertOuferme ouvert 
+		visibilite visible
+		description "Le guerrier a appris à ouvrir et à fermer une barrière et obtient des clefs"
+		connaissance {{Ouvrirbarriere}, {Fermerbarriere}}
+		objet {{Clefbarriere 1}}
+	},
+	
+	
+	Chemin Barriere2Forme {
+		de Entrainementbarriere a GuerrierForme
+		ouvertOuferme ouvert 
+		visibilite visible
+	},
+	
+		Chemin Soins2Forme {
+		de ApprendreSoins a GuerrierForme
+		ouvertOuferme ouvert 
+		visibilite visible
+		description "Le guerrier a appris à soigner et obtient des potions de vie et d'energie"
+		connaissance {{Soins}}
+		objet {{Potionsdevie 10}, {Potionsenergie 10}}
+	}
+	
+}

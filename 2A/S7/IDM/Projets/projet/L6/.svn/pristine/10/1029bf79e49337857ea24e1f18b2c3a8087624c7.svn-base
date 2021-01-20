@@ -1,0 +1,48 @@
+Jeu EnigmeJeu {
+	Joueur Explorateur {
+		connaissance { Reussite }
+		inventaire 10
+		objet { Tentative }
+		lieu Enigme
+	}
+	
+	Objet Tentative { taille 1 quantite 3 visibilite visible activite actif},
+	
+	Connaissance Reussite {visibilite visible activite actif},
+	
+	Lieu Enigme {
+		type debut
+		personne { nom Sphynx {
+			visibilite visible
+			activite actif
+			interaction Interaction {
+				personne Sphynx
+				question "Question de Sphynx"
+				choix {nom choix1 {actions ( action A1 { description "BonneReponse" connaissance {{ Reussite }} finale }, action A2 { description "MauvaiseReponse" objet {{Tentative consomme 1}} finale })  fin }} 
+				ChoixJoueur nom choixjoueur {}
+				}	
+			}
+		}
+	},
+
+	Lieu Succes {
+		type fin
+	},
+	Lieu Echec {
+		type fin
+	},
+	
+	Chemin E2S {
+		de Enigme a Succes
+		ouvertOuferme ouvert 
+		visibilite visible
+		accescondition nom AvoirSucces {connaissance Reussite}
+	},
+	
+	Chemin E2E {
+		de Enigme a Echec
+		ouvertOuferme ouvert 
+		visibilite visible
+		accescondition nom AvoirEchec {objet Tentative comparateur = reference 0  }
+	}
+}

@@ -1,0 +1,39 @@
+[comment encoding = UTF-8 /]
+[module ToLTL('http://www.n7.fr/JEU')]
+
+
+[template public jeuToLTL(aJeu : Jeu)]
+[comment @main/]
+[file (aJeu.name +'.ltl', false, 'UTF-8')]
+op finished = [for (l : Lieu | aJeu.getLieuxfin()) separator ('\\/') after (';')][l.name/][/for]
+
+['['/][']'/] (finished => dead);
+['['/][']'/] <> dead;
+['['/][']'/] (dead => finished);
+- <> finished;
+
+[ aJeu.getLieux() -> unlieualafois() /]
+[/file]
+[/template]
+
+[template public unlieualafois(Lieux : OrderedSet(Lieu))]
+[for(l : Lieu | Lieux)]
+['['/][']'/] [l.name/] => -([for (lexclus : Lieu | (Lieux - Set{l})) separator ('\\/')][lexclus.name/][/for]);
+[/for]
+[/template]
+
+
+[query public getLieuxfin(jeu: Jeu) : OrderedSet(Lieu) =
+	jeuelement -> select( l | l.oclIsTypeOf(Lieu))
+				-> collect ( l | l.oclAsType(Lieu))
+				-> select( l | l.type = typeLieu::fin)
+				-> asOrderedSet()
+
+/]
+
+[query public getLieux(jeu: Jeu) : OrderedSet(Lieu) =
+	jeuelement -> select( l | l.oclIsTypeOf(Lieu))
+				-> collect ( l | l.oclAsType(Lieu))
+				-> asOrderedSet()
+
+/]
