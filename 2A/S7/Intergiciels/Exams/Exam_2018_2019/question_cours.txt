@@ -1,0 +1,24 @@
+1.Soap Advantages
+SOAP provides the following advantages when compared to REST:
+•    Language, platform, and transport independent (REST requires use of HTTP)
+•    Works well in distributed enterprise environments (REST assumes direct point-to-point communication)
+•    Standardized
+•    Provides significant pre-build extensibility in the form of the WS* standards
+•    Built-in error handling
+•    Automation when used with certain language products
+
+REST Advantages
+REST is easier to use for the most part and is more flexible. It has the following advantages over SOAP:
+•    No expensive tools require to interact with the web service
+•    Smaller learning curve
+•    Efficient (SOAP uses XML for all messages, REST can use smaller message formats)
+•    Fast (no extensive processing required)
+•    Closer to other web technologies in design philosophy
+
+
+
+2. Les ESB (Enterprise Service Bus) visent, d'une part à assurer l'interconnexion et d'autre part à gérer la médiation des communications et des interactions entre services et applications d'un SI. Quoique non indispensables, ils n'en demeurent pas moins une brique à forte valeur ajoutée dans le cadre d'une mise en place d'une architecture orientée service (SOA) mature.
+
+Néanmoins les ESB sont aujourd'hui victimes de leur succès et il est souvent difficile de décrypter leur rôle exact.
+
+
