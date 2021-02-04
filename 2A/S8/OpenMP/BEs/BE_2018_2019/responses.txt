@@ -1,0 +1,43 @@
+In this file you have to write the answers to the questions marked
+with the "pencil" symbol that you will find in the subjects of the
+various exam parts.
+
+
+=======================================================================
+Part 1: Banded matrix product
+
+
+
+
+
+
+=======================================================================
+Part 2: LU factorization with tasks
+
+
+
+
+
+
+
+
+
+=======================================================================
+Part 3: Norm2 without overflow
+
+
+
+
+
+
+=======================================================================
+Part 4: Stacks
+
+
+
+
+
+
+
+=======================================================================
+Part 5: Longest branch of a tree

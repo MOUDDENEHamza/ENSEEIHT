@@ -1,0 +1,174 @@
+\documentclass{article}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{marvosym}
+\usepackage{dingbat}
+\usepackage{tikz}
+
+\title{Longest branch of a tree}
+\date{}
+
+\usetikzlibrary{arrows}
+
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered, font=\sffamily},
+  wn/.style = {treenode, circle, black, font=\ttfamily, draw=white, fill=white, text width=1.5em},
+  txt/.style = {black, anchor=west, font=\ttfamily, draw=white, fill=white},
+  edge from parent/.style={thick,draw=black, latex-}
+}
+
+\begin{document}
+\maketitle
+
+\section{Longest tree branch}
+
+This exercise is about parallelizing a Depth First Search (DFS) traversal of
+a random tree. We assume that each node has a weight which corresponds
+to the time it takes to process it. Our DFS traversal finds the
+longest branch in the tree, i.e., the branch such that the sum of the
+weigths of its nodes is maximum. 
+
+The tree is nodes of type \texttt{node\_t} which contain the following members
+
+\begin{itemize}
+\item \texttt{weight}: the weight of the node;
+\item \texttt{branch\_weight}: the weight of the branch that connects
+  the node to the root of the tree; this is set to zero at the
+  beginning and is updated during the DFS traversal;
+\item \texttt{id}: the node number;
+\item \texttt{nc}: the number of children of the node.
+\item \texttt{*children}: an array of pointers to the children of the node.
+\end{itemize}
+
+The traversal is done recursively using the following code
+
+\begin{verbatim}
+void longest_branch_seq_rec(node_t *root, unsigned int *weight, unsigned int *leaf){
+  int i;
+  process(root);
+  root->branch_weight += root->weight;
+  
+  if(root->nc>0) {
+    for(i=0; i<root->nc; i++){
+      root->children[i].branch_weight = root->branch_weight;
+      longest_branch_seq_rec(root->children+i, weight, leaf);
+    }
+  } else {
+    if(root->branch_weight > *weight){
+      *weight = root->branch_weight;
+      *leaf   = root->id;
+    }
+  }
+}
+\end{verbatim}
+
+The \texttt{weight} and \texttt{leaf} arguments of this function are
+meant to return the weight of the longest branch and the corresponding
+leaf.  When we visit a node, first we process it using the
+\texttt{process} routine and we update the weight of the branch that
+connects it to the root (i.e., we add its weight to the branch weight
+of its father).  Then, if it has children, we recursively call this
+code on each one of them, if not then it means that we have reached a
+leaf of the tree; in this case if the weight of the current branch is
+grater than the current maximum contained in the \texttt{weight}
+variable, we update \texttt{weight} and \texttt{leaf}.
+
+For example, on the tree below, this method would return the leaf
+number $3$ and the associated weight of $137$.
+
+\begin{center}
+  \includegraphics[width=0.4\textwidth]{tree.pdf}
+\end{center}
+
+
+\section{Package content}
+In the \texttt{tree\_branch} directory you will find the
+following files:
+\begin{itemize}
+\item \texttt{main.c}: this file contains the main program which first
+  initializes the tree for a provided number of maximum levels. The main
+  program then calls a sequential routine \texttt{longest\_branch\_seq}
+  containing the above code, then calls the
+  \texttt{longest\_branch\_par} routine which is supposed to contain a
+  parallel version of the traversal code.
+\item \texttt{longest\_branch\_seq.c}: contains a routine implementing a
+  sequential traversal with the code presented above.
+\item \texttt{longest\_branch\_par.c} contains a routine implementing a
+  parallel tree traversal. \textbf{Only this file has to be modified
+    for this exercise}.
+\item \texttt{aux.c, aux.h}: these two files contain auxiliary
+  routines and \textbf{must not be modified}.
+\end{itemize}
+
+
+
+The code can be compiled with the \texttt{make} command: just type
+\texttt{make} inside the \texttt{tree\_branch} directory; this
+will generate a \texttt{main} program that can be run like this:
+
+\begin{verbatim}
+$ ./main l s
+\end{verbatim}
+
+where \texttt{l} is the number of levels in the tree. The argument $s$
+is the seed for the random number generation (which is used to build
+the tree), and can be used to create trees of different shapes for a
+fixed number of levels.
+
+\section{Assignment}
+\begin{itemize}
+\item {\huge \Keyboard} At the beginning, the
+  \texttt{longest\_branch\_par} routine contains an exact copy of the
+  \texttt{longest\_branch\_seq} one. Modify these routine in order to
+  parallelize it.  Make sure that the result computed by the three
+  routines (sequential and parallel ones) is consistently (that is, at
+  every execution of the parallel code) the same; a message printed at
+  the end of the execution will tell you whether this is the
+  case. Note that there may be multiple branches of the same length;
+  in this case any of them will be considered a correct result. Also,
+  modify the code in order to count the number of nodes updated by
+  each of the working threads.
+\item \smallpencil Report the execution times for the implemented
+  parallel version with 1, 2 and 4 threads and for different tree
+  sizes. Analyze and comment on your results: is the achieved speedup
+  reasonable or not? Report your answer in the \texttt{responses.txt}
+  file.
+\end{itemize}
+
+
+\paragraph{Advice}
+\begin{itemize}
+\item As usual, when developing and debugging choose trees of small
+  size. When evaluating performance it's better to choose a larges
+  tree size.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
