@@ -1,0 +1,1 @@
+let add = (fun x -> x+1) in (add) 1
