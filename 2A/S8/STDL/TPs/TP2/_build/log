@@ -1,10 +1,10 @@
 # dune runtest
 # OCAMLPARAM: unset
 # Workspace root: /home/hamza/Desktop/ENSEEIHT/2A/S8/STDL/TPs/TP2
-$ /usr/bin/nproc > /tmp/dune47f663.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dunedb31ad.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunefb24a2.output
+$ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dune4c30a1.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -109,9 +109,11 @@ $ /home/hamza/.opam/4.07.1/bin/ocamlc.opt -config > /tmp/dunefb24a2.output
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'library-name="miniML"' -o Main.pp.ml --impl Main.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
-$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl Main.pp.ml) > _build/default/.miniML.objs/Main.pp.ml.d
+$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'library-name="miniML"' -o Types.pp.ml --impl Types.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamldep.opt -modules -impl Types.pp.ml) > _build/default/.miniML.objs/Types.pp.ml.d
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -bin-annot -I .miniML.objs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -no-alias-deps -open MiniML -o .miniML.objs/byte/miniML__Types.cmo -c -impl Types.pp.ml)
 $ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -40 -g -bin-annot -I .miniML.objs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -no-alias-deps -open MiniML -o .miniML.objs/byte/miniML__Main.cmo -c -impl Main.pp.ml)
+$ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -I .miniML.objs/byte -I .miniML.objs/native -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -intf-suffix .ml -no-alias-deps -open MiniML -o .miniML.objs/native/miniML__Types.cmx -c -impl Types.pp.ml)
 $ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -I .miniML.objs/byte -I .miniML.objs/native -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -intf-suffix .ml -no-alias-deps -open MiniML -o .miniML.objs/native/miniML__Main.cmx -c -impl Main.pp.ml)
 $ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlopt.opt -w -40 -g -a -o miniML.cmxa .miniML.objs/native/miniML.cmx .miniML.objs/native/miniML__Ast.cmx .miniML.objs/native/miniML__Semantics.cmx .miniML.objs/native/miniML__Types.cmx .miniML.objs/native/miniML__Parser.cmx .miniML.objs/native/miniML__Lexer.cmx .miniML.objs/native/miniML__Main.cmx)
 $ (cd _build/default && /home/hamza/.opam/4.07.1/bin/ocamlc.opt -w -24 -g -bin-annot -I .miniML.inline-tests/.miniML.inline-tests.eobjs/byte -I /home/hamza/.opam/4.07.1/lib/base -I /home/hamza/.opam/4.07.1/lib/base/base_internalhash_types -I /home/hamza/.opam/4.07.1/lib/base/caml -I /home/hamza/.opam/4.07.1/lib/base/shadow_stdlib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/config -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runner/lib -I /home/hamza/.opam/4.07.1/lib/ppx_inline_test/runtime-lib -I /home/hamza/.opam/4.07.1/lib/sexplib0 -I .miniML.objs/byte -I .miniML.objs/native -no-alias-deps -o .miniML.inline-tests/.miniML.inline-tests.eobjs/byte/dune__exe__Inline_test_runner_miniML.cmo -c -impl .miniML.inline-tests/inline_test_runner_miniML.ml-gen)
