@@ -19,11 +19,13 @@ void lu_par_loop(Matrix A, info_type info){
     panel(A[i], i, info);
     
     /* Parallelize this loop     */
-    
-    for(j=i+1; j<info.NB; j++){
-      /* Update column j with respect to the result of panel(A, i) */
-      update(A[i], A[j], i, j, info);
-    }
+#pragma omp parallel for 
+      
+        for(j = i + 1; j < info.NB; j++){
+          /* Update column j with respect to the result of panel(A, i) */
+          update(A[i], A[j], i, j, info);
+        }
+  
   }
   
   /* This routine applies permutations resulting from numerical
