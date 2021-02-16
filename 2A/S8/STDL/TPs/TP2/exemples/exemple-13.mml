@@ -1,0 +1,4 @@
+let r = ref 1 in
+while ((!r) <= 10) do
+   r := (!r) + 1
+done

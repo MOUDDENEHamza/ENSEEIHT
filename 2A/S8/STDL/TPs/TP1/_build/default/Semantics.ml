@@ -127,7 +127,7 @@ let rec value_of_expr expr env =
     ruleAccess env name = 
     match (lookfor name env) with
     | NotFound -> (ErrorValue (UnknownIdentError name))
-    (* A compléter lors de l'ajout de la fermeture pour les définitions récursives *)
+    | (Found (FrozenValue (fexpr,fenv))) -> (value_of_expr fexpr fenv)
     | (Found value) -> value
     
   (* ========================================================*)

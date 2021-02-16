@@ -28,7 +28,7 @@ Clflags.include_dirs :=
   ; "/applications/opam-2.0.4/default/lib/sexplib0"
   ; "/applications/opam-2.0.4/default/lib/utop"
   ; "/applications/opam-2.0.4/default/lib/zed"
-  ; "/mnt/nosave/hmoudden/ENSEEIHT/2A/S8/S\195\169mantique_et_Traduction_des_Langages/TPs/TP1/_build/default/.miniML.objs/byte"
-  ; "/mnt/nosave/hmoudden/ENSEEIHT/2A/S8/S\195\169mantique_et_Traduction_des_Langages/TPs/TP1/_build/default/.miniML.objs/native"
+  ; "/mnt/nosave/hmoudden/ENSEEIHT/2A/S8/STDL/TPs/TP1/_build/default/.miniML.objs/byte"
+  ; "/mnt/nosave/hmoudden/ENSEEIHT/2A/S8/STDL/TPs/TP1/_build/default/.miniML.objs/native"
   ];
 UTop_main.main ();

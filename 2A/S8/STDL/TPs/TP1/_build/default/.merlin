@@ -13,5 +13,5 @@ S /applications/opam-2.0.4/default/lib/ppx_inline_test/config
 S /applications/opam-2.0.4/default/lib/ppx_inline_test/runtime-lib
 S /applications/opam-2.0.4/default/lib/sexplib0
 S .
-FLG -ppx '/mnt/nosave/hmoudden/ENSEEIHT/2A/S8/Sémantique_et_Traduction_des_Langages/TPs/TP1/_build/default/.ppx/5ccac8911c4cff291e9b1f2cc80dcb66/ppx.exe --as-ppx --cookie '\''library-name="miniML"'\'''
+FLG -ppx '/mnt/nosave/hmoudden/ENSEEIHT/2A/S8/STDL/TPs/TP1/_build/default/.ppx/5ccac8911c4cff291e9b1f2cc80dcb66/ppx.exe --as-ppx --cookie '\''library-name="miniML"'\'''
 FLG -open MiniML -w -40

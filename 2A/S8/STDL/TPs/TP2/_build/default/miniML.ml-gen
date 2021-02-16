@@ -1,0 +1,17 @@
+(** @canonical MiniML.Ast *)
+module Ast = MiniML__Ast
+
+(** @canonical MiniML.Lexer *)
+module Lexer = MiniML__Lexer
+
+(** @canonical MiniML.Main *)
+module Main = MiniML__Main
+
+(** @canonical MiniML.Parser *)
+module Parser = MiniML__Parser
+
+(** @canonical MiniML.Semantics *)
+module Semantics = MiniML__Semantics
+
+(** @canonical MiniML.Types *)
+module Types = MiniML__Types

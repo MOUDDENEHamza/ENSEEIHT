@@ -1,0 +1,12 @@
+letrec loop = fun fcond -> fun fnext -> fun feval -> fun arg -> fun acc ->
+              if ((fcond) arg) then acc
+              else let iter = ((feval) arg) acc in
+                   let next = (fnext) arg  in
+                   ((((((loop) fcond) fnext) feval) next) iter)
+
+in 
+  let stop = fun x -> (x = 0) in
+  let next = fun x -> (x - 1) in
+  let eval = fun x -> fun y -> x * y in
+  ((((((loop) stop) next) eval) 5) 1)
+   

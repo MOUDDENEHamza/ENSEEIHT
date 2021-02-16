@@ -1,14 +1,5 @@
 # dune runtest
 # OCAMLPARAM: unset
-$ /usr/bin/nproc > /tmp/dune9c95f0.output 2> /dev/null
-$ /applications/opam-2.0.4/default/bin/ocamlfind printconf path > /tmp/dune23b84b.output
-$ /applications/opam-2.0.4/default/bin/ocamlc.opt -config > /tmp/dune38114b.output
-$ (cd _build/default && .miniML.inline-tests/run.exe inline-test-runner miniML -source-tree-root . -diff-cmd -)
-> File "Main.ml", line 38, characters 0-75: <<(main "../../exemples/exemple-06.mml") = (Int[...]>> is false.
->
-> File "Main.ml", line 42, characters 0-75: <<(main "../../exemples/exemple-11.mml") = (Int[...]>> is false.
->
-> File "Main.ml", line 43, characters 0-75: <<(main "../../exemples/exemple-12.mml") = (Int[...]>> is false.
->
-> FAILED 3 / 12 tests
-[2]
+$ /usr/bin/nproc > /tmp/dune5ee876.output 2> /dev/null
+$ /applications/opam-2.0.4/default/bin/ocamlfind printconf path > /tmp/dune0e65f2.output
+$ /applications/opam-2.0.4/default/bin/ocamlc.opt -config > /tmp/duneaae5a0.output

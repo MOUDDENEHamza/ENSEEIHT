@@ -1,0 +1,20 @@
+ TP de sémantique et TDL #2
+ ==========================
+Le but de ce TP est d'introduire dans l'interprete du TP2,
+les aspects impératifs du MiniML (reference, affectation, séquence
+d'instructions) ainsi que le typage des expressions.
+
+A/Dans un premier temps, voir comment la notion de mémoire
+a été rajoutée à la solution fournie du TP précédent. Les règles
+d'inférence sans mémoire sont dans regles-tp1.pdf et avec mémoire 
+dans 'regles-tp2.pdf', et le code Caml dans 'Semantics.ml'. 
+Bien sûr, dans cette version, les aspects impératifs n'ont pas 
+été implantés.
+
+B/Implanter les règles des aspects impératifs en complétant
+le fichier ' Semantics.ml'. Tester.
+
+C/Implanter les règles de typage vues en TD et rappelées dans 
+le  fichier 'regles-typage.pdf', en complétant le
+fichier Types.ml et en décommentant l'appel au typage
+dans le Main.ml
