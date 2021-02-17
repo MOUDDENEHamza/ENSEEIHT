@@ -1,0 +1,11 @@
+1 1 1 abc 10.5 a
+2 1 1 abc 15 a
+3 1 1 abc 4.2 a
+1 1 2 xyz 5 x
+1 2 1 a,b,c,d 18 a
+2 1 2 xyz 10 x
+4 1 1 abc 6.3 a
+5 1 1 abc 1.6 a
+6 1 1 abc 0.8 a
+7 1 1 abc 1.0 a
+3 1 2 xyz 5 x

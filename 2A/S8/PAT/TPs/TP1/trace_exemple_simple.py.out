@@ -1,0 +1,16 @@
+--> fact(3)
+    --> fact(2)
+        --> fact(1)
+        <-- 1
+    <-- 2
+<-- 6
+fact(3) = 6
+--> est_pair(3)
+    --> est_impair(2)
+        --> est_pair(1)
+            --> est_impair(0)
+            <-- False
+        <-- False
+    <-- False
+<-- False
+3 est impair
