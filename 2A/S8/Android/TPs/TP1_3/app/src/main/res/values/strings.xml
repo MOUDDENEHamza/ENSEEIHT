@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Web Browser</string>
+    <string name="go">GO !</string>
+    <string name="http_www_enseeiht_fr">http://www.enseeiht.fr</string>
+</resources>
