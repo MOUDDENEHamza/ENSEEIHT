@@ -372,11 +372,11 @@ and
 (* .............................................................................*)
 
 ruleSequence left right mem env =
-let (leftvalue, leftmem) =  (value_of_expr (left,mem) env) in
-  match leftvalue with
-  | (ErrorValue _) as result -> (result, leftmem)
-  | NullValue -> (value_of_expr (right, leftmem) env)
-  | _ -> ((ErrorValue TypeMismatchError), leftmem)
+  let (leftvalue, leftmem) =  (value_of_expr (left,mem) env) in
+    match leftvalue with
+    | (ErrorValue _) as result -> (result, leftmem)
+    | NullValue -> (value_of_expr (right, leftmem) env)
+    | _ -> ((ErrorValue TypeMismatchError), leftmem)
 
 and
 (* .............................................................................*)

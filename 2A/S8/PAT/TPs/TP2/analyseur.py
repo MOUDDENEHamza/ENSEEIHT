@@ -1,5 +1,7 @@
 # coding: utf-8
 # vim: set noexpandtab sw=4 ts=4:
+import sys
+import csv
 
 class Analyseur:
 	'''
@@ -9,15 +11,20 @@ class Analyseur:
 	def __init__(self):
 		self.__cumuls = {}
 
-	def charger(self):
-		with open('donnees.txt', 'r') as entree:
+	def charger(self, filename):
+		with open(filename, 'r') as entree:
 			for ligne in entree:
-				mots = ligne.split()
-				assert len(mots) == 4
+				if ".csv" in filename:
+					mots = list(csv.reader(entree))
+				else:
+					mots = ligne.split()
 				x = int(mots[0])
 				y = int(mots[1])
 				p = (x, y)
-				v = float(mots[-1])
+				if "-f2.txt" in filename or "-f2.csv" in filename:
+					v = float(mots[4])
+				else:
+					v = float(mots[-1])
 				self.__cumuls[p] = self.cumul(p) + v
 
 	def cumul(self, position):
@@ -36,10 +43,14 @@ class Analyseur:
 
 def main():
 	a = Analyseur()
-	a.charger()
+	for i in range(1, len(sys.argv)):
+		a.charger(sys.argv[i])
 	print('Statistiques :', a)
 	print('Cumuls :', a.cumuls)
 	print('Nombre de positions :', len(a.cumuls))
 
 if __name__ == '__main__':
+	if (len(sys.argv) == 1):
+		print("Usage: pyhton3 analyseur.py filename..*")
+		exit(1)
 	main()

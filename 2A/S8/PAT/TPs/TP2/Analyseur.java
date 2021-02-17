@@ -26,7 +26,12 @@ public class Analyseur {
 			String ligne = null;
 			Map<Position, Double> tmp = new HashMap<>();
 			while ((ligne = in.readLine()) != null) {
-				String[] mots = ligne.split("\\s+");
+				String[] mots;
+				if (filename.contains("csv")) {
+					mots = ligne.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+				} else {
+					mots = ligne.split("\\s+");
+				}
 				assert mots.length == 4;	// 4 mots sur chaque ligne
 				int x = Integer.parseInt(mots[0]);
 				int y = Integer.parseInt(mots[1]);
@@ -36,7 +41,7 @@ public class Analyseur {
 				}
 				Position p = new Position(x, y);
 				double valeur;
-				if (filename.contains("-f2.txt")) {
+				if (filename.contains("-f2.txt") || filename.contains("-f2.csv")) {
 					valeur = Double.parseDouble(mots[4]);
 				} else {
 					valeur = Double.parseDouble(mots[3]);
@@ -63,7 +68,7 @@ public class Analyseur {
 
 	/** Affichier les donnÃ©es. */
 	public static void main(String[] args) {
-		try {
+		try { 
 			int i;
 			Analyseur a = new Analyseur();
 			if (args.length == 0) {
