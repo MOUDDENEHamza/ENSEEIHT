@@ -1,0 +1,62 @@
+% Le problème des missionnaires et des cannibales
+
+Objectif
+---------
+*Modéliser le problème des missionnaires et des cannibales*
+
+Trois missionnaires et trois cannibales sont sur la rive gauche d'un fleuve. 
+Ils disposent d'une barque qui peut transporter deux personnes (rameur
+inclus). Si les cannibales se retrouvent en majorité absolue sur une rive,
+ils mangent les missionnaires présents sur cette rive. Les six peuvent-ils
+traverser le fleuve en sécurité (pour les missionnaires) ?
+
+Questions supplémentaires:
+
+- Quatre missionnaires et trois cannibales ?
+- Quatre missionnaires et quatre cannibales ?
+- Quatre missionnaires, quatre cannibales et barque de capacité 3 ?
+- Nouvelle transition : si tous les missionnaires sont sur la même rive avec un unique cannibale, ils peuvent jeter le cannibale aux crocodiles.
+
+Sont fournis comme inspiration : deux versions du problème de « l'homme, le
+loup, le mouton et le chou ».
+
+Attention : une solution au problème des cannibales et missionnaires est en
+exemple dans la toolbox. Elle est bien plus compliquée que ce que l'on vous
+demande pour le moment, ce n'est pas (encore) une bonne source
+d'inspiration.
+
+Mise en œuvre avec TLA Toolbox
+------------------------------
+
+Pour lancer TLA toolbox :
+
+* se placer dans un nouveau répertoire (un sous-répertoire `workspace` y
+  apparaîtra) et exécuter :
+
+    /mnt/n7fs/tla/toolbox/toolbox
+
+* `File` > `Open spec` pour éditer une spécification TLA+.
+
+* `TLC Model Checker` pour exécuter le vérificateur de modèle.
+  - Temporal Formula doit être la formule complète de la spécification à étudier;
+  - Ajouter dans `Invariants` des prédicats d'états P pour lesquels on veut vérifier []P ;
+  - Ajouter dans `Properties` des formules en logique temporelle ([]P, <>P, etc).
+
+* Visualisation du graphe des exécutions : `Model Overview` > `Additional TLC Options` (en bas à droite, invisible !) > `Features` > `Visualize state graph`
+  (attention, que pour des petits graphes !)
+
+Outils en ligne de commande
+---------------------------
+
+Pour exécuter le vérificateur de modèle (« model checker »), il faut un
+fichier `.cfg` du même nom que le module à vérifier (cf les exemples) et
+faire :
+
+     java -classpath /mnt/n7fs/tla/tla2tools.jar tlc2.TLC hlmc
+
+Pour obtenir une jolie version imprimable :
+
+     java -classpath /mnt/n7fs/tla/tla2tools.jar tla2tex.TLA -latexCommand pdflatex -shade hlmc.tla
+
+qui engendre un fichier `hlmc.pdf`.
+

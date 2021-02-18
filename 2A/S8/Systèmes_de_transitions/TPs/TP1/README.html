@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Le problème des missionnaires et des cannibales</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Le problème des missionnaires et des cannibales</h1>
+</header>
+<h2 id="objectif">Objectif</h2>
+<p><em>Modéliser le problème des missionnaires et des cannibales</em></p>
+<p>Trois missionnaires et trois cannibales sont sur la rive gauche d’un fleuve. Ils disposent d’une barque qui peut transporter deux personnes (rameur inclus). Si les cannibales se retrouvent en majorité absolue sur une rive, ils mangent les missionnaires présents sur cette rive. Les six peuvent-ils traverser le fleuve en sécurité (pour les missionnaires) ?</p>
+<p>Questions supplémentaires:</p>
+<ul>
+<li>Quatre missionnaires et trois cannibales ?</li>
+<li>Quatre missionnaires et quatre cannibales ?</li>
+<li>Quatre missionnaires, quatre cannibales et barque de capacité 3 ?</li>
+<li>Nouvelle transition : si tous les missionnaires sont sur la même rive avec un unique cannibale, ils peuvent jeter le cannibale aux crocodiles.</li>
+</ul>
+<p>Sont fournis comme inspiration : deux versions du problème de « l’homme, le loup, le mouton et le chou ».</p>
+<p>Attention : une solution au problème des cannibales et missionnaires est en exemple dans la toolbox. Elle est bien plus compliquée que ce que l’on vous demande pour le moment, ce n’est pas (encore) une bonne source d’inspiration.</p>
+<h2 id="mise-en-œuvre-avec-tla-toolbox">Mise en œuvre avec TLA Toolbox</h2>
+<p>Pour lancer TLA toolbox :</p>
+<ul>
+<li><p>se placer dans un nouveau répertoire (un sous-répertoire <code>workspace</code> y apparaîtra) et exécuter :</p>
+<p>/mnt/n7fs/tla/toolbox/toolbox</p></li>
+<li><p><code>File</code> &gt; <code>Open spec</code> pour éditer une spécification TLA+.</p></li>
+<li><code>TLC Model Checker</code> pour exécuter le vérificateur de modèle.
+<ul>
+<li>Temporal Formula doit être la formule complète de la spécification à étudier;</li>
+<li>Ajouter dans <code>Invariants</code> des prédicats d’états P pour lesquels on veut vérifier []P ;</li>
+<li>Ajouter dans <code>Properties</code> des formules en logique temporelle ([]P, &lt;&gt;P, etc).</li>
+</ul></li>
+<li><p>Visualisation du graphe des exécutions : <code>Model Overview</code> &gt; <code>Additional TLC Options</code> (en bas à droite, invisible !) &gt; <code>Features</code> &gt; <code>Visualize state graph</code> (attention, que pour des petits graphes !)</p></li>
+</ul>
+<h2 id="outils-en-ligne-de-commande">Outils en ligne de commande</h2>
+<p>Pour exécuter le vérificateur de modèle (« model checker »), il faut un fichier <code>.cfg</code> du même nom que le module à vérifier (cf les exemples) et faire :</p>
+<pre><code> java -classpath /mnt/n7fs/tla/tla2tools.jar tlc2.TLC hlmc</code></pre>
+<p>Pour obtenir une jolie version imprimable :</p>
+<pre><code> java -classpath /mnt/n7fs/tla/tla2tools.jar tla2tex.TLA -latexCommand pdflatex -shade hlmc.tla</code></pre>
+<p>qui engendre un fichier <code>hlmc.pdf</code>.</p>
+</body>
+</html>
