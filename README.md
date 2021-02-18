@@ -10,18 +10,17 @@
 
 ## About
 
-<p>Student projet during my schooling at ENSEEIHT engineer school.</p>
-
-## Questions?
-
-If you have any question, you can contact me on Gmail: hz.mouddene@gmail.com
-
+<p>Student projects during my schooling at ENSEEIHT engineer school.</p>
 To download this repository on your own machine, open a terminal on **Linux** and type
 the command :
         
         git clone https://github.com/MOUDDENEHamza/ENSEEIHT.git
 
 Then you can surf on the repository as you want.
+
+## Questions?
+
+If you have any question, you can contact me on Gmail: hz.mouddene@gmail.com
 
 ## License
 
