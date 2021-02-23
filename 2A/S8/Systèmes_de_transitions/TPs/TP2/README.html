@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>L’exclusion avec jeton circulant</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">L’exclusion avec jeton circulant</h1>
+</header>
+<p><em>Objectif : étudier en détail le jeton circulant</em></p>
+<p>Inspiration : une solution partielle de l’exclusion mutuelle à base d’un jeton circulant, vu en TD. Il s’agit d’une solution basique qui assure l’exclusion mutuelle mais n’assure ni la vivacité de la circulation du jeton, ni la vivacité d’obtention de l’accès exclusif.</p>
+<ol type="1">
+<li>Énoncer les propriétés attendues pour le protocole : <code>ExclMutuelle</code>, <code>VivaciteIndividuelle</code>, <code>VivaciteGlobale</code> ; pour le jeton : <code>JetonVaPartout</code>; pour le lien jeton-protocole : <code>Sanity</code>.</li>
+<li>Avec quelles contraintes d’équité <em>forte</em> est-il possible de vérifier <code>VivaciteIndividuelle</code> ?</li>
+<li>Donner une solution qui ne nécessite que de l’équité <em>faible</em>.</li>
+<li>Scinder la variable entière <code>jeton</code> en un tableau de N booléens. Le déplacement du jeton est encore atomique. Énoncer soigneusement les propriétés attendues pour le jeton (par exemple l’unicité).</li>
+<li>Démontrer que cette version est un raffinage de la version précédente. En particulier, énoncer proprement le mapping entre les variables des deux modules.</li>
+<li>Rendre non atomique le déplacement du jeton : on introduit un canal de communication entre chaque couple de sites <code>i</code> et <code>i+1</code>. La précédent action de transmission devient deux actions : une action d’envoi du jeton (ajout dans le canal) et une action de réception du jeton (extraction du canal).<br />
+Pour représenter un canal, un modèle simple est la séquence de booléens.<br />
+Bien penser à spécifier les propriétés attendues (par exemple : au plus un canal non vide).</li>
+<li>Démontrer que cette version est un raffinage de la version précédente. On prendra soin au mapping.</li>
+</ol>
+<hr />
+</body>
+</html>
