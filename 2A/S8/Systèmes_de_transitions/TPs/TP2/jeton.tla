@@ -23,14 +23,20 @@ TypeInvariant ==
    [] (/\ etat \in [ Processus -> {Hungry,Thinking,Eating} ]
        /\ jeton \in Processus)
 
-ExclMutuelle == TRUE
+ExclMutuelle == 
+  [] (\A i,j \in Processus : etat[i] = Eating /\ etat[j] = Eating => i = j)
 
-VivaciteIndividuelle == TRUE
+VivaciteIndividuelle ==
+  [] (\A i \in Processus : etat[i] = Hungry ~> etat[i] = Eating)
 
-VivaciteGlobale == TRUE
+VivaciteGlobale == 
+  [] (\A i \in Processus : etat[i] = Eating ~> etat[i] = Thinking)
 
-JetonVaPartout == TRUE
+JetonVaPartout == 
+  [] (\A i \in Processus : TRUE ~> jeton = i)
 
+Sanity ==
+  [] (\A i \in Processus : etat[i] = Eating => jeton = i)
 Sanity ==
   [] (\A i \in Processus : etat[i] = Eating => jeton = i)
 
