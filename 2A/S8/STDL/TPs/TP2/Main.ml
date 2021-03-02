@@ -41,6 +41,7 @@ let main fichier =
       exit 2
 
 let getValeur (_,v,_) = v
+let getType (t,_,_) = t
 
 (* Tests de non regression *)
 let%test _ = ( getValeur (main "../../exemples/exemple-00.mml") = (IntegerValue 3) )
@@ -56,3 +57,5 @@ let%test _ = ( getValeur (main "../../exemples/exemple-09.mml") = (FrozenValue (
 let%test _ = ( getValeur (main "../../exemples/exemple-11.mml") = (IntegerValue 120) )
 let%test _ = ( getValeur (main "../../exemples/exemple-12.mml") = (IntegerValue 120) )
 let%test _ = ( getValeur (main "../../exemples/exemple-13.mml") = (ErrorValue TypeMismatchError) );;
+let%test _ = ( getValeur (main "../../exemples/exemple-00.mml") = (IntegerValue 3) )
+let%test _ = ( getType (main "../../exemples/exemple-00.mml") = IntegerType )
