@@ -6,13 +6,3 @@
 
 # Ignore .o files
 *.o
-
-# jupyter notebook files
-*.ipynb
-
-# Ignore SHS's S7 folder
-2A/S7/spanish
-
-# Ignore PDR src
-2A/S7/PDF/src/hdfs
-2A/S7/PDF/src/ordo
