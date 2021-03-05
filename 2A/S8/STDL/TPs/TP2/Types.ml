@@ -1,5 +1,6 @@
 open Ast
 open Semantics
+open Format
 
 let debug = ref false;
 
@@ -241,11 +242,11 @@ let rec type_of_expr expr env =
     (* ..................................................................*)
     ruleUnary op expr env =
     (match op with
-     | Negation ->
+     | Opposite ->
         let texpr = (type_of_expr expr env) in
         let ute,ure = unify texpr BooleanType in
         (if (ure) then BooleanType else ErrorType)
-     | Opposite ->
+     | Negation ->
         let texpr = (type_of_expr expr env) in
         let ute,ure = unify texpr IntegerType in
         (if (ure) then IntegerType else ErrorType)
@@ -319,9 +320,9 @@ let rec type_of_expr expr env =
     ruleLetrec ident bvalue bin env =
     let typevar = newVariable () in
     let typeident = (type_of_expr bvalue ((ident,typevar)::env)) in
-    let ut,ur = unify typevar typeident in
+    let ut, ur = unify typevar typeident in
     (if (ur) then 
-       (type_of_expr bin ((ident,typeident)::env))
+       (type_of_expr bin ((ident, typeident)::env))
      else 
        ErrorType)
 
