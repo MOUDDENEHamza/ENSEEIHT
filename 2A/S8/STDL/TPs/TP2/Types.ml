@@ -241,17 +241,16 @@ let rec type_of_expr expr env =
   and
     (* ..................................................................*)
     ruleUnary op expr env =
-    (match op with
-     | Opposite ->
-        let texpr = (type_of_expr expr env) in
-        let ute,ure = unify texpr BooleanType in
-        (if (ure) then BooleanType else ErrorType)
-     | Negation ->
-        let texpr = (type_of_expr expr env) in
-        let ute,ure = unify texpr IntegerType in
-        (if (ure) then IntegerType else ErrorType)
-    (* | _ -> ErrorType *)
-    )
+      (match op with
+      | Opposite ->
+          let texpr = (type_of_expr expr env) in
+            let ute,ure = unify texpr BooleanType in
+              (if (ure) then BooleanType else ErrorType)
+      | Negation ->
+          let texpr = (type_of_expr expr env) in
+            let ute,ure = unify texpr IntegerType in
+              (if (ure) then IntegerType else ErrorType)
+      )
 
   and
     (* ..................................................................*)
@@ -267,64 +266,60 @@ let rec type_of_expr expr env =
         let utl,url = unify tleft IntegerType in
         let utr,urr = unify tright IntegerType in
         (if (url && urr) then IntegerType else ErrorType)
-     | (Or | And) ->
+      | (Or | And) ->
         let utl,url = unify tleft BooleanType in
         let utr,urr = unify tright BooleanType in
         (if (url && urr) then BooleanType else ErrorType)
-    (*
-    | _ -> ErrorType)
-     *)
     )
 
   and
     (* ..................................................................*)
     ruleLet ident bvalue bin env =
-    let typeident = (type_of_expr bvalue env) in
-    (*    (print_endline ((string_of_ast bvalue) ^ " -> " ^ (string_of_type typeident)));
-    (print_endline ((string_of_ast bin))); *)
-    (type_of_expr bin ((ident,typeident)::env)) 
-
+      let typeident = (type_of_expr bvalue env) in
+        (type_of_expr bin ((ident,typeident)::env))  
+    
   and
     (* ..................................................................*)
     ruleIf cond ethen eelse env =
-    let tcond = (type_of_expr cond env) in
-    let tthen = (type_of_expr ethen env) in
-    let telse = (type_of_expr eelse env) in
-    let utc,urc = unify tcond BooleanType in
-    let ut,ur = unify tthen telse in
-    (if (urc && ur) then ut else ErrorType)
+      let tcond = (type_of_expr cond env) in
+        let tthen = (type_of_expr ethen env) in
+          let telse = (type_of_expr eelse env) in
+            let utc,urc = unify tcond BooleanType in
+              let ut,ur = unify tthen telse in
+                (if (urc && ur) then ut else ErrorType)
 
   and
     (* ..................................................................*)
     ruleFunction par body env =
-    let tpar = newVariable () in
-    (FunctionType (tpar, type_of_expr body ((par, tpar)::env)))
+      let tpar = newVariable () in
+        (FunctionType (tpar, type_of_expr body ((par, tpar)::env)))
 
   and 
     (* ..................................................................*)
     ruleCall fct par env =
-      let tfct = (type_of_expr fct env) in
-        let tpar = (type_of_expr par env) in
-          (match tfct with
-          | FunctionType (tpara, tbody) ->
-            let ut, ur = unify tpar tpara in
-              if ur then
-                tbody
-              else 
-                ErrorType
-          | _ -> ErrorType  
-          )
+      let typefct = (type_of_expr fct env) in
+        let typepar = (type_of_expr par env) in
+          let typeparvar = newVariable () in
+            let typeresvar = newVariable () in
+              let (utf, urf) = (unify typefct (FunctionType(typeparvar, typeresvar))) in
+                let (utp, urp) = (unify typepar typeresvar) in
+                  (if (urf && urp) then
+                    typeresvar
+                  else
+                    ErrorType
+                  )
 
   and
     (* ..................................................................*)
     ruleLetrec ident bvalue bin env =
-    let typevar = newVariable () in
-    let typeident = (type_of_expr bvalue ((ident,typevar)::env)) in
-    let ut, ur = unify typevar typeident in
-    (if (ur) then 
-       (type_of_expr bin ((ident, typeident)::env))
-     else 
-       ErrorType)
+      let typevar = newVariable () in
+        let typeident = (type_of_expr bvalue ((ident,typevar)::env)) in
+          let ut, ur = unify typevar typeident in
+            (if (ur) then 
+              (type_of_expr bin ((ident, typeident)::env))
+            else
+              ErrorType
+            )
 
   and
     (* ..................................................................*)
@@ -334,15 +329,21 @@ let rec type_of_expr expr env =
     (* ..................................................................*)
     ruleRef expr env =
       let texpr = (type_of_expr expr env) in
-        (ReferenceType (texpr))
+        match texpr with
+        |(ErrorType | UnknownType) ->
+          ErrorType
+        |_ ->
+          ReferenceType(texpr) 
 
   and
     (* ..................................................................*)
     ruleRead expr env =
       let texpr = (type_of_expr expr env) in
         (match texpr with
-        | ReferenceType (texpr) -> texpr
-        | _ -> ErrorType
+        | ReferenceType (texpr) ->
+          texpr
+        | _ ->
+          ErrorType
         )
 
   and
@@ -350,12 +351,15 @@ let rec type_of_expr expr env =
     ruleWrite left right env =
       let tleft = (type_of_expr left env) in
         let tright = (type_of_expr right env) in  
-          let ut, ur = unify tleft (ReferenceType (tright)) in
-            if ur then
-              tright
-            else
-              ErrorType
-
+          match tleft with 
+          | ReferenceType(typee) -> 
+            let(s, t)= unify typee tright in 
+              if t then 
+                UnitType 
+              else 
+                ErrorType 
+          |_-> ErrorType
+          
   and
     (* ..................................................................*)
     ruleSequence left right env =
