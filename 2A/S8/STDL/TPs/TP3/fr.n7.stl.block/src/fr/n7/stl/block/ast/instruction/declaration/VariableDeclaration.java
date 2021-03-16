@@ -103,7 +103,8 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in VariableDeclaration.");
+		boolean _value = this.value.collectAndBackwardResolve(_scope);
+		return _value;
 	}
 
 	/* (non-Javadoc)
@@ -111,7 +112,8 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in VariableDeclaration.");
+		boolean _value = this.value.fullResolve(_scope);
+		return _value;
 	}
 
 	/* (non-Javadoc)

@@ -366,6 +366,14 @@ Instruction ::= Declaration:declaration
 				{: 
 					RESULT = new Conditional( condition, alors, sinon); 
 				:}
+			| UL_Si UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Bloc:alors 
+				{: 
+					RESULT = new Conditional( condition, alors, null); 
+				:}
+			| UL_Tant_Que UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Bloc:corps 
+				{: 
+					RESULT = new Repetition( condition, corps); 
+				:}
 			| UL_Retour Expression:expression UL_Point_Virgule
 				{:
 					RESULT = new Return( expression);

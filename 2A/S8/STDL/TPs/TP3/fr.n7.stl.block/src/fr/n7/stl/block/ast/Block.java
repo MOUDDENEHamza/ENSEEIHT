@@ -57,7 +57,11 @@ public class Block {
 	 * allowed.
 	 */
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect is undefined in Block.");
+		boolean _result = true;
+		for (int i = 0; i < this.instructions.size(); i++) {
+			_result = _result && this.instructions.get(i).collectAndBackwardResolve(_scope);
+		}
+		return _result;
 	}
 	
 	/**
@@ -68,7 +72,11 @@ public class Block {
 	 * block have been previously defined.
 	 */
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve is undefined in Block.");
+		boolean _result = true;
+		for (int i = 0; i < this.instructions.size(); i++) {
+			_result = _result && this.instructions.get(i).fullResolve(_scope);
+		}
+		return _result;
 	}
 
 	/**
