@@ -1,0 +1,25 @@
+<div>
+
+  <h1>Add address</h1>
+
+  <form [formGroup]="address" class="example-form">
+
+    <br>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Street</mat-label>
+      <input matInput placeholder="3 rue Camichel" formControlName="street">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>City</mat-label>
+      <input matInput placeholder="Toulouse" formControlName="city">
+    </mat-form-field>
+  </form>
+
+  <br>
+
+  <button mat-raised-button color="primary" [disabled]="this.address.invalid">Add</button>
+</div>

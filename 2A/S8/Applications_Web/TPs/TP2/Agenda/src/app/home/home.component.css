@@ -1,0 +1,25 @@
+h1 {
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 56px;
+  margin: 50px;
+  text-align: center;
+}
+
+mat-grid-list {
+  margin: auto;
+}
+
+button {
+  height: 100px;
+  width: 200px;
+  background: #ffffff;
+  text-align: center;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 28px;
+  margin: 15px 0 25px;
+}
