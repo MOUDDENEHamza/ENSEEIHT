@@ -21,7 +21,7 @@ export class AddAddressComponent implements OnInit {
   }
 
   onSubmit() {
-    const url = 'http://localhost:8080/Agenda/op=';
+    const url = 'http://localhost:8080/Agenda/Serv?op=';
     this.http.get(url + 'AddAddress?street=' + this.address.get('street').value
     + "&city=" + this.address.get('city').value).subscribe(
       response => {

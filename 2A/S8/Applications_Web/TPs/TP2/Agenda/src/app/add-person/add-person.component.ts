@@ -21,7 +21,7 @@ export class AddPersonComponent implements OnInit {
   }
 
   onSubmit() {
-    const url = 'http://localhost:8080/Agenda/op=';
+    const url = 'http://dagobah.enseeiht.fr:8080/Agenda/Serv?op=';
     this.http.get(url + 'AddPerson?firstName=' + this.person.get('firstName').value
     + "&lastName=" + this.person.get('lastName').value).subscribe(
       response => {
