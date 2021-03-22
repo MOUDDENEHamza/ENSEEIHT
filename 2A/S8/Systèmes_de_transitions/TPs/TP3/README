@@ -1,0 +1,31 @@
+% Le problème des philosophes
+
+*Objectif : étudier le problème des philosophes*
+
+Rappel : les philosophes sont organisés circulairement autour d'une
+table. Entre chaque assiette se trouve une fourchette. Un philosophe peut
+manger quand il a les deux fourchettes adjacentes à son assiette. En
+s'abstrayant des fourchettes, il est équivalent de dire que deux philosophes
+voisins ne peuvent jamais manger simultanément.
+
+1. Modélisation abstraite (sans les fourchettes) -- squelette fourni --
+   - quelles sont les variables d'états nécessaires ?
+   - quelle est la spécification, ie quelles sont les propriétés temporelles
+     attendues (invariant, leadsto, etc) ?
+   - écrire une modélisation (un "programme") correspondant à l'énoncé.
+   - quelles sont les contraintes d'équité nécessaires (WF et SF) ?
+   - vérifier que votre programme valide/invalide les propriétés attendues.
+2. Introduire les fourchettes, sans se préoccuper de la manière dont sont
+   prises les fourchettes (ordre de prise).
+   - quelles sont les variables d'état supplémentaires ?
+   - y a-t-il de nouvelles propriétés temporelles ? (au moins celles liant
+     les nouvelles variables d'états aux anciennes).
+   - montrer alors la possibilité d'interblocage.
+3. Introduire un ordre sur la prise des fourchettes, de manière à éviter
+   l'interblocage.  
+   Quelles sont les contraintes d'équité nécessaires pour obtenir les
+   propriétés de vivacité attendues ?
+4. Trouver une solution qui ne nécessite que de l'équité faible.
+
+****************************************************************
+

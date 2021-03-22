@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Le problème des philosophes</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">Le problème des philosophes</h1>
+</header>
+<p><em>Objectif : étudier le problème des philosophes</em></p>
+<p>Rappel : les philosophes sont organisés circulairement autour d’une table. Entre chaque assiette se trouve une fourchette. Un philosophe peut manger quand il a les deux fourchettes adjacentes à son assiette. En s’abstrayant des fourchettes, il est équivalent de dire que deux philosophes voisins ne peuvent jamais manger simultanément.</p>
+<ol type="1">
+<li>Modélisation abstraite (sans les fourchettes) – squelette fourni –
+<ul>
+<li>quelles sont les variables d’états nécessaires ?</li>
+<li>quelle est la spécification, ie quelles sont les propriétés temporelles attendues (invariant, leadsto, etc) ?</li>
+<li>écrire une modélisation (un “programme”) correspondant à l’énoncé.</li>
+<li>quelles sont les contraintes d’équité nécessaires (WF et SF) ?</li>
+<li>vérifier que votre programme valide/invalide les propriétés attendues.</li>
+</ul></li>
+<li>Introduire les fourchettes, sans se préoccuper de la manière dont sont prises les fourchettes (ordre de prise).
+<ul>
+<li>quelles sont les variables d’état supplémentaires ?</li>
+<li>y a-t-il de nouvelles propriétés temporelles ? (au moins celles liant les nouvelles variables d’états aux anciennes).</li>
+<li>montrer alors la possibilité d’interblocage.</li>
+</ul></li>
+<li>Introduire un ordre sur la prise des fourchettes, de manière à éviter l’interblocage.<br />
+Quelles sont les contraintes d’équité nécessaires pour obtenir les propriétés de vivacité attendues ?</li>
+<li>Trouver une solution qui ne nécessite que de l’équité faible.</li>
+</ol>
+<hr />
+</body>
+</html>
