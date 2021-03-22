@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="125dp" />
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="125dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="236dp" />
+
+            <Button
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play"
+                tools:layout_editor_absoluteX="215dp"
+                tools:layout_editor_absoluteY="236dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/playFromStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/playFromStart"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="236dp" />
+
+            <Button
+                android:id="@+id/PauseOrResume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PauseOrResume"
+                tools:layout_editor_absoluteX="215dp"
+                tools:layout_editor_absoluteY="236dp" />
+
+        </LinearLayout>
+
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            android:layout_width="391dp"
+            android:layout_height="17dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

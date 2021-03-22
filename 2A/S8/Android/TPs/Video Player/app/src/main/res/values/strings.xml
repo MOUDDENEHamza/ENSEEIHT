@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Video Player</string>
+    <string name="label">URI :  </string>
+    <string name="select">Select from gallery</string>
+    <string name="play">Intent Play</string>
+    <string name="playFromStart">Play from start</string>
+    <string name="PauseOrResume">Pause / Resume</string>
+</resources>
