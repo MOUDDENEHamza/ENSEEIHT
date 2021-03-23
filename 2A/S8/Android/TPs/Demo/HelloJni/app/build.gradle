@@ -1,0 +1,37 @@
+apply plugin: 'com.android.model.application'
+
+model {
+    android
+            {
+                compileSdkVersion = 22
+                buildToolsVersion = "22.0.1"
+
+                defaultConfig.with
+                        {
+                            applicationId = "com.example.hellojni"
+                            minSdkVersion.apiLevel = 15
+                            targetSdkVersion.apiLevel = 23
+                            versionCode = 1
+                            versionName = "1.0"
+                        }
+            }
+    android.buildTypes
+            {
+                release
+                        {
+                            minifyEnabled = false
+                            proguardFiles.add(file('proguard-rules.txt'))
+                        }
+            }
+    android.ndk
+            {
+                moduleName = "hello-jni"
+                /*
+                 * Other ndk flags configurable here are
+                 * cppFlags.add("-fno-rtti")
+                 * cppFlags.add("-fno-exceptions")
+                 * ldLibs.addAll(["android", "log"])
+                 * stl       = "system"
+                 */
+            }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/sgaspari/dev/tools/android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/Users/sgaspari/AndroidstudioProjects/CameraIntentWithResult2/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0_9659e16a0962db5c33bdbe1ee497007aaf1d76c2.jar" />
+    </item>
+    <item
+        jar="/Users/sgaspari/AndroidstudioProjects/CameraIntentWithResult2/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/Users/sgaspari/AndroidstudioProjects/CameraIntentWithResult2/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-19.1.0_3565b6dbb30a4ba80b1a80e5f369b5c156c70bc1.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HelloEnseeiht</string>
+    <string name="hello_world">Hola ENSEEIHT</string>
+    <string name="buttonNoTouch">No tocar</string>
+</resources>

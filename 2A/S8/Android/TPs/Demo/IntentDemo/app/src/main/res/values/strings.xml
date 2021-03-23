@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Intent Demo</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="simplestart">Start Act2</string>
+    <string name="resultstart">Start Act2 Res</string>
+    <string name="resultlabel">Result:</string>
+    <string name="title_activity_second">Planet Chooser</string>
+    <string name="choicetext">Choice made:</string>
+    <string name="choicemadedef">No choice made yet!</string>
+    <string name="elem1">Elem 1</string>
+    <string name="elem2">Elem. 2</string>
+    
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+</resources>

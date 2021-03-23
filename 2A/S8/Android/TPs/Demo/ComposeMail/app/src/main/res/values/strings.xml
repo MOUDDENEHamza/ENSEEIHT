@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ComposeMail</string>
+    <string name="buttoncompose">Compose mail</string>
+    <string name="AddressLabel">Address</string>
+    <string name="AddressHint">someone@server.com</string>
+
+</resources>

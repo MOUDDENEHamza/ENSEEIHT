@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android1:columnCount="3"
+    android1:rowCount="2" >
+
+    <Button
+        android1:id="@+id/button1"
+        android1:layout_column="0"
+        android1:layout_gravity="left|top"
+        android1:layout_row="0"
+        android1:text="Button 1" />
+
+    <Button
+        android:id="@+id/button2"
+        android1:layout_column="2"
+        android1:layout_gravity="left|top"
+        android1:layout_row="0"
+        android1:text="Button two" />
+
+    <Button
+        android1:id="@+id/button4"
+        android1:layout_column="0"
+        android1:layout_gravity="left|top"
+        android1:layout_row="1"
+        android1:text="Button four" />
+
+    <Button
+        android1:id="@+id/button5"
+        android1:layout_column="2"
+        android1:layout_gravity="left|top"
+        android1:layout_row="1"
+        android1:text="Button 5" />
+
+    <Button
+        android1:id="@+id/button3"
+        android1:layout_column="2"
+        android1:layout_gravity="right|top"
+        android1:layout_row="0"
+        android1:text="Button 3" />
+
+    <Button
+        android1:id="@+id/button6"
+        android1:layout_column="2"
+        android1:layout_gravity="right|top"
+        android1:layout_row="1"
+        android1:text="Button six" />
+
+</GridLayout>
