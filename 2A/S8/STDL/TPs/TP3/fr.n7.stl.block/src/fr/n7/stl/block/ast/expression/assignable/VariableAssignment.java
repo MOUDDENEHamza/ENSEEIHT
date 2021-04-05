@@ -63,7 +63,7 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in VariableAssignment.");
+		return this.declaration.getType();
 	}
 
 	/* (non-Javadoc)

@@ -124,6 +124,12 @@ Program ::= UL_Identificateur:nom Bloc:bloc
 				} else {
 					System.out.println("Collect failed : " + tds);
 				}
+
+				if (bloc.checkType()) {
+					System.out.println("Check type succeeded.");
+				} else {
+					System.out.println("Check type failed.");
+				}
 			:}
 		;
 

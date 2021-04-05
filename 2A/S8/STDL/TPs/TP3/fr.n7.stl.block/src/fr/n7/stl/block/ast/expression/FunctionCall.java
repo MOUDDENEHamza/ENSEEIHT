@@ -13,6 +13,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a function call expression.
@@ -53,7 +54,9 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public String toString() {
-		String _result = ((this.function == null)?this.name:this.function) + "( ";
+		// condition?exprThen:exprElse
+		// String _result = ((this.function == null)?this.name:this.function) + "( ";
+		String _result = this.name + "( ";
 		Iterator<Expression> _iter = this.arguments.iterator();
 		if (_iter.hasNext()) {
 			_result += _iter.next();
@@ -69,7 +72,20 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionCall.");
+		//throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionCall.");
+		Declaration d = _scope.get(this.name);
+		boolean result = true;
+		if (d instanceof FunctionDeclaration) {
+			this.function = (FunctionDeclaration) d;
+			result = (this.arguments.size() == function.getParameters().size());
+			for (Expression exp : this.arguments) {
+				result = result && exp.collectAndBackwardResolve(_scope);
+			}
+			return result;
+		} else {
+			Logger.error("The function identifier " + this.name + " is not defined.");
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +93,20 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionCall.");
+		//throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionCall.");
+		Declaration d = _scope.get(this.name);
+		boolean result = true;
+		if (d instanceof FunctionDeclaration) {
+			this.function = (FunctionDeclaration) d;
+			result = (this.arguments.size() == function.getParameters().size());
+			for (Expression exp : this.arguments) {
+				result = result && exp.fullResolve(_scope);
+			}
+			return result;
+		} else {
+			Logger.error("The function identifier " + this.name + " is not defined.");
+			return false;
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -85,7 +114,8 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in FunctionCall.");
+		//throw new SemanticsUndefinedException( "Semantics getType is undefined in FunctionCall.");
+		return this.function.getType();
 	}
 
 	/* (non-Javadoc)

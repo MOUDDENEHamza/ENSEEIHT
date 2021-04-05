@@ -84,7 +84,11 @@ public class Block {
 	 * @return Synthesized True if the instruction is well typed, False if not.
 	 */	
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType is undefined in Block.");
+		boolean _result = true;
+		for (int i = 0; i < this.instructions.size(); i++) {
+			_result = _result && this.instructions.get(i).checkType();
+		}
+		return _result;
 	}
 
 	/**

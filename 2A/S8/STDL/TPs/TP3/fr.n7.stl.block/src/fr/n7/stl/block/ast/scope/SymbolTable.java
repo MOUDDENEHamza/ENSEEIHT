@@ -2,6 +2,7 @@
  * 
  */
 package fr.n7.stl.block.ast.scope;
+import fr.n7.stl.block.ast.instruction.declaration.FunctionDeclaration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class SymbolTable implements HierarchicalScope<Declaration> {
 	
 	private Map<String, Declaration> declarations;
 	private Scope<Declaration> context;
+	public static FunctionDeclaration functionDeclaration = null;
 
 	public SymbolTable() {
 		this( null );

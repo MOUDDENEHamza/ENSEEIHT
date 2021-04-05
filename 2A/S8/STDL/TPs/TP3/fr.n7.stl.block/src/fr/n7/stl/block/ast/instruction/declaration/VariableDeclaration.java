@@ -8,10 +8,13 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.CoupleType;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a variable declaration instruction.
@@ -103,8 +106,13 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		boolean _value = this.value.collectAndBackwardResolve(_scope);
-		return _value;
+		if (((HierarchicalScope<Declaration>)_scope).accepts(this)) {
+            _scope.register(this);
+            return this.value.collectAndBackwardResolve(_scope);
+        } else {
+            Logger.error("The identifier " + this.name + " is already defined.");
+            return false;    
+        }
 	}
 
 	/* (non-Javadoc)
@@ -112,8 +120,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		boolean _value = this.value.fullResolve(_scope);
-		return _value;
+		return this.value.fullResolve(_scope) && this.type.resolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -121,7 +128,19 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType is undefined in VariableDeclaration.");
+		if (type instanceof NamedType) {
+			return ((NamedType) type).compatibleWith(this.value.getType());
+		} else if (type instanceof CoupleType) {
+			Type first = ((CoupleType) type).getFirst();
+        	Type second = ((CoupleType) type).getSecond();
+			Type couple = new CoupleType(first, second);
+			return this.value.getType().compatibleWith(couple); 
+		} else if (type.compatibleWith(this.value.getType())) {
+			return true;
+		} else {
+			Logger.error("The type of " + this.name + " is incompatible.");
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)

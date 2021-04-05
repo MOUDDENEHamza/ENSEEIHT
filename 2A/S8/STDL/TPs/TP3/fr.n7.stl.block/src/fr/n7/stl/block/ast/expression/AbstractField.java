@@ -41,7 +41,7 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "collect is undefined in AbstractField.");
+		return this.record.collectAndBackwardResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -49,7 +49,7 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "resolve is undefined in AbstractField.");
+		return this.record.fullResolve(_scope);
 	}
 
 	/**

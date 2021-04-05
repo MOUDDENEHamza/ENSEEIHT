@@ -6,6 +6,8 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.CoupleType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -42,7 +44,7 @@ public class First implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect undefined in First.");
+		return this.target.collectAndBackwardResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +52,7 @@ public class First implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve undefined in First.");
+		return this.target.collectAndBackwardResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -58,7 +60,12 @@ public class First implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in First.");
+		if (this.target.getType() instanceof CoupleType) {
+			CoupleType type = (CoupleType)this.target.getType();
+			return type.getFirst();
+		} else {
+			return AtomicType.ErrorType;
+		}
 	}
 
 	/* (non-Javadoc)

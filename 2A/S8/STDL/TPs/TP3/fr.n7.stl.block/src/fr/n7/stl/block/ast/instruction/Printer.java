@@ -7,9 +7,11 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a printer instruction.
@@ -37,7 +39,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Printer.");
+		return this.parameter.collectAndBackwardResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -45,7 +47,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Printer.");
+		return this.parameter.fullResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -53,7 +55,15 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType undefined in Printer.");
+		if (this.parameter.getType().equalsTo(AtomicType.BooleanType) || 
+			this.parameter.getType().equalsTo(AtomicType.IntegerType) || 
+			this.parameter.getType().equalsTo(AtomicType.StringType) || 
+			this.parameter.getType().equalsTo(AtomicType.FloatingType)) {
+			return true;
+		} else {
+			Logger.error("The type of printer is incompatible.");
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)

@@ -7,6 +7,8 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.ArrayType;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -38,7 +40,7 @@ public class ArrayAllocation implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in ArrayAllocation.");
+		return this.size.collectAndBackwardResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -46,7 +48,7 @@ public class ArrayAllocation implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ArrayAllocation.");
+		return this.size.fullResolve(_scope) && this.element.resolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +56,11 @@ public class ArrayAllocation implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in ArrayAllocation.");
+		if (this.size.getType().compatibleWith(AtomicType.IntegerType)) {
+			return new ArrayType(this.element);
+		} else {
+			return AtomicType.ErrorType;
+		}
 	}
 
 	/* (non-Javadoc)

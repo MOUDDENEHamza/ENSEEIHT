@@ -759,6 +759,12 @@ class CUP$Parser$actions {
 				} else {
 					System.out.println("Collect failed : " + tds);
 				}
+
+				if (bloc.checkType()) {
+					System.out.println("Check type succeeded.");
+				} else {
+					System.out.println("Check type failed.");
+				}
 			
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Program",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

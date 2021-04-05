@@ -10,9 +10,11 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a conditional instruction.
@@ -50,7 +52,11 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Conditional.");
+		if (elseBranch == null) {
+			return this.condition.collectAndBackwardResolve(_scope) && this.thenBranch.collect(_scope);
+		} else {
+			return this.condition.collectAndBackwardResolve(_scope) && this.thenBranch.collect(_scope) && this.elseBranch.collect(_scope);
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -58,7 +64,11 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Conditional.");
+		if (elseBranch == null) {
+			return this.condition.fullResolve(_scope) && this.thenBranch.resolve(_scope);
+		} else {
+			return this.condition.fullResolve(_scope) && this.thenBranch.resolve(_scope) && this.elseBranch.resolve(_scope);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -66,7 +76,13 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Conditional.");
+		boolean result = this.condition.getType().compatibleWith(AtomicType.BooleanType);
+		if (elseBranch == null) {
+			result = result && this.thenBranch.checkType() ;
+		} else {
+			result = result && this.thenBranch.checkType() && this.elseBranch.checkType();
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)

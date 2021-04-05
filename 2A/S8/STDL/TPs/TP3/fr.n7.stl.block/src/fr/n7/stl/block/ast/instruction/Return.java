@@ -2,7 +2,7 @@
  * 
  */
 package fr.n7.stl.block.ast.instruction;
-
+import static fr.n7.stl.block.ast.scope.SymbolTable.functionDeclaration;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -37,7 +37,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Return.");
+		return this.value.collectAndBackwardResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -45,7 +45,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Return.");
+		return this.value.fullResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -53,7 +53,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType undefined in Return.");
+		return this.value.getType().compatibleWith(functionDeclaration.getType());
 	}
 
 	/* (non-Javadoc)

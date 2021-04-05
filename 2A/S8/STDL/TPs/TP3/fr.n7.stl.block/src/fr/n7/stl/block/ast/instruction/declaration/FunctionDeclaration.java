@@ -9,12 +9,15 @@ import java.util.List;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.Instruction;
+import fr.n7.stl.block.ast.instruction.Return;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
+import fr.n7.stl.block.ast.scope.SymbolTable;
 
 /**
  * Abstract Syntax Tree node for a function declaration.
@@ -36,6 +39,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 * List of AST nodes for the formal parameters of the function
 	 */
 	protected List<ParameterDeclaration> parameters;
+
+	protected SymbolTable parametersTable;
 	
 	/**
 	 * @return the parameters
@@ -100,7 +105,21 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionDeclaration.");
+		//throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionDeclaration.");
+		if (((HierarchicalScope<Declaration>)_scope).accepts(this)) {
+			_scope.register(this);
+			SymbolTable tableParametres = new SymbolTable(_scope);
+			boolean result;
+			for (ParameterDeclaration d : this.parameters) {
+				tableParametres.register(d);
+			}
+			this.parametersTable = tableParametres;
+			result = this.body.collect(tableParametres);
+			return result;
+		} else {
+			Logger.error("The function identifier " + this.name + " is already defined.");
+			return false;
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -108,7 +127,9 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionDeclaration.");
+		//throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionDeclaration.");
+		SymbolTable.functionDeclaration = this;
+		return this.body.resolve(this.parametersTable);
 	}
 
 	/* (non-Javadoc)
@@ -116,7 +137,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		//throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		return this.body.checkType();
 	}
 
 	/* (non-Javadoc)

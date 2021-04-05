@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for an array type.
@@ -48,7 +49,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Assignment.");
+		return value.collectAndBackwardResolve(_scope) && assignable.collectAndBackwardResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -56,7 +57,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Assignment.");
+		return value.fullResolve(_scope) && assignable.fullResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -64,7 +65,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in Assignment.");
+		return assignable.getType();
 	}
 
 	/* (non-Javadoc)
@@ -72,7 +73,12 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Assignment.");
+		if (this.value.getType().compatibleWith(this.assignable.getType())) {
+			return true;
+		} else {
+			Logger.error("The type of assignable is incompatible.");
+			return false;
+		}
 	}
 	
 	/* (non-Javadoc)
