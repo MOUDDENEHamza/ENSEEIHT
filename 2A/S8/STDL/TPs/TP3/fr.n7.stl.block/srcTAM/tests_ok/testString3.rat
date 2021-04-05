@@ -1,0 +1,6 @@
+test{
+  string x = "azerty";
+  string y = "nbvc";
+  string z = ( x^y);
+  print z;
+}

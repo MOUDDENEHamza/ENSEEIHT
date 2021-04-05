@@ -1,0 +1,8 @@
+;Syntaxe incorrecte
+
+LOADL 0
+JUMPIF (true) fin ; ligne erronée
+LOADL 4
+SUBR IOut
+fin
+HALT

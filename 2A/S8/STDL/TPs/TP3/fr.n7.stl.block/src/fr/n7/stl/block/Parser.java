@@ -6,10 +6,11 @@
 package fr.n7.stl.block;
 
 import java_cup.runtime.*;
-import fr.n7.stl.block.Lexer;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.*;
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.expression.*;
@@ -22,9 +23,11 @@ import fr.n7.stl.block.ast.instruction.declaration.*;
 import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.impl.TAMFactoryImpl;
 import fr.n7.stl.util.*;
 import java_cup.runtime.ComplexSymbolFactory.Location;
-import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20141204 (SVN rev 60) generated parser.
   */
@@ -762,6 +765,18 @@ class CUP$Parser$actions {
 
 				if (bloc.checkType()) {
 					System.out.println("Check type succeeded.");
+					bloc.allocateMemory( Register.SB, 0);
+                    Fragment code = bloc.getCode(new TAMFactoryImpl());
+                    System.out.println( "Generated code:" );
+                    System.out.println( code );
+                    File file = new File(parser.name.replaceAll(".txt", "") + ".tam");
+                    PrintStream printer = null;
+                    try {
+                        printer = new PrintStream( new FileOutputStream(file) );
+                        printer.println( code );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } 
 				} else {
 					System.out.println("Check type failed.");
 				}

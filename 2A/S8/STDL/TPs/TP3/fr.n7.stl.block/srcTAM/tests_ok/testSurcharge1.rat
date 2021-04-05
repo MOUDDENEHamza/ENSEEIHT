@@ -1,0 +1,13 @@
+int f (int a int b) {
+  return (a+b); 
+}
+rat f (rat a rat b){
+  return (a+b);
+}
+
+main {
+  int x = call f (2 3);
+  rat y = call f ([2/3] [2/5]);
+  print x;
+  print y;
+}

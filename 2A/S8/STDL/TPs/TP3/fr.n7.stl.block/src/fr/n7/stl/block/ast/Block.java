@@ -29,6 +29,8 @@ public class Block {
 	 */
 	protected List<Instruction> instructions;
 
+	protected int count;
+
 	/**
 	 * Constructor for a block.
 	 */
@@ -98,7 +100,11 @@ public class Block {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in Block.");
+		int currentOffset = _offset;
+		for (Instruction instruction : this.instructions) {
+			currentOffset += instruction.allocateMemory(_register, currentOffset);
+		}
+		this.count = currentOffset - _offset;
 	}
 
 	/**
@@ -108,7 +114,13 @@ public class Block {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics generateCode is undefined in Block.");
+		Fragment fragment = _factory.createFragment();
+		for (Instruction instruction : this.instructions) {
+			fragment.append(instruction.getCode(_factory));
+		}
+		fragment.add(_factory.createPop(0, this.count));
+		fragment.add(_factory.createHalt());
+		return fragment;
 	}
 
 }

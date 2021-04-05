@@ -1,0 +1,395 @@
+; testlistes.rat
+JUMP main
+
+pgcd
+LOADL 0
+LOAD (1) -2[LB]
+LOAD (1) -1[LB]
+boucle
+LOAD (1) 5[LB]
+JUMPIF (0) fin
+LOAD (1) 4[LB]
+LOAD (1) 5 [LB]
+SUBR IMod
+STORE (1) 3[LB]
+LOAD (1) 5[LB]
+STORE (1) 4[LB]
+LOAD (1) 3[LB]
+STORE(1) 5[LB]
+JUMP boucle
+fin
+LOAD (1) 4[LB]
+RETURN (1) 2
+
+norm
+LOAD (1) -2[LB]
+LOAD (1) -1[LB]
+CALL (LB) pgcd
+LOAD (1) -2[LB]
+LOAD (1) 3[LB]
+SUBR IDiv
+LOAD (1) -1[LB]
+LOAD (1) 3[LB]
+SUBR IDiv
+RETURN (2) 2
+
+ROut
+LOADL '['
+SUBR COut
+LOAD (1) -2[LB]
+SUBR IOut
+LOADL '/'
+SUBR COut
+LOAD (1) -1[LB]
+SUBR IOut
+LOADL ']'
+SUBR COut
+RETURN (0) 2
+
+RAdd
+LOAD (1) -4[LB]
+LOAD (1) -1[LB]
+SUBR IMul
+LOAD (1) -2[LB]
+LOAD (1) -3[LB]
+SUBR IMul
+SUBR IAdd
+LOAD (1) -3[LB]
+LOAD (1) -1[LB]
+SUBR IMul
+CALL (ST) norm
+RETURN (2) 4
+
+RMul
+LOAD (1) -4[LB]
+LOAD (1) -2[LB]
+SUBR IMul
+LOAD (1) -3[LB]
+LOAD (1) -1[LB]
+SUBR IMul
+CALL (ST) norm
+RETURN (2) 4
+
+tl ; l'adresse de la liste  -1[LB]
+LOAD (1) -1[LB]
+LOADI (1) ; le premier champ était la cellule suivante ça doit faire l'affaire
+RETURN (1) 1
+
+hd1 ; l'adresse de la liste -1[LB]
+LOAD (1) -1[LB]
+LOADL 1
+SUBR IAdd ; adresse de la cellule valeur
+LOADI (1)
+RETURN (1) 1
+
+hd2
+LOAD (1) -1[LB]
+LOADL 1
+SUBR IAdd ; adresse de la cellule valeur
+LOADI (2)
+RETURN (2) 1
+
+cons1 ; valeur a ajouter (-2[LB]) adresse de la liste (-1[LB])
+LOADL 2
+SUBR MAlloc ; taille 2 dans le tas
+LOAD (1) -1[LB]
+LOAD (1) -2[LB]
+LOAD (1) -3[ST] ; On duplique l'adresse
+STOREI (2)
+RETURN (1) 2
+
+cons2 ; valeur a ajouter (-3[LB]) adresse de la liste (-1[LB])
+LOADL 3
+SUBR MAlloc ; taille 3 dans le tas
+LOAD (1) -1[LB]
+LOAD (2) -3[LB]LOAD (1) -3[ST] ; On duplique l'adresse
+STOREI (3)
+RETURN (1) 3
+
+SOut ; affiche une chaine de caractere dont l'adresse dans le tas est en -1[LB]
+LOAD (1) -1[LB] ; adresse dans le tas de la chaine en sommet de pile
+LOADI (1) ; taille de la chaine en 3[LB]
+LOADL 0 ; indice de partour de la chaine en 4[LB]
+bouclePrintSout ; etiquette de boucle de l'affichage 
+LOAD (1) 3[LB] 
+LOAD (1) 4[LB]
+SUBR ISub
+JUMPIF (0) finBouclePrintSout
+LOAD (1) -1[LB] ; adresse de la chaine en sommet de pile
+LOAD (1) 4[LB] ; indice pour le décalage
+LOADL 1 ; +1 parce qu'il faut compter le champ taille
+SUBR IAdd
+SUBR IAdd ; adresse du caractère a afficher 
+LOADI (1) ; caractere a afficher
+SUBR COut ; adresse du caractere a afficher 
+LOAD (1) 4[LB] ; début de l'incrémentation de l'indice de boucle
+LOADL 1
+SUBR IAdd
+STORE (1) 4[LB] ; fin de l'incrementation de l'indice de boucle
+JUMP bouclePrintSout
+finBouclePrintSout
+RETURN (0) 1
+
+SCat ; concatene deux chaines de caracteres passé en paramètre -2[LB] adresse de la premiere chaine -1[LB] adresse de la seconde chaine
+  LOAD (1) -2[LB]
+  LOADI (1) ; taille de c1
+  LOAD (1) -1[LB]
+  LOADI (1) ; taille de c2
+  SUBR IAdd ; taille de la nouvelle chaine en 3[LB]
+  LOAD (1) -1[ST] ; duplication de la taille de la chaine
+  LOADL 1
+  SUBR IAdd
+  SUBR MAlloc ; taille réservée dans le tas et adresse de la chaine en 4[LB]
+  LOAD (1) -2[LB]
+  LOADI (1) ; taille de c1
+  LOAD (1) -1[LB]
+  LOADI (1) ; taille de c2
+  SUBR IAdd ; taille de la chaine
+  LOAD (1) 4[LB] ; adresse où stocker la taille
+  STOREI (1)
+  LOAD (1) -2[LB]
+  LOADI (1) ; taille de c1 en 5[LB]
+  LOADL 0 ; indice de parcours en 6[LB] 
+  copiec1
+  LOAD (1) 5[LB]
+  LOAD (1) 6[LB]
+  SUBR ISub ; test si on a fini la boucle
+  JUMPIF (0) fincopiec1
+  LOAD (1) -2[LB]
+  LOAD (1) 6[LB]
+  LOADL 1
+  SUBR IAdd
+  SUBR IAdd ; adresse du caractère à copier
+  LOADI (1) ; caractères à copier
+  LOAD (1) 4[LB]
+  LOADL 1
+  LOAD (1) 6[LB]
+  SUBR IAdd
+  SUBR IAdd ; adresse où copier le caratère
+  STOREI (1)
+  LOAD (1) 6[LB]
+  LOADL 1
+  SUBR IAdd
+  STORE (1)  6[LB] ; incrément de l'indice de boucle
+  JUMP copiec1
+  fincopiec1
+  LOAD (1) -1[LB]
+  LOADI (1) ; taille de c2
+  STORE (1) 5[LB] ; taille de c2 en 5[LB]
+  LOADL 0
+  STORE (1) 6[LB] ; indice de parcours en 6[LB]
+  copiec2
+  LOAD (1) 5[LB]
+  LOAD (1) 6[LB]
+  SUBR ISub ; test si on a fini la boucle
+  JUMPIF (0) fincopiec2
+  LOAD (1) -1[LB]
+  LOAD (1) 6[LB]
+  LOADL 1
+  SUBR IAdd
+  SUBR IAdd ; adresse du caractère à copier
+  LOADI (1) ; caractères à copier
+  LOAD (1) 4[LB]
+  LOADL 1 ; décallage pour la taille
+  LOAD (1) -2[LB]
+  LOADI (1) ; décallage pour la taille de c1
+  LOAD (1) 6[LB] ; décallage pour l'indice
+  SUBR IAdd
+  SUBR IAdd
+  SUBR IAdd ; adresse où copier le caratère
+  STOREI (1)
+  LOAD (1) 6[LB]
+  LOADL 1
+  SUBR IAdd
+  STORE (1)  6[LB] ; incrément de l'indice de boucle
+  JUMP copiec2
+  fincopiec2
+  LOAD (1) 4[LB] ; on charge le résultat - ie l'adresse
+  RETURN (1) 2; dépile les deux adresses, laisse en sommet de pile l'adresse de la chaine concatenee 
+
+ SSub ; -3[LB] adresse de la chaine - -2[LB] indice de départ - -1[LB] indice de fin
+  LOAD (1) -1[LB]
+  LOAD (1) -2[LB]
+  SUBR ISub
+  LOADL 1
+  SUBR IAdd ; taille de la chaine en 3[LB]
+  LOAD (1) -1[ST]
+  LOADL 1 
+  SUBR IAdd
+  SUBR MAlloc ; réservation de l'espace + adresse de la nouvelle chaine en 4[LB]
+  LOAD (1) 3[LB]
+  LOAD (1) 4[LB]
+  STOREI (1) ; enregistrement de la taille de la nouvelle chaine dans son espace
+  LOADL 0 ; indice de boucle en 5[LB]
+  bouclesub
+  LOAD (1) 3[LB]
+  LOAD (1) 5[LB]
+  SUBR ISub
+  JUMPIF (0) finbouclesub
+  LOAD (1) -3[LB]
+  LOADL 1
+  LOAD (1) 5[LB]
+  LOAD (1) -2[LB]
+  SUBR IAdd
+  SUBR IAdd
+  SUBR IAdd ; adresse du caractere à copier
+  LOADI (1) ; caractere a copier
+  LOAD (1) 4[LB]
+  LOADL 1
+  LOAD (1) 5[LB]
+  SUBR IAdd
+  SUBR IAdd ; adresse où copier le caractere
+  STOREI (1) ; copie
+  LOADL 1
+  LOAD (1) 5[LB]
+  SUBR IAdd
+  STORE (1) 5[LB] ; incrément de l'indice de boucle
+  JUMP bouclesub
+  finbouclesub
+  LOAD (1) 4[LB] ; on charge le réseultat en sommet de pile
+  RETURN (1) 3 ; dépiles les trois paramètres et laisse en somme de pile la nouvelle adresse 
+
+somme_1
+PUSH 1
+LOADL 0
+STORE (1) 3[LB]
+LOADA -1[LB]
+LOADI (1)
+LOADL 0
+SUBR IEq
+JUMPIF (0)label1
+LOADL 0
+LOADA 3[LB]
+STOREI (1)
+POP (0) 0
+JUMP label2
+label1
+PUSH 1
+LOADA -1[LB]
+LOADI (1)
+CALL (SB) hd1
+STORE (1) 4[LB]
+PUSH 1
+LOADA -1[LB]
+LOADI (1)
+CALL (SB) tl
+STORE (1) 5[LB]
+PUSH 1
+LOADA 5[LB]
+LOADI (1)
+CALL (ST) somme_1
+STORE (1) 6[LB]
+LOADA 4[LB]
+LOADI (1)
+LOADA 6[LB]
+LOADI (1)
+SUBR IAdd
+LOADA 3[LB]
+STOREI (1)
+POP (0) 1
+label2
+LOADA 3[LB]
+LOADI (1)
+POP (1) 1
+RETURN (1) 1
+
+sommel_2
+PUSH 1
+LOADL 0
+STORE (1) 3[LB]
+LOADA -1[LB]
+LOADI (1)
+LOADL 0
+SUBR IEq
+JUMPIF (0)label3
+LOADL 0
+LOADA 3[LB]
+STOREI (1)
+POP (0) 0
+JUMP label4
+label3
+PUSH 1
+LOADA -1[LB]
+LOADI (1)
+CALL (SB) hd1
+STORE (1) 4[LB]
+PUSH 1
+LOADA -1[LB]
+LOADI (1)
+CALL (SB) tl
+STORE (1) 5[LB]
+LOADA 4[LB]
+LOADI (1)
+CALL (ST) somme_1
+LOADA 5[LB]
+LOADI (1)
+CALL (ST) sommel_2
+SUBR IAdd
+LOADA 3[LB]
+STOREI (1)
+POP (0) 0
+label4
+LOADA 3[LB]
+LOADI (1)
+POP (1) 1
+RETURN (1) 1
+
+main
+PUSH 1
+LOADL 10
+LOADL 1
+LOADL 2
+LOADL 3
+LOADL 0
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+STORE (1) 0[SB]
+PUSH 1
+LOADL 10
+LOADL 1
+LOADL 2
+LOADL 3
+LOADL 0
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+STORE (1) 1[SB]
+PUSH 1
+LOADL 10
+LOADL 1
+LOADL 2
+LOADL 3
+LOADL 0
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+STORE (1) 2[SB]
+PUSH 1
+LOADA 0[SB]
+LOADI (1)
+LOADA 1[SB]
+LOADI (1)
+LOADA 2[SB]
+LOADI (1)
+LOADL 0
+CALL (ST) cons1
+CALL (ST) cons1
+CALL (ST) cons1
+STORE (1) 3[SB]
+LOADA 3[SB]
+LOADI (1)
+CALL (ST) hd1
+CALL (ST) somme_1
+SUBR IOut
+LOADA 3[SB]
+LOADI (1)
+CALL (ST) tl
+CALL (ST) sommel_2
+SUBR IOut
+POP (0) 4
+
+HALT

@@ -1,0 +1,6 @@
+p1{
+  rat [] t = (new rat [5]);
+  (t[3]) = [2/3];
+  rat z = (t[3]);
+  print z;
+}

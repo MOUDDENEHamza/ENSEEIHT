@@ -1,0 +1,9 @@
+prog {
+  int x = 1;
+  int y = 1;
+  if (x = y) {
+    print 18;
+  } else {
+    print 21;
+  }
+}

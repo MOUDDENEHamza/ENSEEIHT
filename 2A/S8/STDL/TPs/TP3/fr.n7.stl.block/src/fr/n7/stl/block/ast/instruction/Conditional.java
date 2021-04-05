@@ -90,7 +90,11 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Conditional.");
+		this.thenBranch.allocateMemory(_register, _offset);
+		if (this.elseBranch != null) {
+			this.elseBranch.allocateMemory(_register, _offset);
+		}
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -98,7 +102,21 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in Conditional.");
+		int id = _factory.createLabelNumber();
+		Fragment _result = _factory.createFragment();
+		_result.append(this.condition.getCode(_factory));
+		if (this.elseBranch == null) {
+			_result.add(_factory.createJumpIf("endif" + id, 0));
+			_result.append(this.thenBranch.getCode(_factory ));
+		} else {
+			_result.add(_factory.createJumpIf("else" + id, 0));
+			_result.append(this.thenBranch.getCode(_factory));
+			_result.add(_factory.createJump("endif" + id));
+			_result.addSuffix("else" + id);
+			_result.append(this.elseBranch.getCode(_factory));
+		}
+		_result.addSuffix("endif" + id);
+		return _result;
 	}
 
 }

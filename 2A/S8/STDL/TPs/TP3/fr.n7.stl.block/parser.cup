@@ -127,6 +127,18 @@ Program ::= UL_Identificateur:nom Bloc:bloc
 
 				if (bloc.checkType()) {
 					System.out.println("Check type succeeded.");
+					bloc.allocateMemory( Register.SB, 0);
+                    Fragment code = bloc.getCode(new TAMFactoryImpl());
+                    System.out.println( "Generated code:" );
+                    System.out.println( code );
+                    File file = new File(parser.getName() + "_tam");
+                    PrintStream printer = null;
+                    try {
+                        printer = new PrintStream( new FileOutputStream(file) );
+                        printer.println( code );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } 
 				} else {
 					System.out.println("Check type failed.");
 				}

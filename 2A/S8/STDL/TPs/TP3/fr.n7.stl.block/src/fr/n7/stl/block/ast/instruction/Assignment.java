@@ -86,7 +86,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Assignment.");
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -94,7 +94,10 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in Assignment.");
+		Fragment fragment = _factory.createFragment();
+		fragment.append(this.value.getCode(_factory));
+		fragment.append(this.assignable.getCode(_factory));
+		return fragment;
 	}
 
 }

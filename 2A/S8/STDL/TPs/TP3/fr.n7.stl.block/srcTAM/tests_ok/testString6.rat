@@ -1,0 +1,19 @@
+string mix (string s1 string s2){
+  string res = "";
+  if (length s1 = length s2) {
+    int t = length s1;
+    int i = 0;
+    while (i<t){
+      res = ((res ^ (s1{i,i})) ^ (s2{i,i}));
+      i = (i+1); 
+    }
+  }
+  else {
+    print "Erreur\n";
+  }
+  return res;
+}
+
+main{
+  print call mix ("abcd" "efgh");
+}

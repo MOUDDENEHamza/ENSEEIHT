@@ -1,0 +1,20 @@
+int fib (int x) {
+  int res = 1;
+
+  switch (x)
+  {
+    case 1 :
+    case 2 :
+        break ;
+    default :
+        res = (call fib ((x-1)) + call fib ((x-2)));
+        break;
+  }
+
+  return res;
+}
+
+
+exemple1{
+  print call fib (6); 
+}
