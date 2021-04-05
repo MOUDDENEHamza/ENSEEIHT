@@ -128,14 +128,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		if (type instanceof NamedType) {
-			return ((NamedType) type).compatibleWith(this.value.getType());
-		} else if (type instanceof CoupleType) {
-			Type first = ((CoupleType) type).getFirst();
-        	Type second = ((CoupleType) type).getSecond();
-			Type couple = new CoupleType(first, second);
-			return this.value.getType().compatibleWith(couple); 
-		} else if (type.compatibleWith(this.value.getType())) {
+		if (this.value.getType().compatibleWith(type)) {
 			return true;
 		} else {
 			Logger.error("The type of " + this.name + " is incompatible.");
