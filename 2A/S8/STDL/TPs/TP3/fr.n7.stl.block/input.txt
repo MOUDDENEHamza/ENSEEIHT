@@ -1,9 +1,13 @@
 test {
     int i = 1;
     i = i + 1;
-    if (i == 2) {
-        i = 3;
-    } else {
-        i = 4;
+    while (true) {
+        if (i == 2) {
+            i = 3;
+            print i;
+        } else {
+            i = 2;
+            print "bcd";
+        }
     }
 }

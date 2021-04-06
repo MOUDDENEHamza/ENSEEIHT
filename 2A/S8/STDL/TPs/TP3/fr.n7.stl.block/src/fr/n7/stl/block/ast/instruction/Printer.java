@@ -3,12 +3,12 @@
  */
 package fr.n7.stl.block.ast.instruction;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
@@ -57,7 +57,8 @@ public class Printer implements Instruction {
 	public boolean checkType() {
 		if (this.parameter.getType().equalsTo(AtomicType.BooleanType) || 
 			this.parameter.getType().equalsTo(AtomicType.IntegerType) || 
-			this.parameter.getType().equalsTo(AtomicType.StringType) || 
+			this.parameter.getType().equalsTo(AtomicType.StringType) ||
+			this.parameter.getType().equalsTo(AtomicType.CharacterType) || 
 			this.parameter.getType().equalsTo(AtomicType.FloatingType)) {
 			return true;
 		} else {
@@ -71,7 +72,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory undefined in Printer.");
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +80,30 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Printer.");
+		Fragment _result = _factory.createFragment();
+		if (this.parameter.getType() == AtomicType.BooleanType) {
+			_result.append(this.parameter.getCode(_factory));
+			_result.add(Library.I2B);
+			_result.add(Library.BOut);
+		} else if (this.parameter.getType() == AtomicType.IntegerType ){
+			_result.append(this.parameter.getCode(_factory));
+			_result.add(Library.IOut);
+		} else if (this.parameter.getType() == AtomicType.CharacterType) {
+			_result.add(_factory.createLoadL('\''));
+			_result.add(Library.COut);
+			_result.append(this.parameter.getCode(_factory));
+			_result.add(Library.COut);
+			_result.add(_factory.createLoadL('\''));
+			_result.add(Library.COut);
+		} else if (this.parameter.getType() == AtomicType.StringType) {
+			_result.add(_factory.createLoadL('\"'));
+			_result.add(Library.COut);
+			_result.append(this.parameter.getCode(_factory));
+			_result.add(Library.SOut);
+			_result.add(_factory.createLoadL('\"'));
+			_result.add(Library.COut);
+		}
+		return _result;
 	}
 
 }

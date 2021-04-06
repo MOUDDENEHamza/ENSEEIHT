@@ -4,11 +4,9 @@
 package fr.n7.stl.block.ast.instruction;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.scope.Scope;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -71,7 +69,8 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory undefined in Repetition.");
+		this.body.allocateMemory(_register, _offset);
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +78,15 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Repetition.");
+		Fragment _result = _factory.createFragment();
+		int id = _factory.createLabelNumber();
+		_result.append(this.condition.getCode(_factory));
+		_result.addPrefix("while" + id);
+		_result.add(_factory.createJumpIf("endwhile" + id, 0));
+		_result.append(this.body.getCode(_factory));
+		_result.add(_factory.createJump("while" + id));
+		_result.addSuffix("endwhile" + id);
+		return _result;
 	}
 
 }

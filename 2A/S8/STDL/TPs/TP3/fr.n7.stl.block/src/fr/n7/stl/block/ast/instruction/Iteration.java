@@ -69,7 +69,8 @@ public class Iteration implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Iteration.");
+		this.body.allocateMemory(_register, _offset);
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +78,15 @@ public class Iteration implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in Iteration.");
+		Fragment _result = _factory.createFragment();
+		int id = _factory.createLabelNumber();
+		_result.append(this.condition.getCode(_factory));
+		_result.addPrefix("while" + id);
+		_result.add(_factory.createJumpIf("endwhile" + id, 0));
+		_result.append(this.body.getCode(_factory));
+		_result.add(_factory.createJump("while" + id));
+		_result.addSuffix("endwhile" + id);
+		return _result;
 	}
 
 }

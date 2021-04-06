@@ -119,7 +119,6 @@ public class Block {
 			fragment.append(instruction.getCode(_factory));
 		}
 		fragment.add(_factory.createPop(0, this.count));
-		fragment.add(_factory.createHalt());
 		return fragment;
 	}
 
