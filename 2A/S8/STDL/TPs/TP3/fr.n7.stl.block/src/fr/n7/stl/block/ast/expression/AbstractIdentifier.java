@@ -1,10 +1,5 @@
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
-import fr.n7.stl.block.ast.type.AtomicType;
-import fr.n7.stl.block.ast.type.Type;
-import fr.n7.stl.util.Logger;
-
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
  * share attributes, toString and getType methods.

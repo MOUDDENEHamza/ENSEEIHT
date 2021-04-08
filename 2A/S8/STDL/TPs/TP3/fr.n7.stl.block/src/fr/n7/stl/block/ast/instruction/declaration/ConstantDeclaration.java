@@ -106,7 +106,12 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in ConstantDeclaration.");
+		if (this.value.getType().compatibleWith(this.type)) {
+			return true;
+		} else {
+			Logger.error("The type of constant is incompatible");
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -114,7 +119,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in ConstantDeclaration.");
+		return this.type.length();
 	}
 
 	/* (non-Javadoc)
@@ -122,7 +127,9 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConstantDeclaration.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.value.getCode(_factory));
+		return _result;
 	}
 
 }

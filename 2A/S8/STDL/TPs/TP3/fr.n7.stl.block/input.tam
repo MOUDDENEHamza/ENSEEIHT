@@ -1,43 +1,11 @@
 PUSH 1
 LOADL 1
 STORE (1) 0[SB]
-;fr.n7.stl.block.ast.expression.accessible.VariableAccess@53e25b76
-;(i + 1)
+PUSH 2
+;fr.n7.stl.block.ast.expression.accessible.VariableAccess@77a567e1
 LOADA 0[SB]
-LOADI (1)
-LOADL 1
-SUBR IAdd
-STORE (1) 0[SB]
-while1
-LOADL 1
-JUMPIF (0) endwhile1
-;fr.n7.stl.block.ast.expression.accessible.VariableAccess@1edf1c96
-;(i == 2)
-LOADA 0[SB]
-LOADI (1)
 LOADL 2
-SUBR IEq
-JUMPIF (0) else2
-LOADL 3
-STORE (1) 0[SB]
-;fr.n7.stl.block.ast.expression.accessible.VariableAccess@368102c8
-LOADA 0[SB]
-SUBR IOut
-POP (0) 0
-JUMP endif2
-else2
-LOADL 2
-STORE (1) 0[SB]
-LOADL 34
-SUBR COut
-SUBR SOut
-LOADL 34
-SUBR COut
-POP (0) 0
-endif2
-POP (0) 0
-JUMP while1
-endwhile1
-POP (0) 1
+STORE (2) 1[SB]
+POP (0) 3
 HALT
 

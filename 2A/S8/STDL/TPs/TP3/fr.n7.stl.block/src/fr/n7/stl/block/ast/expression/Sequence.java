@@ -6,7 +6,6 @@ package fr.n7.stl.block.ast.expression;
 import java.util.Iterator;
 import java.util.List;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.SequenceType;
@@ -92,7 +91,11 @@ public class Sequence implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Sequence.");
+		Fragment _result = _factory.createFragment();
+		for (Expression _value : this.values) {
+			_result.append(_value.getCode(_factory));
+		}
+		return _result;
 	}
 
 }

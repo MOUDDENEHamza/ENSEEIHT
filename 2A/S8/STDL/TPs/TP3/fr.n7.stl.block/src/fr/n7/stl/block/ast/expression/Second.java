@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -73,7 +72,11 @@ public class Second implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Second.");
+		Fragment _result = _factory.createFragment();
+		CoupleType type = (CoupleType)this.target.getType();
+		_result.append(this.target.getCode(_factory));
+		_result.add(_factory.createPop(0, type.getSecond().length()));
+		return _result;
 	}
 
 }

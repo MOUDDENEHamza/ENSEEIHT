@@ -3,12 +3,13 @@
  */
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a conditional expression.
@@ -50,7 +51,15 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in ConditionalExpression.");
+		boolean _result;
+		_result = this.condition.collectAndBackwardResolve(_scope);
+		if (this.elseExpression == null) {
+			_result = _result && this.thenExpression.collectAndBackwardResolve(_scope);
+		} else {
+			_result = _result && this.thenExpression.collectAndBackwardResolve(_scope) 
+			&& this.elseExpression.collectAndBackwardResolve(_scope);
+		}
+		return _result;
 	}
 
 	/* (non-Javadoc)
@@ -58,7 +67,15 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ConditionalExpression.");
+		boolean _result;
+		_result = this.condition.fullResolve(_scope);
+		if (this.elseExpression == null) {
+			_result = _result && this.thenExpression.fullResolve(_scope);
+		} else {
+			_result = _result && this.thenExpression.fullResolve(_scope) 
+			&& this.elseExpression.fullResolve(_scope);
+		}
+		return _result;
 	}
 
 	/* (non-Javadoc)
@@ -74,7 +91,20 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in ConditionalExpression.");
+		Type _result;
+		
+		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
+			if (this.thenExpression.getType().compatibleWith(this.elseExpression.getType())) {
+				_result = this.thenExpression.getType().merge(this.elseExpression.getType());
+			} else {
+				Logger.error("The type of then and else expression are incompatible.");
+				_result = AtomicType.ErrorType;	
+			}
+		} else {
+			Logger.error("The type of condition expression is incompatible.");
+			_result = AtomicType.ErrorType;
+		}
+		return _result;
 	}
 
 	/* (non-Javadoc)
@@ -82,7 +112,16 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConditionalExpression.");
+		Fragment _result = _factory.createFragment();
+		int id = _factory.createLabelNumber();
+		_result.append(this.condition.getCode(_factory));
+		_result.add(_factory.createJumpIf("ElseExpression " + id, 0));
+		_result.append(this.thenExpression.getCode(_factory));
+		_result.add(_factory.createJump("EndExpression " + id));
+		_result.addSuffix("ElseExpression");
+		_result.append(this.elseExpression.getCode(_factory));
+		_result.addSuffix("EndExpression " + id);
+		return _result;
 	}
 
 }

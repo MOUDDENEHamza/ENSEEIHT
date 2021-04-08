@@ -1,13 +1,6 @@
 test {
-    int i = 1;
-    i = i + 1;
-    while (true) {
-        if (i == 2) {
-            i = 3;
-            print i;
-        } else {
-            i = 2;
-            print "bcd";
-        }
-    }
+    typedef int Entier;
+    Entier i = 1;
+    typedef < Entier, Entier> PaireEntier;
+    PaireEntier p = < i, 2>;
 }

@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.Return;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -42,6 +43,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 
 	protected SymbolTable parametersTable;
 	
+	protected int offset;
+
 	/**
 	 * @return the parameters
 	 */
@@ -137,7 +140,6 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		//throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
 		return this.body.checkType();
 	}
 
@@ -146,7 +148,12 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in FunctionDeclaration.");
+		this.offset = 0;
+		for (ParameterDeclaration p : this.parameters) {
+			this.offset += p.getType().length();
+		}
+		this.body.allocateMemory(Register.LB, 3);
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -154,7 +161,12 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.body.getCode(_factory));
+		if (this.type == AtomicType.VoidType){
+			_result.add(_factory.createReturn(0, this.offset));
+		}
+		return _result;
 	}
 
 }

@@ -6,12 +6,12 @@ package fr.n7.stl.block.ast.expression;
 import java.util.Iterator;
 import java.util.List;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
@@ -24,13 +24,11 @@ public class FunctionCall implements Expression {
 
 	/**
 	 * Name of the called function.
-	 * TODO : Should be an expression.
 	 */
 	protected String name;
 	
 	/**
 	 * Declaration of the called function after name resolution.
-	 * TODO : Should rely on the VariableUse class.
 	 */
 	protected FunctionDeclaration function;
 	
@@ -54,8 +52,6 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public String toString() {
-		// condition?exprThen:exprElse
-		// String _result = ((this.function == null)?this.name:this.function) + "( ";
 		String _result = this.name + "( ";
 		Iterator<Expression> _iter = this.arguments.iterator();
 		if (_iter.hasNext()) {
@@ -72,7 +68,6 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		//throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionCall.");
 		Declaration d = _scope.get(this.name);
 		boolean result = true;
 		if (d instanceof FunctionDeclaration) {
@@ -93,7 +88,6 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		//throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionCall.");
 		Declaration d = _scope.get(this.name);
 		boolean result = true;
 		if (d instanceof FunctionDeclaration) {
@@ -114,7 +108,6 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		//throw new SemanticsUndefinedException( "Semantics getType is undefined in FunctionCall.");
 		return this.function.getType();
 	}
 
@@ -123,7 +116,12 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionCall.");
+		Fragment _result = _factory.createFragment();
+		for (Expression _argument : this.arguments) {
+			_result.append(_argument.getCode(_factory));
+		}
+		_result.add(_factory.createCall(this.name, Register.LB));
+		return _result;
 	}
 
 }
