@@ -8,4 +8,4 @@
 *.o
 
 # Ignore STDL mini project
-2A/S8/STDL/TPs/TP3/*
+2A/S8/STDL/TPs/TP3/*.java
