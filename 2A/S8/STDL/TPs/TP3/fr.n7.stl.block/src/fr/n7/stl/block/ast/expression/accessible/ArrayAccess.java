@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractArray;
+import fr.n7.stl.block.ast.expression.BinaryOperator;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -30,7 +31,14 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in ArrayAccess.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.array.getCode(_factory));
+		_result.append(this.index.getCode(_factory));
+		_result.add(_factory.createLoadL(this.getType().length()));		
+		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
+		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
+		_result.add(_factory.createLoadI(this.getType().length()));
+		return _result;
 	}
 
 }

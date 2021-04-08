@@ -65,7 +65,7 @@ public class StringValue implements Value {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
-//		_fragment.add(_factory.createLoadL(this.value));
+		//_fragment.add(_factory.createLoadL(this.value));
 		return _fragment;
 	}
 

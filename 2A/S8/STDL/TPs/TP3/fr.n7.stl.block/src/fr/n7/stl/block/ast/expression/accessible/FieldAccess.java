@@ -3,9 +3,10 @@
  */
 package fr.n7.stl.block.ast.expression.accessible;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractField;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.type.NamedType;
+import fr.n7.stl.block.ast.type.RecordType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -30,7 +31,30 @@ public class FieldAccess extends AbstractField implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in FieldAccess.");
+		int i = 0;
+        int _keep = 0;
+        int _removeBefore = 0;
+        int _removeAfter = 0;
+		
+		while (i < this.recordType.getFields().size()) {
+            if (this.recordType.getFields().get(i).getName().equals(name)) {
+                _keep = this.recordType.getFields().get(i).getType().length();
+                ++ i;
+                break;
+            }
+            _removeBefore += this.recordType.getFields().get(i).getType().length();
+            ++ i;
+        }
+        
+        while (i < this.recordType.getFields().size()) {
+            _removeAfter += this.recordType.getFields().get(i).getType().length();
+            ++ i;
+        }
+		Fragment _result = _factory.createFragment();
+		_result.append(this.record.getCode(_factory));
+		_result.add(_factory.createPop(0, _removeAfter));
+    	_result.add(_factory.createPop(_keep, _removeBefore));
+		return _result;
 	}
 
 }

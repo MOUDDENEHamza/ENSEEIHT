@@ -237,6 +237,14 @@ public interface TAMFactory {
 		}
 	}
 	
+	/**
+	 * Build a TAM malloc instruction
+	 * @return
+	 */
+	public static TAMInstruction createMalloc() {
+		return Library.MAlloc;
+	}
+
 	public int createLabelNumber();
 
 }

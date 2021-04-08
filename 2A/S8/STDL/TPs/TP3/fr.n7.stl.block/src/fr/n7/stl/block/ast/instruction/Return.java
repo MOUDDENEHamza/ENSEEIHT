@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.instruction;
 import static fr.n7.stl.block.ast.scope.SymbolTable.functionDeclaration;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.tam.ast.Fragment;
@@ -71,6 +72,9 @@ public class Return implements Instruction {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		_result.append(this.value.getCode(_factory));
+		if (this.value instanceof AccessibleExpression) {
+			_result.add(_factory.createLoadI(this.value.getType().length()));
+		}
 		_result.add(_factory.createReturn(this.value.getType().length(), 0));
 		return _result;
 	}

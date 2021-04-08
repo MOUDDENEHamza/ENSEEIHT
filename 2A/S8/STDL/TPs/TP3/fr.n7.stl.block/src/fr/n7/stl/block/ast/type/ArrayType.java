@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.type;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 
@@ -60,7 +59,7 @@ public class ArrayType implements Type {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length is not implemented in ArrayType.");
+		return 1;
 	}
 
 	/* (non-Javadoc)

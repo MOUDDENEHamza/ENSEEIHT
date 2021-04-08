@@ -1,6 +1,11 @@
-test {
-    typedef int Entier;
-    Entier i = 1;
-    typedef < Entier, Entier> PaireEntier;
-    PaireEntier p = < i, 2>;
+tst {
+    int a = -1;
+
+    int f1(int a, int b) {
+
+        int result1 = b + 10 *a; // 21
+        return result1;
+    }
+
+    print f1(1, 2);
 }

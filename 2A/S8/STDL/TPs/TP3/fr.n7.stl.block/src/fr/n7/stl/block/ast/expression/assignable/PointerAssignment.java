@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractPointer;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.tam.ast.Fragment;
@@ -29,7 +28,11 @@ public class PointerAssignment extends AbstractPointer implements AssignableExpr
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in PointerAssignment.");
+		Fragment _result = _factory.createFragment();
+		_result.add(_factory.createLoad(((VariableAssignment) this.pointer).declaration.getRegister(),
+		((VariableAssignment) this.pointer).declaration.getOffset(), this.pointer.getType().length()));
+		_result.add(_factory.createStoreI(this.pointer.getType().length()));
+		return _result;
 	}
 	
 }

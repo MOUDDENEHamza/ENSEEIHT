@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.instruction;
 
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -81,28 +82,24 @@ public class Printer implements Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
+		
+		_result.append(this.parameter.getCode(_factory));
+
+		if (this.parameter instanceof AccessibleExpression) {
+			_result.add(_factory.createLoadI(this.parameter.getType().length()));
+		}
+		
 		if (this.parameter.getType() == AtomicType.BooleanType) {
-			_result.append(this.parameter.getCode(_factory));
-			_result.add(Library.I2B);
 			_result.add(Library.BOut);
 		} else if (this.parameter.getType() == AtomicType.IntegerType ){
-			_result.append(this.parameter.getCode(_factory));
 			_result.add(Library.IOut);
 		} else if (this.parameter.getType() == AtomicType.CharacterType) {
-			_result.add(_factory.createLoadL('\''));
-			_result.add(Library.COut);
-			_result.append(this.parameter.getCode(_factory));
-			_result.add(Library.COut);
-			_result.add(_factory.createLoadL('\''));
 			_result.add(Library.COut);
 		} else if (this.parameter.getType() == AtomicType.StringType) {
-			_result.add(_factory.createLoadL('\"'));
-			_result.add(Library.COut);
-			_result.append(this.parameter.getCode(_factory));
 			_result.add(Library.SOut);
-			_result.add(_factory.createLoadL('\"'));
-			_result.add(Library.COut);
 		}
+		_result.add(_factory.createLoadL('\n'));
+		_result.add(Library.COut);
 		return _result;
 	}
 

@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.type;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 
@@ -53,7 +52,13 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException("Semantics merge undefined in PointerType.");
+		Type _result;
+		if (_other instanceof PointerType) {
+			_result = new PointerType(this.element.merge(((PointerType) _other).element));
+		} else {
+			_result = AtomicType.ErrorType;
+		}
+		return _result;
 	}
 
 	/* (non-Javadoc)
@@ -61,7 +66,7 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length undefined in PointerType.");
+		return 1;
 	}
 
 	/* (non-Javadoc)

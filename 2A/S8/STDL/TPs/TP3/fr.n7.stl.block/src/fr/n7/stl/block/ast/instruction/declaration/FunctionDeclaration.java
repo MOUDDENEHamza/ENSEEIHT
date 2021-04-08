@@ -7,9 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.Instruction;
-import fr.n7.stl.block.ast.instruction.Return;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -163,7 +161,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		_result.append(this.body.getCode(_factory));
-		if (this.type == AtomicType.VoidType){
+		_result.addPrefix(this.name);
+		if (this.type != AtomicType.VoidType){
 			_result.add(_factory.createReturn(0, this.offset));
 		}
 		return _result;

@@ -3,8 +3,9 @@
  */
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractField;
+import fr.n7.stl.block.ast.expression.BinaryOperator;
+import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -29,7 +30,22 @@ public class FieldAssignment extends AbstractField implements AssignableExpressi
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in FieldAssignment.");
+		FieldDeclaration _field = null;
+		int _value = 0;
+        for (FieldDeclaration fieldDeclaration: recordType.getFields()) {
+            if (fieldDeclaration.getName().equals(name)) {
+                _field = fieldDeclaration;
+				break;
+            }
+            _value += fieldDeclaration.getType().length();
+        }
+		
+		Fragment _result = _factory.createFragment();
+		_result.add(_factory.createLoadL(((VariableAssignment) this.record).declaration.getOffset()));
+		_result.add(_factory.createLoadL(_value));
+		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
+		_result.add(_factory.createStoreI(_field.getType().length()));
+		return _result;
 	}
 	
 }

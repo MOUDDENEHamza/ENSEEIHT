@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractIdentifier;
 import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -30,6 +29,10 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 		super(_name);
 	}
 	
+	public VariableDeclaration getDeclaration() {
+		return this.declaration;
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.expression.AbstractIdentifier#collect(fr.n7.stl.block.ast.scope.HierarchicalScope)
 	 */

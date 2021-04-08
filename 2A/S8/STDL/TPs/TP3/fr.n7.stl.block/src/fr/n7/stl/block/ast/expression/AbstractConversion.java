@@ -68,7 +68,18 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		boolean _result = ((Expression) this.target).collectAndBackwardResolve(_scope);
+		boolean _result = true;
+		if (((Expression) this.target).collectAndBackwardResolve(_scope)) {
+			if (this.type == null && _scope.get(this.name) instanceof TypeDeclaration 
+					&& ((TypeDeclaration) _scope.get(this.name)).getType() instanceof NamedType) {
+			this.type = (NamedType) ((TypeDeclaration) _scope.get(this.name)).getType();
+				_result = true;
+			} else {
+				_result = false;
+			}
+		} else {
+			_result = false;
+		}
 		return _result;
 	}
 

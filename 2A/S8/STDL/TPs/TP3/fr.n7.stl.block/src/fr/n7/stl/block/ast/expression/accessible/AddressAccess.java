@@ -3,8 +3,8 @@
  */
 package fr.n7.stl.block.ast.expression.accessible;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
+import fr.n7.stl.block.ast.expression.assignable.VariableAssignment;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.PointerType;
@@ -54,7 +54,10 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in AddressAccess.");
+		Fragment _result = _factory.createFragment();
+		_result.add(_factory.createLoadA(((VariableAssignment) this.assignable).getDeclaration().getRegister(),
+		((VariableAssignment) this.assignable).getDeclaration().getOffset()));
+		return _result;
 	}
 
 }

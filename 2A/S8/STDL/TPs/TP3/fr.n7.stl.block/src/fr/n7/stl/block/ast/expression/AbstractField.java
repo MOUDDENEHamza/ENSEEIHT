@@ -19,6 +19,7 @@ public abstract class AbstractField implements Expression {
 	protected Expression record;
 	protected String name;
 	protected FieldDeclaration field;
+	protected RecordType recordType;
 	
 	/**
 	 * Construction for the implementation of a record field access expression Abstract Syntax Tree node.
@@ -28,6 +29,10 @@ public abstract class AbstractField implements Expression {
 	public AbstractField(Expression _record, String _name) {
 		this.record = _record;
 		this.name = _name;
+	}
+
+	public Expression getRecord() {
+		return this.record;
 	}
 
 	/* (non-Javadoc)
@@ -51,15 +56,16 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		Boolean result = this.record.fullResolve(_scope); 
-		Type tmp = this.record.getType();
-		if (tmp instanceof NamedType) {
-			tmp = ((NamedType) tmp).getType();
+		Boolean _result = this.record.fullResolve(_scope); 
+		Type _type = this.record.getType();
+		if (_type instanceof NamedType) {
+			_type = ((NamedType) _type).getType();
 		}
-		if (tmp instanceof RecordType) {
-			this.field = ((RecordType) tmp).get(name);
+		if (_type instanceof RecordType) {
+			this.recordType = (RecordType) _type;
+			this.field = this.recordType.get(this.name);
 		}
-		return result;
+		return _result;
 	}
 
 	/**

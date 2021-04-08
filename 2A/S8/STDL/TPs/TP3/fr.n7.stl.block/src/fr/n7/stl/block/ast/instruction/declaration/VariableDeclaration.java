@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.instruction.declaration;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -126,6 +125,9 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean checkType() {
+		//System.out.println("\nComparaisons des types pour la variable : " + this.name);
+        //System.out.println("Type de l'Expression : " + this.type.toString());
+        //System.out.println("Type de la Value : " + this.value.getType().toString());
 		if (type.compatibleWith(this.value.getType()) || this.value.getType().compatibleWith(type)) {
 			return true;
 		} else {

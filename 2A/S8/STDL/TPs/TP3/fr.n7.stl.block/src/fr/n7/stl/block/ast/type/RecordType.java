@@ -46,6 +46,10 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		this.fields = new LinkedList<FieldDeclaration>();
 	}
 
+	public List<FieldDeclaration> getFields() {
+		return this.fields;
+	}
+
 	/**
 	 * Add a field to a record type.
 	 * @param _field The added field.
