@@ -56,7 +56,7 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		Boolean _result = this.record.fullResolve(_scope); 
+		boolean _result = this.record.fullResolve(_scope); 
 		Type _type = this.record.getType();
 		if (_type instanceof NamedType) {
 			_type = ((NamedType) _type).getType();

@@ -23,6 +23,10 @@ import fr.n7.stl.block.ast.instruction.declaration.*;
 import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
+import fr.n7.stl.tam.ast.*;
+import fr.n7.stl.tam.ast.impl.*;
+import java.io.*;
+
 import fr.n7.stl.util.*;
 
 /* Variables partagées dans les actions de l'analyseur syntaxique. */
@@ -32,6 +36,9 @@ parser code {:
 	public Parser(String _name) {
 		this();
 		this.name = _name;
+	}
+	public String getName() {
+		return this.name;
 	}
 :}
 

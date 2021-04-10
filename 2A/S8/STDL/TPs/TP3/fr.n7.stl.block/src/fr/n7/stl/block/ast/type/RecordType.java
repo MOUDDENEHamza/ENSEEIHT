@@ -206,6 +206,8 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		for (FieldDeclaration f : this.fields) {
 			_result = _result && f.getType().resolve(_scope);
 		}
+		// TODO : calculer l'offset de chaque champs et initialiser cet offset
+		
 		return _result;
 	}
 
