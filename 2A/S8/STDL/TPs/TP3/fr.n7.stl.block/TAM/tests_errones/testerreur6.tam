@@ -1,6 +1,0 @@
-;Syntaxe incorrecte
-
-norm 3  ;ligne d'erreur
-LOADL 4
-SUBR IOut
-HALT

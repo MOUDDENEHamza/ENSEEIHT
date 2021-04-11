@@ -1,6 +1,0 @@
-test{
-  for (int x = 0 ; (x < 13) ; x = (x+2)) {
-    print x;
-    x = (x+1);
-  }
-}

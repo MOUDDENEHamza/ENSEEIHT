@@ -1,5 +1,0 @@
-p1{
-  int * x = (new int);
-  (* x) = 3;
-  print (* x);
-}
