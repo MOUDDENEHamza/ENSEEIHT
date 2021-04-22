@@ -47,11 +47,23 @@ acceptable(L, S) :- sous_liste(L, S), poids_sac(S, P), P =< 20.
 /*   choisir dans L une autre liste acceptable d’objets de poids total        */
 /*   strictement supérieur au poids total des objets de S                     */
 /* ************************************************************************** */
-poids_maximal([ordinateur_salle_TP_N7]).
-poids_maximal([morceau_du_pont_Saint_Pierre, cachous, stock_de_ballons_de_rugueubi]).
-poids_maximal([morceau_du_pont_Saint_Pierre, cachous, goodies_Airbus_et_Cite_de_l_Espace]).
+meilleur_poids(L, S1) :- acceptable(L, S), poids_sac(S, P1),
+                        \+ (acceptable(L, S2), poids_sac(S2, P2), P1 < P2).
 
-poids_max([morceau_du_pont_Saint_Pierre, cachous, stock_de_ballons_de_rugueubi]).
-poids_max([morceau_du_pont_Saint_Pierre, cachous, goodies_Airbus_et_Cite_de_l_Espace]).
+/* ************************************************************************** */
+/*                        Definition de meilleur_utilite/2                    */
+/*   meilleure_utilite(L, S) est vrai si S est une liste d’objets de poids    */
+/*   maximal et d’utilité maximale                                            */
+/* ************************************************************************** */
+utilite(morceau_du_pont_Saint_Pierre, 1).
+utilite(cachous, 2).
+utilite(stock_de_ballons_de_rugueubi, 3).
+utilite(goodies_Airbus_et_Cite_de_l_Espace, 4).
+utilite(ordinateur_salle_TP_N7, 5).
 
-meilleur_poids(L, S) :- acceptable(L, S), poids_maximal(S), \+ poids_max(S).
+somme_utilite([], 0).
+somme_utilite(L, U1) :- [T | Q] = L, somme_utilite(Q, U2), utilite(T, U3),
+                              U1 is U2 + U3.
+
+meilleure_utilite(L, S1) :- somme_utilite(S1, U1), meilleur_poids(L, S1),
+                           \+ (acceptable(L, S2), somme_utilite(S2, U2), U1 < U2).
