@@ -45,14 +45,14 @@ sous_liste([ _ | Q1], [T | Q2]) :- sous_liste(Q1, [T | Q2]).
 acceptable(L, S) :- sous_liste(L, S), poids_sac(S, P), P =< 20.
 
 /* ************************************************************************** */
-/*                        Definition de meilleur_poids/2                      */
-/*   meilleur_poids(L, S) (NÉGATION PAR ÉCHEC) est vrai si S est une          */
+/*                        Definition de meilleur_poids_v1/2                   */
+/*   meilleur_poids_v1(L, S) (NÉGATION PAR ÉCHEC) est vrai si S est une       */
 /*   liste acceptable d’objets, choisis dans la liste L, de poids             */
 /*   maximal : il n’y a pas moyen de choisir dans L une autre liste           */
 /*   acceptable d’objets de poids total strictement supérieur au poids        */
 /*   total des objets de S                                                    */
 /* ************************************************************************** */
-meilleur_poids(L, S1) :- acceptable(L, S1), poids_sac(S1, P1),
+meilleur_poids_v1(L, S1) :- acceptable(L, S1), poids_sac(S1, P1),
                         \+ (acceptable(L, S2), poids_sac(S2, P2), P1 < P2).
 
 /* ************************************************************************** */
@@ -98,8 +98,9 @@ p(R,C,[C|V]) :- q(R,C,S), p(R,S,V).
 /*   choisir dans L une autre liste acceptable d’objets de poids total        */
 /*   strictement supérieur au poids total des objets de S                     */
 /* ************************************************************************** */
-check([], P1).
-check([T | Q], P1) :- poids_sac(T, P2), P1 =< P2, check(Q, P1). 
+check(L, [], P1).
+check(L, [T | Q], P1) :- poids_sac(T, P2),
+                      ((acceptable(L, T), P1 >= P2) ; P2 > 20),
+                      check(L, Q, P1). 
 
-meilleur_poids_v2(L, S1) :- acceptable(L, S1), poids_sac(S1, P1),
-                            p(L, [], X), check(X, P1).
+meilleur_poids_v2(L, S1) :- acceptable(L, S1), poids_sac(S1, P1), p(L, [], X), check(L, X, P1).
