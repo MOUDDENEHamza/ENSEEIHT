@@ -1,4 +1,11 @@
-from trace import trace
+import functools
+
+def trace(f):
+    @functools.wraps(f)
+    def trace_interne(*args, **kwargs):
+        print('-->', f.__qualname__)
+        print('<--', f.__doc__, f(*args))
+    return trace_interne
 
 @trace
 def fact(n):
