@@ -5,7 +5,7 @@ import java.util.*;
  * sÃ©parÃ©es par des blancs : x, y, ordre (ignorÃ©e), valeur.
  */
 public class Analyseur {
-	/** Conserve la somme des valeurs associÃ©es Ã  une position. */
+	/** Conserve la somme des valeurs associÃ©es Ã  une position. */
 	private Map<Position, Double> cumuls;
 
 	/** Construire un analyseur vide. */
@@ -55,7 +55,7 @@ public class Analyseur {
 		}
 	}
 
-	/** Obtenir la valeur associÃ©e Ã  une position. */
+	/** Obtenir la valeur associÃ©e Ã  une position. */
 	public double valeur(Position position) {
 		Double valeur = cumuls.get(position);
 		return valeur == null ? 0.0 : valeur;
@@ -84,3 +84,4 @@ public class Analyseur {
 	}
 
 }
+

@@ -1,5 +1,3 @@
-# coding: utf-8
-# vim: set noexpandtab sw=4 ts=4:
 import sys
 import csv
 
