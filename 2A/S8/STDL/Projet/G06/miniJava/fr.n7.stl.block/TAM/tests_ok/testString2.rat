@@ -1,0 +1,4 @@
+test{
+  string x = "azerty";
+  print x;
+}

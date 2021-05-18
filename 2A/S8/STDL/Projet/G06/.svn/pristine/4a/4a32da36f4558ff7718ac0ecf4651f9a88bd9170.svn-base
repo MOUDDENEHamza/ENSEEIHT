@@ -1,0 +1,26 @@
+LOADL 5
+CALL (SB) fact
+SUBR IOut
+HALT
+;(n == 0)
+fact
+LOAD (1) -1[LB]
+LOADL 0
+SUBR IEq
+JUMPIF (0) sinon_conditionnelle_2
+LOADL 1
+RETURN (1) 1
+JUMP fin_conditionnelle_1
+sinon_conditionnelle_2
+;(n * fact( (n - 1)))
+LOAD (1) -1[LB]
+;(n - 1)
+LOAD (1) -1[LB]
+LOADL 1
+SUBR ISub
+CALL (SB) fact
+SUBR IMul
+RETURN (1) 1
+fin_conditionnelle_1
+RETURN (0) 1
+

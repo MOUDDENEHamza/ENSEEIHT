@@ -1,0 +1,46 @@
+int permute (int* p1 int* p2);
+int permute (string* p1 string* p2);
+
+string melange (string s1 string s2) {
+  string* p1 = (new string);
+  (*p1)=s1;
+  string* p2 = (new string);
+  (*p2)=s2;
+  int* i1 = (new int);
+  (*i1)=0;
+  int* i2 = (new int);
+  (*i2)=0;
+  string res = "";
+  if (length s1 = length s2){
+    int t = length s1;
+    while ((*i1) < t){
+      res = (res ^ ((*p1){(*i1),(*i1)}));
+      (*i1) = ((*i1)+1);
+      int inutile1 = call permute (p1 p2);
+      int inutile2 = call permute (i1 i2);
+    }
+  }else{
+    res = "Erreur\n";
+  }
+  return res;
+}
+
+prog {
+  print call melange ("abcd" "efgh");
+}
+
+int permute (int* p1 int* p2)
+{
+  int sauve = (*p1);
+  (*p1) = (*p2);
+  (*p2) = sauve;
+  return 0;
+}
+
+int permute (string* p1 string* p2)
+{
+  string sauve = (*p1);
+  (*p1) = (*p2);
+  (*p2) = sauve;
+  return 0;
+}

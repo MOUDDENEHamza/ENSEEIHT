@@ -1,0 +1,17 @@
+int f1 (int a int b);
+rat f2 (rat a rat b);
+
+main {
+  int x = call f1 (2 3);
+  rat y = call f2 ([1/3] [1/3]);
+  print x;
+  print y;
+}
+
+int f1 (int a int b){
+  return (a+b);
+}
+
+rat f2 (rat a rat b){
+  return (a+b);
+}

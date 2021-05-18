@@ -1,0 +1,24 @@
+#!/bin/sh
+# Pour chaque test, exécute runtam et compare la sortie avec celle attendue (fichier .out)
+
+cd tests_ok
+for f in *.tam; do
+    java -jar ../runtam.jar "$f" >/tmp/out 2>&1
+    outok=`basename "$f" .tam`.out
+    if ! cmp -s /tmp/out "$outok"; then
+        echo "FAILED : $f"
+        diff "$outok" /tmp/out
+        echo "========"
+    fi
+done
+
+cd ../tests_errones
+for f in *.tam; do
+    java -jar ../runtam.jar "$f" >/tmp/out 2>&1
+    outok=`basename "$f" .tam`.out
+    if ! cmp -s /tmp/out "$outok"; then
+        echo "FAILED : $f"
+        diff "$outok" /tmp/out
+        echo "========"
+    fi
+done

@@ -1,0 +1,8 @@
+;JUMP vers un label indéfini
+
+JUMP fibonacci
+
+main
+LOADL 4
+SUBR IOut
+HALT

@@ -1,0 +1,17 @@
+test7 {
+    
+    int somme(int a, int b){
+        return a+b;
+    }
+    
+    boolean bea() {
+        return true;
+    }
+
+    if (bea()) {
+        int res = somme(1, 2);
+    }
+
+    print res;
+
+}

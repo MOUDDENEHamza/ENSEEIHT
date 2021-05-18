@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="runtam" default="main" basedir=".">
+
+  <property name="src.dir" value="src"/>
+  <property name="res.dir" value="resources"/>
+  <property name="bin.dir" value="build/classes"/>
+  <property name="gen.dir" value="build/generated"/>
+
+  <taskdef name="cup" classname="java_cup.anttask.CUPTask" />
+  <taskdef name="jflex" classname="jflex.anttask.JFlexTask" />
+  
+  <path id="cupruntime.path">
+    <pathelement location="/usr/share/java/cup_runtime.jar"/>  <!-- and also in rule 'jar' -->
+    <!-- <pathelement location="java-cup-0.11b-runtime.jar"/> -->
+  </path>
+  <property environment="env"/>
+  <condition property="jfxpath" value="${env.PATH_TO_FX}" else="/usr/share/openjfx/lib">
+    <isset property="env.PATH_TO_FX" />
+  </condition>
+  <path id="javafx.path">
+    <pathelement location="${jfxpath}"/>
+  </path>
+
+  <target name="clean">
+    <delete dir="${bin.dir}"/>
+    <delete dir="${gen.dir}"/>
+    <delete dir="build"/>
+  </target>
+
+  <target name="init">
+    <mkdir dir="${bin.dir}"/>
+    <mkdir dir="${gen.dir}"/>
+  </target>
+
+  <target name="cup">
+    <cup srcfile="src/syntax/tam.cup" destdir="${gen.dir}"
+         locations="false"
+         nosummary="true" />
+  </target>
+
+  <target name="jflex">
+    <jflex file="${src.dir}/syntax/tam.flex" destdir="${gen.dir}" />
+  </target>
+  
+  <target name="generate" depends="init,jflex,cup">
+  </target>
+  
+  <target name="compile" depends="init,generate">
+    <javac srcdir="${gen.dir};${src.dir}"
+           destdir="${bin.dir}"
+           includeantruntime="false">
+      <classpath refid="cupruntime.path"/>
+      <modulepath refid="javafx.path"/>
+      <compilerarg line="--add-modules javafx.controls,javafx.fxml"/>
+      <!-- <compilerarg value="-Xlint:unchecked" /> -->
+      <!-- <compilerarg value="-Xlint:deprecation" /> -->
+    </javac>
+  </target>
+
+  <target name="installprop">
+    <copy todir="${bin.dir}">
+      <fileset dir="${src.dir}">
+        <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="runtam" depends="compile,installprop">
+    <jar destfile="runtam.jar"
+         manifest="MANIFEST.MF">
+      <zipfileset dir="${bin.dir}"/>
+      <!-- <zipgroupfileset dir="." includes="java-cup-0.11b-runtime.jar"/> -->
+      <zipgroupfileset dir="/usr/share/java" includes="cup_runtime.jar"/>
+    </jar>
+  </target>
+  
+  <target name="itam" depends="compile,installprop">
+    <jar destfile="itam.jar"
+         manifest="MANIFEST2.MF">
+      <zipfileset dir="${bin.dir}"/>
+      <fileset dir="${res.dir}" />
+      <zipgroupfileset dir="/usr/share/java" includes="cup_runtime.jar"/>
+    </jar>
+  </target>
+
+  <target name="jar" depends="itam,runtam">
+  </target>
+
+  <target name="main" depends="jar">
+  </target>
+</project>

@@ -1,0 +1,10 @@
+test {
+typedef int Entier;
+Entier a = 1; 
+Entier b = 2;
+if (a<b) {
+  print a;
+} else {
+  print b;
+}
+}

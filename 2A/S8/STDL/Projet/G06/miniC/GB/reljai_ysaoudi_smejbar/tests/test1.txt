@@ -1,0 +1,14 @@
+test {
+    int i1 = 1;
+	const int constante = 5;
+	boolean cond = false;
+	if (i1==1) {
+		int j1 = 1;
+	}
+
+	int i2 = 1;
+	while (i2<6) {
+		i2 = i2+1;
+		boolean pluspetit = true;
+	}
+}

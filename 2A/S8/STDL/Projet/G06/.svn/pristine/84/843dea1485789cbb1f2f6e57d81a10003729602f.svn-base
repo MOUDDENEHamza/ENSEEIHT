@@ -1,0 +1,84 @@
+package asm;
+
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
+
+parser code {:
+   
+    public void report_error(String message, Object info){
+        StringBuilder m = new StringBuilder("Error");
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));   
+                if (s.right >= 0)                    
+                    m.append(", column "+(s.right+1));
+            }
+        }
+        m.append(" : "+message);
+        throw new SyntaxicError(m.toString());
+    }
+
+:};
+
+terminal           CRO, CRF , PARO, PARF; 
+terminal           LOAD, LOADA, LOADI, LOADL; 
+terminal           STORE, STOREI; 
+terminal           CALL, CALLI; 
+terminal           RETURN, SUBR, PUSH, POP ;  
+terminal           JUMP, JUMPI, JUMPIF, HALT; 
+terminal Integer   NB;
+terminal String    CHAINE;
+terminal Character CAR;
+terminal String    IDENT;
+
+non terminal PROG;
+non terminal ArrayList<Instruction> INSTS;
+non terminal Instruction  INST;
+non terminal Cste CSTE;
+non terminal CInst CINST;
+
+precedence left CRO,CRF,PARO,PARF;
+
+
+start with PROG;
+
+
+/*Regles*/
+
+PROG ::=  INSTS:li                                          {: RESULT = li; :};
+
+INSTS::= INSTS:li INST:i                                    {: li.add(i); RESULT = li ; :}
+         |INST:i                                            {: ArrayList<Instruction> li = new ArrayList<Instruction>(); li.add(i); RESULT = li; :} ;
+
+ 
+
+
+INST ::= LOAD:l PARO NB:n1 PARF NB:n2 CRO IDENT:i CRF         {: RESULT = new LOADInstruction(lleft+1,n1,n2,i); :}
+        | LOADA:l  CINST:c1                                   {: RESULT = new LOADAInstruction(lleft+1,c1) ; :}                             
+        | LOADI:l PARO NB:n1 PARF                             {: RESULT = new LOADIInstruction(lleft+1,n1); :}
+        | LOADL:l CSTE:c                                      {: RESULT = new LOADLInstruction(lleft+1, c); :} 
+        | STORE:l PARO NB:n1 PARF NB:n2 CRO IDENT:i CRF       {: RESULT = new STOREInstruction(lleft+1,n1,n2,i); :}
+        | STOREI:l PARO NB:n1 PARF                            {: RESULT = new STOREIInstruction(lleft+1,n1); :}
+        | CALL:l PARO IDENT:i PARF CINST:c                    {: RESULT = new CALLInstruction(lleft+1, i,c); :} 
+        | CALLI:l                                             {: RESULT = new CALLIInstruction(lleft+1); :}
+        | RETURN:l PARO NB:n1 PARF NB:n2                      {: RESULT = new RETURNInstruction(lleft+1, n1,n2); :}
+        | SUBR:l IDENT:i                                      {: RESULT = new SUBRInstruction(lleft+1, i); :}
+        | IDENT:i                                             {: RESULT = new IDENTInstruction(ileft,i); :}
+        | PUSH:l NB:n1                                        {: RESULT = new PUSHInstruction(lleft+1, n1); :}
+        | POP:l PARO NB:n1 PARF NB:n2                         {: RESULT = new POPInstruction(lleft+1, n1,n2); :}
+        | JUMP:l CINST:c                                      {: RESULT = new JUMPInstruction(lleft+1, c); :}   
+        | JUMPI:l                                             {: RESULT = new JUMPIInstruction(lleft+1); :}
+        | JUMPIF:l PARO NB:n1 PARF CINST:c                    {: RESULT = new JUMPIFInstruction(lleft+1, n1,c); :}  
+        | HALT:l                                              {: RESULT = new HALTInstruction(lleft+1); :} ;
+
+
+CSTE ::= NB:n1         {: RESULT = new Cste<Integer>(n1,CType.Entier); :} 
+        |CHAINE:ch1    {: RESULT = new Cste<String>(ch1,CType.Chaine); :} 
+        |CAR:c1        {: RESULT = new Cste<Character>(c1,CType.Char); :} ;
+
+CINST ::= NB:n1 CRO IDENT:i CRF       {: RESULT = new CINST1(n1,i); :}
+          |IDENT:i                    {: RESULT = new CINST2(i); :} ;
+
+                            

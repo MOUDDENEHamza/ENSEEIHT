@@ -1,0 +1,4 @@
+main {
+  rat x = [4/7];
+  print num x;
+}

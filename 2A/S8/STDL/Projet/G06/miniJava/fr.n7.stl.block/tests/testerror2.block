@@ -1,0 +1,12 @@
+// Erreur typage fonction
+test {
+    int i = 1;
+    int j = 2;
+    boolean fct(int a, int b) {
+        if (i > j) {
+            return 1;
+        } else {
+            return false;
+        }
+    }
+}

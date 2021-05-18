@@ -1,0 +1,12 @@
+;Subroutine non existante
+
+LOADL 0 
+LOAD (1) -2[LB]
+LOAD (1) -1[LB]
+boucle
+LOAD (1) 5[LB]
+LOAD (1) 4[LB]
+LOAD (1) 5 [LB]
+SUBR IMoX ;; ligne d'erreur 
+STORE (1) 3[LB]
+LOAD (1) 5[LB]

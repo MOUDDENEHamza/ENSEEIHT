@@ -1,0 +1,58 @@
+	LOADL       47
+	LOADL       53
+	CALL   (SB) begin:pgcd
+	SUBR    IOut
+	LOADL       10
+	SUBR    COut
+	HALT   
+begin:pgcd
+	PUSH       1
+	LOAD   (2) -2[LB]
+	POP   (0) 1
+	STORE   (1) 3[LB]
+	PUSH       1
+	LOAD   (2) -2[LB]
+	POP   (1) 1
+	STORE   (1) 4[LB]
+while1
+	LOAD   (1) 3[LB]
+	LOAD   (1) 4[LB]
+	SUBR    IMul
+	LOADL       0
+	SUBR    INeq
+	JUMPIF   (0) endwhile1
+	LOAD   (1) 3[LB]
+	LOAD   (1) 4[LB]
+	SUBR    IGtr
+	JUMPIF   (0) else2
+	PUSH       1
+	LOAD   (1) 3[LB]
+	LOAD   (1) 4[LB]
+	SUBR    ISub
+	STORE   (1) 5[LB]
+	LOAD   (1) 5[LB]
+	STORE   (1) 3[LB]
+	JUMP       endif2
+else2
+	PUSH       1
+	LOAD   (1) 4[LB]
+	LOAD   (1) 3[LB]
+	SUBR    ISub
+	STORE   (1) 5[LB]
+	LOAD   (1) 5[LB]
+	STORE   (1) 4[LB]
+endif2
+	JUMP       while1
+endwhile1
+	PUSH       1
+	LOAD   (1) 3[LB]
+	STORE   (1) 5[LB]
+	LOAD   (1) 5[LB]
+	LOADL       0
+	SUBR    IEq
+	JUMPIF   (0) endif3
+	LOAD   (1) 4[LB]
+	STORE   (1) 5[LB]
+endif3
+	LOAD   (1) 5[LB]
+	RETURN   (1) 1

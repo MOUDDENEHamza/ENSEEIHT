@@ -1,0 +1,13 @@
+;CALL d'un label indéfini
+
+norm
+LOAD (1) -2[LB]
+LOAD (1) -1[LB]
+CALL (LB) pgcd ;ligne d'erreur
+LOAD (1) -2[LB]
+LOAD (1) 3[LB]
+SUBR IDiv
+LOAD (1) -1[LB]
+LOAD (1) 3[LB]
+SUBR IDiv
+RETURN (2) 2

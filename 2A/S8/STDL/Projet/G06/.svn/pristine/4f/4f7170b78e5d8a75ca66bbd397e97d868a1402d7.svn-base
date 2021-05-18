@@ -1,0 +1,11 @@
+test {
+    int incrementer(int h) {
+        int a = h + 1;
+        return a;
+    }
+    
+    int add(int a, int b) {
+		return a+b;
+	}
+	print add(3,4);
+}

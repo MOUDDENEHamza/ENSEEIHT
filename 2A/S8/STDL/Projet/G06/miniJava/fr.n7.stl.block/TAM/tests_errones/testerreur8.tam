@@ -1,0 +1,10 @@
+;double déclaration de label
+
+debut
+LOADL 0
+JUMPIF (0) debut
+debut  ; erreur : double déclaration
+LOADL 4
+SUBR IOut
+fin
+HALT

@@ -1,0 +1,9 @@
+;Registre non existant
+
+test
+LOADL 0
+LOAD (1) -2[LBS] ;ligne d'erreur
+LOAD (1) -1[LB]
+boucle
+LOAD (1) 5[LB]
+LOAD (1) 4[LB]

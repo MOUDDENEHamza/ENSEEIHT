@@ -1,0 +1,31 @@
+int somme (list<int> l){
+  int s = 0;
+  match l with
+  |[] -> 
+     s = 0;
+  |t::q ->
+    int sq = call somme (q);
+    s = (t+sq);
+  hctam
+  return s;
+}
+
+int sommel (list<list<int>> l) {
+  int s = 0;
+  match l with
+  |[] -> 
+     s = 0;
+  |t::q -> 
+     s = (call somme (t) + call sommel (q));
+  hctam
+  return s;
+}
+
+main {
+ list<int> l1 = (10::(1::(2::(3::[]))));
+ list<int> l2 = (10::(1::(2::(3::[]))));
+ list<int> l3 = (10::(1::(2::(3::[]))));
+ list<list<int>> l = (l1::(l2::(l3::[])));
+ print call somme (hd l);
+ print call sommel (tl l);
+}

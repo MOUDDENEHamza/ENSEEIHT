@@ -1,0 +1,13 @@
+test{
+  type Int2 = int;
+  type Tabint = Int2 [];
+  Tabint t = (new int [5]);
+  Int2 a = 2;
+  (t[0]) = a;
+  (t[1]) = a;
+  (t[2]) = a;
+  (t[3]) = a;
+  (t[4]) = a;
+  int y = (t[2]);
+  print y;
+}

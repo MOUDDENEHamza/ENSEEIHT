@@ -1,0 +1,14 @@
+int fact (int i int n){
+  int res = 0;
+  if (i=n){
+    res = i;
+  } else {
+    res = ( i * call fact ((i+1) n));
+  }
+  return res;
+}
+
+test{
+  int x = call fact (1 5);
+  print x;
+}

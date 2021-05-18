@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label ?>
+<?import javafx.scene.control.TableColumn ?>
+<?import javafx.scene.control.TableView ?>
+<?import javafx.scene.control.cell.PropertyValueFactory ?>
+<?import javafx.scene.effect.ColorAdjust ?>
+<?import javafx.scene.effect.InnerShadow ?>
+<?import javafx.scene.layout.HBox ?>
+<?import javafx.scene.layout.VBox ?>
+<?import javafx.scene.text.Font ?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="TOP_RIGHT" prefHeight="426.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StackHeapStringController">
+   <children>
+      <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"> 
+         <children>
+            <Label contentDisplay="TOP" prefHeight="35" minHeight="35" maxHeight="35" text="  Stack">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableStack" prefHeight="3000">
+               <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+               <columns>
+                  <TableColumn minWidth="35.0" prefWidth="35.0" maxWidth="35.0" sortable="false" text="\@">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="adresse" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="10.0" prefWidth="152.0" sortable="false" text="Valeur">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="valeur" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="37.0" prefWidth="37.0" maxWidth="37.0" sortable="false" text="ST">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="st" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="37.0" prefWidth="37.0"  maxWidth="37.0" sortable="false" text="LB">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="lb" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="10.0" prefWidth="100.0" sortable="false" text="Info">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="info" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TableView>
+         </children>
+      </VBox>
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+         <children>
+            <Label contentDisplay="TOP" prefHeight="35" minHeight="35" maxHeight="35" text="  Heap">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableHeap" prefHeight="3000">
+               <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+               <columns>
+                  <TableColumn minWidth="70.0" prefWidth="70.0"  maxWidth="70.0" sortable="false" text="\@">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="adresse" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="10.0" prefWidth="192.0" sortable="false" text="Valeur">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="valeur" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="37.0" prefWidth="37.0" maxWidth="37.0" sortable="false" text="HT">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="ht" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TableView>
+         </children>
+      </VBox>
+      <VBox GridPane.columnIndex="2" GridPane.rowIndex="0">
+         <children>
+            <Label contentDisplay="TOP" prefHeight="35" minHeight="35" maxHeight="35" text="  String">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableString" prefHeight="3000">
+               <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+               <columns>
+                  <TableColumn minWidth="35.0" prefWidth="35.0" maxWidth="35.0" sortable="false" text="\@">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="adresse" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn minWidth="10.0" prefWidth="300.0" sortable="false" text="Valeur">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="valeur" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0"  />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0"  />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0"  />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

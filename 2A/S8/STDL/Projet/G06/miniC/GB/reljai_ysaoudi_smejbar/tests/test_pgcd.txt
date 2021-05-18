@@ -1,0 +1,22 @@
+pgcd {
+  const int test = 0;
+  int pgcd( <int,int> c ) {
+    int a = fst c;
+    int b = snd c;
+    while (a * b != test) {
+      if ( a > b ) {
+	int na = a-b;
+	a = na;
+      } else {
+	int nb = b-a;
+	b = nb;
+      }
+    }
+    int res = a;
+    if (res == test) {
+      res = b;
+    }
+    return res;
+  }
+  print pgcd( {47,53} );
+}

@@ -1,0 +1,51 @@
+Compilation et construction des jar
+-----------------------------------------
+1) apt-get install jflex cup
+2) apt-get install openjfx ou installation à la main de javaFX
+3) Uniquement si installation à la main de javaFX :
+   export PATH_TO_FX=<chemin d'accès à javaFX>/javafx-sdk-14.0.1/lib
+4) ant jar
+and that's all! Stop reading.
+
+(génére les fichiers lex et cup, compile, construit runtam.jar et itam.jar)
+
+Exécution de runtam
+--------------------
+java -jar runtam.jar examples/essai.tam
+ou
+export TAMDIR=/home/queinnec/Cours/traduction-langages-2SN/tools/runtam
+java -jar ${TAMDIR}/runtam.jar examples/essai.tam
+
+Lancement de itam (interface graphique)
+---------------------------------------
+java -jar --module-path $PATH_TO_FX --add-modules javafx.controls,javafx.fxml itam.jar
+ou
+java -jar --module-path /usr/share/openjfx/lib --add-modules javafx.controls,javafx.fxml itam.jar
+
+Nettoyage
+---------
+ant clean
+(supprime build. Ne supprime pas runtam.jar ni itam.jar)
+
+Tests de non-régression
+-----------------------
+Compile et exécute les tests ok et les tests erronés, et vérifie la conformité de l'affichage :
+./checktest
+
+Construction des fichiers out :
+(cd tests_ok; ../createtest)
+(cd tests_errones; ../createtest)
+
+Compilation à la main
+---------------------
+Soit `ant compile`
+
+Soit depuis le répertoire src (permet de spécifier une version de java, p.e. `--release 8`) :
+
+mkdir -p ../build/generated/asm ../build/classes
+jflex -d ../build/generated/asm syntax/tam.flex
+(cd ../build/generated/asm; cup <../../../src/syntax/tam.cup)
+javac -d ../build/classes -cp ../build/classes:../java-cup-0.11b-runtime.jar asm/*.java itam/tam/*.java runtam/*.java ../build/generated/*/*.java
+
+Puis comme ci-dessus `ant jar` pour construire le jar.
+

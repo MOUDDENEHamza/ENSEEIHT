@@ -1,0 +1,6 @@
+;Syntaxe incorrecte 
+
+LOADL 0
+LOAD (1) -2[LB]
+LOAD  -1[LB]  ;ligne d'erreur
+STORE (1) 3[LB]

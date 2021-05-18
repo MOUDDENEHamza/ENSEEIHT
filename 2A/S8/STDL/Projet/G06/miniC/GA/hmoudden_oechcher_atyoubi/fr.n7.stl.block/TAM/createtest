@@ -1,0 +1,7 @@
+#!/bin/sh
+# Create the out file corresponding to each test
+
+for f in *.tam; do
+    out=`basename "$f" .tam`.out
+    java -jar ../runtam.jar $f >$out 2>&1
+done

@@ -1,0 +1,21 @@
+	CALL   (SB) begin:fact
+	SUBR    IOut
+	LOADL       10
+	SUBR    COut
+	HALT   
+begin:fact
+	LOAD   (1) -1[LB]
+	LOADL       0
+	SUBR    IEq
+	JUMPIF   (0) else1
+	LOADL       1
+	RETURN   (1) 1
+	JUMP       endif1
+else1
+	LOAD   (1) -1[LB]
+	LOAD   (1) -1[LB]
+	LOADL       1
+	SUBR    ISub
+	CALL   (SB) begin:fact
+	SUBR    IMul
+	RETURN   (1) 1

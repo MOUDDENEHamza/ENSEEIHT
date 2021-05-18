@@ -1,0 +1,27 @@
+(int *) valeur (bool p (int *) a (int *) b );
+
+prog {
+  type PInt = int *;
+  const t = 5;
+  PInt[] tab = (new PInt[t]);
+  bool pair = true;
+  int a = 0;
+  int b = 1;
+  for (int i = 0 ; (i < t) ; i = (i+1)){
+    (tab[i]) = call valeur (pair &a &b);
+    pair = (pair = false);
+  }
+  for (int i = 0 ; (i < t) ; i = (i+1)){
+    print (*(tab[i]));
+  }
+}
+
+(int *) valeur (bool p (int *) a (int *) b ){
+  (int *) valeur = null;
+  if p {
+    valeur = a;
+  } else {
+    valeur = b;
+  }
+  return valeur;
+}

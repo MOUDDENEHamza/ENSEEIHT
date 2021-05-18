@@ -1,0 +1,20 @@
+rat f3 (int a int b rat r){
+  return [(a + num r) / (b + denom r)];
+}
+
+rat f2 (bool b rat x rat y){
+  int x1 = num x;
+  int x2 = denom x;
+  rat res = call f3(x1 x2 y);
+  return res;
+}
+
+int f1 (int i rat r int n){
+  rat r2 = call f2(true r [i/n]);
+  return denom r2;
+}
+
+test{
+  int x = call f1 (13 [4/11] 17);
+  print x;
+}

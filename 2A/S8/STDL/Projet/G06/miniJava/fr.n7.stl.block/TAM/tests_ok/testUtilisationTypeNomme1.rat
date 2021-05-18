@@ -1,0 +1,5 @@
+test{
+  type Int2 = int;
+  Int2 a = 2;
+  print a;
+}

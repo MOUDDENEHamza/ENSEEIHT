@@ -1,0 +1,8 @@
+test {
+    typedef int Entier;
+    int i = 5;
+    int v = (int) i;
+    //Entier v = (int) i;
+    int *ptr = &v;
+    int j = *ptr;
+}

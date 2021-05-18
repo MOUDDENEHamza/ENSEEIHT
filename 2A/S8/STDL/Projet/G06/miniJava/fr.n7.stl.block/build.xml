@@ -1,0 +1,39 @@
+<project name="BlockCompiler" default="compile" basedir=".">
+
+	<property name="java" location="src" />
+	<property name="classes" location="bin/cls" />
+	<property name="result" location="bin/jar" />
+	<property name="lib" location="lib" />
+	<property name="tools" location="tools" />
+	<property name="base" location="." />
+
+	<taskdef name="jflex" classname="JFlex.anttask.JFlexTask" classpath="${tools}/JFlex.jar" />
+	<taskdef name="cup" classname="java_cup.anttask.CUPTask" classpath="${tools}/java-cup-11b.jar" />
+
+	<target name="generate">
+		<cup srcfile="${base}/parser.cup" destdir="${java}" parser="Parser" interface="true" locations="true" debugsymbols="true" />
+		<jflex file="lexer.jflex" destdir="${java}" />
+	</target>
+
+	<path id="libraries">
+		<files includes="${tools}/java-cup-11b-runtime.jar" />
+		<files includes="${tools}/commons-text-1.2.jar" />
+	</path>
+
+	<target name="compile" depends="generate">
+		<mkdir dir="${classes}" />
+		<mkdir dir="${result}" />
+
+		<javac includeantruntime="false" srcdir="${java}" destdir="${classes}">
+			<classpath refid="libraries" />
+		</javac>
+	</target>
+
+	<target name="clean">
+		<delete file="${java}/Parser.java" />
+		<delete file="${java}/sym.java" />
+		<delete file="${java}/Scanner.java" />
+		<delete dir="${classes}" />
+		<delete dir="${result}" />
+	</target>
+</project>
