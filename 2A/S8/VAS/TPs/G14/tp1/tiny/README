@@ -1,0 +1,88 @@
+TINY
+****
+
+TINY (stands for Tiny Is Not Yasa (Yet Another Static Analyzer))
+is a simple abstract interpretation based static analyzer to be used
+for abstract interpretation tutorials (typically by making the students
+write simple non relational abstract domains). It was primarily intended
+to remain small and simple (less than 2klocs of Ocaml).
+
+Input Language Syntax
+=====================
+
+The analyzed language is a toy imperative language with a C-like syntax.
+Here is it's grammar:
+
+expr ::= v | n | "rand(" n ", " n ")"
+         | expr "+" expr | expr "-" expr | expr "*" expr | expr "/" expr
+
+stm ::= v "=" expr ";" | stm stm
+        | "if (" expr "> 0) {" stm "} else {" stm "}"
+        | "while (" expr "> 0) {" stm "}"
+
+with v \in V a set of variables and n \in Z.
+"rand(n1, n2)" stands for the random choice of an integer in the range [n1, n2]
+(useful to simulate inputs).
+
+In addition C-like comments are handled (beginning with "/*" and ending with "*/")
+and some syntactic sugar is provided for convenience:
+-e       ~~> 0 - e
+e1 > e2  ~~> e1 - e2 > 0
+e1 < e2  ~~> e2 - e1 > 0
+e1 >= e2 ~~> e1 - e2 + 1 > 0
+e1 <= e2 ~~> e2 - e1 + 1 > 0
+v += e;  ~~> v = v + e:
+v -= e;  ~~> v = v - e:
+v *= e;  ~~> v = v * e:
+v /= e;  ~~> v = v / e:
+++v;     ~~> v = v + 1;
+v++;     ~~> v = v + 1;
+--v;     ~~> v = v - 1;
+v--;     ~~> v = v - 1;
+
+The semantics is what you would expect from similar C code
+(see the lecture for full formal definition).
+
+A few examples are provided in the "examples" subdirectory.
+
+Installing the analyzer
+=======================
+
+See file INSTALL for detailled installation instructions
+(or just type make in "src" subdirectory).
+
+Executing TINY programs
+=======================
+
+You can compile TINY programs to C programs with:
+> src/tiny -c program.tiny -o program.c  # or C-c C-c in provided Emacs mode
+which can then be compiled and executed:
+> gcc -Wall program.c && a.out  # or C-c C-r in provided Emacs mode
+
+Beware however that the semantics of TINY programs and C programs is slightly
+different in that TINY programs operate in Z without overflows whereas
+C programs operate on bounded integers with overflows.
+This is an import point to take into account although most simple programs
+usually won't trigger any overflow.
+
+Analyzing TINY programs
+=======================
+
+That's what a static analyzer is made for. Just type
+> src/tiny program.tiny
+This will parse program.tiny, analyze it and print the result as the original
+file with result interleaved in comments.
+More details on what's going on during the analysis can be obtained with
+the "-v" flag:
+> src/tiny program.tiny -v 4  # for instance
+Finally a finite number of descending iterations can be performed after reaching
+fixpoints with the option "-d":
+> src/tiny program.tiny -d 1
+
+Implementing Your Own Abstract Domain
+=====================================
+
+You can set the abstract domain used by the analyzer at the beginning of file
+"src/analyze.ml" (don't forget to recompile to take changes into account).
+For writing your own abstract domain, you can start from file "src/dummy.ml"
+as a template.

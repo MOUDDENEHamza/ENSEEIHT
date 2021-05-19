@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="NonRelational.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Analyze" rel="Chapter" href="Analyze.html">
+<link title="Ast" rel="Chapter" href="Ast.html">
+<link title="Compile" rel="Chapter" href="Compile.html">
+<link title="Location" rel="Chapter" href="Location.html">
+<link title="Name" rel="Chapter" href="Name.html">
+<link title="NonRelational" rel="Chapter" href="NonRelational.html">
+<link title="Parse" rel="Chapter" href="Parse.html">
+<link title="Relational" rel="Chapter" href="Relational.html">
+<link title="PrintResults" rel="Chapter" href="PrintResults.html">
+<link title="Report" rel="Chapter" href="Report.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Dummy" rel="Chapter" href="Dummy.html">
+<link title="InfInt" rel="Chapter" href="InfInt.html"><link title="Lattice Structure" rel="Section" href="#2_LatticeStructure">
+<link title="Abstract Operators" rel="Section" href="#2_AbstractOperators">
+<title>NonRelational.Domain</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="NonRelational.html">Up</a>
+&nbsp;</div>
+<center><h1>Module type <a href="type_NonRelational.Domain.html">NonRelational.Domain</a></h1></center>
+<br>
+<pre><span class="keyword">module type</span> Domain = <code class="code">sig</code> <a href="NonRelational.Domain.html">..</a> <code class="code">end</code></pre>Module type of non relational domains.<br>
+<hr width="100%">
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info">
+Type of abstract values.<br>
+</div>
+
+<pre><span id="VALfprint"><span class="keyword">val</span> fprint</span> : <code class="type">Format.formatter -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+Prints an abstract value.<br>
+</div>
+<br>
+<span id="2_LatticeStructure"><h2>Lattice Structure</h2></span><br>
+<pre><span id="VALorder"><span class="keyword">val</span> order</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Order on type <code class="code">t</code>. <code class="code">t</code> with this order must be a lattice.<br>
+</div>
+<pre><span id="VALtop"><span class="keyword">val</span> top</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALbottom"><span class="keyword">val</span> bottom</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+Infimums of the lattice.<br>
+</div>
+<pre><span id="VALjoin"><span class="keyword">val</span> join</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALmeet"><span class="keyword">val</span> meet</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+Least upper bound and greatest lower bound of the lattice.<br>
+</div>
+<pre><span id="VALwidening"><span class="keyword">val</span> widening</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+Widening to ensure termination of the analyses.<br>
+</div>
+<br>
+<span id="2_AbstractOperators"><h2>Abstract Operators</h2></span><br>
+<pre><span id="VALsem_itv"><span class="keyword">val</span> sem_itv</span> : <code class="type">int -> int -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">sem_itv n1 n2</code> returns an abstraction <code class="code">t</code> of the interval [n1, n2]:
+      <pre><code class="code">[n1, n2] \subseteq \gamma(t).</code></pre><br>
+</div>
+<br>
+Semantics of four basic arithmetic operations.<br>
+<pre><span id="VALsem_plus"><span class="keyword">val</span> sem_plus</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALsem_minus"><span class="keyword">val</span> sem_minus</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALsem_times"><span class="keyword">val</span> sem_times</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALsem_div"><span class="keyword">val</span> sem_div</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">sem_plus t1 t2</code> returns a <code class="code">t'</code> such that:
+      <pre><code class="code">{ n1 + n2 | n1 \in \gamma(t1), n2 \in \gamma(t2) } \subseteq \gamma(t').</code></pre><br>
+</div>
+<br>
+Abstract operator for guard "&gt; 0".<br>
+<pre><span id="VALsem_guard"><span class="keyword">val</span> sem_guard</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">sem_guard t</code> returns a <code class="code">t'</code> such that:
+      <pre><code class="code">{ n \in \gamma(t) | n &gt; 0 } \subseteq \gamma(t').</code></pre><br>
+</div>
+<br>
+Backward semantics, useful only for complicated guards.<br>
+<pre><span id="VALbacksem_plus"><span class="keyword">val</span> backsem_plus</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> * <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALbacksem_minus"><span class="keyword">val</span> backsem_minus</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> * <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALbacksem_times"><span class="keyword">val</span> backsem_times</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> * <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><pre><span id="VALbacksem_div"><span class="keyword">val</span> backsem_div</span> : <code class="type"><a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -><br>       <a href="NonRelational.Domain.html#TYPEt">t</a> -> <a href="NonRelational.Domain.html#TYPEt">t</a> * <a href="NonRelational.Domain.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">backsem_plus t1 t2 t</code> returns a pair <code class="code">(t1', t2')</code> such that:
+      <pre><code class="code">\forall n1 n2 : Z,
+      (n1 \in \gamma(t1) /\ n2 \in \gamma(t2) /\ n1+n2 \in \gamma(t))
+      -&gt; (n1 \in \gamma(t1') /\ n2 \in \gamma(t2')).</code></pre><br>
+</div>
+</body></html>

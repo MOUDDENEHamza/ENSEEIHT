@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="PrintResults.html">
+<link rel="next" href="Utils.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Analyze" rel="Chapter" href="Analyze.html">
+<link title="Ast" rel="Chapter" href="Ast.html">
+<link title="Compile" rel="Chapter" href="Compile.html">
+<link title="Location" rel="Chapter" href="Location.html">
+<link title="Name" rel="Chapter" href="Name.html">
+<link title="NonRelational" rel="Chapter" href="NonRelational.html">
+<link title="Parse" rel="Chapter" href="Parse.html">
+<link title="Relational" rel="Chapter" href="Relational.html">
+<link title="PrintResults" rel="Chapter" href="PrintResults.html">
+<link title="Report" rel="Chapter" href="Report.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Dummy" rel="Chapter" href="Dummy.html">
+<link title="InfInt" rel="Chapter" href="InfInt.html"><title>Report</title>
+</head>
+<body>
+<div class="navbar"><a href="PrintResults.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Utils.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Report.html">Report</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Report: <code class="code">sig</code> <a href="Report.html">..</a> <code class="code">end</code></pre>Module providing functions to print errors in a way the compilation mode
+    of Emacs understands while handling verbosity level and locations.<br>
+<hr width="100%">
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span></pre>
+<div class="info">
+Exception raised after printing an error message.<br>
+</div>
+<pre><span id="VALverbosity"><span class="keyword">val</span> verbosity</span> : <code class="type">int Pervasives.ref</code></pre><div class="info">
+Verbosity level. Defines the amount of logging messages outputed.
+    Default is 1. 0 means quiet (only warning and error messages get printed).<br>
+</div>
+<pre><span id="VALnlogf"><span class="keyword">val</span> nlogf</span> : <code class="type">int -> ('a, Format.formatter, unit, unit) Pervasives.format4 -> 'a</code></pre><div class="info">
+<code class="code">nflogf n ff f &lt;args&gt;</code> prints a log message like <code class="code">Format.fprintf</code>
+    if <code class="code">n</code> is greater or equal to <code class="code">verbosity</code>.
+<p>
+
+    Starting from level 4, the message is also indented from 2*(n-3) spaces.<br>
+</div>
+<pre><span id="VALwarning_loc"><span class="keyword">val</span> warning_loc</span> : <code class="type"><a href="Location.html#TYPEt">Location.t</a> -> ('a, Format.formatter, unit, unit) Pervasives.format4 -> 'a</code></pre><div class="info">
+Prints a warning message along with location.<br>
+</div>
+<pre><span id="VALerror_loc"><span class="keyword">val</span> error_loc</span> : <code class="type"><a href="Location.html#TYPEt">Location.t</a> -> ('a, Format.formatter, unit, 'b) Pervasives.format4 -> 'a</code></pre><div class="info">
+Prints an error message along with location and raises <code class="code">Error</code>.<br>
+</div>
+<pre><span id="VALsilent"><span class="keyword">val</span> silent</span> : <code class="type">(unit -> 'a) -> 'a</code></pre><div class="info">
+<code class="code">silent f</code> executes function <code class="code">f</code> without printing any log message.<br>
+</div>
+</body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Dummy.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Analyze" rel="Chapter" href="Analyze.html">
+<link title="Ast" rel="Chapter" href="Ast.html">
+<link title="Compile" rel="Chapter" href="Compile.html">
+<link title="Location" rel="Chapter" href="Location.html">
+<link title="Name" rel="Chapter" href="Name.html">
+<link title="NonRelational" rel="Chapter" href="NonRelational.html">
+<link title="Parse" rel="Chapter" href="Parse.html">
+<link title="Relational" rel="Chapter" href="Relational.html">
+<link title="PrintResults" rel="Chapter" href="PrintResults.html">
+<link title="Report" rel="Chapter" href="Report.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Dummy" rel="Chapter" href="Dummy.html">
+<link title="InfInt" rel="Chapter" href="InfInt.html"><title>InfInt</title>
+</head>
+<body>
+<div class="navbar"><a href="Dummy.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_InfInt.html">InfInt</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> InfInt: <code class="code">sig</code> <a href="InfInt.html">..</a> <code class="code">end</code></pre>Module to soundly manipulate potentially infinite integers.<br>
+<hr width="100%">
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info">
+Int32.t extended with -oo and +oo<br>
+</div>
+
+<pre><span id="VALeq"><span class="keyword">val</span> eq</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Equality on type <code class="code">t</code>.<br>
+</div>
+<pre><span id="VALorder"><span class="keyword">val</span> order</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Order (less or equal) on type <code class="code">t</code> (-oo is less than everything,..).<br>
+</div>
+<pre><span id="VALmin"><span class="keyword">val</span> min</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><pre><span id="VALmax"><span class="keyword">val</span> max</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><pre><span id="VALzero"><span class="keyword">val</span> zero</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a></code></pre><pre><span id="VALone"><span class="keyword">val</span> one</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a></code></pre><pre><span id="VALminfty"><span class="keyword">val</span> minfty</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+-oo<br>
+</div>
+<pre><span id="VALpinfty"><span class="keyword">val</span> pinfty</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
++oo<br>
+</div>
+<pre><span id="VALfin"><span class="keyword">val</span> fin</span> : <code class="type">int -> <a href="InfInt.html#TYPEt">t</a></code></pre><pre><span id="VALto_int"><span class="keyword">val</span> to_int</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> int option</code></pre><pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALadd_lb"><span class="keyword">val</span> add_lb</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">add_lb x y</code> is a lower bound of <code class="code">x+y</code>.<br>
+</div>
+<pre><span id="VALadd_ub"><span class="keyword">val</span> add_ub</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">add_ub x y</code> is an upper bound of <code class="code">x+y</code>.<br>
+</div>
+<pre><span id="VALsub_lb"><span class="keyword">val</span> sub_lb</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">sub_lb x y</code> is a lower bound of <code class="code">x-y</code>.<br>
+</div>
+<pre><span id="VALsub_ub"><span class="keyword">val</span> sub_ub</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">sub_ub x y</code> is an upper bound of <code class="code">x-y</code>.<br>
+</div>
+<pre><span id="VALmul_lb"><span class="keyword">val</span> mul_lb</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">mul_lb x y</code> is a lower bound of <code class="code">x*y</code>.<br>
+</div>
+<pre><span id="VALmul_ub"><span class="keyword">val</span> mul_ub</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">mul_ub x y</code> is an upper bound of <code class="code">x*y</code>.<br>
+</div>
+<pre><span id="VALdiv_lb"><span class="keyword">val</span> div_lb</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">div_lb x y</code> is a lower bound of <code class="code">x/y</code> when <code class="code">y != 0</code>.<br>
+</div>
+<pre><span id="VALdiv_ub"><span class="keyword">val</span> div_ub</span> : <code class="type"><a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a> -> <a href="InfInt.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">div_ub x y</code> is an upper bound of <code class="code">x/y</code> when <code class="code">y != 0</code>.<br>
+</div>
+</body></html>

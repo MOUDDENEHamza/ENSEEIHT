@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Report.html">
+<link rel="next" href="Dummy.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Analyze" rel="Chapter" href="Analyze.html">
+<link title="Ast" rel="Chapter" href="Ast.html">
+<link title="Compile" rel="Chapter" href="Compile.html">
+<link title="Location" rel="Chapter" href="Location.html">
+<link title="Name" rel="Chapter" href="Name.html">
+<link title="NonRelational" rel="Chapter" href="NonRelational.html">
+<link title="Parse" rel="Chapter" href="Parse.html">
+<link title="Relational" rel="Chapter" href="Relational.html">
+<link title="PrintResults" rel="Chapter" href="PrintResults.html">
+<link title="Report" rel="Chapter" href="Report.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Dummy" rel="Chapter" href="Dummy.html">
+<link title="InfInt" rel="Chapter" href="InfInt.html"><title>Utils</title>
+</head>
+<body>
+<div class="navbar"><a href="Report.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Dummy.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Utils.html">Utils</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Utils: <code class="code">sig</code> <a href="Utils.html">..</a> <code class="code">end</code></pre>Various utility functions.<br>
+<hr width="100%">
+<pre><span id="VALlines_of_string"><span class="keyword">val</span> lines_of_string</span> : <code class="type">string -> int</code></pre><div class="info">
+Returns the number of '\n' appearing in a string.<br>
+</div>
+<pre><span id="VALoutput_filename_string"><span class="keyword">val</span> output_filename_string</span> : <code class="type">string option -> string</code></pre><div class="info">
+Returns string in option or "stdout" if None given.<br>
+</div>
+<pre><span id="VALwith_out_ch"><span class="keyword">val</span> with_out_ch</span> : <code class="type">string option -> (Pervasives.out_channel -> 'a) -> 'a</code></pre><div class="info">
+Open an output channel on given filename, gives it to the given function and
+    eventually closes the channel. stdout is used if no filename is given.<br>
+</div>
+<pre><span id="VALwith_in_ch"><span class="keyword">val</span> with_in_ch</span> : <code class="type">string option -> (Pervasives.in_channel -> 'a) -> 'a</code></pre><div class="info">
+Same as <code class="code">with_out_ch</code> for input channels (with stdin instead of stdout).<br>
+</div>
+</body></html>

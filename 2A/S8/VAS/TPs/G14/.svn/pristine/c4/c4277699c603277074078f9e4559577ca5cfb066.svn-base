@@ -1,0 +1,611 @@
+   0  $accept : %entry% $end
+
+   1  file : stm EOF
+
+   2  stm : VAR EQUAL expr SEMICOL
+   3      | stm stm
+   4      | IF LPAR comp RPAR LBRA stm RBRA ELSE LBRA stm RBRA
+   5      | WHILE LPAR comp RPAR LBRA stm RBRA
+
+   6  expr : INT
+   7       | VAR
+   8       | RAND_ITV LPAR INT COMA INT RPAR
+   9       | LPAR expr RPAR
+  10       | expr PLUS expr
+  11       | expr MINUS expr
+  12       | expr TIMES expr
+  13       | expr DIV expr
+
+  14  comp : expr GT expr
+  15       | expr LT expr
+  16       | expr GE expr
+  17       | expr LE expr
+
+  18  %entry% : '\001' file
+
+state 0
+	$accept : . %entry% $end  (0)
+
+	'\001'  shift 1
+	.  error
+
+	%entry%  goto 2
+
+
+state 1
+	%entry% : '\001' . file  (18)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	.  error
+
+	file  goto 6
+	stm  goto 7
+
+
+state 2
+	$accept : %entry% . $end  (0)
+
+	$end  accept
+
+
+state 3
+	stm : VAR . EQUAL expr SEMICOL  (2)
+
+	EQUAL  shift 8
+	.  error
+
+
+state 4
+	stm : IF . LPAR comp RPAR LBRA stm RBRA ELSE LBRA stm RBRA  (4)
+
+	LPAR  shift 9
+	.  error
+
+
+state 5
+	stm : WHILE . LPAR comp RPAR LBRA stm RBRA  (5)
+
+	LPAR  shift 10
+	.  error
+
+
+state 6
+	%entry% : '\001' file .  (18)
+
+	.  reduce 18
+
+
+state 7
+	file : stm . EOF  (1)
+	stm : stm . stm  (3)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	EOF  shift 11
+	.  error
+
+	stm  goto 12
+
+
+state 8
+	stm : VAR EQUAL . expr SEMICOL  (2)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 17
+
+
+state 9
+	stm : IF LPAR . comp RPAR LBRA stm RBRA ELSE LBRA stm RBRA  (4)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 18
+	comp  goto 19
+
+
+state 10
+	stm : WHILE LPAR . comp RPAR LBRA stm RBRA  (5)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 18
+	comp  goto 20
+
+
+state 11
+	file : stm EOF .  (1)
+
+	.  reduce 1
+
+
+state 12
+	stm : stm . stm  (3)
+	stm : stm stm .  (3)
+
+	.  reduce 3
+
+	stm  goto 12
+
+
+state 13
+	expr : INT .  (6)
+
+	.  reduce 6
+
+
+state 14
+	expr : VAR .  (7)
+
+	.  reduce 7
+
+
+state 15
+	expr : LPAR . expr RPAR  (9)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 21
+
+
+state 16
+	expr : RAND_ITV . LPAR INT COMA INT RPAR  (8)
+
+	LPAR  shift 22
+	.  error
+
+
+state 17
+	stm : VAR EQUAL expr . SEMICOL  (2)
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+
+	SEMICOL  shift 23
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	.  error
+
+
+state 18
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+	comp : expr . GT expr  (14)
+	comp : expr . LT expr  (15)
+	comp : expr . GE expr  (16)
+	comp : expr . LE expr  (17)
+
+	GT  shift 28
+	LT  shift 29
+	GE  shift 30
+	LE  shift 31
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	.  error
+
+
+state 19
+	stm : IF LPAR comp . RPAR LBRA stm RBRA ELSE LBRA stm RBRA  (4)
+
+	RPAR  shift 32
+	.  error
+
+
+state 20
+	stm : WHILE LPAR comp . RPAR LBRA stm RBRA  (5)
+
+	RPAR  shift 33
+	.  error
+
+
+state 21
+	expr : LPAR expr . RPAR  (9)
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+
+	RPAR  shift 34
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	.  error
+
+
+state 22
+	expr : RAND_ITV LPAR . INT COMA INT RPAR  (8)
+
+	INT  shift 35
+	.  error
+
+
+state 23
+	stm : VAR EQUAL expr SEMICOL .  (2)
+
+	.  reduce 2
+
+
+state 24
+	expr : expr PLUS . expr  (10)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 36
+
+
+state 25
+	expr : expr MINUS . expr  (11)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 37
+
+
+state 26
+	expr : expr TIMES . expr  (12)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 38
+
+
+state 27
+	expr : expr DIV . expr  (13)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 39
+
+
+state 28
+	comp : expr GT . expr  (14)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 40
+
+
+state 29
+	comp : expr LT . expr  (15)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 41
+
+
+state 30
+	comp : expr GE . expr  (16)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 42
+
+
+state 31
+	comp : expr LE . expr  (17)
+
+	INT  shift 13
+	VAR  shift 14
+	LPAR  shift 15
+	RAND_ITV  shift 16
+	.  error
+
+	expr  goto 43
+
+
+state 32
+	stm : IF LPAR comp RPAR . LBRA stm RBRA ELSE LBRA stm RBRA  (4)
+
+	LBRA  shift 44
+	.  error
+
+
+state 33
+	stm : WHILE LPAR comp RPAR . LBRA stm RBRA  (5)
+
+	LBRA  shift 45
+	.  error
+
+
+state 34
+	expr : LPAR expr RPAR .  (9)
+
+	.  reduce 9
+
+
+state 35
+	expr : RAND_ITV LPAR INT . COMA INT RPAR  (8)
+
+	COMA  shift 46
+	.  error
+
+
+state 36
+	expr : expr . PLUS expr  (10)
+	expr : expr PLUS expr .  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+
+	TIMES  shift 26
+	DIV  shift 27
+	RPAR  reduce 10
+	SEMICOL  reduce 10
+	GT  reduce 10
+	LT  reduce 10
+	GE  reduce 10
+	LE  reduce 10
+	PLUS  reduce 10
+	MINUS  reduce 10
+
+
+state 37
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr MINUS expr .  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+
+	TIMES  shift 26
+	DIV  shift 27
+	RPAR  reduce 11
+	SEMICOL  reduce 11
+	GT  reduce 11
+	LT  reduce 11
+	GE  reduce 11
+	LE  reduce 11
+	PLUS  reduce 11
+	MINUS  reduce 11
+
+
+state 38
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr TIMES expr .  (12)
+	expr : expr . DIV expr  (13)
+
+	.  reduce 12
+
+
+state 39
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+	expr : expr DIV expr .  (13)
+
+	.  reduce 13
+
+
+state 40
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+	comp : expr GT expr .  (14)
+
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	RPAR  reduce 14
+
+
+state 41
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+	comp : expr LT expr .  (15)
+
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	RPAR  reduce 15
+
+
+state 42
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+	comp : expr GE expr .  (16)
+
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	RPAR  reduce 16
+
+
+state 43
+	expr : expr . PLUS expr  (10)
+	expr : expr . MINUS expr  (11)
+	expr : expr . TIMES expr  (12)
+	expr : expr . DIV expr  (13)
+	comp : expr LE expr .  (17)
+
+	PLUS  shift 24
+	MINUS  shift 25
+	TIMES  shift 26
+	DIV  shift 27
+	RPAR  reduce 17
+
+
+state 44
+	stm : IF LPAR comp RPAR LBRA . stm RBRA ELSE LBRA stm RBRA  (4)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	.  error
+
+	stm  goto 47
+
+
+state 45
+	stm : WHILE LPAR comp RPAR LBRA . stm RBRA  (5)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	.  error
+
+	stm  goto 48
+
+
+state 46
+	expr : RAND_ITV LPAR INT COMA . INT RPAR  (8)
+
+	INT  shift 49
+	.  error
+
+
+state 47
+	stm : stm . stm  (3)
+	stm : IF LPAR comp RPAR LBRA stm . RBRA ELSE LBRA stm RBRA  (4)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	RBRA  shift 50
+	.  error
+
+	stm  goto 12
+
+
+state 48
+	stm : stm . stm  (3)
+	stm : WHILE LPAR comp RPAR LBRA stm . RBRA  (5)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	RBRA  shift 51
+	.  error
+
+	stm  goto 12
+
+
+state 49
+	expr : RAND_ITV LPAR INT COMA INT . RPAR  (8)
+
+	RPAR  shift 52
+	.  error
+
+
+state 50
+	stm : IF LPAR comp RPAR LBRA stm RBRA . ELSE LBRA stm RBRA  (4)
+
+	ELSE  shift 53
+	.  error
+
+
+state 51
+	stm : WHILE LPAR comp RPAR LBRA stm RBRA .  (5)
+
+	.  reduce 5
+
+
+state 52
+	expr : RAND_ITV LPAR INT COMA INT RPAR .  (8)
+
+	.  reduce 8
+
+
+state 53
+	stm : IF LPAR comp RPAR LBRA stm RBRA ELSE . LBRA stm RBRA  (4)
+
+	LBRA  shift 54
+	.  error
+
+
+state 54
+	stm : IF LPAR comp RPAR LBRA stm RBRA ELSE LBRA . stm RBRA  (4)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	.  error
+
+	stm  goto 55
+
+
+state 55
+	stm : stm . stm  (3)
+	stm : IF LPAR comp RPAR LBRA stm RBRA ELSE LBRA stm . RBRA  (4)
+
+	VAR  shift 3
+	IF  shift 4
+	WHILE  shift 5
+	RBRA  shift 56
+	.  error
+
+	stm  goto 12
+
+
+state 56
+	stm : IF LPAR comp RPAR LBRA stm RBRA ELSE LBRA stm RBRA .  (4)
+
+	.  reduce 4
+
+
+26 terminals, 6 nonterminals
+19 grammar rules, 57 states
