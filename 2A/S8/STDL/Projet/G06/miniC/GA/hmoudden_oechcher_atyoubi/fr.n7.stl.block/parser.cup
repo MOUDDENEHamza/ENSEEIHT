@@ -74,8 +74,8 @@ terminal String		UL_Nombre_Entier, UL_Nombre_Flottant, UL_Nul, UL_Vrai, UL_Faux;
 non terminal Block						Program;
 non terminal Block						Bloc; 
 non terminal List<Instruction>			Instructions; 
-non terminal Instruction					Instruction;
-non terminal Instruction					Declaration;
+non terminal Instruction				Instruction;
+non terminal Instruction				Declaration;
 non terminal List<Expression>			Expressions;
 non terminal List<FieldDeclaration>		Champs;
 non terminal FieldDeclaration			Champ;
@@ -84,7 +84,7 @@ non terminal LabelDeclaration			Etiquette;
 non terminal List<ParameterDeclaration>	Parameters;
 non terminal Pair<String,PartialType>	Identifiant;
 non terminal Type						Type, Atomique;
-non terminal Expression 					Expression;
+non terminal Expression 				Expression;
 non terminal AssignableExpression		Affectable;
 
 /* Associativité et Priorité relative des opérateurs (du moins prioritaire au plus prioritaire) */

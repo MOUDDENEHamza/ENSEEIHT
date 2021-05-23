@@ -13,6 +13,8 @@ import java.util.*;
 
 // Elements du métamodèle pour la construction de l'arbre abstrait
 import fr.n7.stl.block.ast.*;
+import fr.n7.stl.block.ast.classElement.*;
+import fr.n7.stl.block.ast.element.*;
 import fr.n7.stl.block.ast.expression.*;
 import fr.n7.stl.block.ast.expression.accessible.*;
 import fr.n7.stl.block.ast.expression.allocation.*;
@@ -95,7 +97,8 @@ non terminal Type						Type, Atomique;
 non terminal Expression 				Expression;
 non terminal AssignableExpression		Affectable;
 /* miniJava */
-non terminal							Elements, Main, Class, Interface;
+non terminal Elements					Elements;
+non terminal Element					Main, Class, Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
 non terminal							SingleInherits, MultipleInherits, Implements;
 non terminal							ClassElements, InterfaceElements, Instances;
@@ -126,21 +129,11 @@ precedence left UL_Point; // , UL_Crochet_Ouvrant, UL_Parenthese_Ouvrante;
 /* UL_Identificateur est un terminal (Unité lexicale) */
 /* Block est la variable utilisable dans l'action sémantique qui contient la valeur renvoyé par l'analyse du Block */
 /* TODO */
-Program ::= /* retrait miniJava 
-			UL_Identificateur:nom 
-			retrait miniJava */
-			/* ajout miniJava */ 
-			Elements:elements 
-			/* ajout miniJava */ 
-			/* retrait miniJava 
-			Block:block
-			retrait miniJava */
+Program ::= Elements:elements 
 			{: 
-				// retrait miniJava
-				System.out.println( elements ); 
-				SymbolTable tds = new SymbolTable();
-				
-				//retrait miniJava
+				System.out.println("1");
+                System.out.println( elements ); 
+                System.out.println("2");
 			:}
 		;
 
@@ -168,17 +161,32 @@ Interface ::= UL_Interface UL_Identificateur Generics MultipleInherits
 		:}
 		;
 		
-Class ::= UL_Classe UL_Identificateur Generics SingleInherits Implements 
-		UL_Accolade_Ouvrante ClassElements UL_Accolade_Fermante
+Class ::= UL_Classe UL_Identificateur:name Generics SingleInherits Implements 
+		UL_Accolade_Ouvrante ClassElements:classElements UL_Accolade_Fermante
 		{:
+			/**ClassDeclaration _result = new ClassDeclaration(name, (List<ClassElement>) classElements);
+			System.out.println(_result.toString());*/
 		:}
 		;
 		
 Main ::= UL_Public UL_Classe UL_Classe_Principale
 		UL_Accolade_Ouvrante 
 			UL_Public UL_De_Classe UL_Type_Vide UL_Methode_Principale 
-			UL_Parenthese_Ouvrante Parameters UL_Parenthese_Fermante Block UL_Accolade_Fermante
+			UL_Parenthese_Ouvrante Parameters:parameters UL_Parenthese_Fermante Block:block UL_Accolade_Fermante
 		{:
+			/**MainDeclaration _result = new MainDeclaration(parameters, block);
+			System.out.println(_result.toString());
+			SymbolTable tds = new SymbolTable();
+			if (_result.collect(tds)) {
+				System.out.println("Collect succeeded : " + tds);
+				if (_result.resolve(tds)) {
+					System.out.println("Resolve succeeded.");
+				} else {
+					System.out.println("Resolve failed." + tds);
+				}
+			} else {
+				System.out.println("Collect failed : " + tds);
+			}*/
 		:}
 		;
 		
@@ -632,6 +640,14 @@ Instruction ::= Declaration:declaration
 			| UL_Si UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Block:alors UL_Sinon Block:sinon
 				{: 
 					RESULT = new Conditional( condition, alors, sinon); 
+				:}
+			| UL_Si UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Block:alors
+				{: 
+					RESULT = new Conditional( condition, alors); 
+				:}
+			| UL_Tant_Que UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Block:body
+				{: 
+					RESULT = new Repetition( condition, body ); 
 				:}
 			| UL_Retour Expression:expression UL_Point_Virgule
 				{:

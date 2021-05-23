@@ -4,7 +4,6 @@
 package fr.n7.stl.block.ast.instruction;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
