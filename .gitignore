@@ -8,4 +8,5 @@
 *.o
 
 # Ignore STDL mini project
-2A/S8/**
+2A/S8/STDL/**
+2A/S8/Declarative_Programming/**
