@@ -22,7 +22,7 @@ chevauchement([X | Q1], [Y | Q2], [T | Q3]) :-
     chevauchement_par_paire(X, Y, T, Q1, Q2, Q3),
     chevauchement(Q1, Q2, Q3).
 
-solve_v1(Num, Xs, Ys) :-
+solve_v1(Num, Xs, Ys, B) :-
     data(Num, T, Ts),
     length(Ts, N),
     length(Xs, N),
@@ -30,8 +30,8 @@ solve_v1(Num, Xs, Ys) :-
     definition(Xs, T, Ts),
     definition(Ys, T, Ts),
     chevauchement(Xs, Ys, Ts),
-    fd_labeling(Xs),
-    fd_labeling(Ys),
+    fd_labeling(Xs, [backtracks(B)]),
+    fd_labeling(Ys, [backtracks(B)]),
     printsol('tiles.txt', Xs, Ys, Ts). 
 
 %************************* Contrainte redondantes ****************************%
