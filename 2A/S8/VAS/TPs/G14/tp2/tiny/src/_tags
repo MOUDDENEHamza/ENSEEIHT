@@ -1,0 +1,3 @@
+<domains>: include
+<domains/apronWrapper.ml*>: use_apron
+<main.{byte,native}>: use_gmp,use_apron,use_polka,use_oct,use_box

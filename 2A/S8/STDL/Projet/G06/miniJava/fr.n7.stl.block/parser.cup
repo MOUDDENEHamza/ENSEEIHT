@@ -79,7 +79,7 @@ terminal String		UL_Identificateur, UL_Chaine, UL_Caractere;
 terminal String		UL_Nombre_Entier, UL_Nombre_Flottant, UL_Nul, UL_Vrai, UL_Faux; // Valeur transmise par l'analyseur lexical
 
 /* Non terminaux avec type renvoyé par actions sémantiques (RESULT = ...) */
-non terminal Block						Program;
+non terminal List<Element>				Program;
 /* début modification miniJava */
 non terminal Block						Block; 
 /* fin modification miniJava */
@@ -97,14 +97,29 @@ non terminal Type						Type, Atomique;
 non terminal Expression 				Expression;
 non terminal AssignableExpression		Affectable;
 /* miniJava */
-non terminal Elements					Elements;
-non terminal Element					Main, Class, Interface;
-non terminal							Generics, TypeParameter, TypeParameters, Constraints;
-non terminal							SingleInherits, MultipleInherits, Implements;
-non terminal							ClassElements, InterfaceElements, Instances;
-non terminal							Instance, ClassElement, InterfaceElement;
-non terminal							 Attribute, Signature, Method, Constructor, ConstructorPrelude;
-non terminal							AccessRight, ElementNature;
+non terminal List<Element>				Elements;
+non terminal MainDeclaration			Main;
+non terminal ClassDeclaration			Class;
+non terminal InterfaceDeclaration		Interface;
+non terminal							Generics;
+non terminal							TypeParameter;
+non terminal							TypeParameters;
+non terminal							Constraints;
+non terminal							SingleInherits;
+non terminal							MultipleInherits;
+non terminal							Implements;
+non terminal List<ClassElement>			ClassElements;
+non terminal							InterfaceElements;
+non terminal							Instances;
+non terminal							Instance;
+non terminal							InterfaceElement;
+non terminal AttributeDeclaration		Attribute;
+non terminal							Signature;
+non terminal MethodDeclaration			Method;
+non terminal ConstructorDeclaration		Constructor;
+non terminal							ConstructorPrelude;
+non terminal AccessRight				AccessRight;
+non terminal							ElementNature;
 
 /* Associativité et Priorité relative des opérateurs (du moins prioritaire au plus prioritaire) */
 /* Opérateur le moins prioritiaire */
@@ -130,66 +145,66 @@ precedence left UL_Point; // , UL_Crochet_Ouvrant, UL_Parenthese_Ouvrante;
 /* Block est la variable utilisable dans l'action sémantique qui contient la valeur renvoyé par l'analyse du Block */
 /* TODO */
 Program ::= Elements:elements 
-			{: 
-				System.out.println("1");
-                System.out.println( elements ); 
-                System.out.println("2");
+			{:
+				for (int i = elements.size() - 1; i >= 0 ; i--) {
+					System.out.println(elements.get(i));
+				}
 			:}
 		;
 
 /* ajout miniJava : classes, interfaces, attributs, méthodes, constructeurs, etc */
-Elements ::= Main
+Elements ::= Main:main
 		{:
+			List<Element> elements = new LinkedList<>();
+			elements.add(main);
+			RESULT = elements;
 		:}
-		| Interface Elements
+		| Interface:i Elements:elements
 		{:
+			elements.add(i);
+			RESULT = elements;
 		:}
-		| Class Elements
+		| Class:c Elements:elements
 		{:
-		:}
-		| UL_Abstrait Class Elements
-		{:
-		:}
-		| UL_Definitif Class Elements
-		{:
-		:}
-		;
-		
-Interface ::= UL_Interface UL_Identificateur Generics MultipleInherits 
-		UL_Accolade_Ouvrante InterfaceElements UL_Accolade_Fermante
-		{:
+			elements.add(c);
+			RESULT = elements;
 		:}
 		;
-		
-Class ::= UL_Classe UL_Identificateur:name Generics SingleInherits Implements 
-		UL_Accolade_Ouvrante ClassElements:classElements UL_Accolade_Fermante
-		{:
-			/**ClassDeclaration _result = new ClassDeclaration(name, (List<ClassElement>) classElements);
-			System.out.println(_result.toString());*/
-		:}
-		;
-		
+
 Main ::= UL_Public UL_Classe UL_Classe_Principale
 		UL_Accolade_Ouvrante 
 			UL_Public UL_De_Classe UL_Type_Vide UL_Methode_Principale 
 			UL_Parenthese_Ouvrante Parameters:parameters UL_Parenthese_Fermante Block:block UL_Accolade_Fermante
 		{:
-			/**MainDeclaration _result = new MainDeclaration(parameters, block);
-			System.out.println(_result.toString());
-			SymbolTable tds = new SymbolTable();
-			if (_result.collect(tds)) {
-				System.out.println("Collect succeeded : " + tds);
-				if (_result.resolve(tds)) {
-					System.out.println("Resolve succeeded.");
-				} else {
-					System.out.println("Resolve failed." + tds);
-				}
-			} else {
-				System.out.println("Collect failed : " + tds);
-			}*/
+			RESULT = new MainDeclaration(parameters, block);
 		:}
 		;
-		
+
+Class ::= UL_Classe UL_Identificateur:name Generics SingleInherits Implements 
+		UL_Accolade_Ouvrante ClassElements:classElements UL_Accolade_Fermante
+		{:
+			RESULT = new ClassDeclaration(name, classElements);
+		:}
+		| UL_Abstrait UL_Classe UL_Identificateur:name Generics SingleInherits Implements 
+		UL_Accolade_Ouvrante ClassElements:classElements UL_Accolade_Fermante
+		{:
+			RESULT = new ClassDeclaration("abstarct", name, classElements);
+		:}
+		| UL_Definitif UL_Classe UL_Identificateur:name Generics SingleInherits Implements 
+		UL_Accolade_Ouvrante ClassElements:classElements UL_Accolade_Fermante
+		{:
+			RESULT = new ClassDeclaration("final", name, classElements);
+		:}
+		;
+
+Interface ::= UL_Interface UL_Identificateur:name Generics MultipleInherits 
+		UL_Accolade_Ouvrante InterfaceElements UL_Accolade_Fermante
+		{:
+			RESULT = new InterfaceDeclaration(name, null);
+		:}
+		;
+
+/*******************************************************************************/	
 Generics ::= /* Lambda */
 		{:
 		:}
@@ -198,7 +213,129 @@ Generics ::= /* Lambda */
 		{:
 		:}
 		;
+
+SingleInherits ::= /* Lambda */
+		{:
+		:}
+		|
+		UL_Herite Instance
+		{:
+		:}
+		;
 		
+MultipleInherits ::= /* Lambda */
+		{:
+		:}
+		|
+		UL_Herite Instances
+		{:
+		:}
+		;		
+		
+Implements ::= /* Lambda */
+		{:
+		:}
+		|
+		UL_Realise Instances
+		{:
+		:}
+		;
+/*******************************************************************************/
+
+ClassElements ::= /* Lambda */
+		{:
+			List<ClassElement> classElements = new LinkedList<>();
+			RESULT = classElements;
+		:}
+		| Attribute:attribute ClassElements:classElements
+		{:
+			classElements.add(attribute);
+			RESULT = classElements;
+		:}
+		| Method:method ClassElements:classElements
+		{:
+			classElements.add(method);
+			RESULT = classElements;
+		:}
+		| Constructor:constructor ClassElements:classElements
+		{:
+			classElements.add(constructor);
+			RESULT = classElements;
+		:}
+		;
+
+Attribute ::= Type:type UL_Point_Virgule
+		{:
+			RESULT = new AttributeDeclaration(type);
+		:}
+		| Type:type Identifiant:identifiant UL_Point_Virgule
+		{:
+			RESULT = new AttributeDeclaration(null, "", type, identifiant, null);
+		:}
+		|  UL_De_Classe Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
+		{:
+			RESULT = new AttributeDeclaration(null, "static ", type, identifiant, valeur);
+		:}
+		| UL_De_Classe UL_Definitif Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
+		{:
+			RESULT = new AttributeDeclaration(null, "static final ", type, identifiant, valeur);
+		:}
+		;
+		
+Method ::= Signature:entete Block:corps
+		{:
+		:}
+		| UL_Definitif Signature:entete Block:corps
+		{:
+		:}
+		| UL_De_Classe Signature:entete Block:corps
+		{:
+		:}
+		| UL_De_Classe UL_Definitif Signature:entete Block:corps
+		{:
+		:}
+		| UL_Abstrait Signature:entete UL_Point_Virgule
+		{:
+		:}
+		;
+		
+Constructor ::=
+		UL_Identificateur:nom UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante Block
+		{:
+		:}
+		|
+		UL_Identificateur:nom UL_Parenthese_Ouvrante UL_Parenthese_Fermante Block
+		{:
+		:}
+		;
+
+AccessRight ::=/* Lambda */
+		{:
+		:}
+		| UL_Public
+		{:
+			RESULT = AccessRight.Public;
+		:}
+		| UL_Protege
+		{:
+			RESULT = AccessRight.Protected;
+		:}
+		| UL_Prive
+		{:
+			RESULT = AccessRight.Private;
+		:}
+		;
+
+Signature ::=
+		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante
+		{:
+		:}
+		|
+		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante UL_Parenthese_Fermante
+		{:
+		:}
+		;
+
 TypeParameter ::= UL_Identificateur 
 		{:
 		:}
@@ -222,34 +359,6 @@ TypeParameters ::= TypeParameter
 		{:
 		:}
 		;
-				
-SingleInherits ::= /* Lambda */
-		{:
-		:}
-		|
-		UL_Herite Instance
-		{:
-		:}
-		;
-		
-MultipleInherits ::= /* Lambda */
-		{:
-		:}
-		|
-		UL_Herite Instances
-		{:
-		:}
-		;
-		
-		
-Implements ::= /* Lambda */
-		{:
-		:}
-		|
-		UL_Realise Instances
-		{:
-		:}
-		;
 		
 Instances ::= Instance UL_Virgule Instances
 		{:
@@ -264,14 +373,6 @@ Instance ::= UL_Identificateur
 		{:
 		:}
 		| Instance UL_Inferieur Instances UL_Superieur
-		{:
-		:}
-		;
-		
-ClassElements ::= /* Lambda */
-		{:
-		:}
-		| AccessRight ClassElement ClassElements
 		{:
 		:}
 		;
@@ -305,78 +406,8 @@ ElementNature ::=
 		:}
 		;		
 		
-ClassElement ::=
-		Attribute
-		{:
-		:}
-		|
-		Method
-		{:
-		:}
-		|
-		Constructor
-		{:
-		:}
-		;
-		
 InterfaceElement ::=
 		Signature:entete UL_Point_Virgule
-		{:
-		:}
-		;
-
-Attribute ::=
-		Type:type Identifiant:identifiant UL_Point_Virgule
-		{:
-		:}
-		|
-		UL_De_Classe Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
-		{:
-		:}
-		|
-		UL_De_Classe UL_Definitif Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
-		{:
-		:}
-		;
-		
-Method ::=
-		Signature:entete Block:corps
-		{:
-		:}
-		| 
-		UL_Definitif Signature:entete Block:corps
-		{:
-		:}
-		| 
-		UL_De_Classe Signature:entete Block:corps
-		{:
-		:}
-		| 
-		UL_De_Classe UL_Definitif Signature:entete Block:corps
-		{:
-		:}
-		| 
-		UL_Abstrait Signature:entete UL_Point_Virgule
-		{:
-		:}
-		;
-		
-Signature ::=
-		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante
-		{:
-		:}
-		|
-		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante UL_Parenthese_Fermante
-		{:
-		:}
-		;
-		
-Constructor ::=
-		UL_Identificateur:nom UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante Block
-		{:
-		:}
-		|
-		UL_Identificateur:nom UL_Parenthese_Ouvrante UL_Parenthese_Fermante Block
 		{:
 		:}
 		;

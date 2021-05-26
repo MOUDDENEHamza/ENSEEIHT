@@ -1,4 +1,18 @@
 class A {
+
+	int;
+}
+
+abstract class B {
+
+}
+
+final class C {
+
+}
+
+interface D {
+
 }
 
 public class Main {

@@ -4,20 +4,16 @@ import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.type.AtomicType;
-import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import java.util.List;
 
-public class MainDeclaration implements Element, Declaration {
+public class MainDeclaration implements Element {
     
     protected List<ParameterDeclaration> parameters;
 
     protected Block block;
-
-	private String name;
 
 	/**
 	 * Constructor for a Main.
@@ -25,16 +21,6 @@ public class MainDeclaration implements Element, Declaration {
 	public MainDeclaration(List<ParameterDeclaration> _parameters, Block _block) {
 		this.parameters = _parameters;
         this.block = _block;
-	}
-	
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public Type getType() {
-		return AtomicType.VoidType;
 	}
 
 	/* (non-Javadoc)

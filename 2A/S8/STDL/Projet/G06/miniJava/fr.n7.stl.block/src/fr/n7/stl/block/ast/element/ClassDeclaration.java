@@ -11,6 +11,8 @@ import fr.n7.stl.tam.ast.TAMFactory;
 
 public class ClassDeclaration implements Element {
     
+	protected String permission;
+
     protected String name;
 
     protected List<ClassElement> classElements;
@@ -19,6 +21,16 @@ public class ClassDeclaration implements Element {
 	 * Constructor for a Main.
 	 */
 	public ClassDeclaration(String _name, List<ClassElement> _classElements) {
+		this.permission = "";
+		this.name = _name;
+		this.classElements = _classElements;
+	}
+
+	/**
+	 * Constructor for a Main.
+	 */
+	public ClassDeclaration(String _permission, String _name, List<ClassElement> _classElements) {
+		this.permission = _permission;
 		this.name = _name;
 		this.classElements = _classElements;
 	}
@@ -29,10 +41,10 @@ public class ClassDeclaration implements Element {
 	@Override
 	public String toString() {
 		String _result = "";
-		_result = "class " + this.name + " {\n";
-		/**for (ClassElement c : this.classElements) {
+		_result = this.permission + " class " + this.name + " {\n";
+		for (ClassElement c : this.classElements) {
 			_result += c.toString(); 
-		}*/
+		}
 		_result += "}";
 		return _result;
 	}

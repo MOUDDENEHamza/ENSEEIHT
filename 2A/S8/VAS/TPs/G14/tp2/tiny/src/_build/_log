@@ -1,0 +1,69 @@
+### Starting build.
+# Target: main.ml.depends, tags: { extension:ml, file:main.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules main.ml > main.ml.depends # cached
+# Target: analyze.mli.depends, tags: { extension:mli, file:analyze.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules analyze.mli > analyze.mli.depends # cached
+# Target: analyze.cmi, tags: { byte, compile, extension:mli, file:analyze.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o analyze.cmi analyze.mli # cached
+# Target: compile.mli.depends, tags: { extension:mli, file:compile.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules compile.mli > compile.mli.depends # cached
+# Target: compile.cmi, tags: { byte, compile, extension:mli, file:compile.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o compile.cmi compile.mli # cached
+# Target: report.mli.depends, tags: { extension:mli, file:report.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules report.mli > report.mli.depends # cached
+# Target: location.mli.depends, tags: { extension:mli, file:location.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules location.mli > location.mli.depends # cached
+# Target: location.cmi, tags: { byte, compile, extension:mli, file:location.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o location.cmi location.mli # cached
+# Target: report.cmi, tags: { byte, compile, extension:mli, file:report.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o report.cmi report.mli # cached
+# Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o main.cmo main.ml # cached
+# Target: analyze.ml.depends, tags: { extension:ml, file:analyze.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules analyze.ml > analyze.ml.depends # cached
+# Target: ast.ml.depends, tags: { extension:ml, file:ast.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules ast.ml > ast.ml.depends # cached
+# Target: ast.mli.depends, tags: { extension:mli, file:ast.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules ast.mli > ast.mli.depends # cached
+# Target: name.mli.depends, tags: { extension:mli, file:name.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules name.mli > name.mli.depends # cached
+# Target: name.cmi, tags: { byte, compile, extension:mli, file:name.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o name.cmi name.mli # cached
+# Target: ast.cmi, tags: { byte, compile, extension:mli, file:ast.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o ast.cmi ast.mli # cached
+# Target: location.ml.depends, tags: { extension:ml, file:location.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules location.ml > location.ml.depends # cached
+# Target: location.cmx, tags: { compile, extension:cmx, extension:ml, file:location.cmx, file:location.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o location.cmx location.ml # cached
+# Target: name.ml.depends, tags: { extension:ml, file:name.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules name.ml > name.ml.depends # cached
+# Target: name.cmx, tags: { compile, extension:cmx, extension:ml, file:name.cmx, file:name.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o name.cmx name.ml # cached
+# Target: ast.cmx, tags: { compile, extension:cmx, extension:ml, file:ast.cmx, file:ast.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o ast.cmx ast.ml # cached
+# Target: domains/intervals.ml.depends, tags: { extension:ml, file:domains/intervals.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules domains/intervals.ml > domains/intervals.ml.depends
+# Target: domains/intervals.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:domains/intervals.cmo, file:domains/intervals.ml, implem, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/intervals.cmo domains/intervals.ml
++ /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/intervals.cmo domains/intervals.ml
+File "domains/intervals.ml", lines 67-91, characters 0-112:
+67 | match x, y with
+68 |   (*| Itv(None, None), _ -> top
+69 |   | Itv(None, _), Itv(_, None) -> top
+70 |   | Itv (None, Some b), Itv (_, Some d) -> if b > d then Itv(None, Some b) else Itv(None, Some d) 
+71 |   | Bot, Bot -> bottom
+...
+88 |   | Bot, Itv(None, Some y) | Itv(None, Some y), Bot -> Itv(None, Some y)
+89 |   | Bot, Itv(Some x, None) | Itv(Some x, None), Bot -> Itv(Some x, None)
+90 |   | Bot, Itv(Some x, Some y) | Itv(Some x, Some y), Bot -> Itv(Some x, Some y)
+91 |   | Itv (Some a, Some b), Itv (Some c, Some d) -> Itv (mmapt min (Some a) (Some c), mmapt max (Some b) (Some d))
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+(Itv (None, None), Itv (_, _))
+File "domains/intervals.ml", line 116, characters 59-87:
+116 |     | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (leq_minf (Some a) (Some c)) (leq_pinf (Some b) (Some d))
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error: This expression has type bool but an expression was expected of type
+         int option
+Command exited with code 2.
+# Compilation unsuccessful.

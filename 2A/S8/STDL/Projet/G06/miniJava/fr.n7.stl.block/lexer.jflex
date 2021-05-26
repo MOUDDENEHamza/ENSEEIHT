@@ -142,6 +142,7 @@ Identificateur = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   "protected"		{ return symbolFactory.newSymbol("Protégé", UL_Protege); }
   "private"			{ return symbolFactory.newSymbol("Privé", UL_Prive); }
   "static"			{ return symbolFactory.newSymbol("Public", UL_De_Classe); }
+  "abstract"			{ return symbolFactory.newSymbol("Abstrait", UL_Abstrait); }
   "final"			{ return symbolFactory.newSymbol("Définitif", UL_Definitif); }
   "this"			{ return symbolFactory.newSymbol("Moi", UL_Moi); }
   "super"			{ return symbolFactory.newSymbol("Super", UL_Super); }

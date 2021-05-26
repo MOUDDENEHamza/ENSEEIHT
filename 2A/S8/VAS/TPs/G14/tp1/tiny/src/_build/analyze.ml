@@ -27,7 +27,7 @@ module DomKildall : Relational.Domain = NonRelational.MakeRelational (Kildall)
 (* module Dom : Relational.Domain = ApronWrapper.Polka *)
 (* module Dom : Relational.Domain = ApronWrapper.Oct *)
 
-module Dom = DomDummy
+module Dom = DomParity
 
 (* Analyze statement stm from abstract value t. Returns both the resulting
  * abstract value and an updated (m : Dom.t Location.map.t) registering all

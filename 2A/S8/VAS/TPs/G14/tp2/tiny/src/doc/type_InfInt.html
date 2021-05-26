@@ -1,0 +1,46 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Analyze" rel="Chapter" href="Analyze.html">
+<link title="Ast" rel="Chapter" href="Ast.html">
+<link title="Compile" rel="Chapter" href="Compile.html">
+<link title="Location" rel="Chapter" href="Location.html">
+<link title="Name" rel="Chapter" href="Name.html">
+<link title="NonRelational" rel="Chapter" href="NonRelational.html">
+<link title="Parse" rel="Chapter" href="Parse.html">
+<link title="Relational" rel="Chapter" href="Relational.html">
+<link title="PrintResults" rel="Chapter" href="PrintResults.html">
+<link title="Report" rel="Chapter" href="Report.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Dummy" rel="Chapter" href="Dummy.html">
+<link title="InfInt" rel="Chapter" href="InfInt.html"><title>InfInt</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;eq&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;order&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;min&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;max&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;zero&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;one&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;minfty&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pinfty&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;fin&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;to_int&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;to_string&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_lb&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_ub&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sub_lb&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sub_ub&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mul_lb&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mul_ub&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;div_lb&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;div_ub&nbsp;:&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">InfInt</span>.t<br>
+<span class="keyword">end</span></code></body></html>
