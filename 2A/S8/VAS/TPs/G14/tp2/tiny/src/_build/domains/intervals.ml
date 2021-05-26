@@ -58,6 +58,18 @@ let mmapt t a b = match a, b with
 | None, _ | _, None -> None
 | Some x, Some y -> Some (t x y)
 
+let max_minf x y = match x, y with
+ | Some x, None -> Some x
+ | None, Some y -> Some y
+ | Some x, Some y-> if x >= y then Some x else Some y
+ | None, None -> None
+
+ let min_pinf x y = match x, y with
+ | None, None -> None
+ | Some x, None -> Some x
+ | None, Some y -> Some y
+ | Some x, Some y-> if x >= y then Some y else Some x
+
 (* All the functions below are safe overapproximations.
  * You can keep them as this in a first implementation,
  * then refine them only when you need it to improve
@@ -113,13 +125,20 @@ match x, y with
         top
     *)
     | Bot , _ | _, Bot -> Bot
-    | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (leq_minf (Some a) (Some c)) (leq_pinf (Some b) (Some d))
+    | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (max_minf (Some a) (Some c)) (min_pinf (Some b) (Some d))
 
 let widening = join  (* Ok, maybe you'll need to implement this one if your
                       * lattice has infinite ascending chains and you want
                       * your analyses to terminate. *)
 
-let sem_itv n1 n2 = top
+let sem_itv n1 n2 =
+  if n1 == n2 then
+    Itv (Some n1, Some n2)
+  else if n1 > n2 then
+    top
+  else 
+    bottom
+
 
 let sem_plus x y = top
 let sem_minus x y = top

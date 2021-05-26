@@ -46,24 +46,133 @@
 # Target: domains/intervals.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:domains/intervals.cmo, file:domains/intervals.ml, implem, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/intervals.cmo domains/intervals.ml
 + /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/intervals.cmo domains/intervals.ml
-File "domains/intervals.ml", lines 67-91, characters 0-112:
-67 | match x, y with
-68 |   (*| Itv(None, None), _ -> top
-69 |   | Itv(None, _), Itv(_, None) -> top
-70 |   | Itv (None, Some b), Itv (_, Some d) -> if b > d then Itv(None, Some b) else Itv(None, Some d) 
-71 |   | Bot, Bot -> bottom
+File "domains/intervals.ml", lines 79-103, characters 0-112:
+ 79 | match x, y with
+ 80 |   (*| Itv(None, None), _ -> top
+ 81 |   | Itv(None, _), Itv(_, None) -> top
+ 82 |   | Itv (None, Some b), Itv (_, Some d) -> if b > d then Itv(None, Some b) else Itv(None, Some d) 
+ 83 |   | Bot, Bot -> bottom
 ...
-88 |   | Bot, Itv(None, Some y) | Itv(None, Some y), Bot -> Itv(None, Some y)
-89 |   | Bot, Itv(Some x, None) | Itv(Some x, None), Bot -> Itv(Some x, None)
-90 |   | Bot, Itv(Some x, Some y) | Itv(Some x, Some y), Bot -> Itv(Some x, Some y)
-91 |   | Itv (Some a, Some b), Itv (Some c, Some d) -> Itv (mmapt min (Some a) (Some c), mmapt max (Some b) (Some d))
+100 |   | Bot, Itv(None, Some y) | Itv(None, Some y), Bot -> Itv(None, Some y)
+101 |   | Bot, Itv(Some x, None) | Itv(Some x, None), Bot -> Itv(Some x, None)
+102 |   | Bot, Itv(Some x, Some y) | Itv(Some x, Some y), Bot -> Itv(Some x, Some y)
+103 |   | Itv (Some a, Some b), Itv (Some c, Some d) -> Itv (mmapt min (Some a) (Some c), mmapt max (Some b) (Some d))
 Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Itv (None, None), Itv (_, _))
-File "domains/intervals.ml", line 116, characters 59-87:
-116 |     | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (leq_minf (Some a) (Some c)) (leq_pinf (Some b) (Some d))
-                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Error: This expression has type bool but an expression was expected of type
-         int option
-Command exited with code 2.
-# Compilation unsuccessful.
+File "domains/intervals.ml", lines 106-128, characters 0-116:
+106 | match x, y with
+107 |   (*| Itv(None, None), Bot | Bot, Itv(None, None) -> bottom
+108 |   | Itv(None, None), Itv(None, Some y) | Itv(None, Some y), Itv(None, None) -> Itv(None, Some y)
+109 |   | Itv(None, None), Itv(Some x, None) | Itv(Some x, None), Itv(None, None) -> Itv(Some x, None)
+110 |   | Itv(None, None), Itv(Some x, Some y) | Itv(Some x, Some y), Itv(None, None) -> Itv(Some x, Some y)
+...
+125 |         top
+126 |     *)
+127 |     | Bot , _ | _, Bot -> Bot
+128 |     | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (max_minf (Some a) (Some c)) (min_pinf (Some b) (Some d))
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+(Itv (Some _, Some _), Itv (Some _, None))
+# Target: nonRelational.ml.depends, tags: { extension:ml, file:nonRelational.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules nonRelational.ml > nonRelational.ml.depends # cached
+# Target: nonRelational.mli.depends, tags: { extension:mli, file:nonRelational.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules nonRelational.mli > nonRelational.mli.depends # cached
+# Target: relational.ml.depends, tags: { extension:ml, file:relational.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules relational.ml > relational.ml.depends # cached
+# Target: relational.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:relational.cmo, file:relational.ml, implem, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o relational.cmo relational.ml # cached
+# Target: nonRelational.cmi, tags: { byte, compile, extension:mli, file:nonRelational.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o nonRelational.cmi nonRelational.mli # cached
+# Target: relational.cmx, tags: { compile, extension:cmx, extension:ml, file:relational.cmx, file:relational.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o relational.cmx relational.ml # cached
+# Target: report.ml.depends, tags: { extension:ml, file:report.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules report.ml > report.ml.depends # cached
+# Target: report.cmx, tags: { compile, extension:cmx, extension:ml, file:report.cmx, file:report.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o report.cmx report.ml # cached
+# Target: nonRelational.cmx, tags: { compile, extension:cmx, extension:ml, file:nonRelational.cmx, file:nonRelational.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o nonRelational.cmx nonRelational.ml # cached
+# Target: parse.ml.depends, tags: { extension:ml, file:parse.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules parse.ml > parse.ml.depends # cached
+# Target: parse.mli.depends, tags: { extension:mli, file:parse.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules parse.mli > parse.mli.depends # cached
+# Target: parse.cmi, tags: { byte, compile, extension:mli, file:parse.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o parse.cmi parse.mli # cached
+# Target: lexer.mll, tags: { extension:mll, file:lexer.mll, lexer, ocaml, ocamllex, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamllex.opt -q lexer.mll # cached
+# Target: lexer.ml.depends, tags: { extension:ml, file:lexer.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules lexer.ml > lexer.ml.depends # cached
+# Target: parser.mly, tags: { extension:mly, file:parser.mly, infer, ocaml, ocamlyacc, parser, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlyacc parser.mly # cached
+# Target: parser.mli.depends, tags: { extension:mli, file:parser.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules parser.mli > parser.mli.depends # cached
+# Target: parser.cmi, tags: { byte, compile, extension:mli, file:parser.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o parser.cmi parser.mli # cached
+# Target: lexer.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lexer.cmo, file:lexer.ml, implem, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o lexer.cmo lexer.ml # cached
+# Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules parser.ml > parser.ml.depends # cached
+# Target: parser.cmx, tags: { compile, extension:cmx, extension:ml, file:parser.cmx, file:parser.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o parser.cmx parser.ml # cached
+# Target: lexer.cmx, tags: { compile, extension:cmx, extension:ml, file:lexer.cmx, file:lexer.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o lexer.cmx lexer.ml # cached
+# Target: utils.ml.depends, tags: { extension:ml, file:utils.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules utils.ml > utils.ml.depends # cached
+# Target: utils.mli.depends, tags: { extension:mli, file:utils.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules utils.mli > utils.mli.depends # cached
+# Target: utils.cmi, tags: { byte, compile, extension:mli, file:utils.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o utils.cmi utils.mli # cached
+# Target: utils.cmx, tags: { compile, extension:cmx, extension:ml, file:utils.cmx, file:utils.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o utils.cmx utils.ml # cached
+# Target: parse.cmx, tags: { compile, extension:cmx, extension:ml, file:parse.cmx, file:parse.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o parse.cmx parse.ml # cached
+# Target: printResults.ml.depends, tags: { extension:ml, file:printResults.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules printResults.ml > printResults.ml.depends # cached
+# Target: printResults.mli.depends, tags: { extension:mli, file:printResults.mli, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules printResults.mli > printResults.mli.depends # cached
+# Target: printResults.cmi, tags: { byte, compile, extension:mli, file:printResults.mli, interf, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o printResults.cmi printResults.mli # cached
+# Target: printResults.cmx, tags: { compile, extension:cmx, extension:ml, file:printResults.cmx, file:printResults.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o printResults.cmx printResults.ml # cached
+# Target: domains/intervals.cmx, tags: { compile, extension:cmx, extension:ml, file:domains/intervals.cmx, file:domains/intervals.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/intervals.cmx domains/intervals.ml
++ /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/intervals.cmx domains/intervals.ml
+File "domains/intervals.ml", lines 79-103, characters 0-112:
+ 79 | match x, y with
+ 80 |   (*| Itv(None, None), _ -> top
+ 81 |   | Itv(None, _), Itv(_, None) -> top
+ 82 |   | Itv (None, Some b), Itv (_, Some d) -> if b > d then Itv(None, Some b) else Itv(None, Some d) 
+ 83 |   | Bot, Bot -> bottom
+...
+100 |   | Bot, Itv(None, Some y) | Itv(None, Some y), Bot -> Itv(None, Some y)
+101 |   | Bot, Itv(Some x, None) | Itv(Some x, None), Bot -> Itv(Some x, None)
+102 |   | Bot, Itv(Some x, Some y) | Itv(Some x, Some y), Bot -> Itv(Some x, Some y)
+103 |   | Itv (Some a, Some b), Itv (Some c, Some d) -> Itv (mmapt min (Some a) (Some c), mmapt max (Some b) (Some d))
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+(Itv (None, None), Itv (_, _))
+File "domains/intervals.ml", lines 106-128, characters 0-116:
+106 | match x, y with
+107 |   (*| Itv(None, None), Bot | Bot, Itv(None, None) -> bottom
+108 |   | Itv(None, None), Itv(None, Some y) | Itv(None, Some y), Itv(None, None) -> Itv(None, Some y)
+109 |   | Itv(None, None), Itv(Some x, None) | Itv(Some x, None), Itv(None, None) -> Itv(Some x, None)
+110 |   | Itv(None, None), Itv(Some x, Some y) | Itv(Some x, Some y), Itv(None, None) -> Itv(Some x, Some y)
+...
+125 |         top
+126 |     *)
+127 |     | Bot , _ | _, Bot -> Bot
+128 |     | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (max_minf (Some a) (Some c)) (min_pinf (Some b) (Some d))
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+(Itv (Some _, Some _), Itv (Some _, None))
+# Target: compile.ml.depends, tags: { extension:ml, file:compile.ml, ocaml, ocamldep, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamldep.opt -modules compile.ml > compile.ml.depends # cached
+# Target: compile.cmx, tags: { compile, extension:cmx, extension:ml, file:compile.cmx, file:compile.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o compile.cmx compile.ml # cached
+# Target: analyze.cmx, tags: { compile, extension:cmx, extension:ml, file:analyze.cmx, file:analyze.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o analyze.cmx analyze.ml
+# Target: main.cmx, tags: { compile, extension:cmx, extension:ml, file:main.cmx, file:main.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o main.cmx main.ml
+# Target: main.native, tags: { dont_link_with, extension:native, file:main.native, link, native, ocaml, program, quiet, traverse, use_apron, use_box, use_gmp, use_oct, use_polka }
+/home/hamza/.opam/default/bin/ocamlopt.opt -I domains location.cmx name.cmx ast.cmx domains/intervals.cmx parser.cmx lexer.cmx relational.cmx report.cmx nonRelational.cmx utils.cmx parse.cmx printResults.cmx analyze.cmx compile.cmx main.cmx -o main.native
+# Compilation successful.
