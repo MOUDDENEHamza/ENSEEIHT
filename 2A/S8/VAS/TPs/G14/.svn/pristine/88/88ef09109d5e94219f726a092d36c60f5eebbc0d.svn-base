@@ -1,0 +1,5 @@
+<test>: include
+<domains>: include
+#<domains/old/*.ml*>: package(zarith)
+<**/*.{byte,native}>:use_unix
+#<main.{byte,native}>: use_gmp, use_apron, use_polka, use_oct, use_box, 

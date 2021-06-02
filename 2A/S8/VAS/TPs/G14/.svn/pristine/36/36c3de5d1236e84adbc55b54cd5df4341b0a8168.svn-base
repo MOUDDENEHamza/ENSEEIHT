@@ -1,0 +1,11 @@
+/* IntPoly3 */
+/* x >= 3 */
+
+real x, y , z ;
+z = rand_real(-5.,5.);
+/* x >= -2 */
+x = rand_real(-2.,100.);
+y = z * x + 1.; 
+/*assume y == -14;*/
+
+

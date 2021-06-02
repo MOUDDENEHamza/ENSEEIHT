@@ -1,0 +1,9 @@
+ real f, x, y ;
+
+x = 77617.;
+y = 33096.;
+f = 333.75*y*y*y*y*y*y;
+f = f + x*x*(11.*x*x*y*y - y*y*y*y*y*y - 121.*y*y*y*y - 2.);
+f = f + 5.5*y*y*y*y*y*y*y*y;
+f = f + x / (2.*y);
+

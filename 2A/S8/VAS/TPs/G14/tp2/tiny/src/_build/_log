@@ -45,35 +45,6 @@
 /home/hamza/.opam/default/bin/ocamldep.opt -modules domains/intervals.ml > domains/intervals.ml.depends
 # Target: domains/intervals.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:domains/intervals.cmo, file:domains/intervals.ml, implem, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/intervals.cmo domains/intervals.ml
-+ /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/intervals.cmo domains/intervals.ml
-File "domains/intervals.ml", lines 79-103, characters 0-112:
- 79 | match x, y with
- 80 |   (*| Itv(None, None), _ -> top
- 81 |   | Itv(None, _), Itv(_, None) -> top
- 82 |   | Itv (None, Some b), Itv (_, Some d) -> if b > d then Itv(None, Some b) else Itv(None, Some d) 
- 83 |   | Bot, Bot -> bottom
-...
-100 |   | Bot, Itv(None, Some y) | Itv(None, Some y), Bot -> Itv(None, Some y)
-101 |   | Bot, Itv(Some x, None) | Itv(Some x, None), Bot -> Itv(Some x, None)
-102 |   | Bot, Itv(Some x, Some y) | Itv(Some x, Some y), Bot -> Itv(Some x, Some y)
-103 |   | Itv (Some a, Some b), Itv (Some c, Some d) -> Itv (mmapt min (Some a) (Some c), mmapt max (Some b) (Some d))
-Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-(Itv (None, None), Itv (_, _))
-File "domains/intervals.ml", lines 106-128, characters 0-116:
-106 | match x, y with
-107 |   (*| Itv(None, None), Bot | Bot, Itv(None, None) -> bottom
-108 |   | Itv(None, None), Itv(None, Some y) | Itv(None, Some y), Itv(None, None) -> Itv(None, Some y)
-109 |   | Itv(None, None), Itv(Some x, None) | Itv(Some x, None), Itv(None, None) -> Itv(Some x, None)
-110 |   | Itv(None, None), Itv(Some x, Some y) | Itv(Some x, Some y), Itv(None, None) -> Itv(Some x, Some y)
-...
-125 |         top
-126 |     *)
-127 |     | Bot , _ | _, Bot -> Bot
-128 |     | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (max_minf (Some a) (Some c)) (min_pinf (Some b) (Some d))
-Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-(Itv (Some _, Some _), Itv (Some _, None))
 # Target: nonRelational.ml.depends, tags: { extension:ml, file:nonRelational.ml, ocaml, ocamldep, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamldep.opt -modules nonRelational.ml > nonRelational.ml.depends # cached
 # Target: nonRelational.mli.depends, tags: { extension:mli, file:nonRelational.mli, ocaml, ocamldep, quiet, traverse }
@@ -136,35 +107,6 @@ Here is an example of a case that is not matched:
 /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o printResults.cmx printResults.ml # cached
 # Target: domains/intervals.cmx, tags: { compile, extension:cmx, extension:ml, file:domains/intervals.cmx, file:domains/intervals.ml, implem, native, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/intervals.cmx domains/intervals.ml
-+ /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/intervals.cmx domains/intervals.ml
-File "domains/intervals.ml", lines 79-103, characters 0-112:
- 79 | match x, y with
- 80 |   (*| Itv(None, None), _ -> top
- 81 |   | Itv(None, _), Itv(_, None) -> top
- 82 |   | Itv (None, Some b), Itv (_, Some d) -> if b > d then Itv(None, Some b) else Itv(None, Some d) 
- 83 |   | Bot, Bot -> bottom
-...
-100 |   | Bot, Itv(None, Some y) | Itv(None, Some y), Bot -> Itv(None, Some y)
-101 |   | Bot, Itv(Some x, None) | Itv(Some x, None), Bot -> Itv(Some x, None)
-102 |   | Bot, Itv(Some x, Some y) | Itv(Some x, Some y), Bot -> Itv(Some x, Some y)
-103 |   | Itv (Some a, Some b), Itv (Some c, Some d) -> Itv (mmapt min (Some a) (Some c), mmapt max (Some b) (Some d))
-Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-(Itv (None, None), Itv (_, _))
-File "domains/intervals.ml", lines 106-128, characters 0-116:
-106 | match x, y with
-107 |   (*| Itv(None, None), Bot | Bot, Itv(None, None) -> bottom
-108 |   | Itv(None, None), Itv(None, Some y) | Itv(None, Some y), Itv(None, None) -> Itv(None, Some y)
-109 |   | Itv(None, None), Itv(Some x, None) | Itv(Some x, None), Itv(None, None) -> Itv(Some x, None)
-110 |   | Itv(None, None), Itv(Some x, Some y) | Itv(Some x, Some y), Itv(None, None) -> Itv(Some x, Some y)
-...
-125 |         top
-126 |     *)
-127 |     | Bot , _ | _, Bot -> Bot
-128 |     | Itv (Some a, Some b), Itv (Some c, Some d) -> mk_itv (max_minf (Some a) (Some c)) (min_pinf (Some b) (Some d))
-Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-(Itv (Some _, Some _), Itv (Some _, None))
 # Target: compile.ml.depends, tags: { extension:ml, file:compile.ml, ocaml, ocamldep, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamldep.opt -modules compile.ml > compile.ml.depends # cached
 # Target: compile.cmx, tags: { compile, extension:cmx, extension:ml, file:compile.cmx, file:compile.ml, implem, native, ocaml, quiet, traverse }

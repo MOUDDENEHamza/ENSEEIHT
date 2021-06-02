@@ -1,0 +1,9 @@
+int x,y,z;
+/* Example of dead code */
+x = rand_int (1, 12);
+if (x > 0) {
+  y = 1;
+} else {
+  y = 0;  /* dead code */
+}
+z = 12 / y;

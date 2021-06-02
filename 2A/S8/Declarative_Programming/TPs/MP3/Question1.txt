@@ -1,0 +1,2 @@
+1. Il peut y avoir au plus 2n - 1 étapes de calcul où n est le nombre de
+constantes données en entrée 

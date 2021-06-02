@@ -20,7 +20,7 @@
 # Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o main.cmo main.ml # cached
 # Target: analyze.ml.depends, tags: { extension:ml, file:analyze.ml, ocaml, ocamldep, quiet, traverse }
-/home/hamza/.opam/default/bin/ocamldep.opt -modules analyze.ml > analyze.ml.depends
+/home/hamza/.opam/default/bin/ocamldep.opt -modules analyze.ml > analyze.ml.depends # cached
 # Target: ast.ml.depends, tags: { extension:ml, file:ast.ml, ocaml, ocamldep, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamldep.opt -modules ast.ml > ast.ml.depends # cached
 # Target: ast.mli.depends, tags: { extension:mli, file:ast.mli, ocaml, ocamldep, quiet, traverse }
@@ -68,11 +68,9 @@
 # Target: domains/dummy.cmx, tags: { compile, extension:cmx, extension:ml, file:domains/dummy.cmx, file:domains/dummy.ml, implem, native, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/dummy.cmx domains/dummy.ml # cached
 # Target: domains/kildall.ml.depends, tags: { extension:ml, file:domains/kildall.ml, ocaml, ocamldep, quiet, traverse }
-/home/hamza/.opam/default/bin/ocamldep.opt -modules domains/kildall.ml > domains/kildall.ml.depends # cached
+/home/hamza/.opam/default/bin/ocamldep.opt -modules domains/kildall.ml > domains/kildall.ml.depends
 # Target: domains/kildall.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:domains/kildall.cmo, file:domains/kildall.ml, implem, ocaml, quiet, traverse }
-/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/kildall.cmo domains/kildall.ml # cached
-# Target: domains/kildall.cmx, tags: { compile, extension:cmx, extension:ml, file:domains/kildall.cmx, file:domains/kildall.ml, implem, native, ocaml, quiet, traverse }
-/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/kildall.cmx domains/kildall.ml # cached
+/home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o domains/kildall.cmo domains/kildall.ml
 # Target: domains/parity.ml.depends, tags: { extension:ml, file:domains/parity.ml, ocaml, ocamldep, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamldep.opt -modules domains/parity.ml > domains/parity.ml.depends # cached
 # Target: domains/parity.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:domains/parity.cmo, file:domains/parity.ml, implem, ocaml, quiet, traverse }
@@ -121,6 +119,8 @@
 /home/hamza/.opam/default/bin/ocamlc.opt -c -I domains -o printResults.cmi printResults.mli # cached
 # Target: printResults.cmx, tags: { compile, extension:cmx, extension:ml, file:printResults.cmx, file:printResults.ml, implem, native, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o printResults.cmx printResults.ml # cached
+# Target: domains/kildall.cmx, tags: { compile, extension:cmx, extension:ml, file:domains/kildall.cmx, file:domains/kildall.ml, implem, native, ocaml, quiet, traverse }
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o domains/kildall.cmx domains/kildall.ml
 # Target: compile.ml.depends, tags: { extension:ml, file:compile.ml, ocaml, ocamldep, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamldep.opt -modules compile.ml > compile.ml.depends # cached
 # Target: compile.cmx, tags: { compile, extension:cmx, extension:ml, file:compile.cmx, file:compile.ml, implem, native, ocaml, quiet, traverse }
@@ -128,7 +128,7 @@
 # Target: analyze.cmx, tags: { compile, extension:cmx, extension:ml, file:analyze.cmx, file:analyze.ml, implem, native, ocaml, quiet, traverse }
 /home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o analyze.cmx analyze.ml
 # Target: main.cmx, tags: { compile, extension:cmx, extension:ml, file:main.cmx, file:main.ml, implem, native, ocaml, quiet, traverse }
-/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o main.cmx main.ml # cached
+/home/hamza/.opam/default/bin/ocamlopt.opt -c -I domains -o main.cmx main.ml
 # Target: main.native, tags: { dont_link_with, extension:native, file:main.native, link, native, ocaml, program, quiet, traverse, use_apron, use_box, use_gmp, use_oct, use_polka }
 /home/hamza/.opam/default/bin/ocamlopt.opt -I domains location.cmx name.cmx ast.cmx relational.cmx report.cmx nonRelational.cmx domains/dummy.cmx domains/kildall.cmx domains/parity.cmx parser.cmx lexer.cmx utils.cmx parse.cmx printResults.cmx analyze.cmx compile.cmx main.cmx -o main.native
 # Compilation successful.

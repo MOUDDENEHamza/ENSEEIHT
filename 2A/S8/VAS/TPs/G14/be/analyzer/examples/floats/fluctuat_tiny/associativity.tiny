@@ -1,0 +1,6 @@
+real x, y, z, t, u ;
+  x = rand_real(0.,3.);
+  y = rand_real(0.,3.);
+  z = x+y;
+  t = z-x;
+  u = t-y;

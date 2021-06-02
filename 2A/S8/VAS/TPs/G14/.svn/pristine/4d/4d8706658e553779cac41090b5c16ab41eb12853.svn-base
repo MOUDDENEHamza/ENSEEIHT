@@ -1,0 +1,84 @@
+/* y = sqrt x */
+
+real x, y, sqrt_2, sqrt_5, r, p, p2, rp, i, i1 ;
+real error;
+
+x = rand_real(0.,15.);
+sqrt_2 = 1.414213562373095;
+sqrt_5 = 0.7071067811865475;
+
+if (x <= 0.) {
+	y = 0.;
+error = x - y*y;
+}
+else if(x > 1.0) {
+    p = 0.; 
+    p2 = 1.0;
+    y = x;
+    while(y > 1.0) {
+		y = y / 2.0;
+		p = p+1.;
+		p2 = p2 * sqrt_2;
+    }
+    r = r - 1.0;
+	r = ((r/16.0 - 1./8.0)*r + 1.0/2.0)*r + 1.0;
+    rp = r*r;
+    i = 0.;
+    while (i<5.) {
+      	rp = r;
+	  	r = (rp + y / rp)/2.0 ;
+	  	i = i+1.;
+    }
+    i1 = (i-1.);
+    y = r*p2;
+error = x - y*y;
+}
+else if (x >= 1.0) {
+	y = 1.0;
+error = x - y*y;
+}
+else if(x > 0.5) {
+      y=x; 
+      p2 = 1.0;
+      r = r - 1.0;
+	  r = ((r/16.0 - 1./8.0)*r + 1.0/2.0)*r + 1.0;
+      rp = r*r;
+      i = 0.;
+      while (i<5.) {
+      	rp = r;
+	  	r = (rp + y / rp)/2.0 ;
+	  	i = i+1.;
+      }
+      y = r*p2;
+error = x - y*y;
+}
+else if( x >= 0.5) {
+      y =  sqrt_5;
+error = x - y*y;
+}
+else if (x < 0.5) {
+      p = 0.; 
+      p2 = 1.0;
+      y = x;
+      while( y < 0.5) {
+	  	y *= 2.0;
+	  	p = p + 1.;
+	  	p2 = p2 / sqrt_2;
+	  }
+      p = -p;
+      r = r - 1.0;
+	  r = ((r/16.0 - 1./8.0)*r + 1.0/2.0)*r + 1.0;
+      rp = r*r;
+      i = 0.;
+      while (i<5.) {
+      	rp = r;
+	  	r = (rp + y / rp)/2.0 ;
+	  	i = i+1.;
+      }
+      i1 = (i-1.);
+      y = r*p2;
+error = x - y*y;	
+} else { x = 0.;}
+
+
+

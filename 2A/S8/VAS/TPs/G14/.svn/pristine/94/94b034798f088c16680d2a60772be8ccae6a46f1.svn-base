@@ -1,0 +1,8 @@
+int x, y;
+x = rand_int(-12, 12);
+if (x > 0) {
+  ++x;
+} else {
+  --x;
+}
+y = 1 / x;

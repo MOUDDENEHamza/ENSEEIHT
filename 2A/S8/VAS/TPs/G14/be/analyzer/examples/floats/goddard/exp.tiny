@@ -1,0 +1,13 @@
+/* Computing e as the solution of xdot = x */
+real x, delta;
+int cpt, res;
+
+x=1.;
+cpt=0;
+res=100;
+delta=0.01; /* For the moment no cast btw types.
+	       We cannot define delta = 1/res */
+while (cpt < res) {
+ x = x + delta*x;
+ cpt++;
+}

@@ -1,0 +1,7 @@
+sed -e 's/\//.\//g;s/\([0-9]\))/\1.)/g' InterL50.spl > InterL50.tiny
+sed -e 's/\//.\//g;s/\([0-9]\))/\1.)/g' InterL100.spl > InterL100.tiny
+sed -e 's/\//.\//g;s/\([0-9]\))/\1.)/g' InterL200.spl > InterL200.tiny
+sed -e 's/\//.\//g;s/\([0-9]\))/\1.)/g' InterL300.spl > InterL300.tiny
+sed -e 's/\//.\//g;s/\([0-9]\))/\1.)/g' InterL400.spl > InterL400.tiny
+sed -e 's/\//.\//g;s/\([0-9]\))/\1.)/g' InterL500.spl > InterL500.tiny
+

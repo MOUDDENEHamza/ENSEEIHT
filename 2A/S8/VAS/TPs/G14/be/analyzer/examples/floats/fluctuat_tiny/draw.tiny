@@ -1,0 +1,8 @@
+real a, b, c, x, y ;
+
+a = rand_real(-1.,1.);
+b = rand_real(0.,2.);
+c = rand_real(-1.,1.);
+
+x = a+b+a*a;
+y = -1.+a*b+b*b+c-a;

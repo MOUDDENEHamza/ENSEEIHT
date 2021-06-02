@@ -1,0 +1,14 @@
+/* InterQ2 */
+/* x = sqrt(1/10) */
+
+real x, y ;
+x = rand_real(-1.,1.);
+if (x>=0.) {
+ y = 10.*x*x;
+}
+else {
+ y = -20.*x*x;
+}
+/*assume y == 1;*/
+
+

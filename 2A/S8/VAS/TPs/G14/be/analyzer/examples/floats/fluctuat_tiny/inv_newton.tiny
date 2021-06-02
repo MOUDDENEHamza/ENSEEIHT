@@ -1,0 +1,18 @@
+ /* xi = inv(A) */
+
+real epsilon, dist, xi, xsi, A, i ;
+
+xi = 1.;
+epsilon = 0.001;
+dist = epsilon + 1.;
+i = 0.;
+A = rand_real(20.,30.);
+while (dist > epsilon) {
+   xsi = 2.*xi-A*xi*xi;
+   dist = xsi-xi;
+   if (dist < 0.) {
+   		dist = -dist;
+   }
+   xi = xsi;
+   i = i+1.;
+}

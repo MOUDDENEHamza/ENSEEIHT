@@ -1,0 +1,47 @@
+real x,y,C1,C2,C3,C4,C5,C6,C7,C8 ;
+
+	C1 = 0.0028662257;
+	C2 = -0.0161657367;
+	C3 = 0.0429096138;
+	C4 = -0.0752896400;
+	C5 = 0.1065626393;
+	C6 = -0.1420889944;
+	C7 = 0.1999355085;
+	C8 = -0.3333314528;
+	
+	x = rand_real(-4.,4.);
+	
+	if (x > 1.) {
+		x = 1./x;
+		y = 1.5708 - x * (1. 
+	    	- C1 * x*x
+	    	+ C2 * x*x*x*x
+	    	+ C3 * x*x*x*x*x*x
+	    	+ C4 * x*x*x*x*x*x*x*x
+	    	+ C5 * x*x*x*x*x*x*x*x*x*x
+	    	+ C6 * x*x*x*x*x*x*x*x*x*x*x*x
+	    	+ C7 * x*x*x*x*x*x*x*x*x*x*x*x*x*x
+	    	+ C8 * x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x);
+	}
+	else if (x < -1.) {
+	    x = 1./x;
+		y = -1.5708 - x * (1. 
+	    	- C1 * x*x
+	    	+ C2 * x*x*x*x
+	    	+ C3 * x*x*x*x*x*x
+	    	+ C4 * x*x*x*x*x*x*x*x
+	    	+ C5 * x*x*x*x*x*x*x*x*x*x
+	    	+ C6 * x*x*x*x*x*x*x*x*x*x*x*x
+	    	+ C7 * x*x*x*x*x*x*x*x*x*x*x*x*x*x
+	    	+ C8 * x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x);
+	}
+	else
+	    y = x * (1. 
+	    	- C1 * x*x
+	    	+ C2 * x*x*x*x
+	    	+ C3 * x*x*x*x*x*x
+	    	+ C4 * x*x*x*x*x*x*x*x
+	    	+ C5 * x*x*x*x*x*x*x*x*x*x
+	    	+ C6 * x*x*x*x*x*x*x*x*x*x*x*x
+	    	+ C7 * x*x*x*x*x*x*x*x*x*x*x*x*x*x
+	    	+ C8 * x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x);

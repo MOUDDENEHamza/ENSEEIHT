@@ -1,0 +1,7 @@
+real x, y, z ;
+
+x = rand_real(0.,2.);
+
+y = x*x;
+z = x*x;
+x = y-z;

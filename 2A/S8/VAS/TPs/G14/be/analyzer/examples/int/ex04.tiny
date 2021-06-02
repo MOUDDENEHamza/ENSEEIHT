@@ -1,0 +1,11 @@
+int x,y;
+x = rand_int(0, 12);
+y = 0;
+while (x > 0) {
+  if (rand_int(0, 1) > 0) {
+    x -= 1;
+  } else {
+    x -= 2;
+  }
+  ++y;
+}

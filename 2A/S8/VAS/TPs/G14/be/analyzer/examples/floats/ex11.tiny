@@ -1,0 +1,11 @@
+real x,y;
+
+x = rand_real(3., 6.);
+x *= 2.;
+++x;
+while (x > 0.) {
+  x -= 2.;
+}
+y = rand_real(0., 3.);
+x -= y;
+y /= x;

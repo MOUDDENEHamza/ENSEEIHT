@@ -1,0 +1,21 @@
+real x, y, z, h; 
+x = rand_real(-2.,2.); 
+h = 1.000000; 
+if (-x<=1.*h - 2.) { 
+  y = sqrt(x*x - x + 0.5) / sqrt(x*x + 0.5) ; 
+  z = sqrt(y*y - y + 0.5) / sqrt(y*y + 0.5) ; 
+  } else 
+if (-x<=2.*h - 2.) { 
+  y = sqrt(x*x - x + 0.5) / sqrt(x*x + 0.5) ; 
+  z = sqrt(y*y - y + 0.5) / sqrt(y*y + 0.5) ; 
+  } else 
+if (-x<=3.*h - 2.) { 
+  y = sqrt(x*x - x + 0.5) / sqrt(x*x + 0.5) ; 
+  z = sqrt(y*y - y + 0.5) / sqrt(y*y + 0.5) ; 
+  } else {
+	  y = sqrt(x*x - x + 0.5) / sqrt(x*x + 0.5) ; 
+  z = sqrt(y*y - y + 0.5) / sqrt(y*y + 0.5) ; 
+  }
+
+
+

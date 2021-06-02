@@ -1,0 +1,8 @@
+real x, y ;
+x = rand_real(-1.,1.);
+if (x<0.) {
+ y = 10.*x;
+}
+
+/*assume y == 1;*/
+

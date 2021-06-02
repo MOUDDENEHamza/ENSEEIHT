@@ -1,0 +1,9 @@
+/* les commentaires
+ * sont au format C. */
+int  y,x;
+x = rand_int(0, 12);
+y = 42;
+while (x > 0) {
+  x = x - 2;
+  y = y + 4;
+}
