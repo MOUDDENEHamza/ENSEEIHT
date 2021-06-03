@@ -520,8 +520,7 @@ public class Chiffres {
      * "step".
      */
     private BoolExpr finalStateApproxFormula(int step) {
-        System.out.println("Attention : la méthode finalStateApproxFormula n'est pas définie !");
-        return context.mkTrue();
+        return context.mkNot(finalStateFormula(step));
     }
 
     /**
@@ -529,8 +528,12 @@ public class Chiffres {
      * du dessus de la pile et la valeur cible au pas "step".
      */
     private BitVecExpr finalStateApproxCriterion(int step) {
-        System.out.println("Attention : la méthode finalStateApproxCriterion n'est pas définie !");
-        return this.toBvNum(0);
+        ArrayExpr s = stackStateVar(step);
+        IntExpr i = (IntExpr) idxStateVar(step);
+
+        BitVecExpr diff = context.mkBVSub((BitVecExpr) context.mkSelect(s, context.mkSub(i, context.mkInt(1))), context.mkBV(this.target, this.bvBits));
+
+        return (BitVecExpr) context.mkITE(context.mkBVSGE(diff, context.mkBV(0, bvBits)), diff, context.mkBVNeg(diff));
     }
 
     /**
@@ -547,7 +550,6 @@ public class Chiffres {
      * pour toutes les itérations, on retourne le status SAT.
      */
     private Status solveApprox(int timeout) {
-        System.out.println("Attention : la méthode solveApprox n'est pas définie !");
 
         // ce solver n'est pas incrémental, il faut le recréer à
         // chaque nouvelle itération du BMC.
@@ -556,15 +558,33 @@ public class Chiffres {
         // - Add pour ajouter une formule
         // - MkMinimize pour ajouter un critère à optimiser
         // - Check pour résoudre
-        Optimize solver = context.mkOptimize();
+        Status status = Status.UNKNOWN; 
 
-        if (timeout > 0) {
-            Params p = context.mkParams();
-            p.add("timeout", timeout);
-            solver.setParameters(p);
+		for (int i = 0; i < this.maxNofSteps; i++) {
+            Optimize solver = context.mkOptimize();
+
+			solver.Add(initialStateFormula());
+			for (int j = 0; j <= i; j++) {
+				solver.Add(transitionFormula(j));	
+            }
+            solver.Add(finalStateApproxFormula(i + 1));
+
+            solver.MkMinimize(finalStateApproxCriterion(i + 1));
+			status = solver.Check();
+            
+			if (status == Status.SATISFIABLE) {
+                
+				printModel(solver.getModel(), i);
+            }
+
+            if (timeout > 0) {
+                Params p = context.mkParams();
+                p.add("timeout", timeout);
+                solver.setParameters(p);
+            }
         }
 
-        return Status.UNKNOWN;
+        return status;
     }
 
     /**
