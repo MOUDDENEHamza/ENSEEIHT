@@ -104,8 +104,9 @@ non terminal InterfaceDeclaration       Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
 non terminal							SingleInherits, MultipleInherits, Implements;
 non terminal List<ClassElement>			ClassElements;
-non terminal                            InterfaceElements, Instances;
-non terminal							Instance;
+non terminal                            InterfaceElements;
+non terminal List<Instance> 			Instances;
+non terminal Instance					Instance;
 non terminal ClassElement               ClassElement;
 non terminal							InterfaceElement;
 non terminal AttributeDeclaration		Attribute; 
@@ -144,6 +145,31 @@ Program ::= Elements:elements
 				for (int i = elements.size() - 1; i >= 0 ; i--) {
 					System.out.println(elements.get(i));
 				}
+				SymbolTable tds = new SymbolTable();
+				for(int i = elements.size() - 1; i >= 0 ; i--) {
+					if (elements.get(i).collect(tds)) {
+						System.out.println("Collect succeeded : " + tds);
+						if (elements.get(i).resolve(tds)) {
+							System.out.println("Resolve succeeded.");
+						} else {
+							System.out.println("Resolve failed." + tds);
+							break;
+						}
+					} else {
+						System.out.println("Collect failed : " + tds);
+						break;
+					}
+				}
+
+				for(int i = elements.size() - 1; i >= 0 ; i--) {
+					if (elements.get(i).checkType()) {
+						System.out.println("Check type succeeded.");
+					} else {
+						System.out.println("Check type failed.");
+						break;
+					}
+				}
+
 			:}
 		;
 
@@ -248,8 +274,6 @@ MultipleInherits ::= /* Lambda */
 		{:
 		:}
 		;
-
-/*******************************************************************************/
 		
 Implements ::= /* Lambda */
 		{:
@@ -259,22 +283,30 @@ Implements ::= /* Lambda */
 		{:
 		:}
 		;
+
+/*******************************************************************************/
 		
-Instances ::= Instance UL_Virgule Instances
+Instances ::= Instance:instance UL_Virgule Instances:instances
 		{:
+			instances.add(instance);
+			RESULT = instances;
 		:}
 		|
-		Instance
+		Instance:instance
 		{:
+			List<Instance> instances = new LinkedList<>();
+			instances.add(instance);
+			RESULT = instances;
 		:}
 		;
 		
-Instance ::= UL_Identificateur
+Instance ::= UL_Identificateur:nom
 		{:
+			RESULT = new Instance(nom);
 		:}
-		| Instance UL_Inferieur Instances UL_Superieur
+		/*| Instance UL_Inferieur Instances UL_Superieur
 		{:
-		:}
+		:}*/
 		;
 		
 ClassElements ::= /* Lambda */
@@ -311,15 +343,6 @@ AccessRight ::= UL_Public
 		:}
 		;
 		
-/*ElementNature ::=
-		UL_De_Classe
-		{:
-		:}
-		| /* Lambda */
-		{:
-		:}
-		;	*/	
-		
 ClassElement ::=
 		Attribute:attribute
 		{:
@@ -331,8 +354,9 @@ ClassElement ::=
 			RESULT = method;
 		:}
 		|
-		Constructor
+		Constructor:constructeur
 		{:
+			RESULT = constructeur;
 		:}
 		;
 		
@@ -388,22 +412,24 @@ Method ::=
 Signature ::=
 		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante
 		{:
-			RESULT = Signature(type, identifiant, parameters);
+			RESULT = new Signature(type, identifiant, parametres);
 		:}
 		|
 		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante UL_Parenthese_Fermante
 		{:
-			RESULT = Signature(type, identifiant, null);
+			RESULT = new Signature(type, identifiant, null);
 		:}
 		;
 		
 Constructor ::=
-		UL_Identificateur:nom UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante Block
+		AccessRight:UL_Public UL_Identificateur:nom UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante Block:corps
 		{:
+			RESULT = new ConstructorDeclaration(nom, parametres, corps);
 		:}
 		|
-		UL_Identificateur:nom UL_Parenthese_Ouvrante UL_Parenthese_Fermante Block
+		AccessRight:UL_Public UL_Identificateur:nom UL_Parenthese_Ouvrante UL_Parenthese_Fermante Block:corps
 		{:
+			RESULT = new ConstructorDeclaration(nom, null, corps);
 		:}
 		;
 
@@ -493,6 +519,7 @@ Type ::= Atomique:atomique
 		/* ajout miniJava */
 		| Instance:instance
 			{:
+				RESULT = instance;
 			:}
 		/* fin ajout miniJava */
 		/* retrait miniJava
@@ -657,6 +684,10 @@ Instruction ::= Declaration:declaration
 			/* début ajout miniJava : appel de méthodes sans retour */
 			| Affectable:affectable UL_Point_Virgule
 				{:
+					Expression record = ((MethodAssignment) affectable).getRecord();
+					String name = ((MethodAssignment) affectable).getName();
+					List<Expression> parameters = ((MethodAssignment) affectable).getParameters();
+					RESULT = new MethodCall( record, name, parameters);
 				:}
 			/* fin ajout miniJava */
 			| UL_Afficher Expression:expression UL_Point_Virgule
@@ -666,6 +697,14 @@ Instruction ::= Declaration:declaration
 			| UL_Si UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Block:alors UL_Sinon Block:sinon
 				{: 
 					RESULT = new Conditional( condition, alors, sinon); 
+				:}
+			| UL_Si UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Block:alors 
+				{: 
+					RESULT = new Conditional( condition, alors, null); 
+				:}
+			| UL_Tant_Que UL_Parenthese_Ouvrante Expression:condition UL_Parenthese_Fermante Block:corps 
+				{: 
+					RESULT = new Repetition( condition, corps); 
 				:}
 			| UL_Retour Expression:expression UL_Point_Virgule
 				{:
@@ -693,6 +732,7 @@ Affectable ::= UL_Identificateur:nom
 			/* début ajout miniJava */
 			| UL_Moi
 				{:
+					RESULT = new ThisAssignment( "this" );
 				:}
 			| UL_Super
 				{:
@@ -727,9 +767,15 @@ Affectable ::= UL_Identificateur:nom
 			/* ajout miniJava : appels de méthode */
 			| Affectable:affectable UL_Parenthese_Ouvrante UL_Parenthese_Fermante
 				{:
+					Expression record = ((AbstractField) affectable).getRecord();
+					String name = ((AbstractField) affectable).getName();
+					RESULT = new MethodAssignment(record, name, null);
 				:}
 			| Affectable:affectable UL_Parenthese_Ouvrante Expressions:parametres UL_Parenthese_Fermante
 				{:
+					Expression record = ((AbstractField) affectable).getRecord();
+					String name = ((AbstractField) affectable).getName();
+					RESULT = new MethodAssignment(record, name, parametres);
 				:}
 			/* ajout miniJava */
 			;
@@ -859,7 +905,10 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
              	{: 
 					/* début retrait miniJava
 					RESULT = new FunctionCall( nom, parametres ); 
-					fin retrait miniJava  */
+					fin retrait miniJava  */ 
+					Expression record = ((AbstractField) fonction).getRecord();
+					String name = ((AbstractField) fonction).getName();
+					RESULT = new MethodAccess(record, name, parametres);
 				:}
 			|
 				Expression:fonction	UL_Parenthese_Ouvrante UL_Parenthese_Fermante                     
@@ -868,6 +917,10 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 					List<Expression> _parametres = new LinkedList<Expression>();
 					RESULT = new FunctionCall( nom, _parametres );
 					fin retrait miniJava  */ 
+
+					Expression record = ((AbstractField) fonction).getRecord();
+					String name = ((AbstractField) fonction).getName();
+					RESULT = new MethodAccess(record, name, null);
 				:}
 				/* fin adaptation miniJava */
 			| UL_Nombre_Entier:entier	                     
@@ -885,6 +938,7 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 			/* début ajout miniJava */
 			| UL_Moi
 				{:
+					RESULT = new IdentifierAccess( "this" ); 
 				:}
 			| UL_Super
 				{:
@@ -913,17 +967,13 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 			/* début adaptation miniJava : constructeur sans paramètre */
 			| UL_Nouveau Type:type UL_Parenthese_Ouvrante UL_Parenthese_Fermante	                     
              	{: 
-					/* début retrait miniJava
-					RESULT = new PointerAllocation( type ); 
-					fin retrait miniJava */
+					RESULT = new ConstructorAllocation( type, null ); 
 				:}
 			/* fin adaptation miniJava */
 			/* début ajout miniJava : constructeur avec paramètres */
 			| UL_Nouveau Type:type UL_Parenthese_Ouvrante Expressions:parametres UL_Parenthese_Fermante	                     
              	{: 
-					/* début retrait miniJava
-					RESULT = new PointerAllocation( type ); 
-					fin retrait miniJava */
+					RESULT = new ConstructorAllocation( type, parametres ); 
 				:}
 			/* fin ajout miniJava */
             ;

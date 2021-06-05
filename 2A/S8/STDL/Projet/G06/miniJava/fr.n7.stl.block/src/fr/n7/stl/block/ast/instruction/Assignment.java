@@ -3,10 +3,13 @@
  */
 package fr.n7.stl.block.ast.instruction;
 
+import fr.n7.stl.block.ast.expression.AbstractField;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.SymbolTable;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -74,6 +77,13 @@ public class Assignment implements Instruction, Expression {
 	public boolean checkType() {
 		if (this.value.getType().compatibleWith(this.assignable.getType())) {
 			return true;
+		} else if (this.assignable.getType().compatibleWith(AtomicType.ErrorType) && this.assignable instanceof AbstractField) {
+			if (this.value.getType().compatibleWith(SymbolTable.classDeclaration.getElementsTable().get(((AbstractField) this.assignable).getName()).getType())) {
+				return true;	
+			} else {
+					Logger.error(this.assignable + " is not compatible with " + this.value);
+					return false;
+			} 
 		} else {
 			Logger.error("The type of assignable is incompatible.");
 			return false;

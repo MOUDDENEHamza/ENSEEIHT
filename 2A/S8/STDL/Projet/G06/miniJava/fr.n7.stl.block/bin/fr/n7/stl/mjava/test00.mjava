@@ -1,0 +1,45 @@
+class A {
+	public int v;
+	
+	public void setV(int _v) {
+		this.v = _v;
+	}
+	
+	public int getV() {
+		return this.v;
+	}
+	
+	public A() {
+		this( -1 );
+	}
+	
+	public A(int _v) {
+		this.v = _v;
+	}
+	
+}
+
+public class Main {
+
+	public static void main(String args[]) {
+		A a1 = new A();
+		A a2 = new A( 5 );
+		print a1.v;
+		print a1.getV();
+		print a2.v;
+		print a2.getV();
+		a1.v = a2.v;
+		print a1.v;
+		a1.setV( 3 );
+		print a1.getV();
+		a2.setV( 7 );
+		print a2.getV();
+		a1 = a2;
+		a2.setV( 9 );
+		print a1.getV();
+		a1.setV( 11 );
+		print a2.getV();
+		
+	}
+}
+		
