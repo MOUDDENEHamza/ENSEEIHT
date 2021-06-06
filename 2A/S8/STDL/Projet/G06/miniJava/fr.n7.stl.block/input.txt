@@ -29,7 +29,7 @@ public class Main {
 		print a2.getV();
 		a1 = a2;
 		print a1.getV();
-		//a1.setV(1);
+		a1.setV(1);
 	}
 }
 		

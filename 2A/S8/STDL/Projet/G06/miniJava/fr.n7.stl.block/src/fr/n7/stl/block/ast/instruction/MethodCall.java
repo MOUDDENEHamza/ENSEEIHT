@@ -1,5 +1,6 @@
 package fr.n7.stl.block.ast.instruction;
 
+import java.lang.reflect.Parameter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,10 +29,13 @@ public class MethodCall implements Instruction {
 
     protected List<Expression> parameters;
 
+    protected Type type;
+
     public MethodCall(Expression _method, String _name, List<Expression> _parameters) {
         this.record = _method;
         this.name = _name;
         this.parameters = _parameters;
+        this.type = null;
     }
 
     @Override
@@ -60,12 +64,13 @@ public class MethodCall implements Instruction {
         }
         if (((HierarchicalScope<Declaration>) _scope).knows(this.record.toString())) {
 			Declaration _declaration = _scope.get(this.record.toString());
-			if (_declaration instanceof VariableDeclaration) {
+            if (_declaration instanceof VariableDeclaration) {
 				VariableDeclaration declaration = ((VariableDeclaration) _declaration);
                 Type _type = declaration.getType();
-		        if (_type instanceof Instance) {
+                if (_type instanceof Instance) {
 			        Declaration d = _scope.get(_type.toString());
-			        if (d instanceof ClassDeclaration) {
+			        this.type = d.getType();
+                    if (d instanceof ClassDeclaration) {
                         List<MethodDeclaration> methods = ((ClassDeclaration) d).getClassMethods();
                         boolean found = false;
                         for (MethodDeclaration m : methods) {
@@ -169,21 +174,24 @@ public class MethodCall implements Instruction {
 
     @Override
     public boolean checkType() {
-        boolean found = false;
-        if (record.getType() instanceof Instance) {
+        boolean _result = false;
+        for (Expression p : this.parameters) {
+            this.name += p.getType();
+        }
+        if (this.type instanceof Instance) {
             for (ClassDeclaration c : SymbolTable.classesDeclaration) {
-                if (c.getName().equals(record.getType().toString())) {
+                if (c.getName().equals(this.type.toString())) {
                     for (MethodDeclaration m : c.getClassMethods()) {
                         if (m.getName().equals(name)) {
-                            found = true;
+                            _result = true;
                         }
                     }
                 }
             }
-            return found;
         } else {
             return false;
         }
+        return _result;
     }
 
     @Override
