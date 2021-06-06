@@ -26,7 +26,7 @@ public class SymbolTable implements HierarchicalScope<Declaration> {
 	public static FunctionDeclaration functionDeclaration = null;
 	public static MethodDeclaration methodDeclaration = null;
 	public static ClassDeclaration classDeclaration = null;
-
+	
 	public static List<ClassDeclaration> classesDeclaration = new ArrayList<>();
 
 	public SymbolTable() {

@@ -3,10 +3,16 @@
  */
 package fr.n7.stl.block.ast.instruction;
 
+import fr.n7.stl.block.ast.classElement.AttributeDeclaration;
+import fr.n7.stl.block.ast.classElement.MethodDeclaration;
+import fr.n7.stl.block.ast.element.ClassDeclaration;
+import fr.n7.stl.block.ast.expression.AbstractField;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.Instance;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
@@ -55,6 +61,40 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
+		if (this.parameter instanceof AbstractField) {
+			Expression record = ((AbstractField) this.parameter).getRecord();
+			String name = ((AbstractField) this.parameter).getName();
+			if (record.getType() instanceof Instance) {
+				for (ClassDeclaration c : SymbolTable.classesDeclaration) {
+					if (c.getName().equals(record.getType().toString())) {
+						for (AttributeDeclaration a : c.getClassAttributes()) {
+							if (a.getName().equals(name)) {
+								if (a.getType().equalsTo(AtomicType.BooleanType) || 
+									a.getType().equalsTo(AtomicType.IntegerType) || 
+									a.getType().equalsTo(AtomicType.StringType) ||
+									a.getType().equalsTo(AtomicType.CharacterType) || 
+									a.getType().equalsTo(AtomicType.FloatingType)) {
+									return true;
+								}
+							}
+						}
+						for (MethodDeclaration m : c.getClassMethods()) {
+							if (m.getName().equals(name)) {
+								if (m.getType().equalsTo(AtomicType.BooleanType) || 
+									m.getType().equalsTo(AtomicType.IntegerType) || 
+									m.getType().equalsTo(AtomicType.StringType) ||
+									m.getType().equalsTo(AtomicType.CharacterType) || 
+									m.getType().equalsTo(AtomicType.FloatingType)) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+			} else {
+				return false;
+			}
+		}
 		if (this.parameter.getType().equalsTo(AtomicType.BooleanType) || 
 			this.parameter.getType().equalsTo(AtomicType.IntegerType) || 
 			this.parameter.getType().equalsTo(AtomicType.StringType) ||

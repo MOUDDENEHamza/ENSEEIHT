@@ -22,6 +22,7 @@ public class AbstractMethod implements Expression {
     protected Expression record;
     protected String name;
     protected List<Expression> parameters;
+    protected MethodDeclaration method;
 
     public AbstractMethod(Expression _record, String _name, List<Expression> _parameters) {
         this.record = _record;
@@ -83,6 +84,7 @@ public class AbstractMethod implements Expression {
 							        return false;
 						        } else {
                                     found = true;
+                                    this.method = m;
                                     if (this.parameters != null) {
                                         for (Expression exp : this.parameters) {
                                             _result = _result && exp.collectAndBackwardResolve(_scope);
@@ -177,7 +179,7 @@ public class AbstractMethod implements Expression {
 
     @Override
     public Type getType() {
-        throw new SemanticsUndefinedException("getType undefined");
+        return this.method.getType();
     }
 
     @Override

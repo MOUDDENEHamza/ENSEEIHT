@@ -11,6 +11,7 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Instance;
 import fr.n7.stl.block.ast.type.Type;
@@ -168,7 +169,21 @@ public class MethodCall implements Instruction {
 
     @Override
     public boolean checkType() {
-        throw new SemanticsUndefinedException("checkType undifined");
+        boolean found = false;
+        if (record.getType() instanceof Instance) {
+            for (ClassDeclaration c : SymbolTable.classesDeclaration) {
+                if (c.getName().equals(record.getType().toString())) {
+                    for (MethodDeclaration m : c.getClassMethods()) {
+                        if (m.getName().equals(name)) {
+                            found = true;
+                        }
+                    }
+                }
+            }
+            return found;
+        } else {
+            return false;
+        }
     }
 
     @Override
