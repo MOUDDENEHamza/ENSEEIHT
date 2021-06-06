@@ -62,7 +62,6 @@ public class ConstructorDeclaration implements ClassElement {
                     identifiant += p.getType().toString();
                 }
             }
-            System.out.println(identifiant);
             _scope.register(this);
             SymbolTable tableParametres = new SymbolTable(_scope);
             boolean result = true;
@@ -102,13 +101,16 @@ public class ConstructorDeclaration implements ClassElement {
 
     @Override
     public int allocateMemory(Register _register, int _offset) {
-        throw new SemanticsUndefinedException("undifined in ConstructorDeclaration");
-
+        return 0;
     }
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("undifined in ConstructorDeclaration");
+        Fragment _result = _factory.createFragment();
+		_result.append(this.corps.getCode(_factory));
+		_result.addPrefix("begin:" + this.identifiant);
+		_result.addSuffix("end:" + this.identifiant);
+		return _result;
 
     }
 

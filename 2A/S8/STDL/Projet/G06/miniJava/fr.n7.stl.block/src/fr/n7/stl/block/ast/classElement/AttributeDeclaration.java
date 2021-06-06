@@ -55,6 +55,16 @@ public class AttributeDeclaration implements ClassElement, Declaration {
     }
 
     @Override
+    public String getName() {
+        return this.identifiant.getLeft();
+    }
+
+    @Override
+    public Type getType() {
+        return this.type;
+    }
+
+    @Override
     public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
         if (((HierarchicalScope<Declaration>) _scope).accepts(this)) {
             _scope.register(this);
@@ -93,22 +103,15 @@ public class AttributeDeclaration implements ClassElement, Declaration {
 
     @Override
     public int allocateMemory(Register _register, int _offset) {
-        throw new SemanticsUndefinedException("undifined in AttributeDeclaration");
+        int _result;
+        _result = this.type.length();
+        return _result;
     }
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("undifined in AttributeDeclaration");
-    }
-
-    @Override
-    public String getName() {
-        return this.identifiant.getLeft();
-    }
-
-    @Override
-    public Type getType() {
-        return this.type;
+        Fragment _result = _factory.createFragment();
+		return _result;
     }
 
 }

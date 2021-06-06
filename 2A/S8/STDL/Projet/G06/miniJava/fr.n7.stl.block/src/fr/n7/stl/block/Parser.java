@@ -10,6 +10,8 @@ import fr.n7.stl.block.Lexer;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.classElement.*;
@@ -24,6 +26,8 @@ import fr.n7.stl.block.ast.instruction.declaration.*;
 import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
+import fr.n7.stl.tam.ast.impl.*;
+import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.util.*;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.XMLElement;
@@ -749,6 +753,7 @@ class CUP$Parser$actions {
 				for (int i = elements.size() - 1; i >= 0 ; i--) {
 					System.out.println(elements.get(i));
 				}
+
 				SymbolTable tds = new SymbolTable();
 				for(int i = elements.size() - 1; i >= 0 ; i--) {
 					if (elements.get(i).collect(tds)) {
@@ -768,6 +773,19 @@ class CUP$Parser$actions {
 				for(int i = elements.size() - 1; i >= 0 ; i--) {
 					if (elements.get(i).checkType()) {
 						System.out.println("Check type succeeded.");
+						elements.get(i).allocateMemory(Register.SB, 0);
+						Fragment code = elements.get(i).getCode(new TAMFactoryImpl());
+						System.out.println( "Generated code:" );
+            code.add((new TAMFactoryImpl()).createHalt());
+            System.out.println( code );
+						File file = new File(parser.name.replaceAll(".txt", "") + ".tam");
+            PrintStream printer = null;
+            try {
+                printer = new PrintStream( new FileOutputStream(file) );
+                printer.println( code );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 					} else {
 						System.out.println("Check type failed.");
 						break;

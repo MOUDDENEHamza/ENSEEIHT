@@ -140,14 +140,17 @@ public class ClassDeclaration implements Element, Declaration {
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("allocateMemory undefined !");
+		return 0;
 
 	}
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode undefined !");
-
+		Fragment _result = _factory.createFragment();
+		for (ClassElement c : this.classElements) {
+			_result.append(c.getCode(_factory));
+		}
+		return _result;
 	}
 
 	@Override

@@ -81,14 +81,16 @@ public class MainDeclaration implements Element {
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		// TODO Auto-generated method stub
-		return 0;
+		int _result = 0;
+		this.block.allocateMemory(_register, _offset);
+		return _result;
 	}
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		Fragment _result = _factory.createFragment();
+		_result.append(this.block.getCode(_factory));
+		return _result;
 	}
 
 }

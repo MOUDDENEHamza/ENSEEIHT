@@ -9,6 +9,8 @@ import fr.n7.stl.block.Lexer;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 // Elements du métamodèle pour la construction de l'arbre abstrait
@@ -25,7 +27,10 @@ import fr.n7.stl.block.ast.instruction.declaration.*;
 import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
+import fr.n7.stl.tam.ast.impl.*;
+import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.util.*;
+
 
 /* Variables partagées dans les actions de l'analyseur syntaxique. */
 parser code {:
@@ -145,6 +150,7 @@ Program ::= Elements:elements
 				for (int i = elements.size() - 1; i >= 0 ; i--) {
 					System.out.println(elements.get(i));
 				}
+
 				SymbolTable tds = new SymbolTable();
 				for(int i = elements.size() - 1; i >= 0 ; i--) {
 					if (elements.get(i).collect(tds)) {
@@ -164,6 +170,18 @@ Program ::= Elements:elements
 				for(int i = elements.size() - 1; i >= 0 ; i--) {
 					if (elements.get(i).checkType()) {
 						System.out.println("Check type succeeded.");
+						elements.get(i).allocateMemory(Register.SB, 0);
+						Fragment code = elements.get(i).getCode(new TAMFactoryImpl());
+						System.out.println( "Generated code:" );
+						System.out.println( code );
+						File file = new File(parser + "_tam");
+						PrintStream printer = null;
+						try {
+							printer = new PrintStream( new FileOutputStream(file) );
+							printer.println( code );
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					} else {
 						System.out.println("Check type failed.");
 						break;
