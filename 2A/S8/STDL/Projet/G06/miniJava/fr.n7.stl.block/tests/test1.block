@@ -1,9 +1,0 @@
-test2 {
-    int i = 1;
-    int j = 1;
-    while ( i < 5 ) {
-        j = i * j;
-        i = i + 1;
-    }
-    print j;
-}

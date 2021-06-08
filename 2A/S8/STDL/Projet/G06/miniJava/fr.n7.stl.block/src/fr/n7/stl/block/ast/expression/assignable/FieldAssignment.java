@@ -13,6 +13,7 @@ import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import java_cup.runtime.SymbolFactory;
 
@@ -46,18 +47,29 @@ public class FieldAssignment extends AbstractField implements AssignableExpressi
 			if (SymbolTable.classDeclaration != null) {
 				for (AttributeDeclaration a : SymbolTable.classDeclaration.getClassAttributes()) {
 					if (a.getName().equals(this.name)) {
-						_value = a.getType().length();
+						/**_value = a.getType().length();
 						_result.add(_factory.createLoadL(_value));
 						_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
-						_result.add(_factory.createStoreI(a.getType().length()));
+						_result.add(_factory.createLoad(
+							Register.LB,
+							-a.getType().length(),
+							a.getType().length()));
+							*/
+						_result.add(_factory.createStore(Register.HT, 0, a.getType().length()));
 					}
 				}
 				for (MethodDeclaration m : SymbolTable.classDeclaration.getClassMethods()) {
 					if (m.getName().equals(this.name)) {
-						_value = m.getType().length();
+						/*_value = m.getType().length();
 						_result.add(_factory.createLoadL(_value));
 						_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
-						_result.add(_factory.createStoreI(m.getType().length()));
+						*/
+						/*_result.add(_factory.createLoad(
+							Register.LB,
+							-m.getType().length(),
+							m.getType().length()));
+						_result.add(_factory.createStore(m.getType().length(), -1[LB]));
+						*/
 					}
 				}
 			} else {

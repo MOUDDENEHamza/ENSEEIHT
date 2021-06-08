@@ -1,6 +1,0 @@
-test1 {
-    typedef int Entier;
-    Entier i = 1;
-    typedef < Entier, Entier> PaireEntier;
-    PaireEntier p = < i, 2>;
-}

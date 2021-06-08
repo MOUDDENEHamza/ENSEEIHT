@@ -1,0 +1,24 @@
+BEGIN:MAIN
+PUSH 1
+LOADL 10
+STORE (1) 0[SB]
+while1
+LOAD (1) 0[SB]
+LOADL 0
+SUBR IGeq
+JUMPIF (0) endwhile1
+;(- i)
+LOAD (1) 0[SB]
+LOADI (1)
+SUBR INeg
+SUBR IOut
+LOADL 10
+SUBR COut
+LOAD (1) 0[SB]
+LOADL 1
+SUBR ISub
+STORE (1) 0[SB]
+JUMP while1
+endwhile1
+HALT
+END:MAIN
