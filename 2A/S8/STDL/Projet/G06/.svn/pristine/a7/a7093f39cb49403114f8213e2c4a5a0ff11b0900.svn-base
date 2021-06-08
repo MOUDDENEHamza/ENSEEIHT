@@ -23,9 +23,8 @@ public class Main {
 
 	public static void main(String args[]) {
 		A a1 = new A();
-		/**
 		A a2 = new A(5);
-		print a1.v;	
+		print a1.v;
 		print a1.getV();
 		print a2.v;
 		print a2.getV();
@@ -40,7 +39,6 @@ public class Main {
 		print a1.getV();
 		a1.setV( 11 );
 		print a2.getV();
-		*/
 	}
 }
 		

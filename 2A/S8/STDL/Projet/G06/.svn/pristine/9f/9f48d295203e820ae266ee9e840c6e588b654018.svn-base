@@ -103,9 +103,9 @@ public class Instance implements Type, Scope<ClassElement> {
         int _result = 0;
         for (ClassDeclaration c : SymbolTable.classesDeclaration) {
             if (c.getName().equals(this.name)) {
-                /**for (MethodDeclaration m : c.getClassMethods()) {
+                for (MethodDeclaration m : c.getClassMethods()) {
                   _result += m.getType().length();
-                }*/
+                }
                 for (AttributeDeclaration a : c.getClassAttributes()) {
                     _result += a.getType().length();
                 }

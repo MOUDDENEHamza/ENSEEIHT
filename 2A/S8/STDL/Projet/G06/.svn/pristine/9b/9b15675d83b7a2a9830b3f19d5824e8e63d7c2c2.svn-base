@@ -1,5 +1,6 @@
 package fr.n7.stl.block.ast.classElement;
 
+import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -22,10 +23,6 @@ public class AttributeDeclaration implements ClassElement, Declaration {
     protected Pair<String, PartialType> identifiant;
 
     protected Expression valeur;
-
-    Register register ;
-    
-    int offset;
 
     public AttributeDeclaration(AccessRight _accessRight, ElementState _state, Type _type,
             Pair<String, PartialType> _identifiant, Expression _valeur) {
@@ -107,8 +104,6 @@ public class AttributeDeclaration implements ClassElement, Declaration {
     @Override
     public int allocateMemory(Register _register, int _offset) {
         int _result;
-        this.register = _register;
-        this.offset = _offset;
         _result = this.type.length();
         return _result;
     }
@@ -118,12 +113,9 @@ public class AttributeDeclaration implements ClassElement, Declaration {
         Fragment _result = _factory.createFragment();
         if (this.valeur != null) {
             _result.append(this.valeur.getCode(_factory));
-            _result.add(_factory.createStore(this.register, this.offset, this.type.length()));
         } else {
             _result.add(_factory.createPush(this.type.length()));
         }
-        _result.addPrefix("begin:" + this.identifiant.getLeft());
-        _result.addSuffix("end:" + this.identifiant.getLeft());
 		return _result;
     }
 

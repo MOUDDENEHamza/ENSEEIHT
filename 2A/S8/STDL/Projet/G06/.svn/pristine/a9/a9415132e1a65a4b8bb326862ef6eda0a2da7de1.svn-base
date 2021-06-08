@@ -11,7 +11,6 @@ import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
@@ -129,18 +128,11 @@ public class ConstructorAllocation implements Expression {
         int _length = 0;
         if (this.parameters != null) {
             for (Expression p : this.parameters) {
-                _length += p.getType().length();
+                _length = p.getType().length();
             }
         }
         _result.add(_factory.createLoadL(_length));
         _result.add(TAMFactory.createMalloc());
-        if (this.parameters != null) {
-            for (Expression _parameter : this.parameters) {
-                _result.append(_parameter.getCode(_factory));
-            }
-        }
-		_result.add(_factory.createCall("begin:" + this.element, Register.SB));
-        
         return _result;
     }
 

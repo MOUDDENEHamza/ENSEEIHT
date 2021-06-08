@@ -25,8 +25,6 @@ public class ConstructorDeclaration implements ClassElement {
 
     protected SymbolTable parametersTable;
 
-    protected int offset;
-
     public ConstructorDeclaration(String _identifiant, List<ParameterDeclaration> _parameters, Block _corps) {
         this.identifiant = _identifiant;
         this.parameters = _parameters;
@@ -103,7 +101,6 @@ public class ConstructorDeclaration implements ClassElement {
 
     @Override
     public int allocateMemory(Register _register, int _offset) {
-        this.offset = _offset;
         return 0;
     }
 
@@ -111,9 +108,8 @@ public class ConstructorDeclaration implements ClassElement {
     public Fragment getCode(TAMFactory _factory) {
         Fragment _result = _factory.createFragment();
 		_result.append(this.corps.getCode(_factory));
-		_result.addPrefix("begin:" + this.identifiant);
-		_result.addSuffix("end:" + this.identifiant);
-        _result.add(_factory.createReturn(0, this.offset));
+		//_result.addPrefix("begin:" + this.identifiant);
+		//_result.addSuffix("end:" + this.identifiant);
 		return _result;
 
     }
