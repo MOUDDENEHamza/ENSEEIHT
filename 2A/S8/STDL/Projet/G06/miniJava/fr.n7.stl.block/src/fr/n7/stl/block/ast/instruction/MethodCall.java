@@ -196,12 +196,19 @@ public class MethodCall implements Instruction {
 
     @Override
     public int allocateMemory(Register _register, int _offset) {
-        throw new SemanticsUndefinedException("allocateMemory undifined");
+        int _result = 0;
+        _result = this.type.length();
+        return _result;        
     }
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("getCode undifined");
+        Fragment _result = _factory.createFragment();
+        for (Expression e : this.parameters) {
+            _result.append(e.getCode(_factory));
+        }
+        _result.add(_factory.createCall("begin:" + this.name, Register.SB));
+        return _result;
     }
 
 }

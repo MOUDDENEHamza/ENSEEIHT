@@ -146,7 +146,13 @@ precedence left UL_Point; // , UL_Crochet_Ouvrant, UL_Parenthese_Ouvrante;
 /* Block est la variable utilisable dans l'action sémantique qui contient la valeur renvoyé par l'analyse du Block */
 /* TODO */
 Program ::= Elements:elements 
-			{: 
+			{: 	
+				boolean checkCollect = true;
+				boolean checkResolve = true;
+				boolean checkType = true;
+				List<Fragment> list = new ArrayList<>();
+				Fragment allCode = (new TAMFactoryImpl()).createFragment();
+
 				for (int i = elements.size() - 1; i >= 0 ; i--) {
 					System.out.println(elements.get(i));
 				}
@@ -154,40 +160,62 @@ Program ::= Elements:elements
 				SymbolTable tds = new SymbolTable();
 				for(int i = elements.size() - 1; i >= 0 ; i--) {
 					if (elements.get(i).collect(tds)) {
-						System.out.println("Collect succeeded : " + tds);
 						if (elements.get(i).resolve(tds)) {
-							System.out.println("Resolve succeeded.");
 						} else {
-							System.out.println("Resolve failed." + tds);
+							checkResolve = false;
 							break;
 						}
 					} else {
-						System.out.println("Collect failed : " + tds);
+						checkCollect = false;
 						break;
 					}
 				}
 
 				for(int i = elements.size() - 1; i >= 0 ; i--) {
 					if (elements.get(i).checkType()) {
-						System.out.println("Check type succeeded.");
+						
 						elements.get(i).allocateMemory(Register.SB, 0);
 						Fragment code = elements.get(i).getCode(new TAMFactoryImpl());
-						System.out.println( "Generated code:" );
-						System.out.println( code );
-						File file = new File(parser + "_tam");
-						PrintStream printer = null;
-						try {
-							printer = new PrintStream( new FileOutputStream(file) );
-							printer.println( code );
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						list.add(code);
 					} else {
-						System.out.println("Check type failed.");
+						checkType = false;
 						break;
 					}
 				}
 
+				if (checkCollect) {
+					System.out.println("\nCollect succeeded" /**+ tds*/);
+				} else {
+					System.out.println("\nCollect failed" /**+ tds*/);
+				}
+
+				if (checkResolve) {
+					System.out.println("Resolve succeeded" /**+ tds*/);
+				} else {
+					System.out.println("Resolve failed" /**+ tds*/);
+				}
+
+				if (checkType) {
+					System.out.println("Check type succeeded\n");
+				} else {
+					System.out.println("Check type failed\n");
+				}
+
+				for(int i = list.size() - 1; i >= 0 ; i--) {
+					allCode.append(list.get(i));
+				}
+
+				System.out.println( "Generated code : " );
+				System.out.println( allCode );
+				
+				File file = new File(parser.name.replaceAll(".txt", "") + ".tam");
+				PrintStream printer = null;
+				try {
+					printer = new PrintStream( new FileOutputStream(file) );
+					printer.println( allCode );
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			:}
 		;
 

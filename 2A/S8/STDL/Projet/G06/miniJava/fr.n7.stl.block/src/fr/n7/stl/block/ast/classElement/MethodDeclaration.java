@@ -121,9 +121,7 @@ public class MethodDeclaration implements ClassElement, Declaration {
     public Fragment getCode(TAMFactory _factory) {
         Fragment _result = _factory.createFragment();
         _result.append(this.corps.getCode(_factory));
-        System.out.println("1");
 		_result.addPrefix("begin:" + this.signature.getName());
-		System.out.println("2");
         if (this.signature.getType() == AtomicType.VoidType){
 			_result.add(_factory.createReturn(0, this.offset));
 		}

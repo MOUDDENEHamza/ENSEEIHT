@@ -1,6 +1,5 @@
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.element.ClassDeclaration;
 import fr.n7.stl.block.ast.expression.AbstractIdentifier;
 import fr.n7.stl.block.ast.scope.Declaration;

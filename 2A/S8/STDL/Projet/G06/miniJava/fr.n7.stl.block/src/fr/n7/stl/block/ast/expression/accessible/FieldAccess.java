@@ -5,8 +5,8 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.classElement.AttributeDeclaration;
 import fr.n7.stl.block.ast.classElement.MethodDeclaration;
+import fr.n7.stl.block.ast.element.ClassDeclaration;
 import fr.n7.stl.block.ast.expression.AbstractField;
-import fr.n7.stl.block.ast.expression.BinaryOperator;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.tam.ast.Fragment;
@@ -40,18 +40,40 @@ public class FieldAccess extends AbstractField implements Expression {
         int _removeAfter = 0;
 
 		if (this.recordType == null) {
-			for (AttributeDeclaration a : SymbolTable.classDeclaration.getClassAttributes()) {
-				if (a.getName().equals(this.name)) {
-					_keep = a.getType().length();
+			
+			if (SymbolTable.classDeclaration != null) {
+				for (AttributeDeclaration a : SymbolTable.classDeclaration.getClassAttributes()) {
+					if (a.getName().equals(this.name)) {
+						_keep = a.getType().length();
+					}
+					break;
 				}
-				break;
-			}
-			for (MethodDeclaration m : SymbolTable.classDeclaration.getClassMethods()) {
-				if (m.getName().equals(this.name)) {
-					_keep = m.getType().length();
+				
+				for (MethodDeclaration m : SymbolTable.classDeclaration.getClassMethods()) {
+					if (m.getName().equals(this.name)) {
+						_keep = m.getType().length();
+					}
+					break;
 				}
-				break;
+			} else {
+				for (ClassDeclaration c : SymbolTable.classesDeclaration) {
+					for (AttributeDeclaration a : c.getClassAttributes()) {
+						if (a.getName().equals(this.name)) {
+							_keep = a.getType().length();
+						}
+						break;
+					}
+					
+					for (MethodDeclaration m : c.getClassMethods()) {
+						if (m.getName().equals(this.name)) {
+							_keep = m.getType().length();
+						}
+						break;
+					}
+				}
 			}
+			
+
 			_result.append(this.record.getCode(_factory));
 			_result.add(_factory.createPop(0, _removeAfter));
 			_result.add(_factory.createPop(_keep, _removeBefore));

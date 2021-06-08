@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -52,16 +51,17 @@ public class ConstructorDeclaration implements ClassElement {
 
     @Override
     public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-        if (!(this.identifiant.equals(SymbolTable.classDeclaration.getName()))) {
+        if (this.parameters != null) {
+            for (ParameterDeclaration p : this.parameters) {
+                this.identifiant += p.getType();
+            }
+        }
+        if (!(this.identifiant.contains(SymbolTable.classDeclaration.getName()))) {
             Logger.error("The constructor identifier " + this.identifiant + " is not the same as the class identifier.");
             return false;
         }
+        
         if (((HierarchicalScope<Declaration>) _scope).accepts(this)) {
-            if (this.parameters != null) {
-                for (ParameterDeclaration p : this.parameters) {
-                    identifiant += p.getType().toString();
-                }
-            }
             _scope.register(this);
             SymbolTable tableParametres = new SymbolTable(_scope);
             boolean result = true;
@@ -108,8 +108,8 @@ public class ConstructorDeclaration implements ClassElement {
     public Fragment getCode(TAMFactory _factory) {
         Fragment _result = _factory.createFragment();
 		_result.append(this.corps.getCode(_factory));
-		_result.addPrefix("begin:" + this.identifiant);
-		_result.addSuffix("end:" + this.identifiant);
+		//_result.addPrefix("begin:" + this.identifiant);
+		//_result.addSuffix("end:" + this.identifiant);
 		return _result;
 
     }

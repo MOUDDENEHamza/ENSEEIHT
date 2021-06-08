@@ -50,11 +50,11 @@ public class ConstructorAllocation implements Expression {
         String identifiant = this.element.toString();
         Declaration d = _scope.get(identifiant); 
         String name = identifiant;
-        if (this.parameters != null) {
+        /**if (this.parameters != null) {
             for (Expression p : this.parameters) {
                 name += p.getType().toString();
             }
-        }
+        }*/
         boolean _result = true;
         if (d instanceof ClassDeclaration) {
             List<ConstructorDeclaration> constructors = ((ClassDeclaration) d).getClassConstructors();
@@ -72,7 +72,7 @@ public class ConstructorAllocation implements Expression {
             if (found) {
                 return _result;
             } else {
-                Logger.error("No constructor of the class" + this.element.toString() + " with such parameters was found !");
+                Logger.error("No constructor of the class " + this.element.toString() + " with such parameters was found !");
                 return false;
             }
         } else {
@@ -124,7 +124,16 @@ public class ConstructorAllocation implements Expression {
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("getCode Constructor Allocation");
+        Fragment _result = _factory.createFragment();
+        int _length = 0;
+        if (this.parameters != null) {
+            for (Expression p : this.parameters) {
+                _length = p.getType().length();
+            }
+        }
+        _result.add(_factory.createLoadL(_length));
+        _result.add(TAMFactory.createMalloc());
+        return _result;
     }
 
 }

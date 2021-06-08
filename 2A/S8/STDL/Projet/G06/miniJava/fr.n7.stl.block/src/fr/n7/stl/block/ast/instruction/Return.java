@@ -108,7 +108,9 @@ public class Return implements Instruction {
 		 * if (this.value instanceof AccessibleExpression) {
 		 * _result.add(_factory.createLoadI(this.value.getType().length())); }
 		 */
-		_result.add(_factory.createReturn(this.value.getType().length(), this.value.getType().length()));
+		if (this.value.getType() != AtomicType.ErrorType) {
+			_result.add(_factory.createReturn(this.value.getType().length(), this.value.getType().length()));
+		}
 		return _result;
 	}
 

@@ -90,10 +90,18 @@ public class MainDeclaration implements Element {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
+		boolean _added = false;
+
 		for (ParameterDeclaration p : this.parameters) {
 			_result.add(_factory.createPush(p.getType().length()));
+			if (!_added) {
+				_added = true;
+				_result.addPrefix("BEGIN:MAIN");
+			}
 		}
 		_result.append(this.block.getCode(_factory));
+		_result.add(_factory.createHalt());
+		_result.addSuffix("END:MAIN");
 		return _result;
 	}
 
