@@ -43,7 +43,8 @@ public class ThisAssignment extends AbstractIdentifier implements AssignableExpr
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("getCode ThisAssignment");
+        Fragment _result = _factory.createFragment();
+		return _result;
     }
 
 }

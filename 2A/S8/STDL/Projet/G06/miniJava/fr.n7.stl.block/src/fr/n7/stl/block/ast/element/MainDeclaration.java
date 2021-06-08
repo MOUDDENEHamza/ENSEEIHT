@@ -67,6 +67,7 @@ public class MainDeclaration implements Element {
 	@Override
 	public boolean checkType() {
 		boolean _result = true;
+		SymbolTable.classDeclaration = null;
         if (this.parameters != null) {
             for(ParameterDeclaration parameterDeclaration : this.parameters) {
                 if (parameterDeclaration.getType().equalsTo(AtomicType.ErrorType)) {
@@ -89,6 +90,9 @@ public class MainDeclaration implements Element {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
+		for (ParameterDeclaration p : this.parameters) {
+			_result.add(_factory.createPush(p.getType().length()));
+		}
 		_result.append(this.block.getCode(_factory));
 		return _result;
 	}

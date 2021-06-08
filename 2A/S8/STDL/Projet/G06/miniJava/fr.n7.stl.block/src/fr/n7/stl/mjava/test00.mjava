@@ -1,4 +1,5 @@
 class A {
+	
 	public int v;
 	
 	public void setV(int _v) {
@@ -42,5 +43,6 @@ public class Main {
 		a1.setV( 11 );
 		print a2.getV();
 	}
+
 }
 		

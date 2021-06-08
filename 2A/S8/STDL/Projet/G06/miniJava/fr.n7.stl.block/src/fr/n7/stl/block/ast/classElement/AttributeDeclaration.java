@@ -111,6 +111,11 @@ public class AttributeDeclaration implements ClassElement, Declaration {
     @Override
     public Fragment getCode(TAMFactory _factory) {
         Fragment _result = _factory.createFragment();
+        if (this.valeur != null) {
+            _result.append(this.valeur.getCode(_factory));
+        } else {
+            _result.add(_factory.createPush(this.type.length()));
+        }
 		return _result;
     }
 

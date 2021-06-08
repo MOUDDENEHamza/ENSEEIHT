@@ -25,6 +25,8 @@ public class MethodDeclaration implements ClassElement, Declaration {
 
     protected SymbolTable parametersTable;
 
+    protected int offset;
+
     public MethodDeclaration(AccessRight _accessRight, ElementState _state, Signature _signature, Block _corps) {
         this.accessRight = _accessRight;
         this.state = _state;
@@ -43,6 +45,16 @@ public class MethodDeclaration implements ClassElement, Declaration {
 
     public Signature getSignature() {
         return this.signature;
+    }
+
+    @Override
+    public String getName() {
+        return this.signature.getName();
+    }
+
+    @Override
+    public Type getType() {
+        return this.signature.getType();
     }
 
     @Override
@@ -97,24 +109,26 @@ public class MethodDeclaration implements ClassElement, Declaration {
 
     @Override
     public int allocateMemory(Register _register, int _offset) {
-        throw new SemanticsUndefinedException("undifined in MethodDeclaration");
-
+        this.offset = 0;
+		for (ParameterDeclaration p : this.signature.getParameters()) {
+			offset += p.getType().length();
+		}
+		this.corps.allocateMemory(Register.LB, this.offset);
+		return 0;
     }
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("undifined in MethodDeclaration");
-
-    }
-
-    @Override
-    public String getName() {
-        return this.signature.getName();
-    }
-
-    @Override
-    public Type getType() {
-        return this.signature.getType();
+        Fragment _result = _factory.createFragment();
+        _result.append(this.corps.getCode(_factory));
+        System.out.println("1");
+		_result.addPrefix("begin:" + this.signature.getName());
+		System.out.println("2");
+        if (this.signature.getType() == AtomicType.VoidType){
+			_result.add(_factory.createReturn(0, this.offset));
+		}
+		_result.addSuffix("end:" + this.signature.getName());
+        return _result;
     }
 
 }

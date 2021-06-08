@@ -26,7 +26,8 @@ public class ThisAccess extends AbstractAccess {
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        throw new SemanticsUndefinedException("getCode thisAccess");
+        Fragment _result = _factory.createFragment();
+        return _result;
     }
 
 }

@@ -147,6 +147,7 @@ public class ClassDeclaration implements Element, Declaration {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
+		SymbolTable.classDeclaration = this;
 		for (ClassElement c : this.classElements) {
 			_result.append(c.getCode(_factory));
 		}
