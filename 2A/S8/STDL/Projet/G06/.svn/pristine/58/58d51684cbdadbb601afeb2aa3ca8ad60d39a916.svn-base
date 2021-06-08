@@ -4,29 +4,17 @@ LOADL 1
 SUBR MAlloc
 CALL (SB) begin:A
 STORE (1) 0[SB]
-PUSH 1
-LOADL 1
-SUBR MAlloc
-LOADL 5
-CALL (SB) begin:Aint
-STORE (1) 1[SB]
-LOAD (1) 1[HT]
-SUBR IOut
-LOADL 10
-SUBR COut
 HALT
 END:MAIN
+begin:A
+LOADL 10
+STORE (1) 0[HT]
+end:A
+RETURN (0) 0
 begin:Aint
 LOAD (1) -1[LB]
 STORE (1) 0[HT]
 end:Aint
-RETURN (0) 0
-;(- 1)
-begin:A
-LOADL 1
-SUBR INeg
-STORE (1) 0[HT]
-end:A
 RETURN (0) 0
 begin:getV
 POP (0) 0

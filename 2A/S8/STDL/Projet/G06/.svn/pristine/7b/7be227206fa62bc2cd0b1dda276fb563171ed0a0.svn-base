@@ -10,10 +10,6 @@ SUBR MAlloc
 LOADL 5
 CALL (SB) begin:Aint
 STORE (1) 1[SB]
-LOAD (1) 1[HT]
-SUBR IOut
-LOADL 10
-SUBR COut
 HALT
 END:MAIN
 begin:Aint
