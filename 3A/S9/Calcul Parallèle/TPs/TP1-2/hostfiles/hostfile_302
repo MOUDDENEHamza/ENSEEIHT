@@ -1,0 +1,19 @@
+#C302
+archimede.enseeiht.fr slots=4 max-slots=4
+aston.enseeiht.fr slots=4 max-slots=4
+copernic.enseeiht.fr slots=4 max-slots=4
+darwin.enseeiht.fr slots=4 max-slots=4
+descartes.enseeiht.fr slots=4 max-slots=4
+edison.enseeiht.fr slots=4 max-slots=4
+einsten.enseeiht.fr slots=4 max-slots=4
+fermat.enseeiht.fr slots=4 max-slots=4
+galilee.enseeiht.fr slots=4 max-slots=4
+hawking.enseeiht.fr slots=4 max-slots=4
+kepler.enseeiht.fr slots=4 max-slots=4
+newton.enseeiht.fr slots=4 max-slots=4
+ohm.enseeiht.fr slots=4 max-slots=4
+pascal.enseeiht.fr slots=4 max-slots=4
+socrate.enseeiht.fr slots=4 max-slots=4
+tesla.enseeiht.fr slots=4 max-slots=4
+volta.enseeiht.fr slots=4 max-slots=4
+watt.enseeiht.fr slots=4 max-slots=4

@@ -1,0 +1,29 @@
+# listeMachinesLinux.pdf extract
+#
+# #C214
+#atkinson.enseeiht.fr slots=4 max-slots=4
+atanasoff.enseeiht.fr slots=4 max-slots=4	#
+babagge.enseeiht.fr slots=4 max-slots=4		#
+backus.enseeiht.fr slots=4 max-slots=4		#
+boole.enseeiht.fr slots=4 max-slots=4		#
+#carmack.enseeiht.fr slots=4 max-slots=4 he's probly dead
+colmerauer.enseeiht.fr slots=4 max-slots=4	##
+dijkstra.enseeiht.fr slots=4 max-slots=4	#
+#gates.enseeiht.fr slots=4 max-slots=4		
+#gosling.enseeiht.fr slots=4 max-slots=4 ded
+grove.enseeiht.fr slots=4 max-slots=4		#
+#hopper.enseeiht.fr slots=4 max-slots=4
+jobs.enseeiht.fr slots=4 max-slots=4		#
+kernighan.enseeiht.fr slots=4 max-slots=4	#
+knuth.enseeiht.fr slots=4 max-slots=4		## 10
+liskov.enseeiht.fr slots=4 max-slots=4		#
+lovelace.enseeiht.fr slots=4 max-slots=4	#
+# moore.enseeiht.fr slots=4 max-slots=4 he's probly dead
+murdock.enseeiht.fr slots=4 max-slots=4		#
+neumann.enseeiht.fr slots=4 max-slots=4		#
+shannon.enseeiht.fr slots=4 max-slots=4		##
+#stallman.enseeiht.fr slots=4 max-slots=4 probly dead
+#swartz.enseeiht.fr slots=4 max-slots=4		#
+torvalds.enseeiht.fr slots=4 max-slots=4	#
+turing.enseeiht.fr slots=4 max-slots=4		#
+zemanek.enseeiht.fr slots=4 max-slots=4		#  19 

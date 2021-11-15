@@ -1,0 +1,30 @@
+# In order to test your MPI environment, follow these steps
+
+# 0. set the environment variables
+source utils.sh
+
+# 1. enroll some computers (of your classroom, 3 digits: 201, ...)
+add_ssh.sh 4 yourclassroom
+
+# empty passphrase => return
+# for the first computer, enter yes then enter your password
+# for each computer, answer yes
+
+# check that a file "yourclassroom_4" has been created in the "hostfiles" directory
+# this file contains the name of 4 computers
+
+# 2. compile the "who_am_i" mpi program
+make test_env
+
+# check that there is a binary named "who_am_i" in build/bin
+
+# 3. test your environment on your local computer
+$mpirun -np 4 --oversubscribe --mca btl_base_warn_component_unused 0 build/bin/who_am_i
+
+# the name of your computer is displayed 4 times
+
+# 4. test your environment with the four enrolled computers
+#     (change yourclassroom by the 3 digits of your classroom)
+$mpirun -np 4 --hostfile ./hostfiles/yourclassroom_4 -N 1 --oversubscribe --mca btl_base_warn_component_unused 0 build/bin/who_am_i
+
+# the name of the 4 enrolled computers are displayed

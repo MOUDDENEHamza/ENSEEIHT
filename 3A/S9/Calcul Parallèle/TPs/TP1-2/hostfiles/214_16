@@ -1,0 +1,16 @@
+dijkstra.enseeiht.fr slots=4 max-slots=4	#
+boole.enseeiht.fr slots=4 max-slots=4		#
+colmerauer.enseeiht.fr slots=4 max-slots=4	##
+murdock.enseeiht.fr slots=4 max-slots=4		#
+torvalds.enseeiht.fr slots=4 max-slots=4	#
+neumann.enseeiht.fr slots=4 max-slots=4		#
+liskov.enseeiht.fr slots=4 max-slots=4		#
+shannon.enseeiht.fr slots=4 max-slots=4		##
+jobs.enseeiht.fr slots=4 max-slots=4		#
+backus.enseeiht.fr slots=4 max-slots=4		#
+knuth.enseeiht.fr slots=4 max-slots=4		## 10
+lovelace.enseeiht.fr slots=4 max-slots=4	#
+atanasoff.enseeiht.fr slots=4 max-slots=4	#
+babagge.enseeiht.fr slots=4 max-slots=4		#
+zemanek.enseeiht.fr slots=4 max-slots=4		#  19 
+atkinson.enseeiht.fr slots=4 max-slots=4
