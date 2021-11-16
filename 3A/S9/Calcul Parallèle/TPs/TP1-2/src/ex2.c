@@ -21,6 +21,7 @@ void bcast_A(int p, int q, Matrix *A, int i, int l, MPI_Comm row_comm) {
         Ail->c = calloc(b*b, sizeof(float));
       }
       // MPI_Bcast
+      MPI_Bcast(Ail->c, b * b, MPI_FLOAT, Ail->col, row_comm);
     }
     /* end TODO */
 }
@@ -39,6 +40,7 @@ void bcast_B(int p, int q, Matrix *B, int l, int j, MPI_Comm col_comm) {
         Blj->c = calloc(b*b, sizeof(float));
       } 
       // MPI_Bcast 
+      MPI_Bcast(Blj->c, b * b, MPI_FLOAT, Blj->row, col_comm);
     }
     /* end TODO */
 }

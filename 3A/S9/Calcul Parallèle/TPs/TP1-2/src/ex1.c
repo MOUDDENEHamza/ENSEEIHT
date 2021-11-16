@@ -38,7 +38,9 @@ void p2p_transmit_A(int p, int q, Matrix *A, int i, int l) {
 void p2p_transmit_B(int p, int q, Matrix *B, int l, int j) {
     int i;
     int me, my_row, my_col;
-      if (my_col == Blj->col) {
+    MPI_Status status;
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &me);
     node_coordinates_2i(p,q,me,&my_row,&my_col);
 
     int node, tag, b;
@@ -61,4 +63,5 @@ void p2p_transmit_B(int p, int q, Matrix *B, int l, int j) {
       MPI_Recv(Blj->c, b * b, MPI_FLOAT, Blj->owner, tag, MPI_COMM_WORLD, &status);
     }
     /* end TODO */
-}
+	}
+	}
