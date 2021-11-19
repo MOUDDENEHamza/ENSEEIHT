@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.poFile org.eventb.core.poStamp="1">
+<org.eventb.core.poPredicateSet name="ABSHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="CARTONS" org.eventb.core.type="ℙ(CARTONS)"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="ALLHYP" org.eventb.core.parentSet="/AutomateLogistique/Automate_ctx_0.bpo|org.eventb.core.poFile#Automate_ctx_0|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poStamp="1"/>
+</org.eventb.core.poFile>

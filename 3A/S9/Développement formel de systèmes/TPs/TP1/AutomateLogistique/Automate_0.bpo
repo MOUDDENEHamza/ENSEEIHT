@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.poFile org.eventb.core.poStamp="3">
+<org.eventb.core.poPredicateSet name="CTXHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="CARTONS" org.eventb.core.type="ℙ(CARTONS)"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="ABSHYP" org.eventb.core.parentSet="/AutomateLogistique/Automate_0.bpo|org.eventb.core.poFile#Automate_0|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poStamp="2"/>
+<org.eventb.core.poPredicateSet name="EVTALLHYPAutomate_ctx_1" org.eventb.core.parentSet="/AutomateLogistique/Automate_0.bpo|org.eventb.core.poFile#Automate_0|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poStamp="0"/>
+<org.eventb.core.poPredicateSet name="EVTALLHYPAutomate_ctx_2" org.eventb.core.parentSet="/AutomateLogistique/Automate_0.bpo|org.eventb.core.poFile#Automate_0|org.eventb.core.poPredicateSet#ALLHYP" org.eventb.core.poStamp="0"/>
+<org.eventb.core.poPredicateSet name="EVTIDENTAutomate_ctx_3" org.eventb.core.parentSet="/AutomateLogistique/Automate_0.bpo|org.eventb.core.poFile#Automate_0|org.eventb.core.poPredicateSet#ALLHYP" org.eventb.core.poStamp="0">
+<org.eventb.core.poIdentifier name="c" org.eventb.core.type="CARTONS"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="EVTALLHYPAutomate_ctx_3" org.eventb.core.parentSet="/AutomateLogistique/Automate_0.bpo|org.eventb.core.poFile#Automate_0|org.eventb.core.poPredicateSet#EVTIDENTAutomate_ctx_3" org.eventb.core.poStamp="0">
+<org.eventb.core.poPredicate name="PRD0" org.eventb.core.predicate="c∈CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#("/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="ALLHYP" org.eventb.core.parentSet="/AutomateLogistique/Automate_0.bpo|org.eventb.core.poFile#Automate_0|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poStamp="2"/>
+</org.eventb.core.poFile>

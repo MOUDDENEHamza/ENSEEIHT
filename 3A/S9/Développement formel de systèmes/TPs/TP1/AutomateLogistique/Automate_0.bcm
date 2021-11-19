@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.scMachineFile org.eventb.core.accurate="false" org.eventb.core.configuration="org.eventb.core.fwd">
+<org.eventb.core.scSeesContext name="'" org.eventb.core.scTarget="/AutomateLogistique/Automate_ctx_0.bcc" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.seesContext#("/>
+<org.eventb.core.scInternalContext name="Automate_ctx_0">
+<org.eventb.core.scCarrierSet name="CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" org.eventb.core.type="ℙ(CARTONS)"/>
+</org.eventb.core.scInternalContext>
+<org.eventb.core.scEvent name="Automate_ctx_1" org.eventb.core.accurate="true" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="INITIALISATION" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'"/>
+<org.eventb.core.scEvent name="Automate_ctx_2" org.eventb.core.accurate="false" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="PRENDRE" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#."/>
+<org.eventb.core.scEvent name="Automate_ctx_3" org.eventb.core.accurate="false" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="POSER" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/">
+<org.eventb.core.scGuard name="'" org.eventb.core.label="grd1" org.eventb.core.predicate="c∈CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#(" org.eventb.core.theorem="false"/>
+<org.eventb.core.scParameter name="c" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.parameter#'" org.eventb.core.type="CARTONS"/>
+</org.eventb.core.scEvent>
+</org.eventb.core.scMachineFile>
