@@ -1,0 +1,18 @@
+[bulbizarre.enseeiht.fr] (p2p) measured_wtime = 10.152633s (la=0) | 1.692159 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.223639s | 76.819649 Gflop/s
+GEMM is correct ( 0.00000e+00)
+[bulbizarre.enseeiht.fr] (p2p) measured_wtime = 10.254333s (la=0) | 1.675377 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.211744s | 81.135095 Gflop/s
+GEMM is correct ( 0.00000e+00)
+[bulbizarre.enseeiht.fr] (p2p) measured_wtime = 10.211777s (la=0) | 1.682358 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.214203s | 80.203681 Gflop/s
+GEMM is correct ( 0.00000e+00)
+[bulbizarre.enseeiht.fr] (p2p) measured_wtime = 10.242897s (la=0) | 1.677247 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.199893s | 85.945328 Gflop/s
+GEMM is correct ( 0.00000e+00)
+[bulbizarre.enseeiht.fr] (p2p) measured_wtime = 10.381072s (la=0) | 1.654922 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.235056s | 73.088410 Gflop/s
+GEMM is correct ( 0.00000e+00)
+Writing logfile....
+Enabling the Default clock synchronization...
+Finished writing logfile Unknown.clog2.
