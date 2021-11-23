@@ -1,0 +1,43 @@
+
+Contenu des fichiers : RIEN À MODIFIER ICI
+
+a) modules génériques :
+
+- var_module.tla      : module TLA définissant les variables d'états
+                        utilisés pour l'exécution d'un module/composant/classe.
+- run_module.tla      : module TLA définissant la sémantique de type jeu
+                        pour tout module/composant/classe.
+- var_raffinement.tla : module TLA définissant les variables d'états
+                        utilisés pour run_raffinement.
+- run_raffinement.tla : module TLA définissant la sémantique du raffinement
+                        entre deux modules/composants/classes (échelles et
+                        petits carrés).
+
+b) modules utilisateurs fournis :
+
+- ensemble.tla      : spécification d'un composant 'ensemble'
+- run_ensemble.tla  : module TLA rassemblant var_module, run_module et
+                      ensemble, permettant l'exécution du composant 'ensemble'.
+- run_ensemble.cfg  : choix du domaine D et des propriétés à vérifier
+                      au cours de l'exécution du composant 'tas'.
+
+- ensemble2.tla     \
+- run_ensemble2.tla  : idem pour ensemble2
+- run_ensemble2.cfg /
+                        
+- run_ensemble_ensemble2.{tla,cfg} : exécution du raffinement entre
+  'ensemble' et 'ensemble2'
+
+d) Pour tester :
+
+- vérifier que le module ensemble est *faisable* :
+     Lancer le model cheker sur run_ensemble
+     $ java -jar /mnt/n7fs/tla/tla2tools.jar run_ensemble
+
+- vérifier que le module ensemble2 est *faisable* :
+     Lancer le model checker sur run_ensemble2
+     $ java -jar /mnt/n7fs/tla/tla2tools.jar run_ensemble2
+
+- vérifier que le module ensemble2 *raffine* ensemble :
+     Lancer le model checker sur run_ensemble_ensemble2
+     $ java -jar /mnt/n7fs/tla/tla2tools.jar run_ensemble_ensemble2

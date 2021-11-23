@@ -1,0 +1,57 @@
+Objectif : exercice 3 du TD raffinement de module : raffinement du tas par une pile.
+
+Contenu des fichiers :
+
+a) modules génériques : NE PAS MODIFIER
+
+- var_module.tla      : module TLA définissant les variables d'états
+                        utilisés pour l'exécution d'un module/composant/classe.
+- run_module.tla      : module TLA définissant la sémantique de type jeu
+                        pour tout module/composant/classe.
+- var_raffinement.tla : module TLA définissant les variables d'états
+                        utilisés pour run_raffinement.
+- run_raffinement.tla : module TLA définissant la sémantique du raffinement
+                        entre deux modules/composants/classes (échelles et
+                        petits carrés).
+
+b) modules utilisateurs fournis : NE PAS MODIFIER
+
+- tas.tla                : spécification d'un composant 'tas', définissant
+                           les états initiaux et les procédures et paramétré
+                           par un domaine D.
+- run_tas.tla            : module TLA rassemblant var_module, run_module et
+                           tas, permettant l'exécution du composant 'tas'.
+- run_tas.cfg            : choix du domaine D et des propriétés à vérifier
+                           au cours de l'exécution du composant 'tas'.
+- run_pile.{tla,cfg}     : exécution du composant 'pile'.
+
+c) modules utilisateurs à compléter (chercher les "TRUE"), en vous inspirant
+   des exemples fournis dans Ensemble.
+
+- pile.tla               : spécification du composant 'pile'.
+
+- run_tas_pile.{tla,cfg} : exécution du raffinement entre 'tas' et 'pile'.
+                           ("invariant" de liaison à écrire)
+
+d) Pour tester :
+
+- vérifier que le module tas est *faisable* :
+     Lancer le model checker sur run_tas
+     $ java -jar /mnt/n7fs/tla/tla2tools.jar run_tas
+
+- vérifier que le module pile est *faisable* :
+     Lancer le model checker sur run_pile
+     $ java -jar /mnt/n7fs/tla/tla2tools.jar run_pile
+
+- vérifier que le module pile *raffine* tas :
+     Lancer le model checker sur run_tas_pile
+     $ java -jar /mnt/n7fs/tla/tla2tools.jar run_tas_pile
+
+e) Faites des erreurs !
+   - une pile non bornée est-elle faisable (implantable) ?
+   - une pile non bornée raffine-t-elle le tas borné ?
+   - une pile bornée par N-2 raffine-t-elle le tas borné par N ?
+   - une pile bornée par N+2 raffine-t-elle le tas borné par N ?
+   - une pile où put insère deux fois son paramètre raffine-t-elle le tas ?
+   - une pile où get n'enlève pas l'élément renvoyé raffine-t-elle le tas ?
+   - ...

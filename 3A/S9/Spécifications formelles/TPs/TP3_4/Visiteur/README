@@ -1,0 +1,47 @@
+On souhaite modéliser un visiteur qui visite un par un un ensemble de sites.
+Les sites sont représentés par un entier (Nat). Le visiteur possède
+les opérations suivantes :
+
+  - move : unit -> Nat
+    choisit et renvoie un site pas encore visité.
+    (ce n'est pas le client qui choisit le site mais bien le module).
+
+  - has_visited : Nat -> Bool
+    renvoie vrai ssi le site passé en paramètre a été visité.
+
+  - has_finished : unit -> Bool
+    renvoie vrai ssi tous les sites ont été visités.
+
+  - reset : unit -> unit
+    réinitialise à vide les sites visités.
+
+
+Modélisation abstraite : le visiteur se téléporte de site en site, en
+évitant les sites déjà visités.
+ (= visiteur.tla)
+
+Modélisation concrète 1 : idem, mais on souhaite connaître l'ordre dans
+lequel les sites sont visités. On conserve donc une séquence des sites
+visités.
+ (= sequence.tla)
+
+Modélisation concrète 2 : le visiteur visite circulairement les sites,
+de 1 à N.
+ (=  anneau.tla)
+
+
+A FAIRE
+-------
+
+1) Compléter visiteur.tla
+   et vérifier sa faisabilité avec run_visiteur.
+
+2) Compléter sequence.tla et run_visiteur_sequence.tla,
+   vérifier sa faisabilité avec run_sequence
+   et vérifier le raffinement avec run_visiteur_sequence.
+
+3) Compléter anneau.tla et run_visiteur_anneau.tla,
+   vérifier sa faisabilité avec run_anneau
+   et vérifier le raffinement avec run_visiteur_anneau.
+
+Rq : les parties 2 et 3 sont indépendantes.

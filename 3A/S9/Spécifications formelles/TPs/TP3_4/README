@@ -1,0 +1,71 @@
+                               TP Raffinement
+
+Exercices à faire :
+
+1) Répertoire Ensemble : ensemble.tla est un ensemble (!), ensemble2 est un
+   ensemble où on stocke en plus la taille de l'ensemble dans un champ de
+   l'état. L'ensemble2 raffine ensemble. Cet exemple est complet et peut
+   servir de référence. Il montre aussi l'utilisation des enregistrements
+   (record) en TLA. Il ne présente guère d'intérêt sinon.
+
+2) Répertoire Tas
+   Cf Tas/README
+
+3) Répertoire Visiteur
+   Cf Visiteur/README
+
+================================================================
+
+Utilisation du model-checker TLC
+--------------------------------
+
+$ java -jar /mnt/n7fs/tla/tla2tools.jar run_machin
+
+[ Pour se simplifier la vie, taper dans un terminal :
+
+$ alias tlc 'java -jar /mnt/n7fs/tla/tla2tools.jar'
+
+  puis, dans ce terminal, on pourra faire :
+
+$ tlc run_machin
+]
+
+================================================================
+
+Mise en œuvre avec Visual Studio Code
+-------------------------------------
+
+Comme alternative à la ligne de commande, on peut utiliser Visual
+Studio Code.
+
+Installer l'extension TLA+.
+
+Ouvrir tout un dossier (`File` > `Open Folder`), par exemple Ensemble.
+
+Pour lancer le model checker :
+* ouvrir un fichier cfg (par exemple run_ensemble.cfg)
+* clic droit dans le fichier puis `Check model with TLC`
+
+================================================================
+
+ATTENTION : bug de TLC : tlc a parfois du mal avec \in introduisant une
+quantification existentielle implicite. [ c'est le cas avec les fonctions
+paramétrées où l'un des paramètres est en fait une variable primée, la
+fonction étant donc une action reliant un état de départ et un état
+d'arrivée. ]
+
+Au lieu d'écrire :
+
+foo(b,...) ==
+  /\ b \in MonEnsemble
+  /\ ...
+
+Écrire :
+
+foo(b,...) ==
+  \E c \in MonEnsemble :
+     /\ b = c
+     /\ ...
+
+(noter que les deux formules sont strictement équivalentes d'un point de vue
+logique)
