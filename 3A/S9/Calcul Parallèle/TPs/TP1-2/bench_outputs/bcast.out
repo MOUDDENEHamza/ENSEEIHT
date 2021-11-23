@@ -1,0 +1,10 @@
+[bulbizarre.enseeiht.fr] (bcast) measured_wtime = 39.566375s (la=0) | 0.434204 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.210488s | 81.619231 Gflop/s
+GEMM is correct ( 0.00000e+00)
+[bulbizarre.enseeiht.fr] (bcast) measured_wtime = 39.724329s (la=0) | 0.432477 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.224360s | 76.572780 Gflop/s
+GEMM is correct ( 0.00000e+00)
+[bulbizarre.enseeiht.fr] (bcast) measured_wtime = 39.978329s (la=0) | 0.429730 Gflop/s
+[bulbizarre.enseeiht.fr] (g) measured_wtime = 0.201050s | 85.450730 Gflop/s
+GEMM is correct ( 0.00000e+00)
+mpirun: Forwarding signal 20 to job

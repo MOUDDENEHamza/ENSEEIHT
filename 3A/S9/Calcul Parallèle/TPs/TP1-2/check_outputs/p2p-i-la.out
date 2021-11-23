@@ -1,1 +1,6 @@
-utils.sh: line 26: /mnt/n7fs/ens/tp_guivarch/hpc2021/openmpi-2.1.1/build/bin/mpirun: No such file or directory
+[nidoran.enseeiht.fr] (p2p-i-la) measured_wtime = 0.001812s (la=4) | 0.070657 Gflop/s
+[nidoran.enseeiht.fr] (g) measured_wtime = 0.000030s | 4.266667 Gflop/s
+GEMM is correct ( 0.00000e+00)
+Writing logfile....
+Enabling the Default clock synchronization...
+Finished writing logfile Unknown.clog2.
