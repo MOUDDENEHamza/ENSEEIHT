@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.poFile org.eventb.core.poStamp="1">
+<org.eventb.core.poPredicateSet name="CTXHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="CARTONS" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="ARRIVÉES" org.eventb.core.type="ℙ(ARRIVÉES)"/>
+<org.eventb.core.poIdentifier name="DÉPARTS" org.eventb.core.type="ℙ(DÉPARTS)"/>
+<org.eventb.core.poIdentifier name="TRANSITIONS" org.eventb.core.type="ℙ(TRANSITIONS)"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="ABSHYP" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="Entrée" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="Sortie" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="Transit" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poPredicate name="Transiu" org.eventb.core.predicate="Entrée⊆CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#+"/>
+<org.eventb.core.poPredicate name="Transiv" org.eventb.core.predicate="Sortie⊆CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#,"/>
+<org.eventb.core.poPredicate name="Transiw" org.eventb.core.predicate="Entrée∩Sortie=(∅ ⦂ ℙ(CARTONS))" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#-"/>
+<org.eventb.core.poPredicate name="Transix" org.eventb.core.predicate="Transit⊆CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#\/"/>
+<org.eventb.core.poPredicate name="Transiy" org.eventb.core.predicate="Transit∩Entrée=(∅ ⦂ ℙ(CARTONS))" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#0"/>
+<org.eventb.core.poPredicate name="Transiz" org.eventb.core.predicate="Transit∩Sortie=(∅ ⦂ ℙ(CARTONS))" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#1"/>
+<org.eventb.core.poPredicate name="Transi{" org.eventb.core.predicate="CARTONS=Entrée∪Transit∪Sortie" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#2"/>
+<org.eventb.core.poPredicate name="Transi|" org.eventb.core.predicate="Transit=(∅ ⦂ ℙ(CARTONS))∧Entrée=(∅ ⦂ ℙ(CARTONS))⇒CARTONS⊆Sortie" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#3"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="EVTIDENTAutomate_ctx_9" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="Entrée'" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="Sortie'" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="Transit'" org.eventb.core.type="ℙ(CARTONS)"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="EVTALLHYPAutomate_ctx_9" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#EVTIDENTAutomate_ctx_9" org.eventb.core.poStamp="1"/>
+<org.eventb.core.poPredicateSet name="EVTIDENTAutomate_ctx_:" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#ALLHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="Entrée'" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="c" org.eventb.core.type="CARTONS"/>
+<org.eventb.core.poIdentifier name="Transit'" org.eventb.core.type="ℙ(CARTONS)"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="EVTALLHYPAutomate_ctx_:" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#EVTIDENTAutomate_ctx_:" org.eventb.core.poStamp="1">
+<org.eventb.core.poPredicate name="PRD0" org.eventb.core.predicate="c∈CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.guard#("/>
+<org.eventb.core.poPredicate name="PRD1" org.eventb.core.predicate="c∈Entrée" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.guard#)"/>
+<org.eventb.core.poPredicate name="PRD2" org.eventb.core.predicate="c∉Transit" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.guard#("/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="EVTIDENTAutomate_ctx_;" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#ALLHYP" org.eventb.core.poStamp="1">
+<org.eventb.core.poIdentifier name="c" org.eventb.core.type="CARTONS"/>
+<org.eventb.core.poIdentifier name="Sortie'" org.eventb.core.type="ℙ(CARTONS)"/>
+<org.eventb.core.poIdentifier name="Transit'" org.eventb.core.type="ℙ(CARTONS)"/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="EVTALLHYPAutomate_ctx_;" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#EVTIDENTAutomate_ctx_;" org.eventb.core.poStamp="1">
+<org.eventb.core.poPredicate name="PRD0" org.eventb.core.predicate="c∈CARTONS" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#("/>
+<org.eventb.core.poPredicate name="PRD1" org.eventb.core.predicate="c∉Sortie∪Entrée" org.eventb.core.source="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#)"/>
+<org.eventb.core.poPredicate name="PRD2" org.eventb.core.predicate="c∈Transit" org.eventb.core.source="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.guard#("/>
+</org.eventb.core.poPredicateSet>
+<org.eventb.core.poPredicateSet name="ALLHYP" org.eventb.core.parentSet="/AutomateLogistique/Automate_2.bpo|org.eventb.core.poFile#Automate_2|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poStamp="1"/>
+</org.eventb.core.poFile>
