@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cheddar>
+ <core_units>
+  <core_unit id="id_26">
+   <object_type>CORE_OBJECT_TYPE</object_type>
+   <name>core1</name>
+   <scheduling>
+    <scheduling_parameters>
+     <scheduler_type>RATE_MONOTONIC_PROTOCOL</scheduler_type>
+     <quantum>0</quantum>
+     <preemptive_type>PREEMPTIVE</preemptive_type>
+     <capacity>0</capacity>
+     <period>0</period>
+     <priority>0</priority>
+     <start_time>0</start_time>
+    </scheduling_parameters>
+   </scheduling>
+   <speed>1</speed>
+   <worstcase_perequest_intrabank_memory_interference>0</worstcase_perequest_intrabank_memory_interference>
+   <worstcase_perequest_interbank_memory_interference>0</worstcase_perequest_interbank_memory_interference>
+   <isa>I386</isa>
+  </core_unit>
+  <core_unit id="id_27">
+   <object_type>CORE_OBJECT_TYPE</object_type>
+   <name>core2</name>
+   <scheduling>
+    <scheduling_parameters>
+     <scheduler_type>RATE_MONOTONIC_PROTOCOL</scheduler_type>
+     <quantum>0</quantum>
+     <preemptive_type>PREEMPTIVE</preemptive_type>
+     <capacity>0</capacity>
+     <period>0</period>
+     <priority>0</priority>
+     <start_time>0</start_time>
+    </scheduling_parameters>
+   </scheduling>
+   <speed>1</speed>
+   <worstcase_perequest_intrabank_memory_interference>0</worstcase_perequest_intrabank_memory_interference>
+   <worstcase_perequest_interbank_memory_interference>0</worstcase_perequest_interbank_memory_interference>
+   <isa>I386</isa>
+  </core_unit>
+  <core_unit id="id_28">
+   <object_type>CORE_OBJECT_TYPE</object_type>
+   <name>core3</name>
+   <scheduling>
+    <scheduling_parameters>
+     <scheduler_type>RATE_MONOTONIC_PROTOCOL</scheduler_type>
+     <quantum>0</quantum>
+     <preemptive_type>PREEMPTIVE</preemptive_type>
+     <capacity>0</capacity>
+     <period>0</period>
+     <priority>0</priority>
+     <start_time>0</start_time>
+    </scheduling_parameters>
+   </scheduling>
+   <speed>1</speed>
+   <worstcase_perequest_intrabank_memory_interference>0</worstcase_perequest_intrabank_memory_interference>
+   <worstcase_perequest_interbank_memory_interference>0</worstcase_perequest_interbank_memory_interference>
+   <isa>I386</isa>
+  </core_unit>
+ </core_units>
+ <processors>
+  <mono_core_processor id="id_29">
+   <object_type>PROCESSOR_OBJECT_TYPE</object_type>
+   <name>proc1</name>
+   <processor_type>MONOCORE_TYPE</processor_type>
+   <migration_type>NO_MIGRATION_TYPE</migration_type>
+   <core ref="id_26">
+   </core>
+  </mono_core_processor>
+  <mono_core_processor id="id_30">
+   <object_type>PROCESSOR_OBJECT_TYPE</object_type>
+   <name>proc2</name>
+   <processor_type>MONOCORE_TYPE</processor_type>
+   <migration_type>NO_MIGRATION_TYPE</migration_type>
+   <core ref="id_26">
+   </core>
+  </mono_core_processor>
+  <mono_core_processor id="id_31">
+   <object_type>PROCESSOR_OBJECT_TYPE</object_type>
+   <name>proc3</name>
+   <processor_type>MONOCORE_TYPE</processor_type>
+   <migration_type>NO_MIGRATION_TYPE</migration_type>
+   <core ref="id_26">
+   </core>
+  </mono_core_processor>
+ </processors>
+</cheddar>
+
