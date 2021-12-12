@@ -1,0 +1,42 @@
+############################ -*- Mode: Makefile -*- ###########################
+# make_linux_mpich2_cc --- Déclarations pour la génération et l'exécution des TPs MPI
+#                  sur un système Linux avec une distribution MPICH2 
+#
+# Auteur          : Dimitri Lecas (CNRS/IDRIS)
+#
+###############################################################################
+
+# Compilateur C
+CC              = mpicc 
+
+# Options de compilation et d'édition de liens
+CFLAGS_TP1      = 
+LDFLAGS_TP1     =
+CLAGS_TP2      = 
+LDFLAGS_TP2     =
+CFLAGS_TP3      = 
+LDFLAGS_TP3     =
+CFLAGS_TP4      = 
+LDFLAGS_TP4     =
+CFLAGS_TP5      = 
+LDFLAGS_TP5     =
+CFLAGS_TP6      = 
+LDFLAGS_TP6     =
+CFLAGS_TP7      = 
+LDFLAGS_TP7     =
+LDCFLAGS        = -lX11
+CFLAGS_TP8      = 
+LDFLAGS_TP8     =
+
+# Exécutions
+MPIEXEC_TP1     = mpiexec -n 4
+MPIEXEC_TP2     = mpiexec -n 2
+MPIEXEC_TP3     = mpiexec -n 6
+MPIEXEC_TP4     = mpiexec -n 2
+MPIEXEC_TP5     = mpiexec -n 4
+MPIEXEC_TP6     = mpiexec -n 8
+EXEC_TP7_VERIF     =
+MPIEXEC_TP7        = mpiexec -n 4
+MPIEXEC_TP7_CREAT  = mpiexec -n 1
+MPIEXEC_TP8        = mpiexec -n 4
+EXEC_TP8_VERIF     = mpiexec -n 1

@@ -1,0 +1,38 @@
+############################ -*- Mode: Makefile -*- ###########################
+# make_intel --- Compilateurs Intel
+###############################################################################
+
+# Compilateurs
+CC              = mpiicc -g -traceback
+
+# Options de compilation et d'édition de liens
+CFLAGS_TP1      = 
+LDFLAGS_TP1     =
+CFLAGS_TP2      = 
+LDFLAGS_TP2     =
+CFLAGS_TP3      = 
+LDFLAGS_TP3     =
+CFLAGS_TP4      = 
+LDFLAGS_TP4     =
+CFLAGS_TP5      = 
+LDFLAGS_TP5     =
+CFLAGS_TP6      = 
+LDFLAGS_TP6     =
+CFLAGS_TP7      = 
+LDFLAGS_TP7     =
+LDCFLAGS        = -lX11
+CFLAGS_TP8      = 
+LDFLAGS_TP8     =
+
+# Exécutions
+MPIEXEC_TP1     = mpiexec.hydra -n 4
+MPIEXEC_TP2     = mpiexec.hydra -n 2
+MPIEXEC_TP3     = mpiexec.hydra -n 6
+MPIEXEC_TP4     = mpiexec.hydra -n 2
+MPIEXEC_TP5     = mpiexec.hydra -n 4
+MPIEXEC_TP6     = mpiexec.hydra -n 8
+EXEC_TP7_VERIF     =
+MPIEXEC_TP7        = mpiexec.hydra -n 4
+MPIEXEC_TP7_CREAT  = mpiexec.hydra -n 1
+MPIEXEC_TP8        = mpiexec.hydra -n 4
+EXEC_TP8_VERIF     = mpiexec.hydra -n 1
