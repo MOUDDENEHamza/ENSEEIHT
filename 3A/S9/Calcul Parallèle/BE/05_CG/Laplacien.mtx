@@ -1,0 +1,21 @@
+%%MatrixMarket matrix coordinate real symmetric
+%-------------------------------------------------------------------------------
+% UF Sparse Matrix Collection, Tim Davis
+% http://www.cise.ufl.edu/research/sparse/matrices/HB/nos3
+% name: HB/nos3
+% [SYMMETRIC MATRIX, FE APPROXIMATION TO BIHARMONIC OPERATOR ON PLATE]
+% id: 219
+% date: 1982
+% author: H. Simon
+% ed: I. Duff, R. Grimes, J. Lewis
+% fields: title A name id date author ed kind
+% kind: structural problem
+%-------------------------------------------------------------------------------
+4 4 7
+1 1 2.0
+1 2 -1.0
+2 2 2.0
+2 3 -1.0
+3 3 2.0
+3 4 -1.0
+4 4 2.0
