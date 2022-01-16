@@ -1,0 +1,9 @@
+autoTacticChecker/com.clearsy.atelierb.provers.core.ml=com.clearsy.atelierb.provers.core\:1.6.0.r16736
+autoTacticChecker/com.clearsy.atelierb.provers.core.p0=com.clearsy.atelierb.provers.core\:1.6.0.r16736
+autoTacticChecker/com.clearsy.atelierb.provers.core.p1=com.clearsy.atelierb.provers.core\:1.6.0.r16736
+autoTacticChecker/com.clearsy.atelierb.provers.core.pp=com.clearsy.atelierb.provers.core\:1.6.0.r16736
+autoTacticChecker/de.prob.eventb.disprover.core.disproverTactic=de.prob.eventb.disprover.core\:2.0.5.202112220119
+autoTacticChecker/org.eventb.pp.ppLasoo=org.eventb.pp\:0.9.0.202105121522-77c344946
+autoTacticChecker/org.eventb.pp.ppRestricted=org.eventb.pp\:0.9.0.202105121522-77c344946
+autoTacticChecker/org.eventb.pp.ppUnrestricted=org.eventb.pp\:0.9.0.202105121522-77c344946
+eclipse.preferences.version=1

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<index_root>
+    <pim project="/AutomateLogistique">
+        <rodin_index>
+            <descriptor element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" name="CARTONS">
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'|org.eventb.core.action#'" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="16" loc_char_start="9"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#\/" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="17" loc_char_start="10"/>
+                <occurrence element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#," kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="16" loc_char_start="9"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#3" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="34" loc_char_start="27"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#2" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#+" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="16" loc_char_start="9"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="11" loc_char_start="4"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="11" loc_char_start="4"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#\/" name="INITIALISATION">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#\/" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0" name="Automate_0">
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0" kind="org.eventb.core.declaration"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.refinesMachine#'" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.target"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#." name="Transit">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#." kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.action#)" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#2" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="26" loc_char_start="19"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#3" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.action#)" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#1" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#+|org.eventb.core.action#)" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#0" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.action#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="17" loc_char_start="10"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#." kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="11" loc_char_start="4"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.action#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="17" loc_char_start="10"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#\/" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="7" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="11" loc_char_start="4"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#)" name="DÉPARTS">
+                <occurrence element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#)" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.variable#)" name="Entrée">
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#+" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="6" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#-" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="6" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.guard#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="10" loc_char_start="4"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="20" loc_char_start="14"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.variable#)" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.action#*" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="6" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.action#*" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="15" loc_char_start="9"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#)" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'|org.eventb.core.action#'" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="6" loc_char_start="0"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#*" name="Sortie">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#1" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="16" loc_char_start="10"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#2" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="35" loc_char_start="29"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#3" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="43" loc_char_start="37"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#*" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#*" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'" name="INITIALISATION">
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#+" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1" name="Automate_1">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.refinesMachine#'" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.target"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1" kind="org.eventb.core.declaration"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#0" name="PRENDRE">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#0" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2" name="Automate_ctx_2">
+                <occurrence element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2" kind="org.eventb.core.declaration"/>
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.seesContext#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.target"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#." name="PRENDRE">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.refinesEvent#'" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.target"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#." kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-" name="POSER">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#1|org.eventb.core.refinesEvent#'" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.target"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#*" name="TRANSITIONS">
+                <occurrence element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#*" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.variable#*" name="Sortie">
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'|org.eventb.core.action#(" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="6" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#*" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#-" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="15" loc_char_start="9"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.invariant#," kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="6" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="11" loc_char_start="5"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.variable#*" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.action#*" kind="org.eventb.core.modification" loc_attribute="org.eventb.core.assignment" loc_char_end="6" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.action#*" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="15" loc_char_start="9"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#)" name="Entrée">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#)" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#3" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="20" loc_char_start="14"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#2" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="16" loc_char_start="10"/>
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#)" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.invariant#0" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="16" loc_char_start="10"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#1" name="POSER">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#1" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.parameter#'" name="c">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="1" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#,|org.eventb.core.action#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="22" loc_char_start="21"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.parameter#'" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.guard#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="1" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.action#*" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="20" loc_char_start="19"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="1" loc_char_start="0"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2" name="Automate_2">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2" kind="org.eventb.core.declaration"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/" name="POSER">
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.refinesEvent#'" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.target"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#," name="PRENDRE">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#0|org.eventb.core.refinesEvent#'" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.target"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#," kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#)" name="Entrée">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#)" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" name="Automate_ctx_0">
+                <occurrence element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" kind="org.eventb.core.declaration"/>
+                <occurrence element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.extendsContext#'" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.target"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.seesContext#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.target"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.seesContext#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.target"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.parameter#'" name="c">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="1" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-|org.eventb.core.action#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="22" loc_char_start="21"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.parameter#'" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#)" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="1" loc_char_start="0"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.action#*" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.assignment" loc_char_end="20" loc_char_start="19"/>
+                <occurrence element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.guard#(" kind="org.eventb.core.reference" loc_attribute="org.eventb.core.predicate" loc_char_end="1" loc_char_start="0"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#." name="Transit">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#." kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#*" name="Sortie">
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#*" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#+" name="INITIALISATION">
+                <occurrence element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#+" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.label"/>
+                <occurrence element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#\/" kind="org.eventb.core.redeclaration" loc_attribute="org.eventb.core.label"/>
+            </descriptor>
+            <descriptor element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#(" name="ARRIVÉES">
+                <occurrence element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#(" kind="org.eventb.core.declaration" loc_attribute="org.eventb.core.identifier"/>
+            </descriptor>
+        </rodin_index>
+        <export_table>
+            <export file="/AutomateLogistique/Automate_0.bum">
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" name="CARTONS"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0" name="Automate_0"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#." name="PRENDRE"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#.|org.eventb.core.parameter#'" name="c"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.variable#*" name="Sortie"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/" name="POSER"/>
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" name="Automate_ctx_0"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#\/|org.eventb.core.parameter#'" name="c"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.variable#)" name="Entrée"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0|org.eventb.core.event#'" name="INITIALISATION"/>
+            </export>
+            <export file="/AutomateLogistique/Automate_ctx_2.buc">
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" name="CARTONS"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#*" name="TRANSITIONS"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#(" name="ARRIVÉES"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#)" name="DÉPARTS"/>
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" name="Automate_ctx_0"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2" name="Automate_ctx_2"/>
+            </export>
+            <export file="/AutomateLogistique/Automate_1.bum">
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" name="CARTONS"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0" name="Automate_0"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#+" name="INITIALISATION"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#," name="PRENDRE"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#." name="Transit"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#*" name="Sortie"/>
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" name="Automate_ctx_0"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.event#-" name="POSER"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1|org.eventb.core.variable#)" name="Entrée"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1" name="Automate_1"/>
+            </export>
+            <export file="/AutomateLogistique/Automate_ctx_0.buc">
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" name="CARTONS"/>
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" name="Automate_ctx_0"/>
+            </export>
+            <export file="/AutomateLogistique/Automate_2.bum">
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0|org.eventb.core.carrierSet#'" name="CARTONS"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#*" name="TRANSITIONS"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#)" name="Entrée"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#." name="Transit"/>
+                <exported element="/AutomateLogistique/Automate_ctx_0.buc|org.eventb.core.contextFile#Automate_ctx_0" name="Automate_ctx_0"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2" name="Automate_2"/>
+                <exported element="/AutomateLogistique/Automate_1.bum|org.eventb.core.machineFile#Automate_1" name="Automate_1"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2" name="Automate_ctx_2"/>
+                <exported element="/AutomateLogistique/Automate_0.bum|org.eventb.core.machineFile#Automate_0" name="Automate_0"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#\/" name="INITIALISATION"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#(" name="ARRIVÉES"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.variable#*" name="Sortie"/>
+                <exported element="/AutomateLogistique/Automate_ctx_2.buc|org.eventb.core.contextFile#Automate_ctx_2|org.eventb.core.carrierSet#)" name="DÉPARTS"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#0" name="PRENDRE"/>
+                <exported element="/AutomateLogistique/Automate_2.bum|org.eventb.core.machineFile#Automate_2|org.eventb.core.event#1" name="POSER"/>
+            </export>
+        </export_table>
+        <graph is_sorted="true">
+            <node label="/AutomateLogistique/Automate_ctx_0.buc" mark="false" order_pos="0"/>
+            <node label="/AutomateLogistique/Automate_0.bum" mark="false" order_pos="1">
+                <predecessor label="/AutomateLogistique/Automate_ctx_0.buc"/>
+            </node>
+            <node label="/AutomateLogistique/Automate_ctx_2.buc" mark="false" order_pos="2">
+                <predecessor label="/AutomateLogistique/Automate_ctx_0.buc"/>
+            </node>
+            <node label="/AutomateLogistique/Automate_1.bum" mark="false" order_pos="3">
+                <predecessor label="/AutomateLogistique/Automate_0.bum"/>
+                <predecessor label="/AutomateLogistique/Automate_ctx_0.buc"/>
+            </node>
+            <node label="/AutomateLogistique/Automate_2.bum" mark="false" order_pos="4">
+                <predecessor label="/AutomateLogistique/Automate_ctx_2.buc"/>
+                <predecessor label="/AutomateLogistique/Automate_1.bum"/>
+            </node>
+        </graph>
+        <unprocessed file="/AutomateLogistique/Automate_0.bcm"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bcm"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bcm"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bcc"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bcc"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bps"/>
+    </pim>
+    <delta_list/>
+    <indexer_registry>
+        <registry_entry element_type="org.eventb.core.machineFile">
+            <indexer id="machineIndexer"/>
+        </registry_entry>
+        <registry_entry element_type="org.eventb.core.contextFile">
+            <indexer id="contextIndexer"/>
+        </registry_entry>
+    </indexer_registry>
+</index_root>

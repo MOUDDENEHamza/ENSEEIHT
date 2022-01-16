@@ -1,0 +1,13 @@
+-L’automate finit par traiter tous les cartons en LTL:
+		F { Sortie = CARTONS }
+
+- À tout moment, s’il y a des cartons pris mais pas encore acheminés, l’automate
+ finira par poser un carton en LTL:
+		G { card(Sortie) + card(Entrée) /= card(CARTONS) } => F [Poser]
+		
+- À tout moment, les cartons ne se dupliquent pas en LTL:
+		G { card(Entrées) <= card(CARTONS) & card(Sorties) <= card(CARTONS) &
+			card(Entrées) + card(Sorties) <= card(CARTONS)
+
+- À tout moment, des cartons disparaissent en LTL:
+		F { Sortie = CARTONS } => G { card(Sorties) <= card(CARTONS) } 

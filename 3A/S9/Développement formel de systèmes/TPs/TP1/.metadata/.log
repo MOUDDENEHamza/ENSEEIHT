@@ -1,0 +1,42 @@
+!SESSION 2022-01-16 17:15:43.361 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.13
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -data /home/hamza/Desktop/ENSEEIHT/3A/S9/Développement formel de systèmes/TPs/TP1 -os linux -ws gtk -arch x86_64
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:55.679
+!MESSAGE Starting ProB CLI for linux ... Path is /home/hamza/rodin/plugins/de.prob.core_9.4.4.202112220119/prob/linux64/probcli.sh
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:56.876
+!MESSAGE Server has startet and listens on port 54931
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:56.876
+!MESSAGE Server can receive user interrupts via reference 43893
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:57.069
+!MESSAGE Starting ProB CLI for linux ... Path is /home/hamza/rodin/plugins/de.prob.core_9.4.4.202112220119/prob/linux64/probcli.sh
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:58.207
+!MESSAGE Server has startet and listens on port 46527
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:58.207
+!MESSAGE Server can receive user interrupts via reference 43905
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:15:58.273
+!MESSAGE Disprover: Result: No Counter-Example exists: Proof.
+!SESSION 2022-01-16 17:24:15.511 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.13
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:41:25.184
+!MESSAGE Starting ProB CLI for linux ... Path is /home/hamza/rodin/plugins/de.prob.core_9.4.4.202112220119/prob/linux64/probcli.sh
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:41:26.195
+!MESSAGE Server has startet and listens on port 57947
+
+!ENTRY de.prob.core 1 0 2022-01-16 17:41:26.195
+!MESSAGE Server can receive user interrupts via reference 45108
