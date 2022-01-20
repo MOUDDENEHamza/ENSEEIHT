@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<index_root>
+    <pim project="/AutomateLogistique">
+        <rodin_index/>
+        <export_table/>
+        <graph is_sorted="true"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bcm"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_0.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bcm"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_1.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bcm"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_2.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bcc"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_0.bps"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bcc"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bpo"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bpr"/>
+        <unprocessed file="/AutomateLogistique/Automate_ctx_2.bps"/>
+    </pim>
+    <pim project="/TP2">
+        <rodin_index/>
+        <export_table/>
+        <graph is_sorted="true"/>
+    </pim>
+    <delta_list/>
+    <indexer_registry>
+        <registry_entry element_type="org.eventb.core.machineFile">
+            <indexer id="machineIndexer"/>
+        </registry_entry>
+        <registry_entry element_type="org.eventb.core.contextFile">
+            <indexer id="contextIndexer"/>
+        </registry_entry>
+    </indexer_registry>
+</index_root>

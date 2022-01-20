@@ -1,0 +1,24 @@
+* Compteurs Ci vus en TD
+
+agent C1 = S10;
+agent S10 = plus.S11;
+agent S11 = moins.S10;
+
+agent C2 = S20;
+agent S20 = plus.S21;
+agent S21 = moins.S20 + plus.S22;
+agent S22 = moins.S21;
+
+agent C3 = S30;
+agent S30 = plus.S31;
+agent S31 = moins.S30 + plus.S32;
+agent S32 = moins.S31 + plus.S33;
+agent S33 = moins.S32;
+
+eq(C2, C1 | C1);       * true : (weakly) bisimilar
+eq(C3, C1 | C2);       * true : (weakly) bisimilar
+eq(C3, C1 | C1 | C1);  * true : (weakly) bisimilar
+strongeq(C3, C1 | C1 | C1); * true : all three are also strongly bisimilar
+
+pb(S20, S10 | S10); * largest weak bisimulation
+                    * (S20, S10|S10), (S21, S10|S11, S11|S10), (S22, S11|S11)

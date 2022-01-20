@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.machineFile org.eventb.core.configuration="org.eventb.core.fwd" version="5">
+<org.eventb.core.refinesMachine name="'" org.eventb.core.target="Automate_1"/>
+<org.eventb.core.seesContext name="(" org.eventb.core.target="Automate_ctx_2"/>
+<org.eventb.core.event name="/" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="INITIALISATION">
+<org.eventb.core.action name="'" org.eventb.core.assignment="LigneSortie ≔ ∅" org.eventb.core.comment="Les fonctions sont des ensembles donc on peut faire cela. Et c'est juste car aucune action est possible, car il n'y a pas de cartons initialement en Sortie. " org.eventb.core.label="act1"/>
+<org.eventb.core.action name="(" org.eventb.core.assignment="Transitions ≔ ∅" org.eventb.core.comment="Initialement, il n’y a pas de cartons en transit." org.eventb.core.label="act2"/>
+<org.eventb.core.action name=")" org.eventb.core.assignment="carton_de_t ≔ ∅" org.eventb.core.comment="Les fonctions sont des ensembles donc on peut faire cela. Et c'est juste car aucune action est possible, car il n'y a pas de cartons initialement en transit." org.eventb.core.label="act3"/>
+<org.eventb.core.action name="*" org.eventb.core.assignment="départ_de_t ≔ ∅" org.eventb.core.comment="Les fonctions sont des ensembles donc on peut faire cela. Et c'est juste car aucune action est possible, car il n'y a pas de cartons initialement en transit." org.eventb.core.label="act4"/>
+<org.eventb.core.action name="+" org.eventb.core.assignment="LigneEntrée :∈ CARTONS ⇸ ARRIVEES" org.eventb.core.comment="affectation non-déterministe " org.eventb.core.label="act5"/>
+</org.eventb.core.event>
+<org.eventb.core.event name="0" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="Prendre">
+<org.eventb.core.refinesEvent name="'" org.eventb.core.target="Prendre"/>
+<org.eventb.core.parameter name="'" org.eventb.core.comment="Soit un carton c" org.eventb.core.identifier="c"/>
+<org.eventb.core.guard name="(" org.eventb.core.comment="&quot;Type&quot; de c" org.eventb.core.label="grd1" org.eventb.core.predicate="c ∈ CARTONS"/>
+<org.eventb.core.guard name=")" org.eventb.core.label="grd2" org.eventb.core.predicate="c ∈ dom(LigneEntrée)"/>
+<org.eventb.core.parameter name="internal2" org.eventb.core.comment="Soit une arrivée vers l'automate" org.eventb.core.identifier="a"/>
+<org.eventb.core.parameter name="internal3" org.eventb.core.comment="Soit un départ de l'automate" org.eventb.core.identifier="d"/>
+<org.eventb.core.guard name="internal4" org.eventb.core.comment="&quot;Type&quot; de a" org.eventb.core.label="grd3" org.eventb.core.predicate="a ∈ ARRIVEES"/>
+<org.eventb.core.guard name="internal5" org.eventb.core.comment="Le carton que l’on prend était bien dans l’arrivée demandée " org.eventb.core.label="grd4" org.eventb.core.predicate="c ↦ a ∈ LigneEntrée"/>
+<org.eventb.core.guard name="internal6" org.eventb.core.comment="&quot;Type&quot; de d" org.eventb.core.label="grd5" org.eventb.core.predicate="d ∈ DEPARTS"/>
+<org.eventb.core.parameter name="internal7" org.eventb.core.comment="Soit t une transition (couple {carton, départ})" org.eventb.core.identifier="t"/>
+<org.eventb.core.guard name="internal8" org.eventb.core.comment="&quot;Type&quot; de t, t est une transition" org.eventb.core.label="grd6" org.eventb.core.predicate="t ∈ TRANSITIONS"/>
+<org.eventb.core.guard name="internal9" org.eventb.core.comment="Le carton que l'on veut prendre n'est pas déjà en transit (Transitions est un sous-ensemble de TRANSITIONS représentant les transitions en cours)" org.eventb.core.label="grd7" org.eventb.core.predicate="t ∉ Transitions"/>
+<org.eventb.core.action name="internal:" org.eventb.core.assignment="carton_de_t(t) ≔ c" org.eventb.core.comment="On fixe le champs carton du couple t = {carton, départ}" org.eventb.core.label="act1"/>
+<org.eventb.core.action name="internal;" org.eventb.core.assignment="départ_de_t(t) ≔ d" org.eventb.core.comment="On fixe le champs départ du couple t = {carton, départ}" org.eventb.core.label="act2"/>
+<org.eventb.core.action name="internal=" org.eventb.core.assignment="Transitions ≔ Transitions ∪ { t }" org.eventb.core.comment="On rajoute cette transition à l'ensemble des transitions en cours (nommé Transitions)" org.eventb.core.label="act3"/>
+<org.eventb.core.action name="internal&gt;" org.eventb.core.assignment="LigneEntrée ≔ {c} ⩤ LigneEntrée" org.eventb.core.comment="On retire un carton de l'entrée (LigneEntrée)" org.eventb.core.label="act4"/>
+</org.eventb.core.event>
+<org.eventb.core.event name="1" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="Poser">
+<org.eventb.core.refinesEvent name="'" org.eventb.core.target="Poser"/>
+<org.eventb.core.guard name="'" org.eventb.core.comment="&quot;Type&quot; de c" org.eventb.core.label="grd1" org.eventb.core.predicate="c ∈ CARTONS"/>
+<org.eventb.core.parameter name="(" org.eventb.core.comment="Le carton" org.eventb.core.identifier="c"/>
+<org.eventb.core.action name="+" org.eventb.core.assignment="LigneSortie ≔ LigneSortie ∪ {c ↦ d}" org.eventb.core.comment="On ajoute le carton à la sortie (ligen de sortie)" org.eventb.core.label="act1"/>
+<org.eventb.core.guard name="(" org.eventb.core.label="grd4" org.eventb.core.predicate="carton_de_t(t) = c"/>
+<org.eventb.core.action name=")" org.eventb.core.assignment="Transitions ≔ Transitions ∖ {t}" org.eventb.core.comment="On retire t des transitions en cours " org.eventb.core.label="act2"/>
+<org.eventb.core.parameter name="," org.eventb.core.comment="Le départ du carton à partir de l'automate" org.eventb.core.identifier="d"/>
+<org.eventb.core.parameter name="-" org.eventb.core.comment="La transition associée au carton" org.eventb.core.identifier="t"/>
+<org.eventb.core.guard name="." org.eventb.core.label="grd5" org.eventb.core.predicate="départ_de_t(t) = d"/>
+<org.eventb.core.guard name="/" org.eventb.core.comment="&quot;Type&quot; de d" org.eventb.core.label="grd6" org.eventb.core.predicate="d ∈ DEPARTS"/>
+<org.eventb.core.guard name="0" org.eventb.core.comment="t est une transition en cours" org.eventb.core.label="grd7" org.eventb.core.predicate="t ∈ Transitions"/>
+<org.eventb.core.parameter name="1" org.eventb.core.comment="L'arrivée du carton vers l'automate" org.eventb.core.identifier="a"/>
+<org.eventb.core.guard name="2" org.eventb.core.comment="&quot;Type&quot; de a" org.eventb.core.label="grd8" org.eventb.core.predicate="a ∈ ARRIVEES"/>
+<org.eventb.core.guard name="3" org.eventb.core.comment="Le carton n'est pas déjà posé" org.eventb.core.label="grd9" org.eventb.core.predicate="c ∉ dom(LigneSortie)"/>
+<org.eventb.core.guard name="4" org.eventb.core.comment="&quot;Type&quot; de t " org.eventb.core.label="grd10" org.eventb.core.predicate="t ∈ TRANSITIONS"/>
+<org.eventb.core.guard name="5" org.eventb.core.label="grd11" org.eventb.core.predicate="t ∈ dom(carton_de_t)"/>
+<org.eventb.core.guard name="6" org.eventb.core.label="grd12" org.eventb.core.predicate="t ∈ dom(départ_de_t)"/>
+<org.eventb.core.action name="7" org.eventb.core.assignment="carton_de_t ≔ {t} ⩤ carton_de_t" org.eventb.core.comment="Pour que l'inv4 soit tjrs vérifié après l'act2 et la grd11" org.eventb.core.label="act3"/>
+<org.eventb.core.action name="8" org.eventb.core.assignment="départ_de_t ≔ {t} ⩤ départ_de_t" org.eventb.core.comment="Pour que l'inv5 soit tjrs vérifié après l'act2 et la grd12" org.eventb.core.label="act4"/>
+</org.eventb.core.event>
+<org.eventb.core.variable name="2" org.eventb.core.comment="variable pour un couple {carton, sortie de l'entrepot/départ}, ce sont les transitions qui sont EN COURS" org.eventb.core.identifier="Transitions"/>
+<org.eventb.core.variable name="3" org.eventb.core.comment="variable pour un couple {carton, arrivée}" org.eventb.core.identifier="LigneEntrée"/>
+<org.eventb.core.variable name="4" org.eventb.core.comment="variable pour un couple {carton, départ}" org.eventb.core.identifier="LigneSortie"/>
+<org.eventb.core.variable name="5" org.eventb.core.comment="champs accessible d'une transition t, ici le carton du couple t = {carton, sortie}" org.eventb.core.identifier="carton_de_t"/>
+<org.eventb.core.variable name="6" org.eventb.core.comment="hamps accessible d'une transition t, ici le départ du couple t = {carton, sortie}" org.eventb.core.identifier="départ_de_t"/>
+<org.eventb.core.invariant name="7" org.eventb.core.comment="Le carton c part d'une arrivée pour aller vers l'automate" org.eventb.core.label="inv1" org.eventb.core.predicate="LigneEntrée ∈ CARTONS ⇸ ARRIVEES"/>
+<org.eventb.core.invariant name="8" org.eventb.core.comment="Le carton c va vers un départ à partir de l'automate" org.eventb.core.label="inv2" org.eventb.core.predicate="LigneSortie ∈ CARTONS ⇸ DEPARTS"/>
+<org.eventb.core.invariant name="9" org.eventb.core.label="inv3" org.eventb.core.predicate="Transitions ⊆ TRANSITIONS"/>
+<org.eventb.core.invariant name=":" org.eventb.core.label="inv4" org.eventb.core.predicate="carton_de_t ∈ Transitions ↣ CARTONS"/>
+<org.eventb.core.invariant name=";" org.eventb.core.label="inv5" org.eventb.core.predicate="départ_de_t ∈ Transitions → DEPARTS"/>
+<org.eventb.core.invariant name="=" org.eventb.core.label="inv6" org.eventb.core.predicate="dom(LigneEntrée) = Entrée"/>
+<org.eventb.core.invariant name="&gt;" org.eventb.core.label="inv7" org.eventb.core.predicate="dom(LigneSortie) = Sortie"/>
+<org.eventb.core.invariant name="?" org.eventb.core.label="inv8" org.eventb.core.predicate="∀ carton· carton ∈ Transit ∧ carton ∈ ran(carton_de_t) ∧ dom(carton_de_t) = Transitions"/>
+</org.eventb.core.machineFile>

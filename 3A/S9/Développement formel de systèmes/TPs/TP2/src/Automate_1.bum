@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.machineFile org.eventb.core.configuration="org.eventb.core.fwd" version="5">
+<org.eventb.core.refinesMachine name="'" org.eventb.core.target="Automate_0"/>
+<org.eventb.core.seesContext name="(" org.eventb.core.target="Automate_ctx_0"/>
+<org.eventb.core.variable name=")" org.eventb.core.comment="&#9;&#9;&#9;" org.eventb.core.identifier="Entrée"/>
+<org.eventb.core.variable name="*" org.eventb.core.identifier="Sortie"/>
+<org.eventb.core.event name="+" org.eventb.core.convergence="0" org.eventb.core.extended="true" org.eventb.core.label="INITIALISATION">
+<org.eventb.core.action name=")" org.eventb.core.assignment="Transit ≔ ∅" org.eventb.core.label="act3"/>
+</org.eventb.core.event>
+<org.eventb.core.event name="," org.eventb.core.convergence="0" org.eventb.core.extended="true" org.eventb.core.label="PRENDRE">
+<org.eventb.core.refinesEvent name="'" org.eventb.core.target="PRENDRE"/>
+<org.eventb.core.guard name="(" org.eventb.core.label="grd3" org.eventb.core.predicate="c ∉ Transit"/>
+<org.eventb.core.action name=")" org.eventb.core.assignment="Transit ≔ Transit ∪ {c}" org.eventb.core.label="act2"/>
+</org.eventb.core.event>
+<org.eventb.core.event name="-" org.eventb.core.convergence="0" org.eventb.core.extended="true" org.eventb.core.label="POSER">
+<org.eventb.core.refinesEvent name="'" org.eventb.core.target="POSER"/>
+<org.eventb.core.guard name="(" org.eventb.core.label="grd3" org.eventb.core.predicate="c ∈ Transit"/>
+<org.eventb.core.action name=")" org.eventb.core.assignment="Transit ≔ Transit ∖ {c}" org.eventb.core.label="act2"/>
+</org.eventb.core.event>
+<org.eventb.core.variable name="." org.eventb.core.identifier="Transit"/>
+<org.eventb.core.invariant name="/" org.eventb.core.label="inv1" org.eventb.core.predicate="Transit ⊆ CARTONS"/>
+<org.eventb.core.invariant name="0" org.eventb.core.label="inv2" org.eventb.core.predicate="Transit ∩ Entrée = ∅"/>
+<org.eventb.core.invariant name="1" org.eventb.core.label="inv3" org.eventb.core.predicate="Transit ∩ Sortie = ∅"/>
+<org.eventb.core.invariant name="2" org.eventb.core.label="inv4" org.eventb.core.predicate="CARTONS = Entrée ∪ Transit ∪ Sortie"/>
+<org.eventb.core.invariant name="3" org.eventb.core.label="inv5" org.eventb.core.predicate="Transit = ∅ ∧ Entrée = ∅ ⇒ CARTONS ⊆ Sortie"/>
+</org.eventb.core.machineFile>

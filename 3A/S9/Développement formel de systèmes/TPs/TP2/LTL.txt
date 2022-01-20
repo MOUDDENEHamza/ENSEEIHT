@@ -1,0 +1,3 @@
+- Si il y a des cartons en transit, l’automate finira par déposer un carton sur
+la sortie en LTL:
+		G { card(Transit) \= 0 } => F [Poser]

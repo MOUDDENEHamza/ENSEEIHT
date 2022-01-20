@@ -1,0 +1,108 @@
+!SESSION 2022-01-16 22:41:12.157 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.13
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -data /home/hamza/Desktop/ENSEEIHT/3A/S9/Développement formel de systèmes/TPs/TP3 -os linux -ws gtk -arch x86_64
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:24.581
+!MESSAGE Starting ProB CLI for linux ... Path is /home/hamza/rodin/plugins/de.prob.core_9.4.4.202112220119/prob/linux64/probcli.sh
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:25.741
+!MESSAGE Server has startet and listens on port 49899
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:25.741
+!MESSAGE Server can receive user interrupts via reference 63613
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:25.929
+!MESSAGE Starting ProB CLI for linux ... Path is /home/hamza/rodin/plugins/de.prob.core_9.4.4.202112220119/prob/linux64/probcli.sh
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:27.076
+!MESSAGE Server has startet and listens on port 53025
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:27.076
+!MESSAGE Server can receive user interrupts via reference 63635
+
+!ENTRY de.prob.core 1 0 2022-01-16 22:41:27.177
+!MESSAGE Disprover: Result: No Counter-Example exists: Proof.
+!SESSION 2022-01-16 22:42:42.054 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.13
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2022-01-16 22:42:43.155
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2022-01-16 22:44:23.407 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.13
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.988
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.ProofInformation: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.988
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.989
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.SearchHypothesis: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.989
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.989
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.CacheHypothesis: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.989
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.990
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.ProofSkeleton: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.990
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.990
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.RuleDetails: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 22:46:26.990
+!MESSAGE Unable to process element: view in perspective extension: null
+!SESSION 2022-01-16 23:30:27.434 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.13
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -data /home/hamza/Desktop/ENSEEIHT/3A/S9/Développement formel de systèmes/TPs/TP3 -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.786
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.ProofInformation: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.786
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.786
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.SearchHypothesis: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.787
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.787
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.CacheHypothesis: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.787
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.787
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.ProofSkeleton: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.788
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.788
+!MESSAGE Plugin org.eventb.ide, extension org.eclipse.ui.perspectiveExtensions, id org.eventb.ui.views.RuleDetails: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2022-01-16 23:30:38.788
+!MESSAGE Unable to process element: view in perspective extension: null

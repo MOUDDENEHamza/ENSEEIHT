@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.contextFile org.eventb.core.configuration="org.eventb.core.fwd;de.prob.symbolic.ctxBase" version="3">
+<org.eventb.core.extendsContext name="'" org.eventb.core.target="Automate_ctx_0"/>
+<org.eventb.core.carrierSet name="(" org.eventb.core.comment="Des lignes d'arrivées vers l'automate (le robot)" org.eventb.core.identifier="ARRIVEES"/>
+<org.eventb.core.carrierSet name=")" org.eventb.core.comment="Des lignes de départ vers l'automate (le robot)" org.eventb.core.identifier="DEPARTS"/>
+<org.eventb.core.carrierSet name="*" org.eventb.core.comment="Représente les cartons en transit (comme un enregistrement {carton, sortie})" org.eventb.core.identifier="TRANSITIONS"/>
+</org.eventb.core.contextFile>

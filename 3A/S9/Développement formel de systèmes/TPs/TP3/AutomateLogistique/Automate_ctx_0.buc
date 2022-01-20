@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.contextFile org.eventb.core.configuration="org.eventb.core.fwd;de.prob.symbolic.ctxBase" org.eventb.core.generated="false" org.eventb.texttools.text_lastmodified="1634906846275" org.eventb.texttools.text_representation="CONTEXT&#10;&#9;Automate_ctx_0&#10;sets&#10;&#9;CARTONS&#10;end&#10;" version="3">
+<org.eventb.core.carrierSet name="'" org.eventb.core.comment="Ensemble des cartons" org.eventb.core.identifier="CARTONS"/>
+</org.eventb.core.contextFile>
