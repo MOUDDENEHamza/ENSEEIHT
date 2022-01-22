@@ -1,0 +1,100 @@
+26 : 9 : 2000 : -20 : Santiago
+28 : 7 : 1973 : -18 : Paris
+29 : 12 : 1921 : -40 : Wellington
+23 : 3 : 2015 : -31 : Bridgetown
+22 : 11 : 2003 : 7 : Asmara
+3 : 6 : 2007 : 5 : Castries
+13 : 5 : 1936 : 43 : Pretoria
+14 : 6 : 1945 : 20 : Nairobi
+5 : 5 : 1973 : 11 : Alofi
+22 : 5 : 1900 : -37 : Kigali
+11 : 3 : 1915 : 43 : St. John's
+3 : 9 : 1940 : -17 : Honiara
+7 : 10 : 1947 : 29 : Addis Ababa
+5 : 3 : 1952 : -24 : Dushanbe
+13 : 3 : 1998 : -41 : Avarua
+17 : 2 : 1943 : 31 : Jerusalem
+26 : 8 : 1954 : -50 : London
+21 : 9 : 1903 : -41 : Tashkent
+3 : 9 : 1988 : 35 : Montevideo
+22 : 12 : 1992 : -36 : Funafuti
+3 : 10 : 1937 : -24 : Zagreb
+29 : 4 : 1956 : 48 : Yaoundé
+6 : 3 : 2005 : 25 : Tarawa
+9 : 1 : 1998 : -27 : São Tomé
+21 : 1 : 1982 : 5 : Brades Estate
+8 : 10 : 1962 : -18 : Zagreb
+29 : 1 : 1931 : 2 : Dublin
+2 : 5 : 1980 : 42 : Astana
+10 : 12 : 2011 : -29 : Nuku?alofa
+18 : 2 : 2010 : -1 : Accra
+12 : 6 : 1977 : -28 : Stepanakert
+6 : 3 : 1931 : 41 : Tallinn
+30 : 5 : 2002 : -16 : Baku
+6 : 9 : 1916 : 32 : Amsterdam
+17 : 6 : 1952 : -4 : Chisinau
+4 : 6 : 1918 : 7 : Bandar Seri Begawan
+28 : 6 : 1965 : 27 : Suva
+4 : 2 : 2013 : 26 : Lilongwe
+4 : 11 : 1957 : -14 : Managua
+29 : 3 : 1937 : 19 : Amsterdam
+3 : 10 : 1977 : -16 : Melekeok
+22 : 9 : 1961 : 10 : Bucharest
+11 : 6 : 1970 : 32 : Nairobi
+9 : 2 : 1925 : 0 : Luxembourg
+12 : 5 : 1982 : 29 : Washington
+9 : 12 : 1983 : 34 : Bangui
+12 : 3 : 1920 : -4 : San Salvador
+29 : 8 : 1937 : 45 : Cape Town
+23 : 11 : 1965 : -14 : Moroni
+28 : 2 : 1914 : -44 : Ngerulmud
+19 : 4 : 1994 : 9 : Bridgetown
+26 : 3 : 1983 : 39 : Philipsburg
+28 : 2 : 1970 : -5 : Nouméa
+13 : 1 : 1961 : -4 : Manama
+6 : 3 : 1926 : 22 : Riga
+29 : 5 : 1997 : 2 : Road Town
+18 : 2 : 1942 : -11 : Apia
+7 : 9 : 1940 : -17 : Cetinje
+8 : 3 : 1928 : -50 : Hamilton
+24 : 11 : 1998 : -22 : Valparaíso
+3 : 10 : 1923 : 3 : Vilnius
+7 : 11 : 1900 : -2 : Kathmandu
+16 : 9 : 1944 : -49 : Majuro
+11 : 11 : 1918 : 27 : Ulan Bator
+20 : 12 : 1900 : -32 : Luxembourg
+24 : 7 : 1929 : 30 : Bloemfontein
+7 : 11 : 1900 : -50 : Tunis
+16 : 9 : 1976 : -32 : Palikir
+18 : 1 : 1907 : -42 : Tokyo
+15 : 9 : 1962 : -7 : Harare
+28 : 10 : 1932 : -40 : Kutaisi
+18 : 3 : 1932 : 30 : Tripoli
+20 : 4 : 1996 : -15 : Paramaribo
+3 : 11 : 1955 : -14 : Lilongwe
+20 : 7 : 2014 : -36 : Porto-Novo
+26 : 8 : 1952 : 25 : Taipei
+19 : 6 : 1934 : 10 : Dhaka
+18 : 5 : 1947 : -29 : Sucre
+1 : 5 : 1972 : 34 : Putrajaya
+13 : 2 : 1929 : 9 : Vilnius
+21 : 7 : 1910 : -33 : Port-au-Prince
+30 : 11 : 1937 : -21 : Bishkek
+19 : 5 : 1980 : 12 : Tirana
+21 : 4 : 2015 : 38 : Sofia
+19 : 8 : 1935 : -32 : Seoul
+10 : 11 : 1934 : -12 : Brades Estate
+5 : 10 : 1934 : 39 : Gibraltar
+18 : 3 : 1987 : 25 : Vilnius
+8 : 5 : 1997 : -4 : Ljubljana
+6 : 3 : 1963 : 3 : Nicosia
+12 : 11 : 1950 : 44 : Tripoli
+22 : 2 : 1997 : 3 : Funafuti
+3 : 6 : 1942 : -34 : Sofia
+11 : 1 : 1967 : 10 : Port Louis
+18 : 4 : 1992 : 24 : Kigali
+15 : 9 : 1916 : 45 : Dhaka
+7 : 2 : 1967 : 31 : Honiara
+1 : 6 : 2011 : -40 : The Valley
+3 : 5 : 1900 : -21 : Dushanbe
+5 : 10 : 2005 : -22 : Gibraltar
