@@ -1,7 +1,7 @@
 
 rm -rf /tmp/hadoop*
-ssh slave1 rm -rf /tmp/hadoop*
-ssh slave2 rm -rf /tmp/hadoop*
+ssh verlaine.enseeiht.fr rm -rf /tmp/hadoop*
+ssh melofee.enseeiht.fr rm -rf /tmp/hadoop*
 
 hdfs namenode -format
 
