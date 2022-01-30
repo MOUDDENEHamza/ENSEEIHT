@@ -1,0 +1,34 @@
+oc5:
+module: simu_counter
+
+signals: 2
+   0: input:RAZ - single:1 bool:0
+   1: output:Top - single:2
+end: 
+
+variables: 4
+   0: $0
+   1: $0
+   2: $0
+   3: $1
+end: 
+
+actions: 6
+   0: present: 0
+   1: output: 1
+   2: call:$1 (3) (#0)
+   3: call:$0 (2) ($6(3,#4))
+   4: if: 1
+   5: call:$1 (3) ($13(3,#1))
+end:
+
+states: 2
+startpoint: 0
+calls: 10
+0:  2 3 1 <1> 
+
+1:  4 ( 2)( 5) 3 1 <1> 
+
+end:
+
+endmodule:
