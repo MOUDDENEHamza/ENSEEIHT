@@ -118,3 +118,34 @@ let
             if (cpt mod rhythm = 0) then true else false
         else false;
 tel
+
+node metronome3(rhythm, freq : int) returns (tic, tac, toc, tut : bool);
+var cpt, cpt_freq: int;
+let
+    cpt_freq = 1 -> pre(cpt_freq) + 1;
+    cpt = if cpt_freq mod freq = 0 then 1 -> pre(cpt) + 1 else ;
+    tic = 
+        if rhythm = 1 and cpt_freq mod freq = 0 then
+            true
+        else if rhythm <= 4 and rhythm >= 1 then
+            if (cpt mod rhythm = 1 and cpt_freq mod freq = 0) then true else false
+        else false;
+    tac = 
+        if rhythm = 1  then
+            false
+        else if rhythm <= 4 and rhythm >= 1 then
+            if (cpt mod rhythm = 0 and rhythm = 2) or (cpt mod rhythm = 2 and rhythm <> 2) and cpt_freq mod freq = 0  then true else false
+        else false;
+    toc = 
+        if rhythm = 1 or rhythm = 2 then
+            false
+        else if rhythm <= 4 and rhythm >= 1 then
+            if (cpt mod rhythm = 0 and rhythm = 3) or (cpt mod rhythm = 3 and rhythm <> 2) and cpt_freq mod freq = 0 then true else false
+        else false;
+    tut = 
+        if rhythm = 1 or rhythm = 2 or rhythm = 3 then
+            false
+        else if rhythm <= 4 and rhythm >= 1 then
+            if (cpt mod rhythm = 0 and cpt_freq mod freq = 0) then true else false
+        else false;
+tel
