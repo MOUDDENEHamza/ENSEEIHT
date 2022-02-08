@@ -1,8 +1,0 @@
-# Ignore .swp
-*.swp
-
-# .class Java files
-*.class
-
-# Ignore .o files
-*.o
