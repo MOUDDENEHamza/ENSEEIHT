@@ -123,7 +123,7 @@ node metronome3(rhythm, freq : int) returns (tic, tac, toc, tut : bool);
 var cpt, cpt_freq: int;
 let
     cpt_freq = 1 -> pre(cpt_freq) + 1;
-    cpt = if cpt_freq mod freq = 0 then 1 -> pre(cpt) + 1 else ;
+    cpt = 1 -> pre(cpt) + 1;
     tic = 
         if rhythm = 1 and cpt_freq mod freq = 0 then
             true
@@ -148,4 +148,9 @@ let
         else if rhythm <= 4 and rhythm >= 1 then
             if (cpt mod rhythm = 0 and cpt_freq mod freq = 0) then true else false
         else false;
+tel
+
+node prog(x:int) returns (y:int);
+let
+    y = x -> pre(x -> y + pre(y));
 tel
